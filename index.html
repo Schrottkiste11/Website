@@ -228,7 +228,42 @@
 <section class="yt-section">
   <h2>🎬 Neueste Videos</h2>
 
-  <div id="yt-grid" class="yt-grid">Lade Videos...</div>
+  <div class="yt-grid">
+
+    <!-- Video 1 -->
+    <div class="yt-item">
+      <iframe
+        src="https://www.youtube.com/embed/PMZf1Swb-Rk"
+        title="Video 1"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen>
+      </iframe>
+    </div>
+
+    <!-- Video 2 -->
+    <div class="yt-item">
+      <iframe
+        src="https://www.youtube.com/embed/07E1Jvluq0k"
+        title="Video 2"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen>
+      </iframe>
+    </div>
+
+    <!-- Video 3 -->
+    <div class="yt-item">
+      <iframe
+        src="https://www.youtube.com/embed/0ZaM-Sjl8-I"
+        title="Video 3"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen>
+      </iframe>
+    </div>
+
+  </div>
 
   <div class="yt-channel-btn-wrapper">
     <a href="https://www.youtube.com/@Schrottkiste" target="_blank" class="yt-channel-btn">
@@ -236,44 +271,6 @@
     </a>
   </div>
 </section>
-
-<script>
-const workerUrl = "https://youtubefeed.sophiefinkeldey.workers.dev/";
-
-async function loadLatestVideos() {
-  const box = document.getElementById("yt-grid");
-
-  try {
-    const res = await fetch(workerUrl);
-    const videos = await res.json();
-
-    console.log("Worker Antwort:", videos);
-
-    if (!Array.isArray(videos) || videos.length === 0) {
-      box.innerHTML = "<p>Keine Videos gefunden.</p>";
-      return;
-    }
-
-    box.innerHTML = videos.map(v => `
-      <div class="yt-item">
-        <iframe
-          src="https://www.youtube.com/embed/${v.id}"
-          title="${v.title.replace(/"/g, '&quot;')}"
-          frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowfullscreen
-        ></iframe>
-        <p class="yt-title">${v.title}</p>
-      </div>
-    `).join("");
-  } catch (err) {
-    console.error("Fehler beim Laden der Videos:", err);
-    box.innerHTML = "<p>❌ Fehler beim Laden der Videos</p>";
-  }
-}
-
-loadLatestVideos();
-</script>
 
 <style>
 .yt-section {
@@ -292,10 +289,16 @@ loadLatestVideos();
 }
 
 .yt-item {
-  background: rgba(255,255,255,0.05);
+  background: rgba(255,255,255,0.06);
   padding: 10px;
   border-radius: 14px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.4);
+  box-shadow: 0 0 14px rgba(0,0,0,0.35);
+  transition: 0.25s ease;
+}
+
+.yt-item:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 22px rgba(255,120,0,0.4);
 }
 
 .yt-item iframe {
@@ -305,12 +308,7 @@ loadLatestVideos();
   border: 0;
 }
 
-.yt-title {
-  color: #fff;
-  text-align: center;
-  margin-top: 10px;
-}
-
+/* Button */
 .yt-channel-btn-wrapper {
   margin-top: 25px;
 }
