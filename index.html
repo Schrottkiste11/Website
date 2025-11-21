@@ -226,97 +226,52 @@
       </p>
     </section>
 
-<section class="yt-section">
-  <h2>🎬 Neueste Videos</h2>
+export default {
+  async fetch(request) {
+    // 👉 Deine Playlist (Website-Playlist mit den Videos)
+    const playlistId = "PLQLA52U7_qBNACsquGzbZV8uWutIi6goa";
+    const url = `https://www.youtube.com/feeds/videos.xml?playlist_id=${playlistId}`;
 
-  <div id="yt-grid" class="yt-grid">Lade Videos...</div>
+    try {
+      const ytResponse = await fetch(url);
+      const xmlText = await ytResponse.text();
 
-  <div class="yt-channel-btn-wrapper">
-    <a href="https://www.youtube.com/@Schrottkiste" target="_blank" class="yt-channel-btn">
-      🔥 Zum YouTube-Kanal
-    </a>
-  </div>
-</section>
+      const entries = [...xmlText.matchAll(/<entry>[\s\S]*?<\/entry>/g)].slice(0, 3);
 
-<script>
-// Deine Worker-URL – FUNKTIONIERT!
-const workerUrl = "https://youtubefeed.sophiefinkeldey.workers.dev/";
+      const videos = entries.map(entry => {
+        const block = entry[0];
+        const idMatch = block.match(/<yt:videoId>(.*?)<\/yt:videoId>/);
+        const titleMatch = block.match(/<title>(.*?)<\/title>/);
 
-async function loadLatestVideos() {
-  const box = document.getElementById("yt-grid");
+        const id = idMatch ? idMatch[1] : null;
+        const title = titleMatch ? titleMatch[1] : "Ohne Titel";
 
-  try {
-    const res = await fetch(workerUrl);
-    const videos = await res.json();
+        return {
+          id,
+          title,
+          link: `https://www.youtube.com/watch?v=${id}`
+        };
+      }).filter(v => v.id);
 
-    box.innerHTML = videos.map(v => `
-      <div class="yt-item">
-        <iframe
-          src="https://www.youtube.com/embed/${v.id}"
-          allowfullscreen
-        ></iframe>
-        <p class="yt-title">${v.title}</p>
-      </div>
-    `).join("");
-
-  } catch (err) {
-    box.innerHTML = "<p>❌ Fehler beim Laden der Videos</p>";
+      return new Response(JSON.stringify(videos), {
+        status: 200,
+        headers: {
+          "Content-Type": "application/json",
+          // 🔥 WICHTIG: CORS erlauben
+          "Access-Control-Allow-Origin": "*"
+        }
+      });
+    } catch (e) {
+      return new Response(
+        JSON.stringify({ error: "Could not load feed", detail: String(e) }),
+        {
+          status: 500,
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*"
+          }
+        }
+      );
+    }
   }
-}
-
-loadLatestVideos();
-</script>
-
-<style>
-.yt-section {
-  padding: 40px;
-  color: #fff;
-  text-align: center;
-}
-
-.yt-grid {
-  display: grid;
-  gap: 25px;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  margin-top: 25px;
-}
-
-.yt-item {
-  background: rgba(255,255,255,0.05);
-  padding: 10px;
-  border-radius: 14px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.4);
-}
-
-.yt-item iframe {
-  width: 100%;
-  height: 180px;
-  border-radius: 12px;
-}
-
-.yt-title {
-  color: #fff;
-  text-align: center;
-  margin-top: 10px;
-}
-
-.yt-channel-btn-wrapper {
-  margin-top: 25px;
-}
-
-.yt-channel-btn {
-  padding: 12px 24px;
-  background: #ff0077;
-  border-radius: 8px;
-  color: #fff;
-  text-decoration: none;
-  font-weight: bold;
-  box-shadow: 0 0 12px #ff0077;
-  transition: 0.2s;
-}
-
-.yt-channel-btn:hover {
-  background: #ff3399;
-  box-shadow: 0 0 18px #ff3399;
-}
-</style>
+};
