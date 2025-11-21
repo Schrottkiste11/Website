@@ -3,236 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Schrottkiste Community</title>
+  <title>Schrottkiste Community – Startseite</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Chewy&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
   <style>
-    .home-main {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 80px 20px 60px;
-}
-
-/* Intro oben kompakt */
-.home-intro {
-  padding: 24px 22px 20px;
-  border-radius: var(--radius-xl);
-  background: var(--card);
-  border: 1px solid var(--border-soft);
-  box-shadow: var(--shadow-soft);
-  margin-bottom: 24px;
-  position: relative;
-  overflow: hidden;
-}
-
-.home-intro::before {
-  content: "";
-  position: absolute;
-  inset: -40%;
-  background:
-    radial-gradient(circle at 0% 0%, rgba(246,196,92,0.22) 0, transparent 55%),
-    radial-gradient(circle at 100% 100%, rgba(116,228,255,0.24) 0, transparent 55%);
-  mix-blend-mode: soft-light;
-  opacity: 0.85;
-  pointer-events: none;
-}
-
-.home-intro-inner {
-  position: relative;
-  z-index: 1;
-  text-align: center;
-}
-
-.home-intro-eyebrow {
-  font-size: 0.8rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--accent-soft);
-  margin-bottom: 6px;
-}
-
-.home-intro-title {
-  font-family: 'Chewy', cursive;
-  font-size: 2.4rem;
-  margin: 0 0 6px;
-  letter-spacing: 0.06em;
-  text-shadow: 0 0 10px rgba(0,0,0,0.6);
-}
-
-.home-intro-title span {
-  background: linear-gradient(120deg, var(--accent), var(--accent-soft), var(--accent-alt));
-  -webkit-background-clip: text;
-  color: transparent;
-}
-
-.home-intro-text {
-  font-size: 0.98rem;
-  color: var(--muted);
-  max-width: 40rem;
-  margin: 0 auto;
-}
-
-.home-intro-tags {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 8px;
-  margin-top: 10px;
-}
-
-.home-intro-tag {
-  font-size: 0.8rem;
-  padding: 5px 11px;
-  border-radius: var(--radius-pill);
-  border: 1px solid rgba(255,255,255,0.14);
-  background: rgba(8, 6, 26, 0.9);
-  color: var(--muted);
-}
-
-/* 3-Spalten Grid */
-.home-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 20px;
-}
-
-.home-card {
-  background: var(--card-soft);
-  border-radius: 18px;
-  border: 1px solid var(--border-soft);
-  padding: 18px 16px 20px;
-  box-shadow: 0 14px 30px rgba(0,0,0,0.75);
-  position: relative;
-  overflow: hidden;
-  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
-}
-
-.home-card::before {
-  content: "";
-  position: absolute;
-  inset: -40%;
-  background: radial-gradient(circle at 0 0, rgba(246,196,92,0.16) 0, transparent 55%);
-  mix-blend-mode: soft-light;
-  opacity: 0;
-  transition: opacity 0.22s ease;
-  pointer-events: none;
-}
-
-.home-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 18px 40px rgba(0,0,0,0.9);
-  border-color: rgba(246,196,92,0.6);
-}
-
-.home-card:hover::before {
-  opacity: 1;
-}
-
-.home-card-title {
-  font-size: 1.15rem;
-  margin-bottom: 6px;
-  color: var(--accent-alt);
-}
-
-.home-card-text {
-  font-size: 0.9rem;
-  color: var(--muted);
-}
-
-/* Video-Card */
-.home-card-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  margin-bottom: 8px;
-}
-
-.home-card-badge {
-  font-size: 0.75rem;
-  padding: 3px 10px;
-  border-radius: var(--radius-pill);
-  border: 1px solid rgba(255,255,255,0.15);
-  color: var(--accent-soft);
-}
-
-.home-video-wrapper {
-  position: relative;
-  padding-bottom: 56.25%;
-  height: 0;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 12px 28px rgba(0,0,0,0.85);
-  margin-bottom: 8px;
-}
-
-.home-video-wrapper iframe {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  border: 0;
-}
-
-.home-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 0.9rem;
-  color: var(--accent-soft);
-  text-decoration: none;
-  margin-top: 4px;
-}
-
-.home-link:hover {
-  text-decoration: underline;
-}
-
-/* Link-Liste */
-.home-link-list {
-  list-style: none;
-  margin-top: 10px;
-  padding-left: 0;
-}
-
-.home-link-list li + li {
-  margin-top: 4px;
-}
-
-.home-link-list a {
-  font-size: 0.9rem;
-  color: var(--accent-alt);
-  text-decoration: none;
-}
-
-.home-link-list a:hover {
-  text-decoration: underline;
-}
-
-/* Responsive */
-@media (max-width: 900px) {
-  .home-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-@media (max-width: 680px) {
-  .home-main {
-    padding-inline: 16px;
-  }
-
-  .home-grid {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  .home-intro {
-    padding-inline: 18px;
-  }
-}
-
     * {
       box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
     :root {
@@ -253,22 +32,15 @@
     }
 
     body {
-      margin: 0;
       background:
         radial-gradient(circle at top, #27245a 0%, #050415 55%, #020109 100%);
       font-family: 'Poppins', sans-serif;
       color: var(--text);
+      padding-top: 80px;
       min-height: 100vh;
       overflow-x: hidden;
     }
 
-    main {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 80px 20px 60px;
-    }
-
-    /* dezente mystische „Nebel“-Flächen */
     .bg-glow {
       position: fixed;
       inset: 0;
@@ -281,7 +53,7 @@
       opacity: 0.6;
     }
 
-    /* SIDEBAR */
+    /* ==== SIDEBAR ==== */
 
     #menuToggle {
       display: none;
@@ -321,12 +93,16 @@
       backdrop-filter: blur(18px);
       transform: translateX(-100%);
       transition: transform 0.4s cubic-bezier(.18, .89, .32, 1.28);
-      z-index: 19999;
       padding-top: 80px;
+      z-index: 19999;
     }
 
     #menuToggle:checked ~ .custom-sidebar {
       transform: translateX(0);
+    }
+
+    #menuToggle:checked + .hamburger-btn {
+      left: 275px;
     }
 
     .custom-sidebar nav {
@@ -355,73 +131,75 @@
       box-shadow: 0 6px 18px rgba(0, 0, 0, 0.7);
     }
 
-    #menuToggle:checked + .hamburger-btn {
-      left: 275px;
+    /* ==== STARTSEITE KOMPAKT ==== */
+
+    .home-main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 80px 20px 60px;
     }
 
-    /* HERO */
+    /* INTRO */
 
-    .hero {
-      text-align: center;
-      margin-bottom: 40px;
-      padding: 28px 22px 24px;
+    .home-intro {
+      padding: 24px 22px 20px;
       border-radius: var(--radius-xl);
       background: var(--card);
       border: 1px solid var(--border-soft);
       box-shadow: var(--shadow-soft);
+      margin-bottom: 24px;
       position: relative;
       overflow: hidden;
+      text-align: center;
     }
 
-    .hero::before {
+    .home-intro::before {
       content: "";
       position: absolute;
-      inset: -45%;
+      inset: -40%;
       background:
         radial-gradient(circle at 0% 0%, rgba(246,196,92,0.22) 0, transparent 55%),
         radial-gradient(circle at 100% 100%, rgba(116,228,255,0.24) 0, transparent 55%);
-      opacity: 0.8;
       mix-blend-mode: soft-light;
+      opacity: 0.85;
       pointer-events: none;
     }
 
-    .hero-inner {
+    .home-intro-inner {
       position: relative;
       z-index: 1;
     }
 
-    .hero-eyebrow {
-      font-size: 0.82rem;
-      letter-spacing: 0.18em;
+    .home-intro-eyebrow {
+      font-size: 0.8rem;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
       color: var(--accent-soft);
       margin-bottom: 6px;
     }
 
-    .hero-title {
+    .home-intro-title {
       font-family: 'Chewy', cursive;
-      font-size: 3rem;
-      color: var(--text);
-      letter-spacing: 0.06em;
-      text-shadow: 0 0 12px rgba(0,0,0,0.6);
+      font-size: 2.4rem;
       margin: 0 0 6px;
+      letter-spacing: 0.06em;
+      text-shadow: 0 0 10px rgba(0,0,0,0.6);
     }
 
-    .hero-title span {
+    .home-intro-title span {
       background: linear-gradient(120deg, var(--accent), var(--accent-soft), var(--accent-alt));
       -webkit-background-clip: text;
       color: transparent;
     }
 
-    .hero-sub {
-      font-size: 1rem;
+    .home-intro-text {
+      font-size: 0.98rem;
       color: var(--muted);
-      opacity: 0.95;
-      max-width: 36rem;
-      margin: 0 auto 10px;
+      max-width: 40rem;
+      margin: 0 auto;
     }
 
-    .hero-tags {
+    .home-intro-tags {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
@@ -429,156 +207,185 @@
       margin-top: 10px;
     }
 
-    .hero-tag {
+    .home-intro-tag {
       font-size: 0.8rem;
-      padding: 5px 12px;
+      padding: 5px 11px;
       border-radius: var(--radius-pill);
-      border: 1px solid rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.14);
       background: rgba(8, 6, 26, 0.9);
       color: var(--muted);
     }
 
-    /* ABOUT */
+    /* GRID */
 
-    .about-section {
-      max-width: 800px;
-      margin: 40px auto 50px;
-      padding: 26px 26px 28px;
+    .home-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .home-card {
       background: var(--card-soft);
+      border-radius: 18px;
       border: 1px solid var(--border-soft);
-      border-radius: var(--radius-xl);
-      text-align: center;
-      backdrop-filter: blur(14px);
-      box-shadow: var(--shadow-soft);
-    }
-
-    .about-section h2 {
-      font-size: 1.7rem;
-      color: var(--accent);
-      text-shadow: 0 0 10px rgba(0,0,0,0.7);
-      margin-bottom: 10px;
-    }
-
-    .about-section p {
-      color: var(--muted);
-      font-size: 0.98rem;
-      line-height: 1.7;
-    }
-
-    /* YOUTUBE SECTION – edler */
-
-    .yt-section {
-      margin: 40px auto;
-      max-width: 1100px;
-      padding: 26px 22px 30px;
-      text-align: center;
-      font-family: 'Poppins', sans-serif;
-      background: var(--card);
-      border-radius: var(--radius-xl);
-      border: 1px solid var(--border-soft);
-      box-shadow: var(--shadow-soft);
+      padding: 18px 16px 20px;
+      box-shadow: 0 14px 30px rgba(0,0,0,0.75);
       position: relative;
       overflow: hidden;
+      transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
     }
 
-    .yt-section::before {
+    .home-card::before {
       content: "";
       position: absolute;
       inset: -40%;
-      background:
-        radial-gradient(circle at 10% 90%, rgba(246,196,92,0.16) 0, transparent 55%),
-        radial-gradient(circle at 90% 10%, rgba(255,157,214,0.18) 0, transparent 55%);
+      background: radial-gradient(circle at 0 0, rgba(246,196,92,0.16) 0, transparent 55%);
       mix-blend-mode: soft-light;
-      opacity: 0.9;
-      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.22s ease;
     }
 
-    .yt-section > * {
-      position: relative;
-      z-index: 1;
+    .home-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 18px 40px rgba(0,0,0,0.9);
+      border-color: rgba(246,196,92,0.6);
     }
 
-    .yt-section h2 {
-      font-size: 1.8rem;
-      color: var(--accent);
+    .home-card:hover::before {
+      opacity: 1;
+    }
+
+    .home-card-title {
+      font-size: 1.15rem;
       margin-bottom: 6px;
+      color: var(--accent-alt);
     }
 
-    .yt-section p.yt-sub {
+    .home-card-text {
       font-size: 0.9rem;
       color: var(--muted);
-      margin-top: 0;
     }
 
-    .yt-grid {
-      display: grid;
-      gap: 22px;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      margin-top: 24px;
+    .home-card-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
     }
 
-    .yt-item {
-      background: rgba(10, 8, 32, 0.96);
-      padding: 10px;
-      border-radius: 16px;
-      box-shadow: 0 14px 30px rgba(0,0,0,0.75);
-      border: 1px solid rgba(255,255,255,0.12);
-      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-    }
-
-    .yt-item:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 18px 40px rgba(0,0,0,0.9);
-      border-color: rgba(246,196,92,0.55);
-    }
-
-    .yt-item iframe {
-      width: 100%;
-      height: 190px;
-      border-radius: 12px;
-      border: 0;
-      display: block;
-    }
-
-    .yt-channel-btn-wrapper {
-      margin-top: 26px;
-    }
-
-    .yt-channel-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 11px 26px;
-      background: linear-gradient(135deg, var(--accent), var(--accent-soft));
+    .home-card-badge {
+      padding: 3px 9px;
+      font-size: 0.75rem;
       border-radius: var(--radius-pill);
-      color: #3b2606;
-      font-size: 1rem;
-      font-weight: 600;
-      text-decoration: none;
-      box-shadow: 0 14px 32px rgba(0,0,0,0.85);
-      transition: transform 0.22s ease, box-shadow 0.22s ease;
+      border: 1px solid rgba(255,255,255,0.15);
+      color: var(--accent-soft);
     }
 
-    .yt-channel-btn:hover {
-      transform: translateY(-2px) scale(1.02);
-      box-shadow: 0 18px 40px rgba(0,0,0,0.95);
+    /* VIDEO CARD */
+
+    .home-video-wrapper {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 12px 28px rgba(0,0,0,0.85);
+    }
+
+    .home-video-wrapper iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .home-link {
+      display: inline-block;
+      margin-top: 8px;
+      font-size: 0.9rem;
+      color: var(--accent-soft);
+      text-decoration: none;
+    }
+
+    .home-link:hover {
+      text-decoration: underline;
+    }
+
+    /* LINK LISTE */
+
+    .home-link-list {
+      list-style: none;
+      margin-top: 10px;
+      padding-left: 0;
+    }
+
+    .home-link-list li + li {
+      margin-top: 6px;
+    }
+
+    .home-link-list a {
+      color: var(--accent-alt);
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
+
+    .home-link-list a:hover {
+      text-decoration: underline;
     }
 
     /* RESPONSIVE */
 
-    @media (max-width: 720px) {
-    <main class="home-main">
+    @media (max-width: 900px) {
+      .home-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 680px) {
+      .home-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="bg-glow"></div>
+
+<!-- SIDEBAR -->
+<input type="checkbox" id="menuToggle" hidden>
+<label for="menuToggle" class="hamburger-btn">☰</label>
+
+<div class="custom-sidebar">
+  <nav>
+    <a href="index.html">🏠 Startseite</a>
+    <a href="ideen.html">💡 Ideen Liste</a>
+    <a href="soundboard.html">🎵 Soundboard</a>
+    <a href="radio.html">📻 Radioplayer</a>
+    <a href="sendeplan.html">📅 Sendeplan</a>
+    <a href="content-plan.html">🎮 Content-Plan 2026</a>
+  </nav>
+</div>
+
+<!-- STARTSEITE -->
+<main class="home-main">
+
+  <!-- INTRO -->
   <section class="home-intro">
     <div class="home-intro-inner">
       <div class="home-intro-eyebrow">Offizielle Community-Seite</div>
+
       <h1 class="home-intro-title">
         <span>Schrottkiste</span> Community
       </h1>
+
       <p class="home-intro-text">
-        Ein kompakter Überblick über alles, was gerade wichtig ist:
-        aktuelle Videos, Projekte und die wichtigsten Bereiche deiner kleinen,
-        aber fein sortierten Internet-Welt.
+        Kompakte Übersicht über alles Wichtige:
+        aktuelle Videos, Projekte, Ideen & dein ganzer kreativer Kosmos
+        auf einer einzigen Startseite.
       </p>
+
       <div class="home-intro-tags">
         <span class="home-intro-tag">🎧 Musik & YouTube</span>
         <span class="home-intro-tag">🎮 Gaming-Projekte</span>
@@ -587,49 +394,46 @@
     </div>
   </section>
 
+  <!-- GRID -->
   <section class="home-grid">
-    <!-- Card 1: Über dich / Community -->
+
+    <!-- ABOUT CARD -->
     <article class="home-card">
-      <h2 class="home-card-title">👋 Wer steckt hinter Schrottkiste?</h2>
+      <h2 class="home-card-title">👋 Über mich</h2>
       <p class="home-card-text">
-        Hi, ich bin Luka, 20 Jahre alt. Hier sammle ich alles, was
-        zu meiner Community gehört: Videos, Projekte, Radio und
-        Ideen für 2026 und darüber hinaus.
+        Ich bin Luka, 20 Jahre alt – und dies ist die offizielle Fan- &
+        Community-Zentrale für alles rund um Schrottkiste.
       </p>
       <p class="home-card-text">
-        Wenn du öfter hier bist, ist das deine zentrale Startseite, um
-        zu sehen, was aktuell abgeht – ohne dich durch zig Unterseiten
-        klicken zu müssen.
+        Projekte, Ideen, Radio & YouTube – alles an einem Ort. Kein Chaos,
+        nur gemütliche Übersicht.
       </p>
     </article>
 
-    <!-- Card 2: Neueste Videos (nur eines groß) -->
+    <!-- VIDEO CARD -->
     <article class="home-card">
       <div class="home-card-header">
         <h2 class="home-card-title">🎬 Neuester Upload</h2>
         <span class="home-card-badge">YouTube</span>
       </div>
+
       <div class="home-video-wrapper">
         <iframe
           src="https://www.youtube.com/embed/PMZf1Swb-Rk"
-          title="Neuester Upload"
-          frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           allowfullscreen>
         </iframe>
       </div>
+
       <a href="https://www.youtube.com/@Schrottkiste" target="_blank" class="home-link">
         🔥 Zum Kanal
       </a>
     </article>
 
-    <!-- Card 3: Schnellzugriff -->
+    <!-- QUICKLINKS -->
     <article class="home-card">
       <h2 class="home-card-title">⚡ Schnellzugriff</h2>
-      <p class="home-card-text">
-        Direkt zu den Bereichen springen, die du oder deine Leute am
-        meisten brauchen.
-      </p>
+      <p class="home-card-text">Quick-Links zu den wichtigsten Bereichen:</p>
+
       <ul class="home-link-list">
         <li><a href="ideen.html">💡 Ideen-Liste</a></li>
         <li><a href="soundboard.html">🎵 Soundboard</a></li>
@@ -638,5 +442,10 @@
         <li><a href="content-plan.html">🎮 Content-Plan 2026</a></li>
       </ul>
     </article>
+
   </section>
+
 </main>
+
+</body>
+</html>
