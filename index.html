@@ -8,6 +8,229 @@
   <link href="https://fonts.googleapis.com/css2?family=Chewy&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
   <style>
+    .home-main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 80px 20px 60px;
+}
+
+/* Intro oben kompakt */
+.home-intro {
+  padding: 24px 22px 20px;
+  border-radius: var(--radius-xl);
+  background: var(--card);
+  border: 1px solid var(--border-soft);
+  box-shadow: var(--shadow-soft);
+  margin-bottom: 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.home-intro::before {
+  content: "";
+  position: absolute;
+  inset: -40%;
+  background:
+    radial-gradient(circle at 0% 0%, rgba(246,196,92,0.22) 0, transparent 55%),
+    radial-gradient(circle at 100% 100%, rgba(116,228,255,0.24) 0, transparent 55%);
+  mix-blend-mode: soft-light;
+  opacity: 0.85;
+  pointer-events: none;
+}
+
+.home-intro-inner {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+
+.home-intro-eyebrow {
+  font-size: 0.8rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent-soft);
+  margin-bottom: 6px;
+}
+
+.home-intro-title {
+  font-family: 'Chewy', cursive;
+  font-size: 2.4rem;
+  margin: 0 0 6px;
+  letter-spacing: 0.06em;
+  text-shadow: 0 0 10px rgba(0,0,0,0.6);
+}
+
+.home-intro-title span {
+  background: linear-gradient(120deg, var(--accent), var(--accent-soft), var(--accent-alt));
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.home-intro-text {
+  font-size: 0.98rem;
+  color: var(--muted);
+  max-width: 40rem;
+  margin: 0 auto;
+}
+
+.home-intro-tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.home-intro-tag {
+  font-size: 0.8rem;
+  padding: 5px 11px;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(255,255,255,0.14);
+  background: rgba(8, 6, 26, 0.9);
+  color: var(--muted);
+}
+
+/* 3-Spalten Grid */
+.home-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.home-card {
+  background: var(--card-soft);
+  border-radius: 18px;
+  border: 1px solid var(--border-soft);
+  padding: 18px 16px 20px;
+  box-shadow: 0 14px 30px rgba(0,0,0,0.75);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+}
+
+.home-card::before {
+  content: "";
+  position: absolute;
+  inset: -40%;
+  background: radial-gradient(circle at 0 0, rgba(246,196,92,0.16) 0, transparent 55%);
+  mix-blend-mode: soft-light;
+  opacity: 0;
+  transition: opacity 0.22s ease;
+  pointer-events: none;
+}
+
+.home-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 40px rgba(0,0,0,0.9);
+  border-color: rgba(246,196,92,0.6);
+}
+
+.home-card:hover::before {
+  opacity: 1;
+}
+
+.home-card-title {
+  font-size: 1.15rem;
+  margin-bottom: 6px;
+  color: var(--accent-alt);
+}
+
+.home-card-text {
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+/* Video-Card */
+.home-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.home-card-badge {
+  font-size: 0.75rem;
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: var(--accent-soft);
+}
+
+.home-video-wrapper {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.85);
+  margin-bottom: 8px;
+}
+
+.home-video-wrapper iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.home-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.9rem;
+  color: var(--accent-soft);
+  text-decoration: none;
+  margin-top: 4px;
+}
+
+.home-link:hover {
+  text-decoration: underline;
+}
+
+/* Link-Liste */
+.home-link-list {
+  list-style: none;
+  margin-top: 10px;
+  padding-left: 0;
+}
+
+.home-link-list li + li {
+  margin-top: 4px;
+}
+
+.home-link-list a {
+  font-size: 0.9rem;
+  color: var(--accent-alt);
+  text-decoration: none;
+}
+
+.home-link-list a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .home-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 680px) {
+  .home-main {
+    padding-inline: 16px;
+  }
+
+  .home-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .home-intro {
+    padding-inline: 18px;
+  }
+}
+
     * {
       box-sizing: border-box;
     }
@@ -344,137 +567,76 @@
     /* RESPONSIVE */
 
     @media (max-width: 720px) {
-      main {
-        padding-inline: 16px;
-        padding-top: 80px;
-      }
-
-      .hero {
-        padding: 24px 18px 22px;
-      }
-
-      .hero-title {
-        font-size: 2.4rem;
-      }
-
-      .about-section {
-        padding-inline: 18px;
-      }
-
-      .yt-section {
-        padding-inline: 16px;
-      }
-
-      #menuToggle:checked + .hamburger-btn {
-        left: 230px;
-      }
-
-      .custom-sidebar {
-        width: 230px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .hero-title {
-        font-size: 2.2rem;
-      }
-    }
-  </style>
-</head>
-
-<body>
-  <div class="bg-glow"></div>
-
-  <!-- SIDEBAR -->
-  <input type="checkbox" id="menuToggle" hidden>
-  <label for="menuToggle" class="hamburger-btn">☰</label>
-
-  <div class="custom-sidebar">
-    <nav>
-      <a href="index.html">🏠 Startseite</a>
-      <a href="ideen.html">💡 Ideen Liste</a>
-      <a href="soundboard.html">🎵 Soundboard</a>
-      <a href="radio.html">📻 Radioplayer</a>
-      <a href="sendeplan.html">📅 Sendeplan</a>
-    </nav>
-  </div>
-
-  <main>
-    <section class="hero">
-      <div class="hero-inner">
-        <div class="hero-eyebrow">Offizielle Community-Seite</div>
-        <h1 class="hero-title"><span>Schrottkiste</span> Community</h1>
-        <p class="hero-sub">
-          Chaos, Projekte, Musik & Kreativität – alles gesammelt an einem Ort
-          für die Leute, die diesen ganzen Wahnsinn mittragen. ❤️
-        </p>
-        <div class="hero-tags">
-          <div class="hero-tag">🎧 YouTube & Musik</div>
-          <div class="hero-tag">🎮 Gaming & Projekte</div>
-          <div class="hero-tag">💬 Community Vibes</div>
-        </div>
-      </div>
-    </section>
-
-    <section class="about-section">
-      <h2>👋 Wer bin ich?</h2>
-      <p>
-        Hi, mein Name ist Luka, ich bin 20 Jahre alt.<br><br>
-        Dies hier soll die offizielle Fan-Website für meine Community sein.
-        Hier gibt es ganz unterschiedlichen Content:
-        von meinem YouTube-Feed bis hin zu kreativen Projekten wie dem Soundboard.
-        Schau dich doch mal um – fühl dich wie in einem kleinen, gemütlichen
-        Internetwohnzimmer.
+    <main class="home-main">
+  <section class="home-intro">
+    <div class="home-intro-inner">
+      <div class="home-intro-eyebrow">Offizielle Community-Seite</div>
+      <h1 class="home-intro-title">
+        <span>Schrottkiste</span> Community
+      </h1>
+      <p class="home-intro-text">
+        Ein kompakter Überblick über alles, was gerade wichtig ist:
+        aktuelle Videos, Projekte und die wichtigsten Bereiche deiner kleinen,
+        aber fein sortierten Internet-Welt.
       </p>
-    </section>
-
-    <section class="yt-section">
-      <h2>🎬 Neueste Videos</h2>
-      <p class="yt-sub">Eine kleine Auswahl der aktuellsten Uploads von meinem Kanal.</p>
-
-      <div class="yt-grid">
-
-        <!-- Video 1 -->
-        <div class="yt-item">
-          <iframe
-            src="https://www.youtube.com/embed/PMZf1Swb-Rk"
-            title="Video 1"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen>
-          </iframe>
-        </div>
-
-        <!-- Video 2 -->
-        <div class="yt-item">
-          <iframe
-            src="https://www.youtube.com/embed/07E1Jvluq0k"
-            title="Video 2"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen>
-          </iframe>
-        </div>
-
-        <!-- Video 3 -->
-        <div class="yt-item">
-          <iframe
-            src="https://www.youtube.com/embed/0ZaM-Sjl8-I"
-            title="Video 3"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen>
-          </iframe>
-        </div>
-
+      <div class="home-intro-tags">
+        <span class="home-intro-tag">🎧 Musik & YouTube</span>
+        <span class="home-intro-tag">🎮 Gaming-Projekte</span>
+        <span class="home-intro-tag">💡 Ideen & Planung</span>
       </div>
+    </div>
+  </section>
 
-      <div class="yt-channel-btn-wrapper">
-        <a href="https://www.youtube.com/@Schrottkiste" target="_blank" class="yt-channel-btn">
-          🔥 Zum YouTube-Kanal
-        </a>
+  <section class="home-grid">
+    <!-- Card 1: Über dich / Community -->
+    <article class="home-card">
+      <h2 class="home-card-title">👋 Wer steckt hinter Schrottkiste?</h2>
+      <p class="home-card-text">
+        Hi, ich bin Luka, 20 Jahre alt. Hier sammle ich alles, was
+        zu meiner Community gehört: Videos, Projekte, Radio und
+        Ideen für 2026 und darüber hinaus.
+      </p>
+      <p class="home-card-text">
+        Wenn du öfter hier bist, ist das deine zentrale Startseite, um
+        zu sehen, was aktuell abgeht – ohne dich durch zig Unterseiten
+        klicken zu müssen.
+      </p>
+    </article>
+
+    <!-- Card 2: Neueste Videos (nur eines groß) -->
+    <article class="home-card">
+      <div class="home-card-header">
+        <h2 class="home-card-title">🎬 Neuester Upload</h2>
+        <span class="home-card-badge">YouTube</span>
       </div>
-    </section>
-  </main>
-</body>
-</html>
+      <div class="home-video-wrapper">
+        <iframe
+          src="https://www.youtube.com/embed/PMZf1Swb-Rk"
+          title="Neuester Upload"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen>
+        </iframe>
+      </div>
+      <a href="https://www.youtube.com/@Schrottkiste" target="_blank" class="home-link">
+        🔥 Zum Kanal
+      </a>
+    </article>
+
+    <!-- Card 3: Schnellzugriff -->
+    <article class="home-card">
+      <h2 class="home-card-title">⚡ Schnellzugriff</h2>
+      <p class="home-card-text">
+        Direkt zu den Bereichen springen, die du oder deine Leute am
+        meisten brauchen.
+      </p>
+      <ul class="home-link-list">
+        <li><a href="ideen.html">💡 Ideen-Liste</a></li>
+        <li><a href="soundboard.html">🎵 Soundboard</a></li>
+        <li><a href="radio.html">📻 Treasure Radio</a></li>
+        <li><a href="sendeplan.html">📅 Sendeplan</a></li>
+        <li><a href="content-plan.html">🎮 Content-Plan 2026</a></li>
+      </ul>
+    </article>
+  </section>
+</main>
