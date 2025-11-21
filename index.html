@@ -226,13 +226,20 @@
       </p>
     </section>
 
-<!-- 🎬 NEUESTE VIDEOS -->
 <section class="yt-section">
   <h2>🎬 Neueste Videos</h2>
 
-  <div id="yt-feed" class="yt-grid">Lade Videos...</div>
+  <div class="yt-embed-wrapper">
+    <iframe
+      src="https://www.youtube.com/embed/videoseries?list=PLQLA52U7_qBNACsquGzbZV8uWutIi6goa"
+      title="Schrottkiste Playlist"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      referrerpolicy="strict-origin-when-cross-origin"
+      allowfullscreen>
+    </iframe>
+  </div>
 
-  <!-- 🔥 Kanal Button -->
   <div class="yt-channel-btn-wrapper">
     <a href="https://www.youtube.com/@Schrottkiste" target="_blank" class="yt-channel-btn">
       🔥 Zu meinem YouTube-Kanal
@@ -249,33 +256,24 @@
   font-family: 'Poppins', sans-serif;
 }
 
-.yt-grid {
-  display: grid;
-  gap: 25px;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  margin-top: 25px;
+.yt-embed-wrapper {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+  border-radius: 16px;
+  box-shadow: 0 0 18px rgba(0,0,0,0.6);
+  margin-top: 20px;
 }
 
-.yt-item {
-  background: rgba(255,255,255,0.05);
-  padding: 10px;
-  border-radius: 14px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.4);
-  transition: 0.3s ease;
-}
-
-.yt-item:hover {
-  transform: scale(1.03);
-  box-shadow: 0 0 18px rgba(255,100,0,0.4);
-}
-
-.yt-item iframe {
+.yt-embed-wrapper iframe {
+  position: absolute;
   width: 100%;
-  height: 180px;
-  border-radius: 12px;
+  height: 100%;
+  border: 0;
+  border-radius: 16px;
 }
 
-/* 🔥 Kanal Button */
 .yt-channel-btn-wrapper {
   margin-top: 25px;
   text-align: center;
@@ -299,47 +297,3 @@
   box-shadow: 0 0 22px rgba(255,120,0,0.9);
 }
 </style>
-
-<script>
-// 🎬 Playlist-ID für Luka
-const playlistId = "PLQLA52U7_qBNACsquGzbZV8uWutIi6goa";
-
-async function loadLatestVideos() {
-  const url = `https://www.youtube.com/feeds/videos.xml?playlist_id=${playlistId}`;
-
-  try {
-    const response = await fetch(url);
-    const text = await response.text();
-
-    const parser = new DOMParser();
-    const xml = parser.parseFromString(text, "text/xml");
-
-    // Nur die 3 neuesten
-    const entries = [...xml.querySelectorAll("entry")].slice(0, 3);
-
-    const container = document.getElementById("yt-feed");
-    container.innerHTML = "";
-
-    entries.forEach(entry => {
-      const link = entry.querySelector("link").getAttribute("href");
-      const videoId = link.split("v=")[1];
-
-      container.innerHTML += `
-        <div class="yt-item">
-          <iframe 
-            src="https://www.youtube.com/embed/${videoId}"
-            allowfullscreen>
-          </iframe>
-        </div>
-      `;
-    });
-
-  } catch (err) {
-    document.getElementById("yt-feed").innerHTML = "<p>❌ Fehler beim Laden der Videos</p>";
-  }
-}
-
-loadLatestVideos();
-</script>
-
-
