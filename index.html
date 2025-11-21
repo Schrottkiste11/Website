@@ -1,3 +1,131 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Content-Plan 2026</title>
+
+  <style>
+    body {
+      margin: 0;
+      background: #0a0a0a;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .content-plan {
+      padding: 60px 20px;
+      background: #0a0a0a;
+      color: #f1f1f1;
+      text-align: center;
+    }
+
+    .content-plan h2 {
+      font-size: 2.3rem;
+      color: #ff4c9d;
+      text-shadow: 0 0 12px #ff4c9d;
+      margin-bottom: 40px;
+    }
+
+    .content-grid {
+      display: grid;
+      gap: 30px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .content-box {
+      background: rgba(20,20,20,0.8);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 40px 20px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 25px rgba(255,255,255,0.03);
+    }
+
+    .content-box:hover {
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 0 0 25px rgba(255,76,157,0.4);
+    }
+
+    .content-box h3 {
+      color: #6dfaff;
+      font-size: 1.4rem;
+      margin-bottom: 8px;
+      text-shadow: 0 0 6px #6dfaff;
+    }
+
+    .content-box p {
+      color: #ccc;
+      font-size: 0.9rem;
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 999;
+      inset: 0;
+      background: rgba(0,0,0,0.8);
+      justify-content: center;
+      align-items: center;
+      backdrop-filter: blur(4px);
+    }
+
+    .modal-content {
+      background: #111;
+      border-radius: 16px;
+      padding: 30px 40px;
+      max-width: 700px;
+      width: 90%;
+      color: #fff;
+      box-shadow: 0 0 25px rgba(255,76,157,0.5);
+      position: relative;
+      text-align: left;
+    }
+
+    .modal-content h3 {
+      color: #6dfaff;
+      margin-bottom: 15px;
+      font-size: 1.5rem;
+    }
+
+    .close {
+      position: absolute;
+      top: 15px;
+      right: 25px;
+      font-size: 1.8rem;
+      color: #ff4c9d;
+      cursor: pointer;
+    }
+
+    .close:hover {
+      color: #fff;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    li {
+      margin: 6px 0;
+      padding-left: 16px;
+      position: relative;
+    }
+
+    li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: #ff4c9d;
+    }
+  </style>
+
+</head>
+
+<body>
+
 <section class="content-plan">
   <div class="container">
     <h2>🎮 Content-Plan 2026</h2>
@@ -21,7 +149,7 @@
   </div>
 </section>
 
-<!-- Popup -->
+<!-- Modal -->
 <div class="modal" id="modal">
   <div class="modal-content">
     <span class="close">&times;</span>
@@ -29,118 +157,6 @@
     <div id="modal-body"></div>
   </div>
 </div>
-
-<style>
-  .content-plan {
-    padding: 60px 20px;
-    background: #0a0a0a;
-    color: #f1f1f1;
-    font-family: 'Poppins', sans-serif;
-    text-align: center;
-  }
-
-  .content-plan h2 {
-    font-size: 2.3rem;
-    color: #ff4c9d;
-    text-shadow: 0 0 12px #ff4c9d;
-    margin-bottom: 40px;
-  }
-
-  .content-grid {
-    display: grid;
-    gap: 30px;
-    max-width: 1000px;
-    margin: 0 auto;
-  }
-
-  .content-box {
-    background: rgba(20,20,20,0.8);
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 16px;
-    padding: 40px 20px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 0 25px rgba(255,255,255,0.03);
-  }
-
-  .content-box:hover {
-    transform: translateY(-5px) scale(1.02);
-    box-shadow: 0 0 25px rgba(255,76,157,0.4);
-  }
-
-  .content-box h3 {
-    color: #6dfaff;
-    font-size: 1.4rem;
-    margin-bottom: 8px;
-    text-shadow: 0 0 6px #6dfaff;
-  }
-
-  .content-box p {
-    color: #ccc;
-    font-size: 0.9rem;
-  }
-
-  /* Modal */
-  .modal {
-    display: none;
-    position: fixed;
-    z-index: 999;
-    inset: 0;
-    background: rgba(0,0,0,0.8);
-    justify-content: center;
-    align-items: center;
-    backdrop-filter: blur(4px);
-  }
-
-  .modal-content {
-    background: #111;
-    border-radius: 16px;
-    padding: 30px 40px;
-    max-width: 700px;
-    width: 90%;
-    color: #fff;
-    box-shadow: 0 0 25px rgba(255,76,157,0.5);
-    position: relative;
-    text-align: left;
-  }
-
-  .modal-content h3 {
-    color: #6dfaff;
-    margin-bottom: 15px;
-    font-size: 1.5rem;
-  }
-
-  .close {
-    position: absolute;
-    top: 15px;
-    right: 25px;
-    font-size: 1.8rem;
-    color: #ff4c9d;
-    cursor: pointer;
-  }
-
-  .close:hover {
-    color: #fff;
-  }
-
-  ul {
-    list-style: none;
-    padding: 0;
-  }
-
-  li {
-    margin: 6px 0;
-    padding-left: 16px;
-    position: relative;
-  }
-
-  li::before {
-    content: "•";
-    position: absolute;
-    left: 0;
-    color: #ff4c9d;
-  }
-</style>
 
 <script>
   const modal = document.getElementById('modal');
@@ -188,18 +204,19 @@
     "💡 Weitere Ideen": `
       <ul>
         <li>Little Nightmares 3</li>
-        <li>Gesellschafts- & Horrorgames</li>
         <li>Haus der 1000 Türen</li>
         <li>American Candy Test / Random Bestellung</li>
         <li>24 h wie ein Sim leben</li>
         <li>Browser- & Flashgames</li>
         <li>Sims 4 WG per Teamviewer</li>
-        <li>Skribbl.io / Gartic Phone / Wer bin ich?</li>
-        <li>Wahrheit oder Pflicht / Kein Ja-Nein Challenge</li>
-        <li>Indie Online Games / Trendgames</li>
-        <li>Dead by Daylight / It Takes Two / Portal 2</li>
-        <li>Tower of Fantasy / Palworld / Granny</li>
-        <li>Eyes The Horror Game / Hokko Life</li>
+        <li>Skribbl.io / Gartic Phone</li>
+        <li>Wahrheit oder Pflicht</li>
+        <li>Wer bin ich?</li>
+        <li>Indie Online Games</li>
+        <li>Dead by Daylight / Portal 2</li>
+        <li>Tower of Fantasy / Palworld</li>
+        <li>Granny / Eyes The Horror Game</li>
+        <li>Hokko Life</li>
       </ul>
     `
   };
@@ -216,3 +233,6 @@
   closeBtn.onclick = () => modal.style.display = 'none';
   window.onclick = e => { if (e.target === modal) modal.style.display = 'none'; };
 </script>
+
+</body>
+</html>
