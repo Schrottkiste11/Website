@@ -226,62 +226,52 @@
       </p>
     </section>
 
-<!-- 🎬 NEUESTE VIDEOS (manuell) -->
 <section class="yt-section">
   <h2>🎬 Neueste Videos</h2>
 
-  <div class="yt-grid">
+  <div id="yt-grid" class="yt-grid">Lade Videos...</div>
 
-    <!-- Video 1 -->
-    <div class="yt-item">
-      <iframe
-        src="https://www.youtube.com/embed/PMZf1Swb-Rk"
-        title="Video 1"
-        frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        allowfullscreen>
-      </iframe>
-    </div>
-
-    <!-- Video 2 -->
-    <div class="yt-item">
-      <iframe
-        src="https://www.youtube.com/embed/k2lXAY4M-Og"
-        title="Video 2"
-        frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        allowfullscreen>
-      </iframe>
-    </div>
-
-    <!-- Video 3 -->
-    <div class="yt-item">
-      <iframe
-        src="https://www.youtube.com/embed/mgGSPG9JoCQ"
-        title="Video 3"
-        frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        allowfullscreen>
-      </iframe>
-    </div>
-
-  </div>
-
-  <!-- 🔥 Kanal Button -->
   <div class="yt-channel-btn-wrapper">
     <a href="https://www.youtube.com/@Schrottkiste" target="_blank" class="yt-channel-btn">
-      🔥 Zu meinem YouTube-Kanal
+      🔥 Zum YouTube-Kanal
     </a>
   </div>
 </section>
 
+<script>
+// Deine Worker-URL – FUNKTIONIERT!
+const workerUrl = "https://youtubefeed.sophiefinkeldey.workers.dev/";
+
+async function loadLatestVideos() {
+  const box = document.getElementById("yt-grid");
+
+  try {
+    const res = await fetch(workerUrl);
+    const videos = await res.json();
+
+    box.innerHTML = videos.map(v => `
+      <div class="yt-item">
+        <iframe
+          src="https://www.youtube.com/embed/${v.id}"
+          allowfullscreen
+        ></iframe>
+        <p class="yt-title">${v.title}</p>
+      </div>
+    `).join("");
+
+  } catch (err) {
+    box.innerHTML = "<p>❌ Fehler beim Laden der Videos</p>";
+  }
+}
+
+loadLatestVideos();
+</script>
+
 <style>
 .yt-section {
-  margin: 40px auto;
-  max-width: 1100px;
-  padding: 0 20px;
+  padding: 40px;
+  color: #fff;
   text-align: center;
-  font-family: 'Poppins', sans-serif;
 }
 
 .yt-grid {
@@ -292,45 +282,41 @@
 }
 
 .yt-item {
-  background: rgba(255,255,255,0.06);
+  background: rgba(255,255,255,0.05);
   padding: 10px;
   border-radius: 14px;
-  box-shadow: 0 0 14px rgba(0,0,0,0.35);
-  transition: 0.25s ease;
-}
-
-.yt-item:hover {
-  transform: scale(1.03);
-  box-shadow: 0 0 22px rgba(255,120,0,0.4);
+  box-shadow: 0 0 10px rgba(0,0,0,0.4);
 }
 
 .yt-item iframe {
   width: 100%;
   height: 180px;
   border-radius: 12px;
-  border: 0;
 }
 
-/* Button */
+.yt-title {
+  color: #fff;
+  text-align: center;
+  margin-top: 10px;
+}
+
 .yt-channel-btn-wrapper {
   margin-top: 25px;
 }
 
 .yt-channel-btn {
-  display: inline-block;
-  padding: 14px 28px;
-  background: linear-gradient(135deg, #ff0099, #ff4d4d, #ff9900);
-  border-radius: 50px;
-  color: white;
-  font-size: 1.1rem;
-  font-weight: bold;
+  padding: 12px 24px;
+  background: #ff0077;
+  border-radius: 8px;
+  color: #fff;
   text-decoration: none;
-  box-shadow: 0 0 15px rgba(255,0,100,0.6);
-  transition: 0.3s;
+  font-weight: bold;
+  box-shadow: 0 0 12px #ff0077;
+  transition: 0.2s;
 }
 
 .yt-channel-btn:hover {
-  transform: scale(1.08);
-  box-shadow: 0 0 22px rgba(255,120,0,0.9);
+  background: #ff3399;
+  box-shadow: 0 0 18px #ff3399;
 }
 </style>
