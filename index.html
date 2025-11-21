@@ -1,17 +1,14 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Schrottkiste – Community Seite</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Schrottkiste Community</title>
 
-  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Chewy&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -19,11 +16,6 @@
       font-family: 'Poppins', sans-serif;
       color: #e8ffff;
       min-height: 100vh;
-      scroll-behavior: smooth;
-    }
-
-    a {
-      color: #00ffff;
     }
 
     main {
@@ -32,15 +24,7 @@
       padding: 80px 20px 60px;
     }
 
-    section {
-      margin-bottom: 80px;
-    }
-
-    section h2 {
-      margin-top: 0;
-    }
-
-    /* =============== SIDEBAR =============== */
+    /* SIDEBAR */
     #menuToggle { display: none; }
 
     .hamburger-btn {
@@ -112,8 +96,7 @@
       transition: left 0.4s ease;
     }
 
-    /* =============== START / ABOUT / YT =============== */
-
+    /* HERO */
     .hero {
       text-align: center;
       margin-bottom: 40px;
@@ -124,7 +107,6 @@
       font-size: 3rem;
       color: #00ffff;
       text-shadow: 0 0 16px #00ffff;
-      margin-bottom: 10px;
     }
 
     .hero-sub {
@@ -133,6 +115,7 @@
       opacity: 0.9;
     }
 
+    /* ABOUT */
     .about-section {
       max-width: 800px;
       margin: 40px auto 50px;
@@ -140,9 +123,8 @@
       background: rgba(255,255,255,0.04);
       border: 1px solid rgba(0,255,255,0.25);
       border-radius: 18px;
-      backdrop-filter: blur(10px);
-      color: #e8ffff;
       text-align: center;
+      backdrop-filter: blur(10px);
       box-shadow: 0 0 25px rgba(0,255,255,0.12);
     }
 
@@ -150,14 +132,9 @@
       font-size: 2rem;
       color: #00ffff;
       text-shadow: 0 0 8px #00ffff;
-      margin-bottom: 15px;
     }
 
-    .about-section p {
-      font-size: 1.05rem;
-      line-height: 1.7;
-    }
-
+    /* YOUTUBE FEED */
     .yt-feed {
       max-width: 900px;
       margin: 0 auto 30px;
@@ -173,15 +150,12 @@
       font-size: 2rem;
       color: #ff4c9d;
       text-shadow: 0 0 10px #ff4c9d;
-      margin-top: 0;
-      margin-bottom: 10px;
     }
 
     .yt-hint {
       text-align: center;
       font-size: 0.95rem;
       color: #d8e8ff;
-      margin-bottom: 18px;
     }
 
     .yt-embed-wrapper {
@@ -190,564 +164,15 @@
       height: 0;
       overflow: hidden;
       border-radius: 16px;
+      margin-top: 10px;
       box-shadow: 0 0 25px rgba(0,0,0,0.7);
-      margin-bottom: 10px;
     }
 
     .yt-embed-wrapper iframe {
       position: absolute;
-      top: 0; left: 0;
       width: 100%;
       height: 100%;
       border: 0;
-    }
-
-    .yt-rss-link {
-      text-align: center;
-      font-size: 0.9rem;
-      color: #c7f9ff;
-      margin-top: 8px;
-    }
-
-    .yt-rss-link code {
-      font-size: 0.8rem;
-      background: rgba(0,0,0,0.4);
-      padding: 3px 6px;
-      border-radius: 4px;
-    }
-
-    /* =============== IDEEN-LISTE =============== */
-
-    .content-plan {
-      padding: 40px 20px;
-      background: rgba(0,0,0,0.25);
-      border-radius: 18px;
-      border: 1px solid rgba(255,255,255,0.08);
-      color: #f1f1f1;
-      text-align: center;
-    }
-
-    .content-plan h2 {
-      font-size: 2.3rem;
-      color: #ff4c9d;
-      text-shadow: 0 0 12px #ff4c9d;
-      margin-bottom: 40px;
-    }
-
-    .content-grid {
-      display: grid;
-      gap: 30px;
-      max-width: 1000px;
-      margin: 0 auto;
-    }
-
-    .content-box {
-      background: rgba(20,20,20,0.8);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 16px;
-      padding: 40px 20px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 0 25px rgba(255,255,255,0.03);
-    }
-
-    .content-box:hover {
-      transform: translateY(-5px) scale(1.02);
-      box-shadow: 0 0 25px rgba(255,76,157,0.4);
-    }
-
-    .content-box h3 {
-      color: #6dfaff;
-      font-size: 1.4rem;
-      margin-bottom: 8px;
-      text-shadow: 0 0 6px #6dfaff;
-    }
-
-    .content-box p {
-      color: #ccc;
-      font-size: 0.9rem;
-    }
-
-    .modal-ideen {
-      display: none;
-      position: fixed;
-      z-index: 999;
-      inset: 0;
-      background: rgba(0,0,0,0.8);
-      justify-content: center;
-      align-items: center;
-      backdrop-filter: blur(4px);
-    }
-
-    .modal-content-ideen {
-      background: #111;
-      border-radius: 16px;
-      padding: 30px 40px;
-      max-width: 700px;
-      width: 90%;
-      color: #fff;
-      box-shadow: 0 0 25px rgba(255,76,157,0.5);
-      position: relative;
-      text-align: left;
-    }
-
-    .modal-content-ideen h3 {
-      color: #6dfaff;
-      margin-bottom: 15px;
-      font-size: 1.5rem;
-    }
-
-    .close-ideen {
-      position: absolute;
-      top: 15px;
-      right: 25px;
-      font-size: 1.8rem;
-      color: #ff4c9d;
-      cursor: pointer;
-    }
-
-    .close-ideen:hover {
-      color: #fff;
-    }
-
-    .content-plan ul {
-      list-style: none;
-      padding: 0;
-    }
-
-    .content-plan li {
-      margin: 6px 0;
-      padding-left: 16px;
-      position: relative;
-    }
-
-    .content-plan li::before {
-      content: "•";
-      position: absolute;
-      left: 0;
-      color: #ff4c9d;
-    }
-
-    /* =============== SOUNDBOARD =============== */
-
-    #soundboard {
-      text-align: center;
-    }
-
-    #soundboard h2 {
-      font-size: 2.3rem;
-      color: #00ffff;
-      text-shadow: 0 0 12px #00ffff;
-      margin-bottom: 10px;
-    }
-
-    #soundboard p {
-      margin-top: 0;
-      margin-bottom: 20px;
-      color: #d0f7ff;
-    }
-
-    /* Navbar für Soundboard */
-    #navbar {
-      position: sticky;
-      top: 70px;
-      background: rgba(10, 10, 31, 0.8);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(0,255,255,0.3);
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 18px;
-      padding: 12px 10px;
-      box-shadow: 0 0 20px rgba(0,255,255,0.2);
-      z-index: 1000;
-      margin-bottom: 20px;
-      border-radius: 999px;
-      max-width: 900px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .nav-item {
-      color: #00ffff;
-      font-size: 16px;
-      text-decoration: none;
-      position: relative;
-      cursor: pointer;
-      padding: 6px 14px;
-      transition: all 0.2s ease;
-    }
-
-    .nav-item:hover::after,
-    .nav-item.active::after {
-      width: 100%;
-    }
-
-    .nav-item::after {
-      content: "";
-      position: absolute;
-      bottom: -4px;
-      left: 0;
-      width: 0%;
-      height: 2px;
-      background: #00ffff;
-      box-shadow: 0 0 10px #00ffff;
-      transition: width 0.3s ease;
-    }
-
-    .nav-item:hover {
-      color: #fff;
-      text-shadow: 0 0 15px #00ffff;
-    }
-
-    #soundContainer {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      max-width: 700px;
-      margin: 20px auto 0;
-      padding: 10px;
-    }
-
-    .sound-item {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: rgba(0, 255, 255, 0.05);
-      border: 1px solid rgba(0, 255, 255, 0.4);
-      border-radius: 12px;
-      padding: 15px 20px;
-      box-shadow: 0 0 15px rgba(0,255,255,0.15), inset 0 0 8px rgba(0,255,255,0.1);
-      backdrop-filter: blur(8px);
-      transition: all 0.2s ease;
-    }
-
-    .sound-item:hover {
-      border-color: #00ffff;
-      box-shadow: 0 0 25px #00ffff, inset 0 0 10px rgba(0,255,255,0.3);
-      transform: translateY(-2px);
-    }
-
-    .sound-title {
-      font-size: 18px;
-      text-align: left;
-      flex-grow: 1;
-      margin-left: 15px;
-      text-shadow: 0 0 8px #00ffff;
-    }
-
-    .play-btn {
-      background: none;
-      border: 2px solid #00ffff;
-      border-radius: 50%;
-      color: #00ffff;
-      width: 40px;
-      height: 40px;
-      font-size: 18px;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .play-btn:hover {
-      background: rgba(0,255,255,0.2);
-      transform: scale(1.1);
-    }
-
-    .playing {
-      color: #fff;
-      background: #00ffff;
-      box-shadow: 0 0 25px #00ffff;
-    }
-
-    #volumeControl {
-      margin-top: 20px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 15px;
-      background: rgba(0, 0, 0, 0.35);
-      border: 1px solid rgba(0,255,255,0.4);
-      border-radius: 15px;
-      padding: 12px 25px;
-      width: fit-content;
-      margin-left: auto;
-      margin-right: auto;
-      box-shadow: 0 0 25px rgba(0,255,255,0.3), inset 0 0 10px rgba(0,255,255,0.1);
-      backdrop-filter: blur(10px);
-      transition: all 0.3s ease;
-    }
-
-    #volumeControl:hover {
-      transform: scale(1.03);
-      box-shadow: 0 0 35px rgba(0,255,255,0.4), inset 0 0 15px rgba(0,255,255,0.2);
-    }
-
-    #sb-volume {
-      -webkit-appearance: none;
-      width: 240px;
-      height: 10px;
-      border-radius: 10px;
-      background: linear-gradient(90deg, rgba(0,255,255,0.3), rgba(0,255,255,0.9));
-      outline: none;
-      box-shadow: 0 0 10px rgba(0,255,255,0.4);
-      transition: background 0.3s ease;
-    }
-
-    #sb-volume::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      width: 22px;
-      height: 22px;
-      background: #00ffff;
-      border-radius: 50%;
-      box-shadow: 0 0 20px #00ffff, 0 0 40px rgba(0,255,255,0.8);
-      transition: transform 0.2s, box-shadow 0.3s;
-      cursor: pointer;
-    }
-
-    #sb-volume::-webkit-slider-thumb:hover {
-      transform: scale(1.2);
-      box-shadow: 0 0 25px #00ffff, 0 0 50px rgba(0,255,255,0.9);
-    }
-
-    /* =============== RADIO PLAYER =============== */
-    #radio h2 {
-      font-size: 2.3rem;
-      color: #ff00ff;
-      text-shadow: 0 0 12px #ff00ff;
-      text-align: center;
-      margin-bottom: 25px;
-    }
-
-    .radio-player-wrapper {
-      position: relative;
-      border-radius: 20px;
-      width: 100%;
-      max-width: 900px;
-      margin: 0 auto;
-      transition: transform 0.3s;
-      z-index: 1;
-    }
-
-    .player-border {
-      position: absolute;
-      top: -10px; left: -10px; right: -10px; bottom: -10px;
-      border-radius: 25px;
-      padding: 10px;
-      background: linear-gradient(135deg, #ff00ff, #ff6d00, #faff00, #00ffcc, #00d4ff);
-      background-size: 400% 100%;
-      animation: flow 6s linear infinite;
-      z-index: -1;
-    }
-
-    @keyframes flow {
-      0% { background-position: 0% 0%; }
-      100% { background-position: 100% 0%; }
-    }
-
-    .radio-player {
-      position: relative;
-      border-radius: 20px;
-      padding: 40px 30px;
-      background: linear-gradient(135deg, #1c1c1c, #2c2c2c);
-      box-shadow: 0 10px 25px rgba(0,0,0,0.6), 0 0 35px rgba(255,255,255,0.05);
-      text-align: center;
-      color: #fff;
-      transition: box-shadow 0.5s, transform 0.3s;
-    }
-
-    .radio-player-wrapper:hover .radio-player {
-      box-shadow: 0 0 50px 15px rgba(255, 77, 77, 0.9);
-      transform: scale(1.02);
-    }
-
-    .hover-text {
-      color: #39ff14;
-      font-size: 1.1rem;
-      font-weight: bold;
-      margin-bottom: 10px;
-      opacity: 0;
-      transition: opacity 0.5s;
-    }
-
-    .radio-player-wrapper:hover .hover-text {
-      opacity: 1;
-    }
-
-    .radio-title {
-      font-size: 2rem;
-      margin-bottom: 10px;
-      font-weight: bold;
-      color: #ff00ff;
-    }
-
-    .song-info {
-      background: rgba(0,0,0,0.3);
-      padding: 8px 18px;
-      border-radius: 15px;
-      display: inline-block;
-      margin-bottom: 25px;
-      color: #00ffff;
-      font-weight: bold;
-      font-size: 0.95rem;
-    }
-
-    .controls {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 30px;
-      flex-wrap: wrap;
-    }
-
-    .btn-radio {
-      background: linear-gradient(135deg, #ff00ff, #ff6d00, #faff00);
-      border: none;
-      border-radius: 50%;
-      width: 90px; height: 90px;
-      cursor: pointer;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      transition: transform 0.3s, box-shadow 0.3s;
-      font-size: 2.5rem;
-      box-shadow: 0 5px 20px rgba(255,0,255,0.6), 0 0 20px rgba(255,255,0,0.5);
-    }
-
-    .radio-player-wrapper:hover .btn-radio {
-      box-shadow: 0 0 50px 20px rgba(255,0,255,0.9), 0 0 40px rgba(255,255,0,0.7);
-      transform: scale(1.15);
-    }
-
-    #radio-volume {
-      -webkit-appearance: none;
-      width: 300px;
-      height: 12px;
-      border-radius: 6px;
-      outline: none;
-      cursor: pointer;
-      background: linear-gradient(90deg, #ff00ff 50%, #222 50%);
-      box-shadow: 0 0 8px #ff00ff, 0 0 12px #00ffff inset;
-      transition: background 0.3s, box-shadow 0.3s;
-    }
-
-    #radio-volume::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      width: 28px; height: 28px;
-      background: linear-gradient(135deg, #00ffff, #ff00ff, #ff6d00, #faff00);
-      border-radius: 50%;
-      border: 2px solid #fff;
-      box-shadow: 0 0 10px #00ffff, 0 0 15px #ff00ff;
-      cursor: pointer;
-      transition: transform 0.2s, background 0.2s, box-shadow 0.2s;
-    }
-
-    #radio-volume::-webkit-slider-thumb:hover {
-      transform: scale(1.3);
-      box-shadow: 0 0 20px #00ffff, 0 0 25px #ff00ff;
-    }
-
-    audio {
-      display: none;
-    }
-
-    /* =============== SENDEPLAN =============== */
-
-    #sendeplan-section h2 {
-      font-size: 2.3rem;
-      color: #00faff;
-      text-shadow: 0 0 8px #00faff;
-      text-align: center;
-      margin-bottom: 25px;
-    }
-
-    .fm-schedule {
-      width: 100%;
-      max-width: 750px;
-      padding: 30px 20px;
-      border-radius: 20px;
-      background: rgba(15,15,25,0.95);
-      box-shadow: 0 8px 30px rgba(0,255,255,0.2), 0 0 15px rgba(0,255,255,0.1) inset;
-      margin: 0 auto;
-    }
-
-    .fm-schedule__slots {
-      list-style: none;
-      padding: 0;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .fm-schedule__slot {
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 18px 25px;
-      margin-bottom: 15px;
-      border-radius: 15px;
-      background: #1a1a2e;
-      transition: all 0.3s ease;
-      position: relative;
-      border-left: 5px solid #00faff;
-    }
-
-    .fm-schedule__slot:hover {
-      transform: scale(1.02);
-      box-shadow: 0 0 20px rgba(0,255,255,0.3);
-    }
-
-    .fm-schedule__cell--time {
-      font-weight: bold;
-      font-size: 1.25rem;
-      color: #0ff;
-    }
-
-    .fm-schedule__showname {
-      font-size: 1.15rem;
-      color: #fff;
-      margin: 0;
-    }
-
-    .fm-schedule__slot.active {
-      background: #0f0f1f;
-      border-left: 5px solid #ff00ff;
-      box-shadow: 0 0 25px #ff00ff;
-    }
-
-    .fm-schedule__slot.active::after {
-      content: "LIVE";
-      position: absolute;
-      right: 20px;
-      top: 50%;
-      transform: translateY(-50%);
-      background: #ff00ff;
-      color: #fff;
-      font-weight: bold;
-      padding: 5px 10px;
-      border-radius: 6px;
-      font-size: 0.85rem;
-      animation: pulse 1.2s infinite;
-    }
-
-    @keyframes pulse {
-      0%,100% { opacity: 1; transform: translateY(-50%) scale(1); }
-      50% { opacity: 0.7; transform: translateY(-50%) scale(0.95); }
-    }
-
-    @media (max-width: 600px) {
-      .fm-schedule__slot {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 8px;
-      }
-
-      .fm-schedule__slot.active::after {
-        right: 20px;
-        top: 10px;
-        transform: none;
-      }
     }
   </style>
 </head>
@@ -760,441 +185,43 @@
 
   <div class="custom-sidebar">
     <nav>
-      <a href="#start">🏠 Startseite</a>
-      <a href="#ideen">💡 Ideen Liste</a>
-      <a href="#soundboard">🎵 Soundboard</a>
-      <a href="#radio">📻 Radioplayer</a>
-      <a href="#sendeplan-section">📅 Sendeplan</a>
+      <a href="index.html">🏠 Startseite</a>
+      <a href="ideen.html">💡 Ideen Liste</a>
+      <a href="soundboard.html">🎵 Soundboard</a>
+      <a href="radio.html">📻 Radioplayer</a>
+      <a href="sendeplan.html">📅 Sendeplan</a>
     </nav>
   </div>
 
   <main>
-    <!-- STARTSEITE -->
-    <section id="start">
-      <div class="hero">
-        <h1 class="hero-title">Schrottkiste Community</h1>
-        <p class="hero-sub">Offizielle Fan-Website für alle, die bei deinem Chaos und deinen Projekten dabei sind.</p>
-      </div>
-
-      <div class="about-section">
-        <h2>👋 Wer bin ich?</h2>
-        <p>
-          Hi, mein Name ist Luka, ich bin 19 Jahre alt.<br><br>
-          Dies hier soll die offizielle Fan-Website für meine Community sein.
-          Hier gibt es ganz unterschiedlichen Content: von meinem YouTube-Feed
-          bis hin zu kreativen Projekten wie dem Soundboard.
-          Schau dich doch mal um!
-        </p>
-      </div>
-
-      <div class="yt-feed">
-        <h2>🎬 Meine neuesten Videos</h2>
-        <p class="yt-hint">
-          Direkt von meinem YouTube-Kanal
-          <a href="https://www.youtube.com/@Schrottkiste" target="_blank">@Schrottkiste</a>.
-        </p>
-
-        <div class="yt-embed-wrapper">
-          <iframe 
-            src="https://www.youtube.com/embed?listType=user_uploads&list=Schrottkiste"
-            title="Schrottkiste – neueste Uploads"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen
-          ></iframe>
-        </div>
-
-        <p class="yt-rss-link">
-          📡 RSS-Feed (für Feed-Reader):<br>
-          <code>https://www.youtube.com/feeds/videos.xml?channel_id=DEINE_CHANNEL_ID</code>
-        </p>
-      </div>
+    <section class="hero">
+      <h1 class="hero-title">Schrottkiste Community</h1>
+      <p class="hero-sub">Offizielle Fan-Website ❤️ Chaos, Projekte, Musik & Kreativität</p>
     </section>
 
-    <!-- IDEEN-LISTE -->
-    <section id="ideen">
-      <div class="content-plan">
-        <h2>🎮 Content-Plan 2026</h2>
-
-        <div class="content-grid">
-          <div class="content-box" data-title="🎥 Solo-Projekte">
-            <h3>🎥 Solo-Projekte</h3>
-            <p>Klicke, um Details zu sehen</p>
-          </div>
-
-          <div class="content-box" data-title="🤝 Projekte mit Diana">
-            <h3>🤝 Projekte mit Diana</h3>
-            <p>Klicke, um Details zu sehen</p>
-          </div>
-
-          <div class="content-box" data-title="💡 Weitere Ideen">
-            <h3>💡 Weitere Ideen</h3>
-            <p>Klicke, um Details zu sehen</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Modal für Ideen -->
-      <div class="modal-ideen" id="modal-ideen">
-        <div class="modal-content-ideen">
-          <span class="close-ideen">&times;</span>
-          <h3 id="modal-title-ideen"></h3>
-          <div id="modal-body-ideen"></div>
-        </div>
-      </div>
+    <section class="about-section">
+      <h2>👋 Wer bin ich?</h2>
+      <p>
+        Hi, mein Name ist Luka, ich bin 19 Jahre alt.<br><br>
+        Dies hier soll die offizielle Fan-Website für meine Community sein.
+        Hier gibt es ganz unterschiedlichen Content:
+        von meinem YouTube-Feed bis hin zu kreativen Projekten wie dem Soundboard.
+        Schau dich doch mal um!
+      </p>
     </section>
 
-    <!-- SOUNDBOARD -->
-    <section id="soundboard">
-      <h2>Nostalgie Soundboard ⚡</h2>
-      <p>Einfach Kategorie wählen, dann Sounds anklicken.</p>
+    <section class="yt-feed">
+      <h2>🎬 Neueste Videos</h2>
+      <p class="yt-hint">Direkt von meinem YouTube-Kanal:</p>
 
-      <div id="navbar">
-        <div class="nav-item active" data-cat="all">🌐 Alle</div>
-        <div class="nav-item" data-cat="minecraft">🎮 Minecraft</div>
-        <div class="nav-item" data-cat="animal">🌿 Animal Crossing</div>
-        <div class="nav-item" data-cat="series">📺 Serien &amp; Intros</div>
-        <div class="nav-item" data-cat="littlebigplanet">🧵 LittleBigPlanet</div>
-        <div class="nav-item" data-cat="speedy">🐣 Speedy Eggbert</div>
-        <div class="nav-item" data-cat="other">🎵 Sonstiges</div>
-      </div>
-
-      <div id="soundContainer">Lade Sounds...</div>
-
-      <div id="volumeControl">
-        <label for="sb-volume">🔊 Lautstärke:</label>
-        <input type="range" id="sb-volume" min="0" max="1" step="0.01" value="0.5">
-      </div>
-    </section>
-
-    <!-- RADIOPLAYER -->
-    <section id="radio">
-      <h2>Treasure Radio</h2>
-
-      <div class="radio-player-wrapper">
-        <div class="player-border"></div>
-        <div class="radio-player">
-          <div class="hover-text">Hör mal in mein Radio bei Laut.fm rein! 🎧</div>
-          <div class="radio-title">Treasure Radio</div>
-          <div class="song-info">Jetzt hören: Treasure Radio 🎶</div>
-
-          <div class="controls">
-            <button id="playPause" class="btn-radio">▶️</button>
-            <input id="radio-volume" type="range" min="0" max="1" step="0.01" value="0.5">
-          </div>
-
-          <audio id="audioPlayer" src="https://stream.laut.fm/treasure_radio"></audio>
-        </div>
-      </div>
-    </section>
-
-    <!-- SENDEPLAN -->
-    <section id="sendeplan-section">
-      <h2>📅 Sendeplan</h2>
-
-      <div class="fm-schedule">
-        <ul class="fm-schedule__slots">
-          <li class="fm-schedule__slot" data-time="06:00">
-            <div class="fm-schedule__cell fm-schedule__cell--time">06:00</div>
-            <div class="fm-schedule__cell fm-schedule__cell--show">
-              <h3 class="fm-schedule__showname">Morning ab 6 Uhr</h3>
-            </div>
-          </li>
-          <li class="fm-schedule__slot" data-time="12:00">
-            <div class="fm-schedule__cell fm-schedule__cell--time">12:00</div>
-            <div class="fm-schedule__cell fm-schedule__cell--show">
-              <h3 class="fm-schedule__showname">Immer ab 12!</h3>
-            </div>
-          </li>
-          <li class="fm-schedule__slot" data-time="18:00">
-            <div class="fm-schedule__cell fm-schedule__cell--time">18:00</div>
-            <div class="fm-schedule__cell fm-schedule__cell--show">
-              <h3 class="fm-schedule__showname">60er, 70er, 80er, 90er Hits</h3>
-            </div>
-          </li>
-          <li class="fm-schedule__slot" data-time="23:00">
-            <div class="fm-schedule__cell fm-schedule__cell--time">23:00</div>
-            <div class="fm-schedule__cell fm-schedule__cell--show">
-              <h3 class="fm-schedule__showname">Nachteulen Party</h3>
-            </div>
-          </li>
-        </ul>
+      <div class="yt-embed-wrapper">
+        <iframe 
+          src="https://www.youtube.com/embed?listType=user_uploads&list=Schrottkiste"
+          allowfullscreen>
+        </iframe>
       </div>
     </section>
   </main>
 
-  <script>
-    /* ================= IDEEN-MODAL ================= */
-    (function() {
-      const modal = document.getElementById('modal-ideen');
-      const modalTitle = document.getElementById('modal-title-ideen');
-      const modalBody = document.getElementById('modal-body-ideen');
-      const closeBtn = document.querySelector('.close-ideen');
-
-      const content = {
-        "🎥 Solo-Projekte": `
-          <ul>
-            <li>Portal 1 (Stream-Projekt)</li>
-            <li>Fortnite (dauerhaftes Projekt)</li>
-            <li>Indie Games (Langzeit-Projekt)</li>
-            <li>Outlast 1 & 2 (Video-Projekt)</li>
-            <li>Poppy Playtime (Video oder Stream)</li>
-            <li>Speedy Eggbert (Video-Projekt)</li>
-            <li>Omlet Arcade Nostalgia Time (Videoreihe)</li>
-            <li>Animal Crossing – erste Teile</li>
-            <li>Dogs Life Remastered Let's Play</li>
-            <li>Mental Hospital: Evil Child</li>
-            <li>Minecraft Server-Bau</li>
-            <li>Donkey Kong Bananza</li>
-            <li>The Long Dark</li>
-            <li>Spyro Trilogy</li>
-          </ul>
-        `,
-        "🤝 Projekte mit Diana": `
-          <ul>
-            <li>TikTok Streams</li>
-            <li>Hide and Seek (SM64)</li>
-            <li>WePlay & Rec Room</li>
-            <li>Animal Crossing Wild World</li>
-            <li>Click & Point Adventures</li>
-            <li>Zelda: Ocarina of Time</li>
-            <li>Super Mario 64 Cursed Castle / B3313</li>
-            <li>Gesangs- & Tanz-Wettbewerb</li>
-            <li>Minecraft Minigames / Herobrine Mod</li>
-            <li>Podcast Folgen (YouTube & Arcade Lunar)</li>
-            <li>Treasure Radio Inbetriebnahme</li>
-            <li>ASMR, Challenges & Reactions</li>
-            <li>12 h / 24 h Stream</li>
-            <li>Mario Party / Brawlhalla / Mario Kart</li>
-          </ul>
-        `,
-        "💡 Weitere Ideen": `
-          <ul>
-            <li>Little Nightmares 3</li>
-            <li>Haus der 1000 Türen</li>
-            <li>American Candy Test / Random Bestellung</li>
-            <li>24 h wie ein Sim leben</li>
-            <li>Browser- & Flashgames</li>
-            <li>Sims 4 WG per Teamviewer</li>
-            <li>Skribbl.io / Gartic Phone</li>
-            <li>Wahrheit oder Pflicht</li>
-            <li>Wer bin ich?</li>
-            <li>Indie Online Games</li>
-            <li>Dead by Daylight / Portal 2</li>
-            <li>Tower of Fantasy / Palworld</li>
-            <li>Granny / Eyes The Horror Game</li>
-            <li>Hokko Life</li>
-          </ul>
-        `
-      };
-
-      document.querySelectorAll('.content-box').forEach(box => {
-        box.addEventListener('click', () => {
-          const title = box.dataset.title;
-          modalTitle.textContent = title;
-          modalBody.innerHTML = content[title] || "Keine Details verfügbar.";
-          modal.style.display = 'flex';
-        });
-      });
-
-      closeBtn.onclick = () => modal.style.display = 'none';
-      window.addEventListener('click', e => {
-        if (e.target === modal) modal.style.display = 'none';
-      });
-    })();
-
-    /* ================= SOUNDBOARD ================= */
-    (function() {
-      const username = "Schrottkiste11";
-      const repo = "e";
-      const soundContainer = document.getElementById("soundContainer");
-      const volumeSlider = document.getElementById("sb-volume");
-      let globalVolume = parseFloat(localStorage.getItem("soundVolume")) || 0.5;
-      let currentAudio = null, currentButton = null;
-
-      let targetVolume = globalVolume;
-      let fadeInterval = null;
-
-      function smoothVolumeChange(audio, target) {
-        if (!audio) return;
-        clearInterval(fadeInterval);
-        fadeInterval = setInterval(() => {
-          const diff = target - audio.volume;
-          if (Math.abs(diff) < 0.01) {
-            audio.volume = target;
-            clearInterval(fadeInterval);
-          } else {
-            audio.volume += diff * 0.15;
-          }
-        }, 30);
-      }
-
-      volumeSlider.value = globalVolume;
-      volumeSlider.addEventListener("input", () => {
-        targetVolume = parseFloat(volumeSlider.value);
-        localStorage.setItem("soundVolume", targetVolume);
-        if (currentAudio) smoothVolumeChange(currentAudio, targetVolume);
-      });
-
-      const categoryMap = {
-        "minecraft": ["Sweden", "Wet Hands", "Moog City 2 Minecraft"],
-        "animal": ["5 P.M.", "Kapp'n", "Title Screen", "Wild World", "Title Theme"],
-        "series": ["Cosmo", "Ducktales", "Gravity Falls", "Kim Possible", "Lauras", "LazyTown", "Phineas", "Spongebob", "Scooby", "Zoés", "ALF"],
-        "littlebigplanet": ["LittleBigPlanet", "Victoria's Lab", "The Gardens", "The Wedding", "The Wilderness"],
-        "speedy": ["Speedy Eggbert", "Speedy Adventure", "Speedy Theme", "Speedy Intro", "Speedy Level"],
-        "other": ["8 Bit", "AU SCHWARTE", "alf theme"]
-      };
-
-      let allSongs = [];
-
-      async function loadSounds() {
-        try {
-          const response = await fetch(`https://api.github.com/repos/${username}/${repo}/contents/`);
-          const files = await response.json();
-          const mp3Files = files.filter(f => f.name.toLowerCase().endsWith(".mp3") || f.name.toLowerCase().endsWith(".wav"));
-
-          soundContainer.innerHTML = "";
-          allSongs = mp3Files.map(file => ({
-            name: file.name.replace(/\.[^/.]+$/, ""),
-            url: `https://github.com/${username}/${repo}/raw/main/${encodeURIComponent(file.name)}`
-          }));
-
-          renderList("all");
-        } catch (error) {
-          console.error(error);
-          soundContainer.innerHTML = "<p>Fehler beim Laden 😢</p>";
-        }
-      }
-
-      function renderList(category) {
-        soundContainer.innerHTML = "";
-        let songsToShow = allSongs;
-
-        if (category !== "all") {
-          songsToShow = allSongs.filter(song =>
-            (categoryMap[category] || []).some(keyword =>
-              song.name.toLowerCase().includes(keyword.toLowerCase())
-            )
-          );
-        }
-
-        if (songsToShow.length === 0) {
-          soundContainer.innerHTML = "<p>Keine Songs in dieser Kategorie 😢</p>";
-          return;
-        }
-
-        songsToShow.forEach(song => {
-          const item = document.createElement("div");
-          item.classList.add("sound-item");
-
-          const btn = document.createElement("button");
-          btn.classList.add("play-btn");
-          btn.textContent = "▶";
-
-          const title = document.createElement("div");
-          title.classList.add("sound-title");
-          title.textContent = song.name;
-
-          const audio = new Audio(song.url);
-          audio.volume = globalVolume;
-
-          btn.addEventListener("click", async () => {
-            if (currentAudio && currentAudio !== audio) {
-              currentAudio.pause();
-              currentAudio.currentTime = 0;
-              if (currentButton) {
-                currentButton.classList.remove("playing");
-                currentButton.textContent = "▶";
-              }
-            }
-
-            if (audio.paused) {
-              await audio.play();
-              btn.classList.add("playing");
-              btn.textContent = "⏸";
-              currentAudio = audio;
-              currentButton = btn;
-            } else {
-              audio.pause();
-              audio.currentTime = 0;
-              btn.classList.remove("playing");
-              btn.textContent = "▶";
-            }
-          });
-
-          audio.addEventListener("ended", () => {
-            btn.classList.remove("playing");
-            btn.textContent = "▶";
-          });
-
-          item.appendChild(btn);
-          item.appendChild(title);
-          soundContainer.appendChild(item);
-        });
-      }
-
-      document.querySelectorAll(".nav-item").forEach(nav => {
-        nav.addEventListener("click", () => {
-          document.querySelectorAll(".nav-item").forEach(n => n.classList.remove("active"));
-          nav.classList.add("active");
-          renderList(nav.dataset.cat);
-        });
-      });
-
-      loadSounds();
-    })();
-
-    /* ================= RADIOPLAYER ================= */
-    (function() {
-      const audio = document.getElementById('audioPlayer');
-      const playBtn = document.getElementById('playPause');
-      const volumeSlider = document.getElementById('radio-volume');
-
-      let isPlaying = false;
-      audio.volume = 0.5;
-
-      function updateVolumeGradient(value) {
-        const gradient = `linear-gradient(90deg, #ff00ff ${value*100}%, #222 ${value*100}%)`;
-        volumeSlider.style.background = gradient;
-      }
-      updateVolumeGradient(audio.volume);
-
-      playBtn.addEventListener('click', () => {
-        if (!isPlaying) {
-          audio.play();
-          playBtn.textContent = '⏸️';
-          isPlaying = true;
-        } else {
-          audio.pause();
-          playBtn.textContent = '▶️';
-          isPlaying = false;
-        }
-      });
-
-      volumeSlider.addEventListener('input', () => {
-        const value = parseFloat(volumeSlider.value);
-        audio.volume = Math.pow(value, 1.5) * 0.8;
-        updateVolumeGradient(value);
-      });
-    })();
-
-    /* ================= SENDEPLAN LIVE SLOT ================= */
-    (function() {
-      function updateLiveSlot() {
-        const now = new Date();
-        const minutes = now.getHours()*60 + now.getMinutes();
-        let activeTime;
-        if (minutes >= 23*60 || minutes < 6*60) activeTime = "23:00";
-        else if (minutes >= 18*60) activeTime = "18:00";
-        else if (minutes >= 12*60) activeTime = "12:00";
-        else activeTime = "06:00";
-
-        document.querySelectorAll('.fm-schedule__slot').forEach(slot => {
-          slot.classList.toggle('active', slot.dataset.time === activeTime);
-        });
-      }
-      updateLiveSlot();
-      setInterval(updateLiveSlot, 60000);
-    })();
-  </script>
 </body>
 </html>
