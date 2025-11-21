@@ -8,179 +8,320 @@
   <link href="https://fonts.googleapis.com/css2?family=Chewy&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      background: #0a0a0a;
-      font-family: 'Poppins', sans-serif;
-      color: #f1f1f1;
-      padding-top: 70px;
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
-    /* SIDEBAR */
-    #menuToggle { display: none; }
+    :root {
+      --bg: #050415;
+      --bg-soft: #0b0a20;
+      --card: rgba(18, 14, 40, 0.96);
+      --card-soft: rgba(18, 14, 40, 0.9);
+      --accent: #f6c45c;      /* edles Gold */
+      --accent-soft: #ffdd9a;
+      --accent-alt: #74e4ff;  /* sanftes Cyan */
+      --text: #f3f1ff;
+      --muted: #c0c4e8;
+      --border-soft: rgba(255, 255, 255, 0.12);
+      --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.75);
+      --radius-lg: 18px;
+      --radius-xl: 22px;
+      --radius-pill: 999px;
+    }
+
+    body {
+      background:
+        radial-gradient(circle at top, #27245a 0%, #050415 55%, #020109 100%);
+      font-family: 'Poppins', sans-serif;
+      color: var(--text);
+      padding-top: 80px;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* mystischer Glow-Hintergrund */
+    .bg-glow {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -1;
+      background:
+        radial-gradient(circle at 15% 20%, rgba(246,196,92,0.25) 0, transparent 55%),
+        radial-gradient(circle at 85% 80%, rgba(116,228,255,0.22) 0, transparent 55%);
+      mix-blend-mode: screen;
+      opacity: 0.6;
+    }
+
+    /* SIDEBAR (wie bei der neuen Schrottkiste-Seite) */
+    #menuToggle {
+      display: none;
+    }
 
     .hamburger-btn {
       position: fixed;
       top: 20px;
       left: 20px;
-      z-index: 10000;
-      background: rgba(0, 0, 0, 0.6);
-      border: 2px solid rgba(0, 255, 255, 0.6);
-      border-radius: 8px;
-      color: #00ffff;
-      font-size: 24px;
+      z-index: 20000;
+      background: rgba(8, 7, 25, 0.92);
+      border: 1px solid rgba(246,196,92,0.7);
+      border-radius: 12px;
+      color: var(--accent);
+      font-size: 22px;
       padding: 8px 14px;
       cursor: pointer;
-      box-shadow: 0 0 10px #0ff;
-      transition: 0.25s ease;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.85);
+      transition: transform 0.25s ease, box-shadow 0.25s ease, left 0.35s ease;
       font-family: 'Chewy', cursive;
     }
 
     .hamburger-btn:hover {
-      transform: scale(1.1);
-      box-shadow: 0 0 20px #0ff;
+      transform: translateY(-1px) scale(1.03);
+      box-shadow: 0 14px 32px rgba(0, 0, 0, 0.9);
     }
 
     .custom-sidebar {
       position: fixed;
-      top: 0; left: 0;
-      width: 250px;
+      top: 0;
+      left: 0;
+      width: 260px;
       height: 100vh;
-      background: rgba(10, 10, 31, 0.96);
-      border-right: 2px solid rgba(0, 255, 255, 0.3);
-      box-shadow: 4px 0 25px rgba(0, 255, 255, 0.3);
-      backdrop-filter: blur(12px);
+      background: linear-gradient(160deg, rgba(10, 8, 32, 0.97), rgba(6, 5, 20, 0.98));
+      border-right: 1px solid rgba(246,196,92,0.35);
+      box-shadow: 18px 0 50px rgba(0, 0, 0, 0.9);
+      backdrop-filter: blur(18px);
       transform: translateX(-100%);
-      transition: transform 0.4s cubic-bezier(.55, .06, .68, .19);
+      transition: transform 0.4s cubic-bezier(.18, .89, .32, 1.28);
       padding-top: 80px;
-      z-index: 9999;
+      z-index: 19999;
     }
 
     #menuToggle:checked ~ .custom-sidebar {
       transform: translateX(0);
-      transition: transform 0.4s cubic-bezier(.18, .89, .32, 1.28);
     }
 
     #menuToggle:checked + .hamburger-btn {
-      left: 260px;
-      transition: left 0.4s ease;
+      left: 275px;
     }
 
     .custom-sidebar nav {
       display: flex;
       flex-direction: column;
-      gap: 20px;
-      padding: 20px;
+      gap: 18px;
+      padding: 20px 22px 24px;
     }
 
     .custom-sidebar nav a {
-      color: #00ffff;
+      color: var(--accent-alt);
       text-decoration: none;
       font-family: 'Chewy', cursive;
       font-size: 18px;
-      text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff;
-      transition: all 0.3s ease;
+      letter-spacing: 0.03em;
+      padding: 6px 10px;
+      border-radius: 10px;
+      background: transparent;
+      text-shadow: 0 0 8px rgba(116,228,255,0.6);
+      transition: all 0.25s ease;
     }
 
     .custom-sidebar nav a:hover {
-      transform: translateX(8px);
-      background: rgba(0, 255, 255, 0.1);
+      transform: translateX(6px);
+      background: rgba(246,196,92,0.08);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.7);
     }
 
-    /* CONTENT GRID */
+    /* CONTENT GRID / Hauptbereich */
     .content-plan {
-      padding: 40px 20px;
+      padding: 40px 20px 60px;
+      max-width: 1000px;
+      margin: 0 auto;
       text-align: center;
     }
 
-    .content-plan h2 {
-      font-size: 2.5rem;
-      color: #ff4c9d;
-      text-shadow: 0 0 12px #ff4c9d;
+    .content-header {
+      padding: 24px 22px 20px;
       margin-bottom: 30px;
+      background: var(--card);
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--border-soft);
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .content-header::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background:
+        radial-gradient(circle at 0% 0%, rgba(246,196,92,0.22) 0, transparent 55%),
+        radial-gradient(circle at 100% 100%, rgba(116,228,255,0.24) 0, transparent 55%);
+      mix-blend-mode: soft-light;
+      opacity: 0.85;
+      pointer-events: none;
+    }
+
+    .content-header-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .content-eyebrow {
+      font-size: 0.82rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent-soft);
+      margin-bottom: 6px;
+    }
+
+    .content-plan h2 {
+      font-size: 2.1rem;
+      margin-bottom: 6px;
+      background: linear-gradient(120deg, var(--accent), var(--accent-soft), var(--accent-alt));
+      -webkit-background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 10px rgba(0,0,0,0.6);
+    }
+
+    .content-sub {
+      font-size: 0.95rem;
+      color: var(--muted);
+      max-width: 420px;
+      margin: 0 auto;
     }
 
     .content-grid {
       display: grid;
-      gap: 30px;
+      gap: 26px;
       max-width: 900px;
-      margin: 0 auto;
+      margin: 10px auto 0;
     }
 
     .content-box {
-      background: rgba(20,20,20,0.8);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 16px;
-      padding: 40px 20px;
+      background: var(--card-soft);
+      border: 1px solid var(--border-soft);
+      border-radius: 18px;
+      padding: 26px 20px;
       cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 0 25px rgba(255,255,255,0.03);
+      transition: all 0.25s ease;
+      box-shadow: 0 14px 30px rgba(0,0,0,0.75);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .content-box::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background: radial-gradient(circle at 0 0, rgba(246,196,92,0.16) 0, transparent 55%);
+      mix-blend-mode: soft-light;
+      opacity: 0;
+      transition: opacity 0.25s ease;
+      pointer-events: none;
     }
 
     .content-box:hover {
-      transform: translateY(-5px) scale(1.02);
-      box-shadow: 0 0 25px rgba(255,76,157,0.4);
+      transform: translateY(-4px) scale(1.01);
+      box-shadow: 0 18px 40px rgba(0,0,0,0.9);
+      border-color: rgba(246,196,92,0.6);
+    }
+
+    .content-box:hover::before {
+      opacity: 1;
     }
 
     .content-box h3 {
-      color: #6dfaff;
-      font-size: 1.4rem;
-      margin-bottom: 8px;
-      text-shadow: 0 0 6px #6dfaff;
+      color: var(--accent-alt);
+      font-size: 1.3rem;
+      margin-bottom: 6px;
+      text-shadow: 0 0 6px rgba(0,0,0,0.8);
     }
 
-    /* POPUP */
+    .content-box p {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    /* POPUP / MODAL */
+
     .modal {
       display: none;
       position: fixed;
       inset: 0;
-      z-index: 10000;
-      background: rgba(0,0,0,0.8);
+      z-index: 30000;
+      background: rgba(0,0,0,0.75);
       justify-content: center;
       align-items: center;
-      backdrop-filter: blur(4px);
+      backdrop-filter: blur(6px);
+      padding: 20px;
     }
 
     .modal-content {
-      background: #111;
-      border-radius: 16px;
-      padding: 30px 40px;
-      max-width: 700px;
-      width: 90%;
-      color: #fff;
-      box-shadow: 0 0 25px rgba(255,76,157,0.5);
+      background: var(--card);
+      border-radius: 20px;
+      padding: 26px 30px 24px;
+      max-width: 720px;
+      width: 100%;
+      color: var(--text);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.95);
       position: relative;
       text-align: left;
+      border: 1px solid var(--border-soft);
+      overflow: hidden;
+    }
+
+    .modal-content::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background:
+        radial-gradient(circle at 0 0, rgba(246,196,92,0.22) 0, transparent 55%),
+        radial-gradient(circle at 100% 100%, rgba(116,228,255,0.2) 0, transparent 55%);
+      mix-blend-mode: soft-light;
+      opacity: 0.9;
+      pointer-events: none;
+    }
+
+    .modal-inner {
+      position: relative;
+      z-index: 1;
     }
 
     .modal-content h3 {
-      color: #6dfaff;
-      margin-bottom: 15px;
+      color: var(--accent);
+      margin-bottom: 12px;
       font-size: 1.5rem;
     }
 
     .close {
       position: absolute;
-      top: 15px;
-      right: 25px;
+      top: 14px;
+      right: 20px;
       font-size: 1.8rem;
-      color: #ff4c9d;
+      color: var(--accent-alt);
       cursor: pointer;
+      z-index: 2;
+      text-shadow: 0 0 8px rgba(0,0,0,0.8);
+      transition: color 0.2s ease, transform 0.2s ease;
     }
 
     .close:hover {
-      color: #fff;
+      color: var(--accent-soft);
+      transform: scale(1.05);
     }
 
     ul {
       list-style: none;
       padding: 0;
+      margin-top: 6px;
+      font-size: 0.93rem;
+      color: var(--muted);
     }
 
     li {
       margin: 6px 0;
-      padding-left: 16px;
+      padding-left: 18px;
       position: relative;
     }
 
@@ -188,12 +329,47 @@
       content: "•";
       position: absolute;
       left: 0;
-      color: #ff4c9d;
+      color: var(--accent);
+    }
+
+    /* RESPONSIVE */
+
+    @media (max-width: 720px) {
+      .content-plan {
+        padding-inline: 16px;
+      }
+
+      .content-header {
+        padding-inline: 18px;
+      }
+
+      #menuToggle:checked + .hamburger-btn {
+        left: 230px;
+      }
+
+      .custom-sidebar {
+        width: 230px;
+      }
+
+      .modal-content {
+        padding-inline: 20px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .content-plan h2 {
+        font-size: 1.8rem;
+      }
+
+      .content-box {
+        padding: 22px 16px;
+      }
     }
   </style>
 </head>
 
 <body>
+  <div class="bg-glow"></div>
 
   <!-- SIDEBAR -->
   <input type="checkbox" id="menuToggle" hidden>
@@ -210,7 +386,16 @@
   </div>
 
   <section class="content-plan">
-    <h2>🎮 Content-Plan 2026</h2>
+    <div class="content-header">
+      <div class="content-header-inner">
+        <div class="content-eyebrow">Planung für das neue Jahr</div>
+        <h2>🎮 Content-Plan 2026</h2>
+        <p class="content-sub">
+          Grober Fahrplan für Projekte, Kooperationen und spontane Ideen.
+          Die Details kannst du jederzeit anpassen – aber hier steckt schon viel Potenzial drin.
+        </p>
+      </div>
+    </div>
 
     <div class="content-grid">
       <div class="content-box" data-title="🎥 Solo-Projekte">
@@ -234,8 +419,10 @@
   <div class="modal" id="modal">
     <div class="modal-content">
       <span class="close">&times;</span>
-      <h3 id="modal-title"></h3>
-      <div id="modal-body"></div>
+      <div class="modal-inner">
+        <h3 id="modal-title"></h3>
+        <div id="modal-body"></div>
+      </div>
     </div>
   </div>
 
@@ -319,3 +506,4 @@
 
 </body>
 </html>
+
