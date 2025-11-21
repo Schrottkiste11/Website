@@ -1,0 +1,1410 @@
+<html lang="en" class="no-touch"><head><style>.ͼ1.cm-focused {outline: 1px dotted #212121;}
+.ͼ1 {position: relative !important; box-sizing: border-box; display: flex !important; flex-direction: column;}
+.ͼ1 .cm-scroller {display: flex !important; align-items: flex-start !important; font-family: monospace; line-height: 1.4; height: 100%; overflow-x: auto; position: relative; z-index: 0; overflow-anchor: none;}
+.ͼ1 .cm-content[contenteditable=true] {-webkit-user-modify: read-write-plaintext-only;}
+.ͼ1 .cm-content {margin: 0; flex-grow: 2; flex-shrink: 0; display: block; white-space: pre; word-wrap: normal; box-sizing: border-box; min-height: 100%; padding: 4px 0; outline: none;}
+.ͼ1 .cm-lineWrapping {white-space: pre-wrap; white-space: break-spaces; word-break: break-word; overflow-wrap: anywhere; flex-shrink: 1;}
+.ͼ2 .cm-content {caret-color: black;}
+.ͼ3 .cm-content {caret-color: white;}
+.ͼ1 .cm-line {display: block; padding: 0 2px 0 6px;}
+.ͼ1 .cm-layer > * {position: absolute;}
+.ͼ1 .cm-layer {position: absolute; left: 0; top: 0; contain: size style;}
+.ͼ2 .cm-selectionBackground {background: #d9d9d9;}
+.ͼ3 .cm-selectionBackground {background: #222;}
+.ͼ2.cm-focused > .cm-scroller > .cm-selectionLayer .cm-selectionBackground {background: #d7d4f0;}
+.ͼ3.cm-focused > .cm-scroller > .cm-selectionLayer .cm-selectionBackground {background: #233;}
+.ͼ1 .cm-cursorLayer {pointer-events: none;}
+.ͼ1.cm-focused > .cm-scroller > .cm-cursorLayer {animation: steps(1) cm-blink 1.2s infinite;}
+@keyframes cm-blink {50% {opacity: 0;}}
+@keyframes cm-blink2 {50% {opacity: 0;}}
+.ͼ1 .cm-cursor, .ͼ1 .cm-dropCursor {border-left: 1.2px solid black; margin-left: -0.6px; pointer-events: none;}
+.ͼ1 .cm-cursor {display: none;}
+.ͼ3 .cm-cursor {border-left-color: #ddd;}
+.ͼ1 .cm-dropCursor {position: absolute;}
+.ͼ1.cm-focused > .cm-scroller > .cm-cursorLayer .cm-cursor {display: block;}
+.ͼ1 .cm-iso {unicode-bidi: isolate;}
+.ͼ1 .cm-announced {position: fixed; top: -10000px;}
+@media print {.ͼ1 .cm-announced {display: none;}}
+.ͼ2 .cm-activeLine {background-color: #cceeff44;}
+.ͼ3 .cm-activeLine {background-color: #99eeff33;}
+.ͼ2 .cm-specialChar {color: red;}
+.ͼ3 .cm-specialChar {color: #f78;}
+.ͼ1 .cm-gutters {flex-shrink: 0; display: flex; height: 100%; box-sizing: border-box; z-index: 200;}
+.ͼ1 .cm-gutters-before {inset-inline-start: 0;}
+.ͼ1 .cm-gutters-after {inset-inline-end: 0;}
+.ͼ2 .cm-gutters.cm-gutters-before {border-right-width: 1px;}
+.ͼ2 .cm-gutters.cm-gutters-after {border-left-width: 1px;}
+.ͼ2 .cm-gutters {background-color: #f5f5f5; color: #6c6c6c; border: 0px solid #ddd;}
+.ͼ3 .cm-gutters {background-color: #333338; color: #ccc;}
+.ͼ1 .cm-gutter {display: flex !important; flex-direction: column; flex-shrink: 0; box-sizing: border-box; min-height: 100%; overflow: hidden;}
+.ͼ1 .cm-gutterElement {box-sizing: border-box;}
+.ͼ1 .cm-lineNumbers .cm-gutterElement {padding: 0 3px 0 5px; min-width: 20px; text-align: right; white-space: nowrap;}
+.ͼ2 .cm-activeLineGutter {background-color: #e2f2ff;}
+.ͼ3 .cm-activeLineGutter {background-color: #222227;}
+.ͼ1 .cm-panels {box-sizing: border-box; position: sticky; left: 0; right: 0; z-index: 300;}
+.ͼ2 .cm-panels {background-color: #f5f5f5; color: black;}
+.ͼ2 .cm-panels-top {border-bottom: 1px solid #ddd;}
+.ͼ2 .cm-panels-bottom {border-top: 1px solid #ddd;}
+.ͼ3 .cm-panels {background-color: #333338; color: white;}
+.ͼ1 .cm-dialog label {font-size: 80%;}
+.ͼ1 .cm-dialog {padding: 2px 19px 4px 6px; position: relative;}
+.ͼ1 .cm-dialog-close {position: absolute; top: 3px; right: 4px; background-color: inherit; border: none; font: inherit; font-size: 14px; padding: 0;}
+.ͼ1 .cm-tab {display: inline-block; overflow: hidden; vertical-align: bottom;}
+.ͼ1 .cm-widgetBuffer {vertical-align: text-top; height: 1em; width: 0; display: inline;}
+.ͼ1 .cm-placeholder {color: #888; display: inline-block; vertical-align: top; user-select: none;}
+.ͼ1 .cm-highlightSpace {background-image: radial-gradient(circle at 50% 55%, #aaa 20%, transparent 5%); background-position: center;}
+.ͼ1 .cm-highlightTab {background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="20"><path stroke="%23888" stroke-width="1" fill="none" d="M1 10H196L190 5M190 15L196 10M197 4L197 16"/></svg>'); background-size: auto 100%; background-position: right 90%; background-repeat: no-repeat;}
+.ͼ1 .cm-trailingSpace {background-color: #ff332255;}
+.ͼ1 .cm-button {vertical-align: middle; color: inherit; font-size: 70%; padding: .2em 1em; border-radius: 1px;}
+.ͼ2 .cm-button:active {background-image: linear-gradient(#b4b4b4, #d0d3d6);}
+.ͼ2 .cm-button {background-image: linear-gradient(#eff1f5, #d9d9df); border: 1px solid #888;}
+.ͼ3 .cm-button:active {background-image: linear-gradient(#111, #333);}
+.ͼ3 .cm-button {background-image: linear-gradient(#393939, #111); border: 1px solid #888;}
+.ͼ1 .cm-textfield {vertical-align: middle; color: inherit; font-size: 70%; border: 1px solid silver; padding: .2em .5em;}
+.ͼ2 .cm-textfield {background-color: white;}
+.ͼ3 .cm-textfield {border: 1px solid #555; background-color: inherit;}
+.ͼ1 {border: 1px solid var(--color-gs500);}
+.ͼ1.cm-editor.cm-focused {border: 1px solid var(--color-gs1000); outline: none;}
+.ͼ1 .cm-selectionMatch {background-color: #99ff7780;}
+.ͼ1 .cm-searchMatch .cm-selectionMatch {background-color: transparent;}
+.ͼ1 .cm-tooltip.cm-tooltip-autocomplete > ul > li, .ͼ1 .cm-tooltip.cm-tooltip-autocomplete > ul > completion-section {padding: 1px 3px; line-height: 1.2;}
+.ͼ1 .cm-tooltip.cm-tooltip-autocomplete > ul > li {overflow-x: hidden; text-overflow: ellipsis; cursor: pointer;}
+.ͼ1 .cm-tooltip.cm-tooltip-autocomplete > ul > completion-section {display: list-item; border-bottom: 1px solid silver; padding-left: 0.5em; opacity: 0.7;}
+.ͼ1 .cm-tooltip.cm-tooltip-autocomplete > ul {font-family: monospace; white-space: nowrap; overflow: hidden auto; max-width: 700px; max-width: min(700px, 95vw); min-width: 250px; max-height: 10em; height: 100%; list-style: none; margin: 0; padding: 0;}
+.ͼ2 .cm-tooltip-autocomplete ul li[aria-selected] {background: #17c; color: white;}
+.ͼ2 .cm-tooltip-autocomplete-disabled ul li[aria-selected] {background: #777;}
+.ͼ3 .cm-tooltip-autocomplete ul li[aria-selected] {background: #347; color: white;}
+.ͼ3 .cm-tooltip-autocomplete-disabled ul li[aria-selected] {background: #444;}
+.ͼ1 .cm-completionListIncompleteTop:before, .ͼ1 .cm-completionListIncompleteBottom:after {content: "···"; opacity: 0.5; display: block; text-align: center;}
+.ͼ1 .cm-tooltip.cm-completionInfo {position: absolute; padding: 3px 9px; width: max-content; max-width: 400px; box-sizing: border-box; white-space: pre-line;}
+.ͼ1 .cm-completionInfo.cm-completionInfo-left {right: 100%;}
+.ͼ1 .cm-completionInfo.cm-completionInfo-right {left: 100%;}
+.ͼ1 .cm-completionInfo.cm-completionInfo-left-narrow {right: 30px;}
+.ͼ1 .cm-completionInfo.cm-completionInfo-right-narrow {left: 30px;}
+.ͼ2 .cm-snippetField {background-color: #00000022;}
+.ͼ3 .cm-snippetField {background-color: #ffffff22;}
+.ͼ1 .cm-snippetFieldPosition {vertical-align: text-top; width: 0; height: 1.15em; display: inline-block; margin: 0 -0.7px -.7em; border-left: 1.4px dotted #888;}
+.ͼ1 .cm-completionMatchedText {text-decoration: underline;}
+.ͼ1 .cm-completionDetail {margin-left: 0.5em; font-style: italic;}
+.ͼ1 .cm-completionIcon {font-size: 90%; width: .8em; display: inline-block; text-align: center; padding-right: .6em; opacity: 0.6; box-sizing: content-box;}
+.ͼ1 .cm-completionIcon-function:after, .ͼ1 .cm-completionIcon-method:after {content: 'ƒ';}
+.ͼ1 .cm-completionIcon-class:after {content: '○';}
+.ͼ1 .cm-completionIcon-interface:after {content: '◌';}
+.ͼ1 .cm-completionIcon-variable:after {content: '𝑥';}
+.ͼ1 .cm-completionIcon-constant:after {content: '𝐶';}
+.ͼ1 .cm-completionIcon-type:after {content: '𝑡';}
+.ͼ1 .cm-completionIcon-enum:after {content: '∪';}
+.ͼ1 .cm-completionIcon-property:after {content: '□';}
+.ͼ1 .cm-completionIcon-keyword:after {content: '🔑︎';}
+.ͼ1 .cm-completionIcon-namespace:after {content: '▢';}
+.ͼ1 .cm-completionIcon-text:after {content: 'abc'; font-size: 50%; vertical-align: middle;}
+.ͼ1 .cm-tooltip {z-index: 500; box-sizing: border-box;}
+.ͼ2 .cm-tooltip {border: 1px solid #bbb; background-color: #f5f5f5;}
+.ͼ2 .cm-tooltip-section:not(:first-child) {border-top: 1px solid #bbb;}
+.ͼ3 .cm-tooltip {background-color: #333338; color: white;}
+.ͼ1 .cm-tooltip-arrow:before, .ͼ1 .cm-tooltip-arrow:after {content: ''; position: absolute; width: 0; height: 0; border-left: 7px solid transparent; border-right: 7px solid transparent;}
+.ͼ1 .cm-tooltip-above .cm-tooltip-arrow:before {border-top: 7px solid #bbb;}
+.ͼ1 .cm-tooltip-above .cm-tooltip-arrow:after {border-top: 7px solid #f5f5f5; bottom: 1px;}
+.ͼ1 .cm-tooltip-above .cm-tooltip-arrow {bottom: -7px;}
+.ͼ1 .cm-tooltip-below .cm-tooltip-arrow:before {border-bottom: 7px solid #bbb;}
+.ͼ1 .cm-tooltip-below .cm-tooltip-arrow:after {border-bottom: 7px solid #f5f5f5; top: 1px;}
+.ͼ1 .cm-tooltip-below .cm-tooltip-arrow {top: -7px;}
+.ͼ1 .cm-tooltip-arrow {height: 7px; width: 14px; position: absolute; z-index: -1; overflow: hidden;}
+.ͼ3 .cm-tooltip .cm-tooltip-arrow:before {border-top-color: #333338; border-bottom-color: #333338;}
+.ͼ3 .cm-tooltip .cm-tooltip-arrow:after {border-top-color: transparent; border-bottom-color: transparent;}
+.ͼ1.cm-focused .cm-matchingBracket {background-color: #328c8252;}
+.ͼ1.cm-focused .cm-nonmatchingBracket {background-color: #bb555544;}
+.ͼ1 .cm-foldPlaceholder {background-color: #eee; border: 1px solid #ddd; color: #888; border-radius: .2em; margin: 0 1px; padding: 0 1px; cursor: pointer;}
+.ͼ1 .cm-foldGutter span {padding: 0 1px; cursor: pointer;}
+.ͼ17 {color: #787b80;}
+.ͼ18 {color: #194a7b;}
+.ͼ19 {color: #194a7b;}
+.ͼ1a {color: #008a02;}
+.ͼ1b {color: #1a00db;}
+.ͼ16 .cm-gutters {background-color: var(--color-gs0); color: var(--color-gs700); border-right-color: var(--color-gs0);}
+.ͼ16 {background-color: var(--color-gs0); color: var(--color-gs700);}
+.ͼ16 .cm-content {caret-color: var(--color-gs500);}
+.ͼ16 .cm-cursor, .ͼ16 .cm-dropCursor {border-left-color: var(--color-gs500);}
+.ͼ16 .cm-activeLine {background-color: transparent;}
+.ͼ16 .cm-activeLineGutter {background-color: transparent;}
+.ͼ16.cm-focused .cm-selectionBackground, .ͼ16 .cm-line::selection, .ͼ16 .cm-selectionLayer .cm-selectionBackground, .ͼ16 .cm-content ::selection {background: var(--color-gs500) !important;}
+.ͼ16 .cm-selectionMatch {background-color: var(--color-gs500);}
+.ͼ5 {color: #404740;}
+.ͼ6 {text-decoration: underline;}
+.ͼ7 {text-decoration: underline; font-weight: bold;}
+.ͼ8 {font-style: italic;}
+.ͼ9 {font-weight: bold;}
+.ͼa {text-decoration: line-through;}
+.ͼb {color: #708;}
+.ͼc {color: #219;}
+.ͼd {color: #164;}
+.ͼe {color: #a11;}
+.ͼf {color: #e40;}
+.ͼg {color: #00f;}
+.ͼh {color: #30a;}
+.ͼi {color: #085;}
+.ͼj {color: #167;}
+.ͼk {color: #256;}
+.ͼl {color: #00c;}
+.ͼm {color: #940;}
+.ͼn {color: #f00;}
+.ͼ4e {min-height: 80px; max-height: 400px;}
+.ͼ4e .cm-scroller {height: 100% !important;}
+.ͼ4d {min-height: 80px; max-height: 400px;}
+.ͼ4d .cm-scroller {height: 100% !important;}
+.ͼ4c {min-height: 80px; max-height: 400px;}
+.ͼ4c .cm-scroller {height: 100% !important;}
+.ͼ4b {min-height: 80px; max-height: 400px;}
+.ͼ4b .cm-scroller {height: 100% !important;}
+.ͼ4a {min-height: 80px; max-height: 400px;}
+.ͼ4a .cm-scroller {height: 100% !important;}
+.ͼ49 {min-height: 80px; max-height: 400px;}
+.ͼ49 .cm-scroller {height: 100% !important;}
+.ͼ48 {min-height: 80px; max-height: 400px;}
+.ͼ48 .cm-scroller {height: 100% !important;}
+.ͼ47 {min-height: 80px; max-height: 400px;}
+.ͼ47 .cm-scroller {height: 100% !important;}
+.ͼ46 {min-height: 80px; max-height: 400px;}
+.ͼ46 .cm-scroller {height: 100% !important;}
+.ͼ45 {min-height: 80px; max-height: 400px;}
+.ͼ45 .cm-scroller {height: 100% !important;}
+.ͼ44 {min-height: 80px; max-height: 400px;}
+.ͼ44 .cm-scroller {height: 100% !important;}
+.ͼ43 {min-height: 80px; max-height: 400px;}
+.ͼ43 .cm-scroller {height: 100% !important;}
+.ͼ42 {min-height: 80px; max-height: 400px;}
+.ͼ42 .cm-scroller {height: 100% !important;}
+.ͼ41 {min-height: 80px; max-height: 400px;}
+.ͼ41 .cm-scroller {height: 100% !important;}
+.ͼ40 {min-height: 80px; max-height: 400px;}
+.ͼ40 .cm-scroller {height: 100% !important;}
+.ͼ3z {min-height: 80px; max-height: 400px;}
+.ͼ3z .cm-scroller {height: 100% !important;}
+.ͼ3y {min-height: 80px; max-height: 400px;}
+.ͼ3y .cm-scroller {height: 100% !important;}
+.ͼ3w {min-height: 80px; max-height: 400px;}
+.ͼ3w .cm-scroller {height: 100% !important;}
+.ͼ3u {min-height: 80px; max-height: 400px;}
+.ͼ3u .cm-scroller {height: 100% !important;}
+.ͼ3t {min-height: 80px; max-height: 400px;}
+.ͼ3t .cm-scroller {height: 100% !important;}
+.ͼ3s {min-height: 80px; max-height: 400px;}
+.ͼ3s .cm-scroller {height: 100% !important;}
+.ͼ3q {min-height: 80px; max-height: 400px;}
+.ͼ3q .cm-scroller {height: 100% !important;}
+.ͼ3o {min-height: 80px; max-height: 400px;}
+.ͼ3o .cm-scroller {height: 100% !important;}
+.ͼ3n {min-height: 80px; max-height: 400px;}
+.ͼ3n .cm-scroller {height: 100% !important;}
+.ͼ3m {min-height: 80px; max-height: 400px;}
+.ͼ3m .cm-scroller {height: 100% !important;}
+.ͼ3l {min-height: 80px; max-height: 400px;}
+.ͼ3l .cm-scroller {height: 100% !important;}
+.ͼ3k {min-height: 80px; max-height: 400px;}
+.ͼ3k .cm-scroller {height: 100% !important;}
+.ͼ3j {min-height: 80px; max-height: 400px;}
+.ͼ3j .cm-scroller {height: 100% !important;}
+.ͼ3i {min-height: 80px; max-height: 400px;}
+.ͼ3i .cm-scroller {height: 100% !important;}
+.ͼ3h {min-height: 80px; max-height: 400px;}
+.ͼ3h .cm-scroller {height: 100% !important;}
+.ͼ3g {min-height: 80px; max-height: 400px;}
+.ͼ3g .cm-scroller {height: 100% !important;}
+.ͼ3f {min-height: 80px; max-height: 400px;}
+.ͼ3f .cm-scroller {height: 100% !important;}
+.ͼ3e {min-height: 80px; max-height: 400px;}
+.ͼ3e .cm-scroller {height: 100% !important;}
+.ͼ3d {min-height: 80px; max-height: 400px;}
+.ͼ3d .cm-scroller {height: 100% !important;}
+.ͼ3c {min-height: 80px; max-height: 400px;}
+.ͼ3c .cm-scroller {height: 100% !important;}
+.ͼ3b {min-height: 80px; max-height: 400px;}
+.ͼ3b .cm-scroller {height: 100% !important;}
+.ͼ3a {min-height: 80px; max-height: 400px;}
+.ͼ3a .cm-scroller {height: 100% !important;}
+.ͼ39 {min-height: 80px; max-height: 400px;}
+.ͼ39 .cm-scroller {height: 100% !important;}
+.ͼ38 {min-height: 80px; max-height: 400px;}
+.ͼ38 .cm-scroller {height: 100% !important;}
+.ͼ37 {min-height: 80px; max-height: 400px;}
+.ͼ37 .cm-scroller {height: 100% !important;}
+.ͼ36 {min-height: 80px; max-height: 400px;}
+.ͼ36 .cm-scroller {height: 100% !important;}
+.ͼ35 {min-height: 80px; max-height: 400px;}
+.ͼ35 .cm-scroller {height: 100% !important;}
+.ͼ34 {min-height: 80px; max-height: 400px;}
+.ͼ34 .cm-scroller {height: 100% !important;}
+.ͼ33 {min-height: 80px; max-height: 400px;}
+.ͼ33 .cm-scroller {height: 100% !important;}
+.ͼ32 {min-height: 80px; max-height: 400px;}
+.ͼ32 .cm-scroller {height: 100% !important;}
+.ͼ31 {min-height: 80px; max-height: 400px;}
+.ͼ31 .cm-scroller {height: 100% !important;}
+.ͼ30 {min-height: 80px; max-height: 400px;}
+.ͼ30 .cm-scroller {height: 100% !important;}
+.ͼ2z {min-height: 80px; max-height: 400px;}
+.ͼ2z .cm-scroller {height: 100% !important;}
+.ͼ2y {min-height: 80px; max-height: 400px;}
+.ͼ2y .cm-scroller {height: 100% !important;}
+.ͼ2x {min-height: 80px; max-height: 400px;}
+.ͼ2x .cm-scroller {height: 100% !important;}
+.ͼ2w {min-height: 80px; max-height: 400px;}
+.ͼ2w .cm-scroller {height: 100% !important;}
+.ͼ2v {min-height: 80px; max-height: 400px;}
+.ͼ2v .cm-scroller {height: 100% !important;}
+.ͼ2u {min-height: 80px; max-height: 400px;}
+.ͼ2u .cm-scroller {height: 100% !important;}
+.ͼ2t {min-height: 80px; max-height: 400px;}
+.ͼ2t .cm-scroller {height: 100% !important;}
+.ͼ2s {min-height: 80px; max-height: 400px;}
+.ͼ2s .cm-scroller {height: 100% !important;}
+.ͼ2r {min-height: 80px; max-height: 400px;}
+.ͼ2r .cm-scroller {height: 100% !important;}
+.ͼ2q {min-height: 80px; max-height: 400px;}
+.ͼ2q .cm-scroller {height: 100% !important;}
+.ͼ2p {min-height: 80px; max-height: 400px;}
+.ͼ2p .cm-scroller {height: 100% !important;}
+.ͼ2o {min-height: 80px; max-height: 400px;}
+.ͼ2o .cm-scroller {height: 100% !important;}
+.ͼ2n {min-height: 80px; max-height: 400px;}
+.ͼ2n .cm-scroller {height: 100% !important;}
+.ͼ2m {min-height: 80px; max-height: 400px;}
+.ͼ2m .cm-scroller {height: 100% !important;}
+.ͼ2l {min-height: 80px; max-height: 400px;}
+.ͼ2l .cm-scroller {height: 100% !important;}
+.ͼ2k {min-height: 80px; max-height: 400px;}
+.ͼ2k .cm-scroller {height: 100% !important;}
+.ͼ2j {min-height: 80px; max-height: 400px;}
+.ͼ2j .cm-scroller {height: 100% !important;}
+.ͼ2i {min-height: 80px; max-height: 400px;}
+.ͼ2i .cm-scroller {height: 100% !important;}
+.ͼ2h {min-height: 80px; max-height: 400px;}
+.ͼ2h .cm-scroller {height: 100% !important;}
+.ͼ2g {min-height: 80px; max-height: 400px;}
+.ͼ2g .cm-scroller {height: 100% !important;}
+.ͼ2f {min-height: 80px; max-height: 400px;}
+.ͼ2f .cm-scroller {height: 100% !important;}
+.ͼ2e {min-height: 80px; max-height: 400px;}
+.ͼ2e .cm-scroller {height: 100% !important;}
+.ͼ2d {min-height: 80px; max-height: 400px;}
+.ͼ2d .cm-scroller {height: 100% !important;}
+.ͼ2c {min-height: 80px; max-height: 400px;}
+.ͼ2c .cm-scroller {height: 100% !important;}
+.ͼ2b {min-height: 80px; max-height: 400px;}
+.ͼ2b .cm-scroller {height: 100% !important;}
+.ͼ2a {min-height: 80px; max-height: 400px;}
+.ͼ2a .cm-scroller {height: 100% !important;}
+.ͼ29 {min-height: 80px; max-height: 400px;}
+.ͼ29 .cm-scroller {height: 100% !important;}
+.ͼ28 {min-height: 80px; max-height: 400px;}
+.ͼ28 .cm-scroller {height: 100% !important;}
+.ͼ27 {min-height: 80px; max-height: 400px;}
+.ͼ27 .cm-scroller {height: 100% !important;}
+.ͼ26 {min-height: 80px; max-height: 400px;}
+.ͼ26 .cm-scroller {height: 100% !important;}
+.ͼ25 {min-height: 80px; max-height: 400px;}
+.ͼ25 .cm-scroller {height: 100% !important;}
+.ͼ24 {min-height: 80px; max-height: 400px;}
+.ͼ24 .cm-scroller {height: 100% !important;}
+.ͼ23 {min-height: 80px; max-height: 400px;}
+.ͼ23 .cm-scroller {height: 100% !important;}
+.ͼ22 {min-height: 80px; max-height: 400px;}
+.ͼ22 .cm-scroller {height: 100% !important;}
+.ͼ21 {min-height: 80px; max-height: 400px;}
+.ͼ21 .cm-scroller {height: 100% !important;}
+.ͼ20 {min-height: 80px; max-height: 400px;}
+.ͼ20 .cm-scroller {height: 100% !important;}
+.ͼ1z {min-height: 80px; max-height: 400px;}
+.ͼ1z .cm-scroller {height: 100% !important;}
+.ͼ1y {min-height: 80px; max-height: 400px;}
+.ͼ1y .cm-scroller {height: 100% !important;}
+.ͼ1x {min-height: 80px; max-height: 400px;}
+.ͼ1x .cm-scroller {height: 100% !important;}
+.ͼ1w {min-height: 80px; max-height: 400px;}
+.ͼ1w .cm-scroller {height: 100% !important;}
+.ͼ1v {min-height: 80px; max-height: 400px;}
+.ͼ1v .cm-scroller {height: 100% !important;}
+.ͼ1u {min-height: 80px; max-height: 400px;}
+.ͼ1u .cm-scroller {height: 100% !important;}
+.ͼ1t {min-height: 80px; max-height: 400px;}
+.ͼ1t .cm-scroller {height: 100% !important;}
+.ͼ1s {min-height: 80px; max-height: 400px;}
+.ͼ1s .cm-scroller {height: 100% !important;}
+.ͼ1r {min-height: 80px; max-height: 400px;}
+.ͼ1r .cm-scroller {height: 100% !important;}
+.ͼ1q {min-height: 80px; max-height: 400px;}
+.ͼ1q .cm-scroller {height: 100% !important;}
+.ͼ1p {min-height: 80px; max-height: 400px;}
+.ͼ1p .cm-scroller {height: 100% !important;}
+.ͼ1o {min-height: 80px; max-height: 400px;}
+.ͼ1o .cm-scroller {height: 100% !important;}
+.ͼ1n {min-height: 80px; max-height: 400px;}
+.ͼ1n .cm-scroller {height: 100% !important;}
+.ͼ1m {min-height: 80px; max-height: 400px;}
+.ͼ1m .cm-scroller {height: 100% !important;}
+.ͼ1l {min-height: 80px; max-height: 400px;}
+.ͼ1l .cm-scroller {height: 100% !important;}
+.ͼ1k {min-height: 80px; max-height: 400px;}
+.ͼ1k .cm-scroller {height: 100% !important;}
+.ͼ1j {min-height: 80px; max-height: 400px;}
+.ͼ1j .cm-scroller {height: 100% !important;}
+.ͼ1i {min-height: 80px; max-height: 400px;}
+.ͼ1i .cm-scroller {height: 100% !important;}
+.ͼ1f {min-height: 80px; max-height: 400px;}
+.ͼ1f .cm-scroller {height: 100% !important;}
+.ͼ1e {min-height: 80px; max-height: 400px;}
+.ͼ1e .cm-scroller {height: 100% !important;}
+.ͼ4 .cm-line ::selection, .ͼ4 .cm-line::selection {background-color: transparent !important;}
+.ͼ4 .cm-line {caret-color: transparent !important;}
+.ͼ4 .cm-content :focus::selection, .ͼ4 .cm-content :focus ::selection {background-color: Highlight !important;}
+.ͼ4 .cm-content :focus {caret-color: initial !important;}
+.ͼ4 .cm-content {caret-color: transparent !important;}
+</style><script async="" src="https://www.googletagmanager.com/gtm.js?id=GTM-NNJWLDT&amp;gtm_auth=&amp;gtm_preview=&amp;gtm_cookies_win=x"></script><script>
+      (function(w,d,s,l,i){w[l]=w[l]||[];
+        w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js', });
+        var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';
+        j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl+'&gtm_auth=&gtm_preview=&gtm_cookies_win=x';
+        f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-NNJWLDT');</script><script type="text/javascript" async="" src="//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js"></script><script async="" src="https://scripts.clarity.ms/0.8.41/clarity.js"></script><script type="text/javascript" async="" src="https://cdn.mxpnl.com/libs/mixpanel-js-wrapper.js"></script><script src="https://connect.facebook.net/signals/config/138816808094442?v=2.9.243&amp;r=stable&amp;domain=schrottkiste-shop.fourthwall.com&amp;hme=fdfab1132115f4ac7aabc9fd7eee63947594f6e6f1735b47a225dd71217525d3&amp;ex_m=89%2C147%2C127%2C18%2C65%2C66%2C120%2C61%2C41%2C121%2C70%2C60%2C134%2C78%2C13%2C88%2C26%2C115%2C108%2C68%2C71%2C114%2C131%2C97%2C136%2C7%2C3%2C4%2C6%2C5%2C2%2C79%2C87%2C137%2C214%2C158%2C55%2C216%2C217%2C48%2C173%2C25%2C67%2C222%2C221%2C161%2C28%2C54%2C8%2C57%2C83%2C84%2C85%2C90%2C111%2C27%2C24%2C113%2C110%2C109%2C128%2C69%2C130%2C129%2C43%2C53%2C105%2C12%2C133%2C38%2C203%2C205%2C168%2C21%2C22%2C23%2C15%2C16%2C37%2C33%2C35%2C34%2C74%2C80%2C82%2C95%2C119%2C122%2C39%2C96%2C19%2C17%2C101%2C62%2C31%2C124%2C123%2C125%2C116%2C20%2C30%2C52%2C94%2C132%2C63%2C14%2C126%2C29%2C183%2C154%2C275%2C201%2C145%2C186%2C179%2C155%2C92%2C112%2C73%2C103%2C47%2C40%2C102%2C107%2C51%2C58%2C42%2C98%2C46%2C49%2C45%2C86%2C135%2C0%2C106%2C11%2C104%2C9%2C1%2C50%2C81%2C56%2C59%2C100%2C77%2C76%2C44%2C117%2C75%2C72%2C64%2C99%2C91%2C36%2C118%2C32%2C93%2C10%2C138" async=""></script><script async="" src="https://connect.facebook.net/en_US/fbevents.js"></script><script type="text/javascript" async="" src="https://www.redditstatic.com/ads/pixel.js"></script><script type="text/javascript" async="" src="https://www.clarity.ms/tag/fjd1gfwhtq"></script><script type="text/javascript" async="" src="https://www.googletagmanager.com/gtag/js?id=G-TB5D1N0K99&amp;cx=c&amp;gtm=4e5bi1"></script><script type="text/javascript" async="" src="https://www.googletagmanager.com/gtag/js?id=G-DTMZKSKYTE&amp;cx=c&amp;gtm=4e5bi1"></script><script type="text/javascript" async="" src="https://www.googletagmanager.com/gtag/js?id=G-VMTYMRXHRG&amp;cx=c&amp;gtm=4e5bi1"></script><script async="" src="https://www.googletagmanager.com/gtm.js?id=GTM-NNJWLDT&amp;gtm_auth=&amp;gtm_preview=&amp;gtm_cookies_win=x"></script><script>
+      (function(w,d,s,l,i){w[l]=w[l]||[];
+        w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js', });
+        var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';
+        j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl+'&gtm_auth=&gtm_preview=&gtm_cookies_win=x';
+        f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-NNJWLDT');</script><script>
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({"userId":"6c57d1f6-4a3d-4e7b-a5e5-66b67755edeb","userEmail":"sophiefinkeldey@gmail.com","leadTier":"SELF_SERVICE","shopId":"sh_43880ec5-b377-40ce-99d7-ab677f13edf9","activeExperiments":[]})</script>
+<link rel="stylesheet" href="/platform/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Site design – Dashboard</title>
+    <link rel="icon" type="image/x-icon" href="/admin/dashboard/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/admin/dashboard/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/admin/dashboard/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="48x48" href="/admin/dashboard/favicon-48x48.png">
+<link rel="manifest" href="/admin/dashboard/manifest.webmanifest">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#fff">
+<meta name="application-name">
+<link rel="apple-touch-icon" sizes="57x57" href="/admin/dashboard/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/admin/dashboard/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/admin/dashboard/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/admin/dashboard/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/admin/dashboard/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/admin/dashboard/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/admin/dashboard/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/admin/dashboard/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="167x167" href="/admin/dashboard/apple-touch-icon-167x167.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/admin/dashboard/apple-touch-icon-180x180.png">
+<link rel="apple-touch-icon" sizes="1024x1024" href="/admin/dashboard/apple-touch-icon-1024x1024.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title">
+<link rel="apple-touch-startup-image" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" href="/admin/dashboard/apple-touch-startup-image-640x1136.png">
+<link rel="apple-touch-startup-image" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)" href="/admin/dashboard/apple-touch-startup-image-1136x640.png">
+<link rel="apple-touch-startup-image" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" href="/admin/dashboard/apple-touch-startup-image-750x1334.png">
+<link rel="apple-touch-startup-image" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)" href="/admin/dashboard/apple-touch-startup-image-1334x750.png">
+<link rel="apple-touch-startup-image" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="/admin/dashboard/apple-touch-startup-image-1125x2436.png">
+<link rel="apple-touch-startup-image" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)" href="/admin/dashboard/apple-touch-startup-image-2436x1125.png">
+<link rel="apple-touch-startup-image" media="(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="/admin/dashboard/apple-touch-startup-image-1170x2532.png">
+<link rel="apple-touch-startup-image" media="(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)" href="/admin/dashboard/apple-touch-startup-image-2532x1170.png">
+<link rel="apple-touch-startup-image" media="(device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="/admin/dashboard/apple-touch-startup-image-1179x2556.png">
+<link rel="apple-touch-startup-image" media="(device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)" href="/admin/dashboard/apple-touch-startup-image-2556x1179.png">
+<link rel="apple-touch-startup-image" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" href="/admin/dashboard/apple-touch-startup-image-828x1792.png">
+<link rel="apple-touch-startup-image" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)" href="/admin/dashboard/apple-touch-startup-image-1792x828.png">
+<link rel="apple-touch-startup-image" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="/admin/dashboard/apple-touch-startup-image-1242x2688.png">
+<link rel="apple-touch-startup-image" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)" href="/admin/dashboard/apple-touch-startup-image-2688x1242.png">
+<link rel="apple-touch-startup-image" media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="/admin/dashboard/apple-touch-startup-image-1242x2208.png">
+<link rel="apple-touch-startup-image" media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)" href="/admin/dashboard/apple-touch-startup-image-2208x1242.png">
+<link rel="apple-touch-startup-image" media="(device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="/admin/dashboard/apple-touch-startup-image-1284x2778.png">
+<link rel="apple-touch-startup-image" media="(device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)" href="/admin/dashboard/apple-touch-startup-image-2778x1284.png">
+<link rel="apple-touch-startup-image" media="(device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="/admin/dashboard/apple-touch-startup-image-1290x2796.png">
+<link rel="apple-touch-startup-image" media="(device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)" href="/admin/dashboard/apple-touch-startup-image-2796x1290.png">
+<link rel="apple-touch-startup-image" media="(device-width: 744px) and (device-height: 1133px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" href="/admin/dashboard/apple-touch-startup-image-1488x2266.png">
+<link rel="apple-touch-startup-image" media="(device-width: 744px) and (device-height: 1133px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)" href="/admin/dashboard/apple-touch-startup-image-2266x1488.png">
+<link rel="apple-touch-startup-image" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" href="/admin/dashboard/apple-touch-startup-image-1536x2048.png">
+<link rel="apple-touch-startup-image" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)" href="/admin/dashboard/apple-touch-startup-image-2048x1536.png">
+<link rel="apple-touch-startup-image" media="(device-width: 810px) and (device-height: 1080px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" href="/admin/dashboard/apple-touch-startup-image-1620x2160.png">
+<link rel="apple-touch-startup-image" media="(device-width: 810px) and (device-height: 1080px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)" href="/admin/dashboard/apple-touch-startup-image-2160x1620.png">
+<link rel="apple-touch-startup-image" media="(device-width: 820px) and (device-height: 1080px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" href="/admin/dashboard/apple-touch-startup-image-1640x2160.png">
+<link rel="apple-touch-startup-image" media="(device-width: 820px) and (device-height: 1080px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)" href="/admin/dashboard/apple-touch-startup-image-2160x1640.png">
+<link rel="apple-touch-startup-image" media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" href="/admin/dashboard/apple-touch-startup-image-1668x2388.png">
+<link rel="apple-touch-startup-image" media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)" href="/admin/dashboard/apple-touch-startup-image-2388x1668.png">
+<link rel="apple-touch-startup-image" media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" href="/admin/dashboard/apple-touch-startup-image-1668x2224.png">
+<link rel="apple-touch-startup-image" media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)" href="/admin/dashboard/apple-touch-startup-image-2224x1668.png">
+<link rel="apple-touch-startup-image" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" href="/admin/dashboard/apple-touch-startup-image-2048x2732.png">
+<link rel="apple-touch-startup-image" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)" href="/admin/dashboard/apple-touch-startup-image-2732x2048.png">
+<meta name="msapplication-TileColor" content="#fff">
+<meta name="msapplication-TileImage" content="/admin/dashboard/mstile-144x144.png">
+<meta name="msapplication-config" content="/admin/dashboard/browserconfig.xml">
+<link rel="yandex-tableau-widget" href="/admin/dashboard/yandex-browser-manifest.json">
+
+    <script>
+      // On deployment to production `$REPLACE_ENV` string will be
+      // replaced with object containing env variables by prepare-env.sh
+      globalThis.__fw_env__ = {"FW_ENV":"production","FW_BASE_URL":"https://fourthwall.com","FW_BASE_API_URL":"https://api.fourthwall.com","FW_RENDERING_API_URL":"","FW_AUTH_URL":"https://auth.fourthwall.com","FW_HASURA_API_URL":"https://hasura.fourthwall.com","FW_SHOP_RENDERER_API_URL":"https://shop-renderer.fourthwall.com","FW_HERO_URL":"https://hero.fourthwall.com","FW_CHATBOT_URL":"https://chatbot.fourthwall.com","FW_UPSCALER_URL":"https://upscaler.fourthwall.com","FW_MY_SHOP_URL":"https://my-shop.fourthwall.com","FW_SENTRY_DSN":"https://4fdc236d00654cf4acf45295ae72e076@o276638.ingest.us.sentry.io/1517467","FW_COMMIT_HASH":"b755181410bcacb8f0bcf15f77173e7ba154cb60","FW_REGISTER_URL":"https://fourthwall.com/get-started","FW_PRODUCT_CATALOG_URL":"https://fourthwall.com/products"}
+    </script>
+
+    <script type="module" crossorigin="" src="/admin/dashboard/assets/index-Bxw_OzzE.js"></script>
+    <link rel="stylesheet" crossorigin="" href="/admin/dashboard/assets/index-BguFoXsQ.css">
+  <style type="text/css" id="operaUserStyle"></style><style data-styled="active" data-styled-version="6.1.17"></style><style>:root{--toastify-color-light:#fff;--toastify-color-dark:#121212;--toastify-color-info:#3498db;--toastify-color-success:#07bc0c;--toastify-color-warning:#f1c40f;--toastify-color-error:#e74c3c;--toastify-color-transparent:hsla(0,0%,100%,.7);--toastify-icon-color-info:var(--toastify-color-info);--toastify-icon-color-success:var(--toastify-color-success);--toastify-icon-color-warning:var(--toastify-color-warning);--toastify-icon-color-error:var(--toastify-color-error);--toastify-toast-width:320px;--toastify-toast-offset:16px;--toastify-toast-top:max(var(--toastify-toast-offset),env(safe-area-inset-top));--toastify-toast-right:max(var(--toastify-toast-offset),env(safe-area-inset-right));--toastify-toast-left:max(var(--toastify-toast-offset),env(safe-area-inset-left));--toastify-toast-bottom:max(var(--toastify-toast-offset),env(safe-area-inset-bottom));--toastify-toast-background:#fff;--toastify-toast-min-height:64px;--toastify-toast-max-height:800px;--toastify-toast-bd-radius:6px;--toastify-font-family:sans-serif;--toastify-z-index:9999;--toastify-text-color-light:#757575;--toastify-text-color-dark:#fff;--toastify-text-color-info:#fff;--toastify-text-color-success:#fff;--toastify-text-color-warning:#fff;--toastify-text-color-error:#fff;--toastify-spinner-color:#616161;--toastify-spinner-color-empty-area:#e0e0e0;--toastify-color-progress-light:linear-gradient(90deg,#4cd964,#5ac8fa,#007aff,#34aadc,#5856d6,#ff2d55);--toastify-color-progress-dark:#bb86fc;--toastify-color-progress-info:var(--toastify-color-info);--toastify-color-progress-success:var(--toastify-color-success);--toastify-color-progress-warning:var(--toastify-color-warning);--toastify-color-progress-error:var(--toastify-color-error);--toastify-color-progress-bgo:0.2}.Toastify__toast-container{z-index:var(--toastify-z-index);-webkit-transform:translateZ(var(--toastify-z-index));position:fixed;padding:4px;width:var(--toastify-toast-width);box-sizing:border-box;color:#fff}.Toastify__toast-container--top-left{top:var(--toastify-toast-top);left:var(--toastify-toast-left)}.Toastify__toast-container--top-center{top:var(--toastify-toast-top);left:50%;transform:translateX(-50%)}.Toastify__toast-container--top-right{top:var(--toastify-toast-top);right:var(--toastify-toast-right)}.Toastify__toast-container--bottom-left{bottom:var(--toastify-toast-bottom);left:var(--toastify-toast-left)}.Toastify__toast-container--bottom-center{bottom:var(--toastify-toast-bottom);left:50%;transform:translateX(-50%)}.Toastify__toast-container--bottom-right{bottom:var(--toastify-toast-bottom);right:var(--toastify-toast-right)}@media only screen and (max-width:480px){.Toastify__toast-container{width:100vw;padding:0;left:env(safe-area-inset-left);margin:0}.Toastify__toast-container--top-center,.Toastify__toast-container--top-left,.Toastify__toast-container--top-right{top:env(safe-area-inset-top);transform:translateX(0)}.Toastify__toast-container--bottom-center,.Toastify__toast-container--bottom-left,.Toastify__toast-container--bottom-right{bottom:env(safe-area-inset-bottom);transform:translateX(0)}.Toastify__toast-container--rtl{right:env(safe-area-inset-right);left:auto}}.Toastify__toast{--y:0;position:relative;-ms-touch-action:none;touch-action:none;min-height:var(--toastify-toast-min-height);box-sizing:border-box;margin-bottom:1rem;padding:8px;border-radius:var(--toastify-toast-bd-radius);box-shadow:0 4px 12px rgba(0,0,0,.1);display:-ms-flexbox;display:flex;-ms-flex-pack:justify;justify-content:space-between;max-height:var(--toastify-toast-max-height);font-family:var(--toastify-font-family);cursor:default;direction:ltr;z-index:0;overflow:hidden}.Toastify__toast--stacked{position:absolute;width:100%;transform:translate3d(0,var(--y),0) scale(var(--s));transition:transform .3s}.Toastify__toast--stacked[data-collapsed] .Toastify__close-button,.Toastify__toast--stacked[data-collapsed] .Toastify__toast-body{transition:opacity .1s}.Toastify__toast--stacked[data-collapsed=false]{overflow:visible}.Toastify__toast--stacked[data-collapsed=true]:not(:last-child)>*{opacity:0}.Toastify__toast--stacked:after{content:"";position:absolute;left:0;right:0;height:calc(var(--g) * 1px);bottom:100%}.Toastify__toast--stacked[data-pos=top]{top:0}.Toastify__toast--stacked[data-pos=bot]{bottom:0}.Toastify__toast--stacked[data-pos=bot].Toastify__toast--stacked:before{transform-origin:top}.Toastify__toast--stacked[data-pos=top].Toastify__toast--stacked:before{transform-origin:bottom}.Toastify__toast--stacked:before{content:"";position:absolute;left:0;right:0;bottom:0;height:100%;transform:scaleY(3);z-index:-1}.Toastify__toast--rtl{direction:rtl}.Toastify__toast--close-on-click{cursor:pointer}.Toastify__toast-body{margin:auto 0;-ms-flex:1 1 auto;flex:1 1 auto;padding:6px;display:-ms-flexbox;display:flex;-ms-flex-align:center;align-items:center}.Toastify__toast-body>div:last-child{word-break:break-word;-ms-flex:1;flex:1}.Toastify__toast-icon{-webkit-margin-end:10px;margin-inline-end:10px;width:20px;-ms-flex-negative:0;flex-shrink:0;display:-ms-flexbox;display:flex}.Toastify--animate{animation-fill-mode:both;animation-duration:.5s}.Toastify--animate-icon{animation-fill-mode:both;animation-duration:.3s}@media only screen and (max-width:480px){.Toastify__toast{margin-bottom:0;border-radius:0}}.Toastify__toast-theme--dark{background:var(--toastify-color-dark);color:var(--toastify-text-color-dark)}.Toastify__toast-theme--colored.Toastify__toast--default,.Toastify__toast-theme--light{background:var(--toastify-color-light);color:var(--toastify-text-color-light)}.Toastify__toast-theme--colored.Toastify__toast--info{color:var(--toastify-text-color-info);background:var(--toastify-color-info)}.Toastify__toast-theme--colored.Toastify__toast--success{color:var(--toastify-text-color-success);background:var(--toastify-color-success)}.Toastify__toast-theme--colored.Toastify__toast--warning{color:var(--toastify-text-color-warning);background:var(--toastify-color-warning)}.Toastify__toast-theme--colored.Toastify__toast--error{color:var(--toastify-text-color-error);background:var(--toastify-color-error)}.Toastify__progress-bar-theme--light{background:var(--toastify-color-progress-light)}.Toastify__progress-bar-theme--dark{background:var(--toastify-color-progress-dark)}.Toastify__progress-bar--info{background:var(--toastify-color-progress-info)}.Toastify__progress-bar--success{background:var(--toastify-color-progress-success)}.Toastify__progress-bar--warning{background:var(--toastify-color-progress-warning)}.Toastify__progress-bar--error{background:var(--toastify-color-progress-error)}.Toastify__progress-bar-theme--colored.Toastify__progress-bar--error,.Toastify__progress-bar-theme--colored.Toastify__progress-bar--info,.Toastify__progress-bar-theme--colored.Toastify__progress-bar--success,.Toastify__progress-bar-theme--colored.Toastify__progress-bar--warning{background:var(--toastify-color-transparent)}.Toastify__close-button{color:#fff;background:transparent;outline:none;border:none;padding:0;cursor:pointer;opacity:.7;transition:.3s ease;-ms-flex-item-align:start;align-self:flex-start;z-index:1}.Toastify__close-button--light{color:#000;opacity:.3}.Toastify__close-button>svg{fill:currentColor;height:16px;width:14px}.Toastify__close-button:focus,.Toastify__close-button:hover{opacity:1}@keyframes Toastify__trackProgress{0%{transform:scaleX(1)}to{transform:scaleX(0)}}.Toastify__progress-bar{position:absolute;bottom:0;left:0;width:100%;height:100%;z-index:var(--toastify-z-index);opacity:.7;transform-origin:left;border-bottom-left-radius:var(--toastify-toast-bd-radius)}.Toastify__progress-bar--animated{animation:Toastify__trackProgress linear 1 forwards}.Toastify__progress-bar--controlled{transition:transform .2s}.Toastify__progress-bar--rtl{right:0;left:auto;transform-origin:right;border-bottom-left-radius:0;border-bottom-right-radius:var(--toastify-toast-bd-radius)}.Toastify__progress-bar--wrp{position:absolute;bottom:0;left:0;width:100%;height:5px;border-bottom-left-radius:var(--toastify-toast-bd-radius)}.Toastify__progress-bar--wrp[data-hidden=true]{opacity:0}.Toastify__progress-bar--bg{opacity:var(--toastify-color-progress-bgo);width:100%;height:100%}.Toastify__spinner{width:20px;height:20px;box-sizing:border-box;border:2px solid;border-radius:100%;border-color:var(--toastify-spinner-color-empty-area);border-right-color:var(--toastify-spinner-color);animation:Toastify__spin .65s linear infinite}@keyframes Toastify__bounceInRight{0%,60%,75%,90%,to{animation-timing-function:cubic-bezier(.215,.61,.355,1)}0%{opacity:0;transform:translate3d(3000px,0,0)}60%{opacity:1;transform:translate3d(-25px,0,0)}75%{transform:translate3d(10px,0,0)}90%{transform:translate3d(-5px,0,0)}to{transform:none}}@keyframes Toastify__bounceOutRight{20%{opacity:1;transform:translate3d(-20px,var(--y),0)}to{opacity:0;transform:translate3d(2000px,var(--y),0)}}@keyframes Toastify__bounceInLeft{0%,60%,75%,90%,to{animation-timing-function:cubic-bezier(.215,.61,.355,1)}0%{opacity:0;transform:translate3d(-3000px,0,0)}60%{opacity:1;transform:translate3d(25px,0,0)}75%{transform:translate3d(-10px,0,0)}90%{transform:translate3d(5px,0,0)}to{transform:none}}@keyframes Toastify__bounceOutLeft{20%{opacity:1;transform:translate3d(20px,var(--y),0)}to{opacity:0;transform:translate3d(-2000px,var(--y),0)}}@keyframes Toastify__bounceInUp{0%,60%,75%,90%,to{animation-timing-function:cubic-bezier(.215,.61,.355,1)}0%{opacity:0;transform:translate3d(0,3000px,0)}60%{opacity:1;transform:translate3d(0,-20px,0)}75%{transform:translate3d(0,10px,0)}90%{transform:translate3d(0,-5px,0)}to{transform:translateZ(0)}}@keyframes Toastify__bounceOutUp{20%{transform:translate3d(0,calc(var(--y) - 10px),0)}40%,45%{opacity:1;transform:translate3d(0,calc(var(--y) + 20px),0)}to{opacity:0;transform:translate3d(0,-2000px,0)}}@keyframes Toastify__bounceInDown{0%,60%,75%,90%,to{animation-timing-function:cubic-bezier(.215,.61,.355,1)}0%{opacity:0;transform:translate3d(0,-3000px,0)}60%{opacity:1;transform:translate3d(0,25px,0)}75%{transform:translate3d(0,-10px,0)}90%{transform:translate3d(0,5px,0)}to{transform:none}}@keyframes Toastify__bounceOutDown{20%{transform:translate3d(0,calc(var(--y) - 10px),0)}40%,45%{opacity:1;transform:translate3d(0,calc(var(--y) + 20px),0)}to{opacity:0;transform:translate3d(0,2000px,0)}}.Toastify__bounce-enter--bottom-left,.Toastify__bounce-enter--top-left{animation-name:Toastify__bounceInLeft}.Toastify__bounce-enter--bottom-right,.Toastify__bounce-enter--top-right{animation-name:Toastify__bounceInRight}.Toastify__bounce-enter--top-center{animation-name:Toastify__bounceInDown}.Toastify__bounce-enter--bottom-center{animation-name:Toastify__bounceInUp}.Toastify__bounce-exit--bottom-left,.Toastify__bounce-exit--top-left{animation-name:Toastify__bounceOutLeft}.Toastify__bounce-exit--bottom-right,.Toastify__bounce-exit--top-right{animation-name:Toastify__bounceOutRight}.Toastify__bounce-exit--top-center{animation-name:Toastify__bounceOutUp}.Toastify__bounce-exit--bottom-center{animation-name:Toastify__bounceOutDown}@keyframes Toastify__zoomIn{0%{opacity:0;transform:scale3d(.3,.3,.3)}50%{opacity:1}}@keyframes Toastify__zoomOut{0%{opacity:1}50%{opacity:0;transform:translate3d(0,var(--y),0) scale3d(.3,.3,.3)}to{opacity:0}}.Toastify__zoom-enter{animation-name:Toastify__zoomIn}.Toastify__zoom-exit{animation-name:Toastify__zoomOut}@keyframes Toastify__flipIn{0%{transform:perspective(400px) rotateX(90deg);animation-timing-function:ease-in;opacity:0}40%{transform:perspective(400px) rotateX(-20deg);animation-timing-function:ease-in}60%{transform:perspective(400px) rotateX(10deg);opacity:1}80%{transform:perspective(400px) rotateX(-5deg)}to{transform:perspective(400px)}}@keyframes Toastify__flipOut{0%{transform:translate3d(0,var(--y),0) perspective(400px)}30%{transform:translate3d(0,var(--y),0) perspective(400px) rotateX(-20deg);opacity:1}to{transform:translate3d(0,var(--y),0) perspective(400px) rotateX(90deg);opacity:0}}.Toastify__flip-enter{animation-name:Toastify__flipIn}.Toastify__flip-exit{animation-name:Toastify__flipOut}@keyframes Toastify__slideInRight{0%{transform:translate3d(110%,0,0);visibility:visible}to{transform:translate3d(0,var(--y),0)}}@keyframes Toastify__slideInLeft{0%{transform:translate3d(-110%,0,0);visibility:visible}to{transform:translate3d(0,var(--y),0)}}@keyframes Toastify__slideInUp{0%{transform:translate3d(0,110%,0);visibility:visible}to{transform:translate3d(0,var(--y),0)}}@keyframes Toastify__slideInDown{0%{transform:translate3d(0,-110%,0);visibility:visible}to{transform:translate3d(0,var(--y),0)}}@keyframes Toastify__slideOutRight{0%{transform:translate3d(0,var(--y),0)}to{visibility:hidden;transform:translate3d(110%,var(--y),0)}}@keyframes Toastify__slideOutLeft{0%{transform:translate3d(0,var(--y),0)}to{visibility:hidden;transform:translate3d(-110%,var(--y),0)}}@keyframes Toastify__slideOutDown{0%{transform:translate3d(0,var(--y),0)}to{visibility:hidden;transform:translate3d(0,500px,0)}}@keyframes Toastify__slideOutUp{0%{transform:translate3d(0,var(--y),0)}to{visibility:hidden;transform:translate3d(0,-500px,0)}}.Toastify__slide-enter--bottom-left,.Toastify__slide-enter--top-left{animation-name:Toastify__slideInLeft}.Toastify__slide-enter--bottom-right,.Toastify__slide-enter--top-right{animation-name:Toastify__slideInRight}.Toastify__slide-enter--top-center{animation-name:Toastify__slideInDown}.Toastify__slide-enter--bottom-center{animation-name:Toastify__slideInUp}.Toastify__slide-exit--bottom-left,.Toastify__slide-exit--top-left{animation-name:Toastify__slideOutLeft;animation-timing-function:ease-in;animation-duration:.3s}.Toastify__slide-exit--bottom-right,.Toastify__slide-exit--top-right{animation-name:Toastify__slideOutRight;animation-timing-function:ease-in;animation-duration:.3s}.Toastify__slide-exit--top-center{animation-name:Toastify__slideOutUp;animation-timing-function:ease-in;animation-duration:.3s}.Toastify__slide-exit--bottom-center{animation-name:Toastify__slideOutDown;animation-timing-function:ease-in;animation-duration:.3s}@keyframes Toastify__spin{0%{transform:rotate(0deg)}to{transform:rotate(1turn)}}</style><style type="text/css">.TnITTtw-fp-collapsed-button {
+    display: none;
+    position: fixed !important;
+    top: 16px !important;
+    right: 16px !important;
+}
+
+.TnITTtw-fp-collapsed-button:hover {
+    opacity: 1.0 !important;
+}
+
+.TnITTtw-mate-fp-bar {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Helvetica, Arial, Ubuntu, sans-serif !important;
+    color: #000;
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    z-index: 999;
+    background: rgb(255 255 255 / 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 16px;
+    border-radius: 11px;
+    box-shadow: 0 2px 10px rgb(0 0 0 / 25%);
+    width: 320px;
+    line-height: initial;
+}
+
+@-moz-document url-prefix() {
+    .TnITTtw-mate-fp-bar {
+        background: rgb(255 255 255 / 1.0);
+    }
+}
+
+.TnITTtw-mate-fp-bar.TnITTtw-dark-mode {
+    background: rgb(44, 44, 43);
+}
+
+.TnITTtw-hide-fp-bar {
+    width: 12px;
+    height: 12px;
+    background-image: url(chrome-extension://ollghamalkmmhboihmhoaaobmamehjgn/res/images/ui/regular-close-tt.png) !important;
+    background-size: 12px 12px;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: absolute;
+    right: 8px;
+    top: 8px;
+    cursor: pointer;
+}
+
+.TnITTtw-hide-fp-bar:hover {
+    background-image: url(chrome-extension://ollghamalkmmhboihmhoaaobmamehjgn/res/images/ui/hover-close-tt.png) !important;
+}
+
+.TnITTtw-current-page-lang {
+    color: #6d6d72;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    text-align: center;
+}
+
+.TnITTtw-dark-mode .TnITTtw-current-page-lang {
+    color: #98989D;
+}
+
+.TnITTtw-fp-translate {
+    width: calc(100% - 73px) !important;
+    font-size: 14px !important;
+    text-transform: none !important;
+}
+
+.TnITTtw-fp-translate.TnITTtw-in-progress {
+    animation-name: funky-bg;
+    animation-duration: 10s;
+    animation-timing-function: ease-in;
+}
+
+.TnITTtw-fp-translate.TnITTtw-show-original {
+    width: calc(100% - 20px) !important;
+}
+
+@keyframes funky-bg {
+    from {
+        background-image: linear-gradient(145deg, #01EF92, #00D8FB),
+        linear-gradient(35deg, rgba(1, 239, 146, 0.25), rgba(0, 216, 251, 0.25)) !important;
+    }
+
+    to {
+        background-image: linear-gradient(90deg, #01EF92, #00D8FB),
+        linear-gradient(35deg, rgba(1, 239, 146, 0.25), rgba(0, 216, 251, 0.25)) !important;
+    }
+}
+
+.TnITTtw-change-language, .TnITTtw-stop-fp {
+    width: 38px;
+    height: 38px;
+    background-color: #EFEFF4;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 16px 16px;
+    border-radius: 11px;
+    display: inline-block;
+    vertical-align: top;
+    cursor: pointer;
+}
+
+.TnITTtw-change-language {
+    background-image: url(chrome-extension://ollghamalkmmhboihmhoaaobmamehjgn/res/images/ui/globe-earth.png) !important;
+}
+
+.TnITTtw-dark-mode .TnITTtw-change-language {
+    background-image: url(chrome-extension://ollghamalkmmhboihmhoaaobmamehjgn/res/images/ui/globe-earth-dark.png) !important;
+}
+
+.TnITTtw-stop-fp {
+    display: none;
+    background-image: url(chrome-extension://ollghamalkmmhboihmhoaaobmamehjgn/res/images/ui/regular-stt-stop.png) !important;
+    background-size: 12px 12px;
+}
+
+.TnITTtw-dark-mode .TnITTtw-change-language, .TnITTtw-dark-mode .TnITTtw-stop-fp {
+    background-color: #525251 !important;
+}
+
+.TnITTtw-change-language:hover, .TnITTtw-stop-fp:hover {
+    background-color: #F6F6F6;
+}
+
+.TnITTtw-change-language:active, .TnITTtw-stop-fp:active {
+    background-color: #E9E9E9;
+}
+
+.TnITTtw-dark-mode .TnITTtw-change-language:hover,
+.TnITTtw-dark-mode .TnITTtw-stop-fp:hover,
+.TnITTtw-dark-mode .TnITTtw-change-language:active,
+.TnITTtw-dark-mode .TnITTtw-stop-fp:active {
+    background-color: #767675;
+}
+
+#TnITTtw-always-translate {
+}
+
+.TnITTtw-fp-options input {
+    padding: initial;
+    width: auto;
+    border: initial;
+    box-shadow: initial;
+    line-height: initial;
+    height: auto;
+    display: initial;
+    position: initial;
+    appearance: auto;
+    top: initial;
+    cursor: pointer;
+    margin: 0;
+}
+
+.TnITTtw-fp-options input[readonly="readonly"] {
+    opacity: 0.5;
+}
+
+#TnITTtw-always-translate + label,
+#TnITTtw-never-translate-lang + label,
+#TnITTtw-never-translate-site + label {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Helvetica, Arial, Ubuntu, sans-serif !important;
+    display: inline-block;
+    font-weight: 400;
+    font-size: 14px;
+    margin-left: 4px;
+    color: #000;
+    cursor: pointer;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 296px;
+    vertical-align: top;
+    line-height: initial;
+    letter-spacing: initial;
+    text-transform: initial;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 0;
+}
+
+#TnITTtw-always-translate + label::before,
+#TnITTtw-never-translate-lang + label::before,
+#TnITTtw-never-translate-site + label::before,
+#TnITTtw-always-translate + label::after,
+#TnITTtw-never-translate-lang + label::after,
+#TnITTtw-never-translate-site + label::after  {
+    content: initial;
+} 
+
+.TnITTtw-always-translate-inner-label {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 252px;
+    vertical-align: top;
+    display: inline-block;
+}
+
+.TnITTtw-dark-mode #TnITTtw-always-translate + label,
+.TnITTtw-dark-mode #TnITTtw-never-translate-lang + label,
+.TnITTtw-dark-mode #TnITTtw-never-translate-site + label {
+    color: #FFF;
+}
+
+#TnITTtw-always-translate + label.TnITTtw-not-pro {
+    opacity: 0.5;
+}
+
+#TnITTtw-always-translate + label .TnITTtw-pro-label {
+    position: relative;
+    background: #000;
+    font-size: 11px;
+    text-transform: uppercase;
+    color: #FFF;
+    padding: 2px 5px;
+    border-radius: 4px;
+    margin-left: 10px;
+    top: -1px;
+    user-select: none;
+    -webkit-user-select: none;
+    display: inline;
+    font-weight: 500;
+}
+
+.TnITTtw-dark-mode #TnITTtw-always-translate + label .TnITTtw-pro-label {
+    background: #FFF;
+    color: #000;
+}
+
+.TnITTtw-inline-original-tooltip {
+    display: none;
+    position: absolute;
+    margin: 0px;
+    border: none;
+    padding: 16px;
+    color: rgb(0, 0, 0);
+    background-color: rgb(255 255 255 / 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 11px;
+    box-shadow: 0 2px 10px rgb(0 0 0 / 25%);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Helvetica, Arial, Ubuntu, sans-serif;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: normal;
+}
+
+.TnITTtw-dark-mode.TnITTtw-inline-original-tooltip {
+    background-color: rgb(0 0 0 / 0.915);
+    color: #FFF;
+}
+
+.TnITTtw-inline-original-tooltip .TnITTtw-close-original-tooltip {
+    width: 12px;
+    height: 12px;
+    background-image: url(chrome-extension://ollghamalkmmhboihmhoaaobmamehjgn/res/images/ui/regular-close-tt.png) !important;
+    background-size: 12px 12px;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: absolute;
+    right: 8px;
+    top: 8px;
+    cursor: pointer;
+}
+
+.TnITTtw-inline-original-tooltip .TnITTtw-close-original-tooltip:hover {
+    background-image: url(chrome-extension://ollghamalkmmhboihmhoaaobmamehjgn/res/images/ui/hover-close-tt.png) !important;
+}
+
+.TnITTtw-inline-original-tooltip .TnITTtw-original-label {
+    margin: 0;
+    font-weight: 600;
+    font-size: 13px;
+    text-transform: uppercase;
+    color: #6d6d72;
+    margin-bottom: 10px;
+}
+
+.TnITTtw-inline-original-tooltip.TnITTtw-dark-mode .TnITTtw-original-label {
+    color: #98989D;
+}
+
+.TnITTtw-inline-original-tooltip .TnITTtw-text-layout {
+    display: inline-block;
+    margin: 0;
+    font-size: 16px;
+    color: #000;
+}
+
+.TnITTtw-inline-original-tooltip.TnITTtw-dark-mode .TnITTtw-text-layout {
+    color: #FFF;
+}
+
+.TnITTtw-highlighted-for-original {
+    color: #0F0F5F;
+    background-color: #F0F0A0;
+}
+
+/* Dropdown scrollbars */
+
+#selVisibleScroll-1, #selVisibleScroll-2, #selVisibleScroll-3 {
+    overflow: hidden;
+    height: 259px;
+    width: 100%;
+    position: relative;
+}
+
+#sel-scrollbar-1, #sel-scrollbar-2, #sel-scrollbar-3 {
+    position: absolute;
+    width: 4px;
+    height: 259px;
+    left: 225px;
+}
+
+#sel-track-1, #sel-track-2, #sel-track-3 {
+    position: absolute;
+    top: 1px;
+    width: 4px;
+    height: calc(100% - 6px);
+}
+
+#sel-dragBar-1, #sel-dragBar-2, #sel-dragBar-3 {
+    position: absolute;
+    top: 1px;
+    width: 4px;
+    background: rgba(43, 43, 43, 0.5);
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.dark-mode #sel-dragBar-1, .dark-mode #sel-dragBar-2, .dark-mode #sel-dragBar-3 {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+#sel-dragBar-1:hover, #sel-dragBar-2:hover, #sel-dragBar-3:hover, 
+#sel-dragBar-1:active, #sel-dragBar-2:active, #sel-dragBar-3:active {
+    background: rgba(43, 43, 43, 0.675);
+}
+
+.dark-mode #sel-dragBar-1:hover,
+.dark-mode #sel-dragBar-2:hover,
+.dark-mode #sel-dragBar-3:hover,
+.dark-mode #sel-dragBar-1:active,
+.dark-mode #sel-dragBar-2:active,
+.dark-mode #sel-dragBar-3:active {
+    background: rgba(255, 255, 255, 0.675);
+}
+
+#sel-scrollbar-1, #sel-track-1, #sel-dragBar-1, 
+#sel-scrollbar-2, #sel-track-2, #sel-dragBar-2,
+#sel-scrollbar-3, #sel-track-3, #sel-dragBar-3 {
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+/* Spinner for when it's translating a page */
+
+.TnITTtw-cta-button-layout {
+    position: relative;
+    display: inline;
+}
+
+.TnITTtw-spinner {
+    display: none;
+    text-align: center;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    user-select: none;
+    -webkit-user-select: none;
+}
+  
+  @media screen and (max-width: 800px) {
+    .TnITTtw-spinner {
+      top: 28px;
+    }
+  }
+
+  .TnITTtw-spinner.in-text {
+    display: block;
+    background: transparent;
+    position: initial;
+  }
+
+  .TnITTtw-spinner.left {
+    text-align: left;
+  }
+  
+  .TnITTtw-spinner > div {
+    width: 12px;
+    height: 12px;
+    background-color: rgb(0, 71, 46);
+  
+    border-radius: 100%;
+    display: inline-block;
+    -webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+    animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+  }
+
+  .TnITTtw-spinner.in-text > div {
+    background-color: #000;
+  }
+  
+  .TnITTtw-spinner .TnITTtw-bounce1 {
+    -webkit-animation-delay: -0.32s;
+    animation-delay: -0.32s;
+  }
+  
+  .TnITTtw-spinner .TnITTtw-bounce2 {
+    -webkit-animation-delay: -0.16s;
+    animation-delay: -0.16s;
+  }
+  
+  @-webkit-keyframes sk-bouncedelay {
+    0%, 80%, 100% { -webkit-transform: scale(0) }
+    40% { -webkit-transform: scale(1.0) }
+  }
+  
+  @keyframes sk-bouncedelay {
+    0%, 80%, 100% { 
+      -webkit-transform: scale(0);
+      transform: scale(0);
+    } 40% { 
+      -webkit-transform: scale(1.0);
+      transform: scale(1.0);
+    }
+  }</style><style type="text/css">/*
+ * contextMenu.js v 1.4.0
+ * Author: Sudhanshu Yadav
+ * s-yadav.github.com
+ * Copyright (c) 2013 Sudhanshu Yadav.
+ * Dual licensed under the MIT and GPL licenses
+**/
+
+.iw-contextMenu {
+    box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.10) !important;
+    border: 1px solid #c8c7cc !important;
+    border-radius: 11px !important;
+    display: none;
+    z-index: 1000000132;
+    max-width: 300px !important;
+    width: auto !important;
+}
+
+.dark-mode .iw-contextMenu,
+.TnITTtw-dark-mode.iw-contextMenu,
+.TnITTtw-dark-mode .iw-contextMenu {
+    border-color: #747473 !important;
+}
+
+.iw-cm-menu {
+    background: #fff !important;
+    color: #000 !important;
+    margin: 0px !important;
+    padding: 0px !important;
+    overflow: visible !important;
+}
+
+.dark-mode .iw-cm-menu,
+.TnITTtw-dark-mode.iw-cm-menu,
+.TnITTtw-dark-mode .iw-cm-menu {
+    background: #525251 !important;
+    color: #FFF !important;
+}
+
+.iw-curMenu {
+}
+
+.iw-cm-menu li {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Helvetica, Arial, Ubuntu, sans-serif !important;
+    list-style: none !important;
+    padding: 10px !important;
+    padding-right: 20px !important;
+    border-bottom: 1px solid #c8c7cc !important;
+    font-weight: 400 !important;
+    cursor: pointer !important;
+    position: relative !important;
+    font-size: 14px !important;
+    margin: 0 !important;
+    line-height: inherit !important;
+    border-radius: 0 !important;
+    display: block !important;
+}
+
+.dark-mode .iw-cm-menu li, .TnITTtw-dark-mode .iw-cm-menu li {
+    border-bottom-color: #747473 !important;
+}
+
+.iw-cm-menu li:first-child {
+    border-top-left-radius: 11px !important;
+    border-top-right-radius: 11px !important;
+}
+
+.iw-cm-menu li:last-child {
+    border-bottom-left-radius: 11px !important;
+    border-bottom-right-radius: 11px !important;
+    border-bottom: none !important;
+}
+
+.iw-mOverlay {
+    position: absolute !important;
+    width: 100% !important;
+    height: 100% !important;
+    top: 0px !important;
+    left: 0px !important;
+    background: #FFF !important;
+    opacity: .5 !important;
+}
+
+.iw-contextMenu li.iw-mDisable {
+    opacity: 0.3 !important;
+    cursor: default !important;
+}
+
+.iw-mSelected {
+    background-color: #F6F6F6 !important;
+}
+
+.dark-mode .iw-mSelected, .TnITTtw-dark-mode .iw-mSelected {
+    background-color: #676766 !important;
+}
+
+.iw-cm-arrow-right {
+    width: 0 !important;
+    height: 0 !important;
+    border-top: 5px solid transparent !important;
+    border-bottom: 5px solid transparent !important;
+    border-left: 5px solid #000 !important;
+    position: absolute !important;
+    right: 5px !important;
+    top: 50% !important;
+    margin-top: -5px !important;
+}
+
+.dark-mode .iw-cm-arrow-right, .TnITTtw-dark-mode .iw-cm-arrow-right {
+    border-left-color: #FFF !important;
+}
+
+.iw-mSelected > .iw-cm-arrow-right {
+}
+
+/*context menu css end */</style><style type="text/css">.ui_selector, .TnITTtw-ui_selector {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Helvetica, Arial, Ubuntu, sans-serif;
+    display: inline-block;
+}
+
+.ui_selector .select, .TnITTtw-ui_selector .TnITTtw-select {
+    color: #000;
+    text-align: center;
+    font-weight: 600;
+    font-size: 14px;
+    border: 1px solid rgba(200, 199, 204, 0.5);
+    padding: 10px 15px;
+    width: 201px;
+    -webkit-user-select: none;
+    cursor: pointer;
+    border-radius: 11px;
+    display: inline-block;
+    background-image: -webkit-linear-gradient(top, #FAFAFA, #F6F6F6);
+    background-image: -moz-linear-gradient(top, #FAFAFA, #F6F6F6);
+    background-size: auto 48px;
+    background-position: 0px -11px;
+    box-shadow: 0 0.5px 1px rgba(0, 0, 0, 0.10);
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.dark-mode .ui_selector .select, 
+.TnITTtw-dark-mode .TnITTtw-ui_selector .TnITTtw-select {
+    background-image: -webkit-linear-gradient(top, #4A4A49, #40403F);
+    background-image: -moz-linear-gradient(top, #4A4A49, #40403F);
+    color: #FFF;
+    border-color: #747473;
+}
+
+.ui_selector .select:hover,
+.TnITTtw-ui_selector .TnITTtw-select:hover {
+    color: #424242;
+    background-image: -webkit-linear-gradient(top, #FAFAFA, #FAFAFA);
+    background-image: -moz-linear-gradient(top, #FAFAFA, #FAFAFA);
+}
+
+.ui_selector .select:active,
+.TnITTtw-ui_selector .TnITTtw-select:active {
+    color: #6d6d72;
+    background-image: -webkit-linear-gradient(top, #F6F6F6, #F6F6F6);
+    background-image: -moz-linear-gradient(top, #F6F6F6, #F6F6F6);
+}
+
+.dark-mode .ui_selector .select:hover,
+.dark-mode .ui_selector .select:active,
+.TnITTtw-dark-mode .TnITTtw-ui_selector .TnITTtw-select:hover,
+.TnITTtw-dark-mode .TnITTtw-ui_selector .TnITTtw-select:active {
+    background-image: -webkit-linear-gradient(top, #4A4A49, #4A4A49);
+    background-image: -moz-linear-gradient(top, #4A4A49, #4A4A49);
+    color: #FFF;
+    border-color: #747473;
+}
+
+.ui_selector .select .detected-ico,
+.TnITTtw-ui_selector .TnITTtw-select .TnITTtw-detected-ico {
+    display: inline-block;
+}
+
+.ui_selector .active, .ui_selector .active:hover, .ui_selector .active:active,
+.TnITTtw-ui_selector .TnITTtw-active, .TnITTtw-ui_selector .TnITTtw-active:hover, .TnITTtw-ui_selector .TnITTtw-active:active {
+    box-shadow: 0 -1px 15px -10px rgba(0, 0, 0, 0.85) !important;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    background: #F3F3F3;
+}
+
+.sliding-text,
+.TnITTtw-sliding-text {
+    position: relative;
+}
+
+.ui_selector .options,
+.TnITTtw-ui_selector .TnITTtw-options {
+    margin-left: 0px;
+    margin-top: -4px;
+    background: #fff;
+    border: 1px solid rgba(200, 199, 204, 0.5);
+    width: 231px;
+    overflow: hidden;
+    max-height: 313px;
+    position: absolute;
+    font-size: 12px;
+    box-shadow: 0 2px 10px rgb(0 0 0 / 25%);
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+    display: none;
+}
+
+.ui_selector .options.standalone,
+.TnITTtw-ui_selector .TnITTtw-options.TnITTtw-standalone {
+    border-radius: 11px;
+    margin-top: 16px;
+}
+
+/* for now, it can only be on the top */
+.ui_selector .options-arrow,
+.TnITTtw-ui_selector .TnITTtw-options-arrow {
+    display: none;
+    position: absolute;
+    width: 32px !important;
+    height: 18px !important;
+    background-image: url(chrome-extension://ollghamalkmmhboihmhoaaobmamehjgn/res/images/ui/tt-dropdown-arrow.png);
+    background-size: 32px 18px;
+    transform: rotate(180deg);
+    margin-top: -1px;
+}
+
+.dark-mode .ui_selector .options-arrow,
+.TnITTtw-dark-mode .TnITTtw-ui_selector .TnITTtw-options-arrow {
+    background-image: url(chrome-extension://ollghamalkmmhboihmhoaaobmamehjgn/res/images/ui/tt-dropdown-arrow-dark.png);
+}
+
+.dark-mode .ui_selector .options,
+.TnITTtw-dark-mode .TnITTtw-ui_selector .TnITTtw-options {
+    background: #525251;
+}
+
+.ui_selector .options ul,
+.TnITTtw-ui_selector .TnITTtw-options ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 232px;
+}
+
+.ui_selector .options ul li,
+.TnITTtw-ui_selector .TnITTtw-options ul li {
+    padding: 10px 0px;
+    -webkit-user-select: none;
+    text-align: center;
+    font-size: 17px;
+    -webkit-transition: all 600ms cubic-bezier(0.23, 1, 0.32, 1);
+    margin: 0 10px;
+    border-radius: 6px;
+    position: relative;
+}
+
+.dark-mode .options ul li,
+.TnITTtw-dark-mode .TnITTtw-options ul li {
+    color: #fff;
+}
+
+.ui_selector .options ul li:last-child,
+.TnITTtw-ui_selector .TnITTtw-options ul li:last-child {
+    margin-bottom: 16px;
+}
+
+.ui_selector .options ul li.option:first-child,
+.ui_selector .options ul li.option_selected:first-child,
+.TnITTtw-ui_selector .TnITTtw-options ul li.TnITTtw-option:first-child,
+.TnITTtw-ui_selector .TnITTtw-options ul li.TnITTtw-option_selected:first-child {
+    margin-top: 16px;
+}
+
+.ui_selector .options ul li.whenHover,
+.TnITTtw-ui_selector .TnITTtw-options ul li.TnITTtw-whenHover {
+    cursor: pointer;
+    background: #f3f3f3;
+    text-align: center;
+}
+
+.dark-mode .ui_selector .options ul li.whenHover,
+.TnITTtw-dark-mode .TnITTtw-ui_selector .TnITTtw-options ul li.TnITTtw-whenHover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.ui_selector .options ul li.option_selected,
+.TnITTtw-ui_selector .TnITTtw-options ul li.TnITTtw-option_selected {
+    cursor: pointer;
+    background-image: linear-gradient(145deg, #01EF92, #00D8FB),
+    linear-gradient(35deg, rgba(1, 239, 146, 0.25), rgba(0, 216, 251, 0.25)) !important;
+    color: #fff;
+    font-weight: 600;
+}
+
+.ui_selector .options ul .group,
+.ui_selector .options ul .group:hover,
+.ui_selector .options ul .group.whenHover,
+.TnITTtw-ui_selector .TnITTtw-options ul .TnITTtw-group,
+.TnITTtw-ui_selector .TnITTtw-options ul .TnITTtw-group:hover,
+.TnITTtw-ui_selector .TnITTtw-options ul .TnITTtw-group.whenHover {
+    padding: 16px 10px;
+    color: #8e8e93;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 12px;
+    text-align: center;
+    cursor: default;
+    background: #FFF;
+}
+
+.dark-mode .ui_selector .options ul .group,
+.dark-mode .ui_selector .options ul .group:hover,
+.dark-mode .ui_selector .options ul .group.whenHover,
+.TnITTtw-dark-mode .TnITTtw-ui_selector .TnITTtw-options ul .TnITTtw-group,
+.TnITTtw-dark-mode .TnITTtw-ui_selector .TnITTtw-options ul .TnITTtw-group:hover,
+.TnITTtw-dark-mode .TnITTtw-ui_selector .TnITTtw-options ul .TnITTtw-group.TnITTtw-whenHover {
+    color: #98989D;
+    background: #525251;
+}
+
+.group-element,
+.TnITTtw-group-element {
+    width: 153px;
+}
+
+.options .dd-search,
+.TnITTtw-options .TnITTtw-dd-search {
+    border-bottom: 1px solid rgba(200, 199, 204, 0.5);
+}
+
+.dark-mode .options .dd-search,
+.TnITTtw-dark-mode .TnITTtw-options .TnITTtw-dd-search {
+    border-bottom-color: #747473;
+}
+
+.dd-search .dd-input,
+.TnITTtw-dd-search .TnITTtw-dd-input {
+    padding: 16px;
+    padding-left: calc(16px * 3);
+    width: 168px;
+    border: none;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Helvetica, Arial, Ubuntu, sans-serif;
+    text-align: left;
+    color: #000;
+    font-size: 17px;
+    background-image: url(chrome-extension://ollghamalkmmhboihmhoaaobmamehjgn/res/images/ui/searchfield-icon.png);
+    background-position: 16px;
+    background-size: 16px;
+    background-repeat: no-repeat;
+    margin: 0;
+    height: auto;
+}
+
+.dark-mode .dd-search .dd-input,
+.TnITTtw-dark-mode .TnITTtw-dd-search .TnITTtw-dd-input {
+    color: #FFF;
+    background-color: #525251;
+}
+
+.dd-search .dd-input:focus,
+.TnITTtw-dd-search .TnITTtw-dd-input:focus {
+    -webkit-transition: all 275ms cubic-bezier(0.23, 1, 0.32, 1);
+    outline: none;
+    text-align: left;
+}
+
+.dd-input::-webkit-input-placeholder,
+.TnITTtw-dd-input::-webkit-input-placeholder {
+    color: #8e8e93;
+}
+
+.search-failed-plaque,
+.TnITTtw-search-failed-plaque {
+    text-align: center;
+    padding: 20px;
+    color: #8e8e93;
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.dark-mode .search-failed-plaque,
+.TnITTtw-dark-mode .TnITTtw-search-failed-plaque {
+    color: #98989D;
+}
+
+.rm-recent,
+.TnITTtw-rm-recent {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-image: url(chrome-extension://ollghamalkmmhboihmhoaaobmamehjgn/res/images/ui/regular-lang-remove.png);
+    background-size: 10px 10px;
+    top: 15px;
+    right: 10px;
+}
+
+.rm-recent:hover,
+.TnITTtw-rm-recent:hover {
+    background-image: url(chrome-extension://ollghamalkmmhboihmhoaaobmamehjgn/res/images/ui/hover-lang-remove.png);
+}
+
+.rm-recent:active,
+.TnITTtw-rm-recent:active {
+    background-image: url(chrome-extension://ollghamalkmmhboihmhoaaobmamehjgn/res/images/ui/down-lang-remove.png);
+}
+
+.option_selected .rm-recent,
+.TnITTtw-option_selected .TnITTtw-rm-recent {
+    background-image: url(chrome-extension://ollghamalkmmhboihmhoaaobmamehjgn/res/images/ui/down-active-lang-remove.png);
+}
+
+.option_selected .rm-recent:hover,
+.TnITTtw-option_selected .TnITTtw-rm-recent:hover {
+    background-image: url(chrome-extension://ollghamalkmmhboihmhoaaobmamehjgn/res/images/ui/hover-active-lang-remove.png);
+}
+
+.option_selected .rm-recent:active,
+.TnITTtw-option_selected .TnITTtw-rm-recent:active {
+    background-image: url(chrome-extension://ollghamalkmmhboihmhoaaobmamehjgn/res/images/ui/down-active-lang-remove.png);
+}
+
+.TnITTtw-hidden {
+    display: none;
+}</style><style type="text/css">@-webkit-keyframes load4 {
+    0%,
+    100% {
+        box-shadow: 0 -3em 0 0.2em, 2em -2em 0 0em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 0;
+    }
+    12.5% {
+        box-shadow: 0 -3em 0 0, 2em -2em 0 0.2em, 3em 0 0 0, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 -1em;
+    }
+    25% {
+        box-shadow: 0 -3em 0 -0.5em, 2em -2em 0 0, 3em 0 0 0.2em, 2em 2em 0 0, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 -1em;
+    }
+    37.5% {
+        box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0em 0 0, 2em 2em 0 0.2em, 0 3em 0 0em, -2em 2em 0 -1em, -3em 0em 0 -1em, -2em -2em 0 -1em;
+    }
+    50% {
+        box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 0em, 0 3em 0 0.2em, -2em 2em 0 0, -3em 0em 0 -1em, -2em -2em 0 -1em;
+    }
+    62.5% {
+        box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 0, -2em 2em 0 0.2em, -3em 0 0 0, -2em -2em 0 -1em;
+    }
+    75% {
+        box-shadow: 0em -3em 0 -1em, 2em -2em 0 -1em, 3em 0em 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 0, -3em 0em 0 0.2em, -2em -2em 0 0;
+    }
+    87.5% {
+        box-shadow: 0em -3em 0 0, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 0, -3em 0em 0 0, -2em -2em 0 0.2em;
+    }
+}
+
+@keyframes load4 {
+    0%,
+    100% {
+        box-shadow: 0 -3em 0 0.2em, 2em -2em 0 0em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 0;
+    }
+    12.5% {
+        box-shadow: 0 -3em 0 0, 2em -2em 0 0.2em, 3em 0 0 0, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 -1em;
+    }
+    25% {
+        box-shadow: 0 -3em 0 -0.5em, 2em -2em 0 0, 3em 0 0 0.2em, 2em 2em 0 0, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 -1em;
+    }
+    37.5% {
+        box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0em 0 0, 2em 2em 0 0.2em, 0 3em 0 0em, -2em 2em 0 -1em, -3em 0em 0 -1em, -2em -2em 0 -1em;
+    }
+    50% {
+        box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 0em, 0 3em 0 0.2em, -2em 2em 0 0, -3em 0em 0 -1em, -2em -2em 0 -1em;
+    }
+    62.5% {
+        box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 0, -2em 2em 0 0.2em, -3em 0 0 0, -2em -2em 0 -1em;
+    }
+    75% {
+        box-shadow: 0em -3em 0 -1em, 2em -2em 0 -1em, 3em 0em 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 0, -3em 0em 0 0.2em, -2em -2em 0 0;
+    }
+    87.5% {
+        box-shadow: 0em -3em 0 0, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 0, -3em 0em 0 0, -2em -2em 0 0.2em;
+    }
+}</style><style type="text/css">/* This is not a zero-length file! */</style><script referrerpolicy="origin" type="application/javascript" id="tiny-_51016105131763717907163" src="/admin/dashboard/tinymce/tinymce.min.js"></script></head>
+  <body style="color-scheme: light dark;"><noscript>
+      <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NNJWLDT&gtm_auth=&gtm_preview=&gtm_cookies_win=x"
+        height="0" width="0" style="display:none;visibility:hidden" id="tag-manager"></iframe></noscript><noscript>
+      <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NNJWLDT&gtm_auth=&gtm_preview=&gtm_cookies_win=x"
+        height="0" width="0" style="display:none;visibility:hidden" id="tag-manager"></iframe></noscript>
+    <div id="root"><div><div class="sc-dDzjCq jhsiXe"><div class="sc-kRXTWc hxhHWr"><a data-testid="DashboardLogo" class="sc-jUhsXd cTctpq" href="/admin/dashboard"><svg xmlns="http://www.w3.org/2000/svg" height="18" fill="none" viewBox="0 0 128 79" overflow="visible" role="img"><path fill="currentColor" fill-rule="evenodd" d="m61.886 20.376 7.748 39.773 6.871-39.773h18.547l6.764 39.773 7.747-39.773H128L114.472 79H93.634L85.78 35.74 77.924 79H56.977L43.45 20.376zM47.786 0 45.06 12.64h-5.13c-6.436 0-7.854.328-8.945 4.794l-.546 2.943h12.983l-2.73 12.748H27.713L18.002 79H0l9.71-45.875H1.637l2.728-12.748h7.964l.873-3.706C16.04 2.833 22.802 0 38.512 0z" clip-rule="evenodd" vector-effect="non-scaling-stroke"></path></svg></a></div><div class="sc-cDJMbR fWXtQC"><div class="sc-jsAGbE glBJmD"><div class="sc-fDVepL fELyWc"><div><div><div data-testid="Dropdown" class="sc-dSsMvJ dbXwFY"><div variant="bare" class="sc-eKbrET zyZOo"><span class="sc-cILPom bZEjKy">Home</span><svg xmlns="http://www.w3.org/2000/svg" height="12" viewBox="0 0 32 32" overflow="visible" role="img"><path fill="none" stroke="currentColor" stroke-width="1.5" d="m1 8 15 16L31 8" vector-effect="non-scaling-stroke"></path></svg></div></div></div><div></div></div></div><div class="sc-eEJGea hFqvEf"><div><div><div data-testid="Dropdown" class="sc-dSsMvJ dbXwFY"><div data-testid="Tooltip"><div class="sc-dVElco jWquIa"><button type="button" data-testid="ToolbarButton.Button" class="sc-ejCgGf fMYKhL"><svg xmlns="http://www.w3.org/2000/svg" height="16" fill="none" viewBox="0 0 32 32" overflow="visible" role="img"><path stroke="currentColor" stroke-width="1.5" d="M4.5 16A1.75 1.75 0 1 1 1 16a1.75 1.75 0 0 1 3.5 0Zm13.25 0a1.75 1.75 0 1 1-3.5 0 1.75 1.75 0 0 1 3.5 0ZM31 16a1.75 1.75 0 1 1-3.5 0 1.75 1.75 0 0 1 3.5 0Z" vector-effect="non-scaling-stroke"></path></svg></button></div></div></div></div><div></div></div><button role="button" type="button" data-testid="button" class="sc-gAqISa TCrvJ"><span class="sc-fbguzk gftntb"><span>Save</span></span></button></div></div></div></div><div class="sc-bEynQg brRKXR"><aside class="sc-gUPNig bRPQB"><div class="sc-kVMMnq dhLKzT"><div class="sc-BNIIR eKDVCF"><div class="sc-kRXTWc hxhHWr"><a data-testid="DashboardLogo" class="sc-jUhsXd cTctpq" href="/admin/dashboard"><svg xmlns="http://www.w3.org/2000/svg" height="18" fill="none" viewBox="0 0 128 79" overflow="visible" role="img"><path fill="currentColor" fill-rule="evenodd" d="m61.886 20.376 7.748 39.773 6.871-39.773h18.547l6.764 39.773 7.747-39.773H128L114.472 79H93.634L85.78 35.74 77.924 79H56.977L43.45 20.376zM47.786 0 45.06 12.64h-5.13c-6.436 0-7.854.328-8.945 4.794l-.546 2.943h12.983l-2.73 12.748H27.713L18.002 79H0l9.71-45.875H1.637l2.728-12.748h7.964l.873-3.706C16.04 2.833 22.802 0 38.512 0z" clip-rule="evenodd" vector-effect="non-scaling-stroke"></path></svg><div class="sc-fZSzjs jOECES"><div class="sc-bhgfbr eNkliN">Schrottkiste</div></div></a></div></div><div><div class="sc-jdQffe gmBLge"><div class="sc-dmHDtk cOhxNC"><div class="sc-dyjmTs iAcfhl"><div class="sc-eSbLHr btdeld"><div class="sc-hvrtHo bszCEN"><div class="sc-kFKTvG eJKTsb"><a class="sc-fdDvhz jBkklg active" href="/admin/dashboard/store-design/layout/index/" aria-current="page">Layout</a><a class="sc-fdDvhz jBkklg" href="/admin/dashboard/store-design/general/">Style</a><a class="sc-fdDvhz jBkklg" href="/admin/dashboard/store-design/pages/">Pages</a><a class="sc-fdDvhz jBkklg" href="/admin/dashboard/store-design/themes/">Theme</a></div></div></div></div></div><div class="sc-gEfEhi bTexyo"><div><div class="sc-maxxz fbmfoV"><div><div><div data-testid="Dropdown" class="sc-dSsMvJ dbXwFY"><div variant="default" class="sc-eKbrET jwsqur"><span class="sc-cILPom bZEjKy">Home</span><svg xmlns="http://www.w3.org/2000/svg" height="12" viewBox="0 0 32 32" overflow="visible" role="img"><path fill="none" stroke="currentColor" stroke-width="1.5" d="m1 8 15 16L31 8" vector-effect="non-scaling-stroke"></path></svg></div></div></div><div></div></div></div></div><div class="sc-buzBtR gRePlW"><div><div><a class="sc-hJOupQ gJVUiq" href="/admin/dashboard/store-design/layout/index/sections/announcement-bar-e7087e28-74ac-4ddf-87b0-d8a9a118d442"><div class="sc-kCIVfL kEQChT"><svg xmlns="http://www.w3.org/2000/svg" height="18" fill="none" viewBox="0 0 32 32" overflow="visible" role="img"><path stroke="currentColor" stroke-width="1.5" d="M11.035 8.146v22.199M31 2v24s-10.947-6.146-20-6.146H1V8.146h10C20.053 8.146 31 2 31 2Z" vector-effect="non-scaling-stroke"></path></svg><span class="sc-iBtsPe jLjkGX">Announcement bar</span></div><div class="sc-fZptZh jvQmzf"><div class="sc-dXZRIA hfphpR"><svg xmlns="http://www.w3.org/2000/svg" height="16" fill="none" viewBox="0 0 34 32" overflow="visible" role="img" alt="Section disabled" aria-label="Section disabled"><path stroke="currentColor" stroke-width="1.5" d="M28.707 4.707 6.08 27.334M16.998 5C7.128 4.935 1 15.996 1 15.996s6.133 11.066 15.998 11c9.865.066 16.002-11 16.002-11S26.867 4.936 16.998 5ZM21.5 16.001a4.5 4.5 0 1 1-9-.002 4.5 4.5 0 0 1 9 .002Z" vector-effect="non-scaling-stroke"></path></svg></div><div title="Drag" role="button" tabindex="0" aria-disabled="false" aria-roledescription="sortable" aria-describedby="DndDescribedBy-12" class="sc-dXZRIA sc-godLpy hfphpR loTOlH"><svg xmlns="http://www.w3.org/2000/svg" height="12" fill="none" viewBox="0 0 32 32" overflow="visible" role="img"><path stroke="currentColor" stroke-width="1.5" d="M22 27.5a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5Zm0-13.25a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5ZM22 1a1.75 1.75 0 1 1 0 3.5A1.75 1.75 0 0 1 22 1ZM10 27.5a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5Zm0-13.25a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5ZM10 1a1.75 1.75 0 1 1 0 3.5A1.75 1.75 0 0 1 10 1Z" vector-effect="non-scaling-stroke"></path></svg></div></div></a><a class="sc-hJOupQ gJVUiq" href="/admin/dashboard/store-design/layout/index/sections/header"><div class="sc-kCIVfL kEQChT"><svg xmlns="http://www.w3.org/2000/svg" height="18" fill="none" viewBox="0 0 32 32" overflow="visible" role="img"><path stroke="currentColor" stroke-width="1.5" d="M1 15.5v4m30-4v4m-30 9V31h2.5M31 28.5V31h-2.5M1 22.5v4m30-4v4M6.5 31h4m3.5 0h4m3.5 0h4M1 1h30v12H1z" vector-effect="non-scaling-stroke"></path></svg><span class="sc-iBtsPe jLjkGX">Header</span></div><div class="sc-fZptZh jvQmzf"><div title="Drag" role="button" tabindex="0" aria-disabled="false" aria-roledescription="sortable" aria-describedby="DndDescribedBy-12" class="sc-dXZRIA sc-godLpy hfphpR loTOlH"><svg xmlns="http://www.w3.org/2000/svg" height="12" fill="none" viewBox="0 0 32 32" overflow="visible" role="img"><path stroke="currentColor" stroke-width="1.5" d="M22 27.5a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5Zm0-13.25a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5ZM22 1a1.75 1.75 0 1 1 0 3.5A1.75 1.75 0 0 1 22 1ZM10 27.5a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5Zm0-13.25a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5ZM10 1a1.75 1.75 0 1 1 0 3.5A1.75 1.75 0 0 1 10 1Z" vector-effect="non-scaling-stroke"></path></svg></div></div></a></div><div id="DndDescribedBy-12" style="display: none;">
+    To pick up a draggable item, press the space bar.
+    While dragging, use the arrow keys to move the item.
+    Press space again to drop the item in its new position, or press escape to cancel.
+  </div><div id="DndLiveRegion-12" role="status" aria-live="assertive" aria-atomic="true" style="position: fixed; top: 0px; left: 0px; width: 1px; height: 1px; margin: -1px; border: 0px; padding: 0px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); clip-path: inset(100%); white-space: nowrap;"></div><div class="sc-fDQRv krUvaq"><button type="button" data-testid="AddButton" class="sc-icnseD cphVXy"><svg xmlns="http://www.w3.org/2000/svg" height="16" fill="none" viewBox="0 0 16 16" overflow="visible" role="img"><path fill="currentColor" fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13m-.75 5.63V4.132h1.5V7.13h3.117v1.5H8.75v3.238h-1.5V8.629H4.133v-1.5z" clip-rule="evenodd" vector-effect="non-scaling-stroke"></path></svg>Add header section</button></div></div><div><div><a class="sc-hJOupQ gJVUiq" href="/admin/dashboard/store-design/layout/index/sections/custom-html-dfccad6c-bbbe-4b8a-b43b-b07b7f3ea142"><div class="sc-kCIVfL kEQChT"><svg xmlns="http://www.w3.org/2000/svg" height="18" fill="none" viewBox="0 0 34 32" overflow="visible" role="img"><path stroke="currentColor" stroke-linecap="square" stroke-width="1.5" d="m8.665 10.335-6.665 6 6.665 6m16.668-12 6.667 6-6.667 6M18.666 7l-3.333 18.667" vector-effect="non-scaling-stroke"></path></svg><span class="sc-iBtsPe jLjkGX">Custom HTML</span></div><div class="sc-fZptZh jvQmzf"><div class="sc-dXZRIA hfphpR"><svg xmlns="http://www.w3.org/2000/svg" height="16" fill="none" viewBox="0 0 34 32" overflow="visible" role="img" alt="Section disabled" aria-label="Section disabled"><path stroke="currentColor" stroke-width="1.5" d="M28.707 4.707 6.08 27.334M16.998 5C7.128 4.935 1 15.996 1 15.996s6.133 11.066 15.998 11c9.865.066 16.002-11 16.002-11S26.867 4.936 16.998 5ZM21.5 16.001a4.5 4.5 0 1 1-9-.002 4.5 4.5 0 0 1 9 .002Z" vector-effect="non-scaling-stroke"></path></svg></div><div title="Drag" role="button" tabindex="0" aria-disabled="false" aria-roledescription="sortable" aria-describedby="DndDescribedBy-13" class="sc-dXZRIA sc-godLpy hfphpR loTOlH"><svg xmlns="http://www.w3.org/2000/svg" height="12" fill="none" viewBox="0 0 32 32" overflow="visible" role="img"><path stroke="currentColor" stroke-width="1.5" d="M22 27.5a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5Zm0-13.25a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5ZM22 1a1.75 1.75 0 1 1 0 3.5A1.75 1.75 0 0 1 22 1ZM10 27.5a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5Zm0-13.25a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5ZM10 1a1.75 1.75 0 1 1 0 3.5A1.75 1.75 0 0 1 10 1Z" vector-effect="non-scaling-stroke"></path></svg></div></div></a><a class="sc-hJOupQ gJVUiq" href="/admin/dashboard/store-design/layout/index/sections/custom-html-2e9f9042-6662-4b6c-ad9f-31dae3935cda"><div class="sc-kCIVfL kEQChT"><svg xmlns="http://www.w3.org/2000/svg" height="18" fill="none" viewBox="0 0 34 32" overflow="visible" role="img"><path stroke="currentColor" stroke-linecap="square" stroke-width="1.5" d="m8.665 10.335-6.665 6 6.665 6m16.668-12 6.667 6-6.667 6M18.666 7l-3.333 18.667" vector-effect="non-scaling-stroke"></path></svg><span class="sc-iBtsPe jLjkGX">Custom HTML</span></div><div class="sc-fZptZh jvQmzf"><div class="sc-dXZRIA sc-iptnGf hfphpR dHKryA"><svg xmlns="http://www.w3.org/2000/svg" height="16" fill="none" viewBox="0 0 34 32" overflow="visible" role="img" alt="Section enabled" aria-label="Section enabled"><path stroke="currentColor" stroke-width="1.5" d="M16.998 5C7.128 4.935 1 15.996 1 15.996s6.133 11.066 15.998 11c9.865.066 16.002-11 16.002-11S26.867 4.935 16.998 5Z" vector-effect="non-scaling-stroke"></path><path stroke="currentColor" stroke-width="1.5" d="M21.5 16.001a4.5 4.5 0 1 1-9-.002 4.5 4.5 0 0 1 9 .002Z" vector-effect="non-scaling-stroke"></path></svg></div><div title="Drag" role="button" tabindex="0" aria-disabled="false" aria-roledescription="sortable" aria-describedby="DndDescribedBy-13" class="sc-dXZRIA sc-godLpy hfphpR loTOlH"><svg xmlns="http://www.w3.org/2000/svg" height="12" fill="none" viewBox="0 0 32 32" overflow="visible" role="img"><path stroke="currentColor" stroke-width="1.5" d="M22 27.5a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5Zm0-13.25a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5ZM22 1a1.75 1.75 0 1 1 0 3.5A1.75 1.75 0 0 1 22 1ZM10 27.5a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5Zm0-13.25a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5ZM10 1a1.75 1.75 0 1 1 0 3.5A1.75 1.75 0 0 1 10 1Z" vector-effect="non-scaling-stroke"></path></svg></div></div></a><a class="sc-hJOupQ gJVUiq" href="/admin/dashboard/store-design/layout/index/sections/custom-html-3cc57c16-f5ab-401b-914d-356870d2d443"><div class="sc-kCIVfL kEQChT"><svg xmlns="http://www.w3.org/2000/svg" height="18" fill="none" viewBox="0 0 34 32" overflow="visible" role="img"><path stroke="currentColor" stroke-linecap="square" stroke-width="1.5" d="m8.665 10.335-6.665 6 6.665 6m16.668-12 6.667 6-6.667 6M18.666 7l-3.333 18.667" vector-effect="non-scaling-stroke"></path></svg><span class="sc-iBtsPe jLjkGX">Custom HTML</span></div><div class="sc-fZptZh jvQmzf"><div class="sc-dXZRIA sc-iptnGf hfphpR dHKryA"><svg xmlns="http://www.w3.org/2000/svg" height="16" fill="none" viewBox="0 0 34 32" overflow="visible" role="img" alt="Section enabled" aria-label="Section enabled"><path stroke="currentColor" stroke-width="1.5" d="M16.998 5C7.128 4.935 1 15.996 1 15.996s6.133 11.066 15.998 11c9.865.066 16.002-11 16.002-11S26.867 4.935 16.998 5Z" vector-effect="non-scaling-stroke"></path><path stroke="currentColor" stroke-width="1.5" d="M21.5 16.001a4.5 4.5 0 1 1-9-.002 4.5 4.5 0 0 1 9 .002Z" vector-effect="non-scaling-stroke"></path></svg></div><div title="Drag" role="button" tabindex="0" aria-disabled="false" aria-roledescription="sortable" aria-describedby="DndDescribedBy-13" class="sc-dXZRIA sc-godLpy hfphpR loTOlH"><svg xmlns="http://www.w3.org/2000/svg" height="12" fill="none" viewBox="0 0 32 32" overflow="visible" role="img"><path stroke="currentColor" stroke-width="1.5" d="M22 27.5a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5Zm0-13.25a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5ZM22 1a1.75 1.75 0 1 1 0 3.5A1.75 1.75 0 0 1 22 1ZM10 27.5a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5Zm0-13.25a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5ZM10 1a1.75 1.75 0 1 1 0 3.5A1.75 1.75 0 0 1 10 1Z" vector-effect="non-scaling-stroke"></path></svg></div></div></a><a class="sc-hJOupQ gJVUiq" href="/admin/dashboard/store-design/layout/index/sections/hero-1755212546"><div class="sc-kCIVfL kEQChT"><svg xmlns="http://www.w3.org/2000/svg" height="18" fill="none" viewBox="0 0 32 33" overflow="visible" role="img"><path stroke="currentColor" stroke-width="1.5" d="M0 32h8m-8-7h11m18-9L19.01 2l-5.242 6.196L10.12 5.96 3 16zm-9 16h7a4 4 0 0 0 0-8h-7a4 4 0 0 0 0 8Z" vector-effect="non-scaling-stroke"></path></svg><span class="sc-iBtsPe jLjkGX">Image banner</span></div><div class="sc-fZptZh jvQmzf"><div class="sc-dXZRIA sc-iptnGf hfphpR dHKryA"><svg xmlns="http://www.w3.org/2000/svg" height="16" fill="none" viewBox="0 0 34 32" overflow="visible" role="img" alt="Section enabled" aria-label="Section enabled"><path stroke="currentColor" stroke-width="1.5" d="M16.998 5C7.128 4.935 1 15.996 1 15.996s6.133 11.066 15.998 11c9.865.066 16.002-11 16.002-11S26.867 4.935 16.998 5Z" vector-effect="non-scaling-stroke"></path><path stroke="currentColor" stroke-width="1.5" d="M21.5 16.001a4.5 4.5 0 1 1-9-.002 4.5 4.5 0 0 1 9 .002Z" vector-effect="non-scaling-stroke"></path></svg></div><div title="Drag" role="button" tabindex="0" aria-disabled="false" aria-roledescription="sortable" aria-describedby="DndDescribedBy-13" class="sc-dXZRIA sc-godLpy hfphpR loTOlH"><svg xmlns="http://www.w3.org/2000/svg" height="12" fill="none" viewBox="0 0 32 32" overflow="visible" role="img"><path stroke="currentColor" stroke-width="1.5" d="M22 27.5a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5Zm0-13.25a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5ZM22 1a1.75 1.75 0 1 1 0 3.5A1.75 1.75 0 0 1 22 1ZM10 27.5a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5Zm0-13.25a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5ZM10 1a1.75 1.75 0 1 1 0 3.5A1.75 1.75 0 0 1 10 1Z" vector-effect="non-scaling-stroke"></path></svg></div></div></a><a class="sc-hJOupQ gJVUiq" href="/admin/dashboard/store-design/layout/index/sections/rich-text-d503ccac-4231-4685-94a1-f2b910a9b391"><div class="sc-kCIVfL kEQChT"><svg xmlns="http://www.w3.org/2000/svg" height="18" fill="none" viewBox="0 0 16 16" overflow="visible" role="img"><path fill="currentColor" fill-rule="evenodd" d="M1.75 1.5a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h12.5a.25.25 0 0 0 .25-.25V1.75a.25.25 0 0 0-.25-.25zM0 1.75C0 .784.784 0 1.75 0h12.5C15.216 0 16 .784 16 1.75v12.5A1.75 1.75 0 0 1 14.25 16H1.75A1.75 1.75 0 0 1 0 14.25zm8.58 3.617H3.65v-1.5h4.93zm3.77 3.383h-8.7v-1.5h8.7zm0 3.383h-8.7v-1.5h8.7z" clip-rule="evenodd" vector-effect="non-scaling-stroke"></path></svg><span class="sc-iBtsPe jLjkGX">Text</span></div><div class="sc-fZptZh jvQmzf"><div class="sc-dXZRIA sc-iptnGf hfphpR dHKryA"><svg xmlns="http://www.w3.org/2000/svg" height="16" fill="none" viewBox="0 0 34 32" overflow="visible" role="img" alt="Section enabled" aria-label="Section enabled"><path stroke="currentColor" stroke-width="1.5" d="M16.998 5C7.128 4.935 1 15.996 1 15.996s6.133 11.066 15.998 11c9.865.066 16.002-11 16.002-11S26.867 4.935 16.998 5Z" vector-effect="non-scaling-stroke"></path><path stroke="currentColor" stroke-width="1.5" d="M21.5 16.001a4.5 4.5 0 1 1-9-.002 4.5 4.5 0 0 1 9 .002Z" vector-effect="non-scaling-stroke"></path></svg></div><div title="Drag" role="button" tabindex="0" aria-disabled="false" aria-roledescription="sortable" aria-describedby="DndDescribedBy-13" class="sc-dXZRIA sc-godLpy hfphpR loTOlH"><svg xmlns="http://www.w3.org/2000/svg" height="12" fill="none" viewBox="0 0 32 32" overflow="visible" role="img"><path stroke="currentColor" stroke-width="1.5" d="M22 27.5a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5Zm0-13.25a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5ZM22 1a1.75 1.75 0 1 1 0 3.5A1.75 1.75 0 0 1 22 1ZM10 27.5a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5Zm0-13.25a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5ZM10 1a1.75 1.75 0 1 1 0 3.5A1.75 1.75 0 0 1 10 1Z" vector-effect="non-scaling-stroke"></path></svg></div></div></a><a class="sc-hJOupQ gJVUiq" href="/admin/dashboard/store-design/layout/index/sections/recent-videos-1755212546"><div class="sc-kCIVfL kEQChT"><svg xmlns="http://www.w3.org/2000/svg" height="18" fill="none" viewBox="0 0 32 32" overflow="visible" role="img"><path fill="currentColor" d="M26.75 5H5.25A5.26 5.26 0 0 0 0 10.252v12.161a5.26 5.26 0 0 0 5.25 5.254h21.5A5.26 5.26 0 0 0 32 22.413V10.252A5.26 5.26 0 0 0 26.75 5m-4.7 11.375-9.025 5.774a.67.67 0 0 1-.679.023.67.67 0 0 1-.346-.584v-11.55a.669.669 0 0 1 1.027-.562l9.025 5.776a.665.665 0 0 1-.001 1.123Z" vector-effect="non-scaling-stroke"></path></svg><span class="sc-iBtsPe jLjkGX">YouTube feed</span></div><div class="sc-fZptZh jvQmzf"><div class="sc-dXZRIA sc-iptnGf hfphpR dHKryA"><svg xmlns="http://www.w3.org/2000/svg" height="16" fill="none" viewBox="0 0 34 32" overflow="visible" role="img" alt="Section enabled" aria-label="Section enabled"><path stroke="currentColor" stroke-width="1.5" d="M16.998 5C7.128 4.935 1 15.996 1 15.996s6.133 11.066 15.998 11c9.865.066 16.002-11 16.002-11S26.867 4.935 16.998 5Z" vector-effect="non-scaling-stroke"></path><path stroke="currentColor" stroke-width="1.5" d="M21.5 16.001a4.5 4.5 0 1 1-9-.002 4.5 4.5 0 0 1 9 .002Z" vector-effect="non-scaling-stroke"></path></svg></div><div title="Drag" role="button" tabindex="0" aria-disabled="false" aria-roledescription="sortable" aria-describedby="DndDescribedBy-13" class="sc-dXZRIA sc-godLpy hfphpR loTOlH"><svg xmlns="http://www.w3.org/2000/svg" height="12" fill="none" viewBox="0 0 32 32" overflow="visible" role="img"><path stroke="currentColor" stroke-width="1.5" d="M22 27.5a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5Zm0-13.25a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5ZM22 1a1.75 1.75 0 1 1 0 3.5A1.75 1.75 0 0 1 22 1ZM10 27.5a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5Zm0-13.25a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5ZM10 1a1.75 1.75 0 1 1 0 3.5A1.75 1.75 0 0 1 10 1Z" vector-effect="non-scaling-stroke"></path></svg></div></div></a><a class="sc-hJOupQ gJVUiq" href="/admin/dashboard/store-design/layout/index/sections/instagram-feed-1755212546"><div class="sc-kCIVfL kEQChT"><svg xmlns="http://www.w3.org/2000/svg" height="18" fill="none" viewBox="0 0 32 32" overflow="visible" role="img"><path fill="currentColor" fill-rule="evenodd" d="M7.992 0h16.016A7.99 7.99 0 0 1 32 7.992v16.016A7.99 7.99 0 0 1 24.008 32H7.992A7.99 7.99 0 0 1 0 24.008V7.992A7.99 7.99 0 0 1 7.992 0M3.2 24.008A4.79 4.79 0 0 0 7.992 28.8h16.016a4.79 4.79 0 0 0 4.792-4.792V7.992A4.79 4.79 0 0 0 24.008 3.2H7.992A4.79 4.79 0 0 0 3.2 7.992zM8 16a8 8 0 1 1 16 0 8 8 0 0 1-16 0m12.8 0a4.8 4.8 0 1 0-9.6 0 4.8 4.8 0 0 0 9.6 0M24 9.6a1.6 1.6 0 1 0 0-3.2 1.6 1.6 0 0 0 0 3.2" clip-rule="evenodd" vector-effect="non-scaling-stroke"></path></svg><span class="sc-iBtsPe jLjkGX">Instagram feed</span></div><div class="sc-fZptZh jvQmzf"><div class="sc-dXZRIA sc-iptnGf hfphpR dHKryA"><svg xmlns="http://www.w3.org/2000/svg" height="16" fill="none" viewBox="0 0 34 32" overflow="visible" role="img" alt="Section enabled" aria-label="Section enabled"><path stroke="currentColor" stroke-width="1.5" d="M16.998 5C7.128 4.935 1 15.996 1 15.996s6.133 11.066 15.998 11c9.865.066 16.002-11 16.002-11S26.867 4.935 16.998 5Z" vector-effect="non-scaling-stroke"></path><path stroke="currentColor" stroke-width="1.5" d="M21.5 16.001a4.5 4.5 0 1 1-9-.002 4.5 4.5 0 0 1 9 .002Z" vector-effect="non-scaling-stroke"></path></svg></div><div title="Drag" role="button" tabindex="0" aria-disabled="false" aria-roledescription="sortable" aria-describedby="DndDescribedBy-13" class="sc-dXZRIA sc-godLpy hfphpR loTOlH"><svg xmlns="http://www.w3.org/2000/svg" height="12" fill="none" viewBox="0 0 32 32" overflow="visible" role="img"><path stroke="currentColor" stroke-width="1.5" d="M22 27.5a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5Zm0-13.25a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5ZM22 1a1.75 1.75 0 1 1 0 3.5A1.75 1.75 0 0 1 22 1ZM10 27.5a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5Zm0-13.25a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5ZM10 1a1.75 1.75 0 1 1 0 3.5A1.75 1.75 0 0 1 10 1Z" vector-effect="non-scaling-stroke"></path></svg></div></div></a><a class="sc-hJOupQ gJVUiq" href="/admin/dashboard/store-design/layout/index/sections/links-list-1755212546"><div class="sc-kCIVfL kEQChT"><svg xmlns="http://www.w3.org/2000/svg" height="18" fill="none" viewBox="0 0 34 32" overflow="visible" role="img"><path stroke="currentColor" stroke-width="1.5" d="M13.333 18.1H8.467C4.343 18.1 1 14.72 1 10.55S4.343 3 8.467 3h17.066C29.657 3 33 6.38 33 10.55a7.57 7.57 0 0 1-4.048 6.713m-3.915 4.373 3.6-3.25a.744.744 0 0 0-.222-1.242l-15.413-6.092c-.56-.22-1.13.294-.976.88l4.257 16.164c.141.534.79.73 1.199.362l3.597-3.248 3.906 4.407c.54.61 1.469.662 2.073.116l1.77-1.598a1.49 1.49 0 0 0 .115-2.092z" vector-effect="non-scaling-stroke" style="stroke-opacity: 1;"></path></svg><span class="sc-iBtsPe jLjkGX">Links list</span></div><div class="sc-fZptZh jvQmzf"><div class="sc-dXZRIA sc-iptnGf hfphpR dHKryA"><svg xmlns="http://www.w3.org/2000/svg" height="16" fill="none" viewBox="0 0 34 32" overflow="visible" role="img" alt="Section enabled" aria-label="Section enabled"><path stroke="currentColor" stroke-width="1.5" d="M16.998 5C7.128 4.935 1 15.996 1 15.996s6.133 11.066 15.998 11c9.865.066 16.002-11 16.002-11S26.867 4.935 16.998 5Z" vector-effect="non-scaling-stroke"></path><path stroke="currentColor" stroke-width="1.5" d="M21.5 16.001a4.5 4.5 0 1 1-9-.002 4.5 4.5 0 0 1 9 .002Z" vector-effect="non-scaling-stroke"></path></svg></div><div title="Drag" role="button" tabindex="0" aria-disabled="false" aria-roledescription="sortable" aria-describedby="DndDescribedBy-13" class="sc-dXZRIA sc-godLpy hfphpR loTOlH"><svg xmlns="http://www.w3.org/2000/svg" height="12" fill="none" viewBox="0 0 32 32" overflow="visible" role="img"><path stroke="currentColor" stroke-width="1.5" d="M22 27.5a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5Zm0-13.25a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5ZM22 1a1.75 1.75 0 1 1 0 3.5A1.75 1.75 0 0 1 22 1ZM10 27.5a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5Zm0-13.25a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5ZM10 1a1.75 1.75 0 1 1 0 3.5A1.75 1.75 0 0 1 10 1Z" vector-effect="non-scaling-stroke"></path></svg></div></div></a><a class="sc-hJOupQ gJVUiq" href="/admin/dashboard/store-design/layout/index/sections/custom-html-54fea9b8-892f-4892-ae45-e6846db23f1a"><div class="sc-kCIVfL kEQChT"><svg xmlns="http://www.w3.org/2000/svg" height="18" fill="none" viewBox="0 0 34 32" overflow="visible" role="img"><path stroke="currentColor" stroke-linecap="square" stroke-width="1.5" d="m8.665 10.335-6.665 6 6.665 6m16.668-12 6.667 6-6.667 6M18.666 7l-3.333 18.667" vector-effect="non-scaling-stroke"></path></svg><span class="sc-iBtsPe jLjkGX">Custom HTML</span></div><div class="sc-fZptZh jvQmzf"><div class="sc-dXZRIA sc-iptnGf hfphpR dHKryA"><svg xmlns="http://www.w3.org/2000/svg" height="16" fill="none" viewBox="0 0 34 32" overflow="visible" role="img" alt="Section enabled" aria-label="Section enabled"><path stroke="currentColor" stroke-width="1.5" d="M16.998 5C7.128 4.935 1 15.996 1 15.996s6.133 11.066 15.998 11c9.865.066 16.002-11 16.002-11S26.867 4.935 16.998 5Z" vector-effect="non-scaling-stroke"></path><path stroke="currentColor" stroke-width="1.5" d="M21.5 16.001a4.5 4.5 0 1 1-9-.002 4.5 4.5 0 0 1 9 .002Z" vector-effect="non-scaling-stroke"></path></svg></div><div title="Drag" role="button" tabindex="0" aria-disabled="false" aria-roledescription="sortable" aria-describedby="DndDescribedBy-13" class="sc-dXZRIA sc-godLpy hfphpR loTOlH"><svg xmlns="http://www.w3.org/2000/svg" height="12" fill="none" viewBox="0 0 32 32" overflow="visible" role="img"><path stroke="currentColor" stroke-width="1.5" d="M22 27.5a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5Zm0-13.25a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5ZM22 1a1.75 1.75 0 1 1 0 3.5A1.75 1.75 0 0 1 22 1ZM10 27.5a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5Zm0-13.25a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5ZM10 1a1.75 1.75 0 1 1 0 3.5A1.75 1.75 0 0 1 10 1Z" vector-effect="non-scaling-stroke"></path></svg></div></div></a></div><div id="DndDescribedBy-13" style="display: none;">
+    To pick up a draggable item, press the space bar.
+    While dragging, use the arrow keys to move the item.
+    Press space again to drop the item in its new position, or press escape to cancel.
+  </div><div id="DndLiveRegion-13" role="status" aria-live="assertive" aria-atomic="true" style="position: fixed; top: 0px; left: 0px; width: 1px; height: 1px; margin: -1px; border: 0px; padding: 0px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); clip-path: inset(100%); white-space: nowrap;"></div><div class="sc-fDQRv krUvaq"><button type="button" data-testid="AddButton" class="sc-icnseD cphVXy"><svg xmlns="http://www.w3.org/2000/svg" height="16" fill="none" viewBox="0 0 16 16" overflow="visible" role="img"><path fill="currentColor" fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13m-.75 5.63V4.132h1.5V7.13h3.117v1.5H8.75v3.238h-1.5V8.629H4.133v-1.5z" clip-rule="evenodd" vector-effect="non-scaling-stroke"></path></svg>Add page section</button></div></div><div><div><a class="sc-hJOupQ gJVUiq" href="/admin/dashboard/store-design/layout/index/sections/footer"><div class="sc-kCIVfL kEQChT"><svg xmlns="http://www.w3.org/2000/svg" height="18" fill="none" viewBox="0 0 32 32" overflow="visible" role="img"><path stroke="currentColor" stroke-width="1.5" d="M1 16.5v-4m30 4v-4m-30-9V1h2.5M31 3.5V1h-2.5M1 9.5v-4m30 4v-4M6.5 1h4M14 1h4m3.5 0h4M1 31h30V19H1z" vector-effect="non-scaling-stroke"></path></svg><span class="sc-iBtsPe jLjkGX">Footer</span></div><div class="sc-fZptZh jvQmzf"><div title="Drag" role="button" tabindex="0" aria-disabled="false" aria-roledescription="sortable" aria-describedby="DndDescribedBy-14" class="sc-dXZRIA sc-godLpy hfphpR loTOlH"><svg xmlns="http://www.w3.org/2000/svg" height="12" fill="none" viewBox="0 0 32 32" overflow="visible" role="img"><path stroke="currentColor" stroke-width="1.5" d="M22 27.5a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5Zm0-13.25a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5ZM22 1a1.75 1.75 0 1 1 0 3.5A1.75 1.75 0 0 1 22 1ZM10 27.5a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5Zm0-13.25a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5ZM10 1a1.75 1.75 0 1 1 0 3.5A1.75 1.75 0 0 1 10 1Z" vector-effect="non-scaling-stroke"></path></svg></div></div></a></div><div id="DndDescribedBy-14" style="display: none;">
+    To pick up a draggable item, press the space bar.
+    While dragging, use the arrow keys to move the item.
+    Press space again to drop the item in its new position, or press escape to cancel.
+  </div><div id="DndLiveRegion-14" role="status" aria-live="assertive" aria-atomic="true" style="position: fixed; top: 0px; left: 0px; width: 1px; height: 1px; margin: -1px; border: 0px; padding: 0px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); clip-path: inset(100%); white-space: nowrap;"></div><div class="sc-fDQRv krUvaq"><button type="button" data-testid="AddButton" class="sc-icnseD cphVXy"><svg xmlns="http://www.w3.org/2000/svg" height="16" fill="none" viewBox="0 0 16 16" overflow="visible" role="img"><path fill="currentColor" fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13m-.75 5.63V4.132h1.5V7.13h3.117v1.5H8.75v3.238h-1.5V8.629H4.133v-1.5z" clip-rule="evenodd" vector-effect="non-scaling-stroke"></path></svg>Add footer section</button></div></div></div><div class="sc-hMEIdA ljSCtr"></div></div></div></div></div></aside><main class="sc-eCKHOb bSUSNC"><div class="sc-bHIlSZ dLZoUN"><div></div><div class="sc-lcHFov hXEmZw"><div class="sc-gwEcvT fHbARu"><div><div><div data-testid="Dropdown" class="sc-dSsMvJ dbXwFY"><div variant="bare" class="sc-eKbrET zyZOo"><span class="sc-cILPom bZEjKy">Home</span><svg xmlns="http://www.w3.org/2000/svg" height="12" viewBox="0 0 32 32" overflow="visible" role="img"><path fill="none" stroke="currentColor" stroke-width="1.5" d="m1 8 15 16L31 8" vector-effect="non-scaling-stroke"></path></svg></div></div></div><div></div></div><div class="sc-jaLBVv hqnETn"><button type="button" class="sc-hjPKhg TgVMN"><svg xmlns="http://www.w3.org/2000/svg" height="16" fill="none" viewBox="0 0 16 16" overflow="visible" role="img" alt="Desktop" aria-label="Desktop"><path fill="currentColor" fill-rule="evenodd" d="M0 1.75C0 .784.784 0 1.75 0h12.5C15.216 0 16 .784 16 1.75v8.633a1.75 1.75 0 0 1-1.75 1.75h-3.567V14.5h1.667V16h-8.7v-1.5h1.667v-2.367H1.75A1.75 1.75 0 0 1 0 10.383zm6.817 10.383V14.5h2.366v-2.367zM1.75 1.5a.25.25 0 0 0-.25.25v8.633c0 .138.112.25.25.25h12.5a.25.25 0 0 0 .25-.25V1.75a.25.25 0 0 0-.25-.25z" clip-rule="evenodd" vector-effect="non-scaling-stroke"></path></svg></button><button type="button" class="sc-hjPKhg gwvkug"><svg xmlns="http://www.w3.org/2000/svg" height="16" fill="none" viewBox="0 0 32 32" overflow="visible" role="img" alt="Mobile" aria-label="Mobile"><path stroke="currentColor" stroke-width="1.5" d="M13 25h6zM6 1h20v30H6z" clip-rule="evenodd" vector-effect="non-scaling-stroke"></path></svg></button></div></div></div><div class="sc-fptudG bSyLmG"><div class="sc-cfaAlw drJdWO"><div><div><div data-testid="Dropdown" class="sc-dSsMvJ dbXwFY"><button><div class="sc-lmaOHr fmPiHA"><span>Live</span><svg xmlns="http://www.w3.org/2000/svg" height="10" viewBox="0 0 32 32" overflow="visible" role="img"><path fill="none" stroke="currentColor" stroke-width="1.5" d="m1 8 15 16L31 8" vector-effect="non-scaling-stroke"></path></svg></div></button></div></div><div></div></div><button role="button" type="button" data-testid="button" class="sc-gAqISa TCrvJ"><span class="sc-fbguzk gftntb"><span>Save</span></span></button></div></div></div><div class="sc-hnswVr bhUGnk sc-hSoLwl cMDcMw"><div class="sc-gyAJlY chrZXM"><div class="sc-dVElco jWquIa"><div class="sc-kjfDqK jXbWhd"><div class="sc-cqbUge ehOWYy" style="top: 233.391px; left: 0px; width: 1582px; height: 560px; opacity: 0; visibility: hidden;"><div class="sc-kXzFVc jGeFhL" style="top: -2px; left: 50%; transform: translateX(-50%);"><button class="sc-eieCcX cKEKVV">Add section</button></div><div class="sc-kBhLoq kAZbGy" style="top: 0px; left: 0px;"><div class="sc-idrMeR iPNOor"><button class="sc-dgZlRo dAIuZb"><svg xmlns="http://www.w3.org/2000/svg" height="16" fill="none" viewBox="0 0 16 16" overflow="visible" role="img"><path fill="currentColor" fill-rule="evenodd" d="M10.699.577a1.75 1.75 0 0 1 2.475 0l2.25 2.25a1.75 1.75 0 0 1 0 2.474l-9.866 9.865a1.75 1.75 0 0 1-1.02.499l-2.57.32a1.75 1.75 0 0 1-1.954-1.952l.32-2.57a1.75 1.75 0 0 1 .5-1.022l1.548-1.548zm1.414 1.06a.25.25 0 0 0-.354 0L3.961 9.436l2.544 2.662 7.858-7.857a.25.25 0 0 0 0-.354zM2.9 10.497l-1.006 1.005a.25.25 0 0 0-.071.146l-.32 2.57a.25.25 0 0 0 .279.279l2.57-.32a.25.25 0 0 0 .145-.072l.947-.947z" clip-rule="evenodd" vector-effect="non-scaling-stroke"></path></svg>Edit section</button><div class="sc-dQcufr kplJDK"></div><button class="sc-dgZlRo dAIuZb"><svg xmlns="http://www.w3.org/2000/svg" height="16" fill="none" viewBox="0 0 34 32" overflow="visible" role="img"><path stroke="currentColor" stroke-width="1.5" d="M28.707 4.707 6.08 27.334M16.998 5C7.128 4.935 1 15.996 1 15.996s6.133 11.066 15.998 11c9.865.066 16.002-11 16.002-11S26.867 4.936 16.998 5ZM21.5 16.001a4.5 4.5 0 1 1-9-.002 4.5 4.5 0 0 1 9 .002Z" vector-effect="non-scaling-stroke"></path></svg></button><button class="sc-dgZlRo dAIuZb"><svg xmlns="http://www.w3.org/2000/svg" height="16" fill="none" viewBox="0 0 16 16" overflow="visible" role="img"><path fill="currentColor" fill-rule="evenodd" d="M3 1.5a.25.25 0 0 0-.25.25v11.523h-1.5V1.75C1.25.784 2.034 0 3 0h7.503v1.5zm3.333 3.295a.25.25 0 0 0-.25.25v9.205c0 .138.112.25.25.25H13a.25.25 0 0 0 .25-.25V7.77a.25.25 0 0 0-.078-.181l-2.861-2.725a.25.25 0 0 0-.172-.069zm-1.75.25c0-.966.784-1.75 1.75-1.75h3.806c.449 0 .88.173 1.206.483l2.862 2.724c.347.33.543.789.543 1.268v6.48A1.75 1.75 0 0 1 13 16H6.333a1.75 1.75 0 0 1-1.75-1.75z" clip-rule="evenodd" vector-effect="non-scaling-stroke"></path></svg></button><button class="sc-dgZlRo dAIuZb"><svg xmlns="http://www.w3.org/2000/svg" height="16" fill="none" viewBox="0 0 32 32" overflow="visible" role="img"><path stroke="currentColor" stroke-width="1.5" d="M22 12v14m-6-14v14m-6-14v14M1 6h30M4 6v25h24V6zm6 0V1h12v5z" vector-effect="non-scaling-stroke"></path></svg></button></div></div><div class="sc-kXzFVc jGeFhL" style="bottom: -2px; left: 50%; transform: translateX(-50%);"><button class="sc-eieCcX cKEKVV">Add section</button></div></div></div><iframe src="/en-eur/theme_editor?draft_theme_id=28e2deb2-934a-4c89-ba4a-3f32bd6c63d8" title="Shop preview" width="100%" height="100%" style="border: none;"></iframe></div></div></div></main><div class="sc-FCBaf gjAJut"><div class="sc-iPjSvn jTqgBH" tabindex="0" style="transform: translateY(1107px);"><button type="button" class="sc-gQiWJd kCnhOw"><div class="sc-hUbltR hrCPOb"></div></button><div class="sc-jxnxao eAfuyI"><div class="sc-jdQffe gmBLge"><div class="sc-dmHDtk cOhxNC"><div class="sc-dyjmTs iAcfhl"><div class="sc-eSbLHr btdeld"><div class="sc-hvrtHo bszCEN"><div class="sc-kFKTvG eJKTsb"><a class="sc-fdDvhz jBkklg active" href="/admin/dashboard/store-design/layout/index/" aria-current="page">Layout</a><a class="sc-fdDvhz jBkklg" href="/admin/dashboard/store-design/general/">Style</a><a class="sc-fdDvhz jBkklg" href="/admin/dashboard/store-design/pages/">Pages</a><a class="sc-fdDvhz jBkklg" href="/admin/dashboard/store-design/themes/">Theme</a></div></div></div></div></div><div class="sc-gEfEhi bTexyo"><div><div class="sc-maxxz fbmfoV"><div><div><div data-testid="Dropdown" class="sc-dSsMvJ dbXwFY"><div variant="default" class="sc-eKbrET jwsqur"><span class="sc-cILPom bZEjKy">Home</span><svg xmlns="http://www.w3.org/2000/svg" height="12" viewBox="0 0 32 32" overflow="visible" role="img"><path fill="none" stroke="currentColor" stroke-width="1.5" d="m1 8 15 16L31 8" vector-effect="non-scaling-stroke"></path></svg></div></div></div><div></div></div></div></div><div class="sc-buzBtR gRePlW"><div><div><a class="sc-hJOupQ gJVUiq" href="/admin/dashboard/store-design/layout/index/sections/announcement-bar-e7087e28-74ac-4ddf-87b0-d8a9a118d442"><div class="sc-kCIVfL kEQChT"><svg xmlns="http://www.w3.org/2000/svg" height="18" fill="none" viewBox="0 0 32 32" overflow="visible" role="img"><path stroke="currentColor" stroke-width="1.5" d="M11.035 8.146v22.199M31 2v24s-10.947-6.146-20-6.146H1V8.146h10C20.053 8.146 31 2 31 2Z" vector-effect="non-scaling-stroke"></path></svg><span class="sc-iBtsPe jLjkGX">Announcement bar</span></div><div class="sc-fZptZh jvQmzf"><div class="sc-dXZRIA hfphpR"><svg xmlns="http://www.w3.org/2000/svg" height="16" fill="none" viewBox="0 0 34 32" overflow="visible" role="img" alt="Section disabled" aria-label="Section disabled"><path stroke="currentColor" stroke-width="1.5" d="M28.707 4.707 6.08 27.334M16.998 5C7.128 4.935 1 15.996 1 15.996s6.133 11.066 15.998 11c9.865.066 16.002-11 16.002-11S26.867 4.936 16.998 5ZM21.5 16.001a4.5 4.5 0 1 1-9-.002 4.5 4.5 0 0 1 9 .002Z" vector-effect="non-scaling-stroke"></path></svg></div><div title="Drag" role="button" tabindex="0" aria-disabled="false" aria-roledescription="sortable" aria-describedby="DndDescribedBy-15" class="sc-dXZRIA sc-godLpy hfphpR loTOlH"><svg xmlns="http://www.w3.org/2000/svg" height="12" fill="none" viewBox="0 0 32 32" overflow="visible" role="img"><path stroke="currentColor" stroke-width="1.5" d="M22 27.5a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5Zm0-13.25a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5ZM22 1a1.75 1.75 0 1 1 0 3.5A1.75 1.75 0 0 1 22 1ZM10 27.5a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5Zm0-13.25a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5ZM10 1a1.75 1.75 0 1 1 0 3.5A1.75 1.75 0 0 1 10 1Z" vector-effect="non-scaling-stroke"></path></svg></div></div></a><a class="sc-hJOupQ gJVUiq" href="/admin/dashboard/store-design/layout/index/sections/header"><div class="sc-kCIVfL kEQChT"><svg xmlns="http://www.w3.org/2000/svg" height="18" fill="none" viewBox="0 0 32 32" overflow="visible" role="img"><path stroke="currentColor" stroke-width="1.5" d="M1 15.5v4m30-4v4m-30 9V31h2.5M31 28.5V31h-2.5M1 22.5v4m30-4v4M6.5 31h4m3.5 0h4m3.5 0h4M1 1h30v12H1z" vector-effect="non-scaling-stroke"></path></svg><span class="sc-iBtsPe jLjkGX">Header</span></div><div class="sc-fZptZh jvQmzf"><div title="Drag" role="button" tabindex="0" aria-disabled="false" aria-roledescription="sortable" aria-describedby="DndDescribedBy-15" class="sc-dXZRIA sc-godLpy hfphpR loTOlH"><svg xmlns="http://www.w3.org/2000/svg" height="12" fill="none" viewBox="0 0 32 32" overflow="visible" role="img"><path stroke="currentColor" stroke-width="1.5" d="M22 27.5a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5Zm0-13.25a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5ZM22 1a1.75 1.75 0 1 1 0 3.5A1.75 1.75 0 0 1 22 1ZM10 27.5a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5Zm0-13.25a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5ZM10 1a1.75 1.75 0 1 1 0 3.5A1.75 1.75 0 0 1 10 1Z" vector-effect="non-scaling-stroke"></path></svg></div></div></a></div><div id="DndDescribedBy-15" style="display: none;">
+    To pick up a draggable item, press the space bar.
+    While dragging, use the arrow keys to move the item.
+    Press space again to drop the item in its new position, or press escape to cancel.
+  </div><div id="DndLiveRegion-15" role="status" aria-live="assertive" aria-atomic="true" style="position: fixed; top: 0px; left: 0px; width: 1px; height: 1px; margin: -1px; border: 0px; padding: 0px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); clip-path: inset(100%); white-space: nowrap;"></div><div class="sc-fDQRv krUvaq"><button type="button" data-testid="AddButton" class="sc-icnseD cphVXy"><svg xmlns="http://www.w3.org/2000/svg" height="16" fill="none" viewBox="0 0 16 16" overflow="visible" role="img"><path fill="currentColor" fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13m-.75 5.63V4.132h1.5V7.13h3.117v1.5H8.75v3.238h-1.5V8.629H4.133v-1.5z" clip-rule="evenodd" vector-effect="non-scaling-stroke"></path></svg>Add header section</button></div></div><div><div><a class="sc-hJOupQ gJVUiq" href="/admin/dashboard/store-design/layout/index/sections/custom-html-dfccad6c-bbbe-4b8a-b43b-b07b7f3ea142"><div class="sc-kCIVfL kEQChT"><svg xmlns="http://www.w3.org/2000/svg" height="18" fill="none" viewBox="0 0 34 32" overflow="visible" role="img"><path stroke="currentColor" stroke-linecap="square" stroke-width="1.5" d="m8.665 10.335-6.665 6 6.665 6m16.668-12 6.667 6-6.667 6M18.666 7l-3.333 18.667" vector-effect="non-scaling-stroke"></path></svg><span class="sc-iBtsPe jLjkGX">Custom HTML</span></div><div class="sc-fZptZh jvQmzf"><div class="sc-dXZRIA hfphpR"><svg xmlns="http://www.w3.org/2000/svg" height="16" fill="none" viewBox="0 0 34 32" overflow="visible" role="img" alt="Section disabled" aria-label="Section disabled"><path stroke="currentColor" stroke-width="1.5" d="M28.707 4.707 6.08 27.334M16.998 5C7.128 4.935 1 15.996 1 15.996s6.133 11.066 15.998 11c9.865.066 16.002-11 16.002-11S26.867 4.936 16.998 5ZM21.5 16.001a4.5 4.5 0 1 1-9-.002 4.5 4.5 0 0 1 9 .002Z" vector-effect="non-scaling-stroke"></path></svg></div><div title="Drag" role="button" tabindex="0" aria-disabled="false" aria-roledescription="sortable" aria-describedby="DndDescribedBy-16" class="sc-dXZRIA sc-godLpy hfphpR loTOlH"><svg xmlns="http://www.w3.org/2000/svg" height="12" fill="none" viewBox="0 0 32 32" overflow="visible" role="img"><path stroke="currentColor" stroke-width="1.5" d="M22 27.5a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5Zm0-13.25a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5ZM22 1a1.75 1.75 0 1 1 0 3.5A1.75 1.75 0 0 1 22 1ZM10 27.5a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5Zm0-13.25a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5ZM10 1a1.75 1.75 0 1 1 0 3.5A1.75 1.75 0 0 1 10 1Z" vector-effect="non-scaling-stroke"></path></svg></div></div></a><a class="sc-hJOupQ gJVUiq" href="/admin/dashboard/store-design/layout/index/sections/custom-html-2e9f9042-6662-4b6c-ad9f-31dae3935cda"><div class="sc-kCIVfL kEQChT"><svg xmlns="http://www.w3.org/2000/svg" height="18" fill="none" viewBox="0 0 34 32" overflow="visible" role="img"><path stroke="currentColor" stroke-linecap="square" stroke-width="1.5" d="m8.665 10.335-6.665 6 6.665 6m16.668-12 6.667 6-6.667 6M18.666 7l-3.333 18.667" vector-effect="non-scaling-stroke"></path></svg><span class="sc-iBtsPe jLjkGX">Custom HTML</span></div><div class="sc-fZptZh jvQmzf"><div class="sc-dXZRIA sc-iptnGf hfphpR dHKryA"><svg xmlns="http://www.w3.org/2000/svg" height="16" fill="none" viewBox="0 0 34 32" overflow="visible" role="img" alt="Section enabled" aria-label="Section enabled"><path stroke="currentColor" stroke-width="1.5" d="M16.998 5C7.128 4.935 1 15.996 1 15.996s6.133 11.066 15.998 11c9.865.066 16.002-11 16.002-11S26.867 4.935 16.998 5Z" vector-effect="non-scaling-stroke"></path><path stroke="currentColor" stroke-width="1.5" d="M21.5 16.001a4.5 4.5 0 1 1-9-.002 4.5 4.5 0 0 1 9 .002Z" vector-effect="non-scaling-stroke"></path></svg></div><div title="Drag" role="button" tabindex="0" aria-disabled="false" aria-roledescription="sortable" aria-describedby="DndDescribedBy-16" class="sc-dXZRIA sc-godLpy hfphpR loTOlH"><svg xmlns="http://www.w3.org/2000/svg" height="12" fill="none" viewBox="0 0 32 32" overflow="visible" role="img"><path stroke="currentColor" stroke-width="1.5" d="M22 27.5a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5Zm0-13.25a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5ZM22 1a1.75 1.75 0 1 1 0 3.5A1.75 1.75 0 0 1 22 1ZM10 27.5a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5Zm0-13.25a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5ZM10 1a1.75 1.75 0 1 1 0 3.5A1.75 1.75 0 0 1 10 1Z" vector-effect="non-scaling-stroke"></path></svg></div></div></a><a class="sc-hJOupQ gJVUiq" href="/admin/dashboard/store-design/layout/index/sections/custom-html-3cc57c16-f5ab-401b-914d-356870d2d443"><div class="sc-kCIVfL kEQChT"><svg xmlns="http://www.w3.org/2000/svg" height="18" fill="none" viewBox="0 0 34 32" overflow="visible" role="img"><path stroke="currentColor" stroke-linecap="square" stroke-width="1.5" d="m8.665 10.335-6.665 6 6.665 6m16.668-12 6.667 6-6.667 6M18.666 7l-3.333 18.667" vector-effect="non-scaling-stroke"></path></svg><span class="sc-iBtsPe jLjkGX">Custom HTML</span></div><div class="sc-fZptZh jvQmzf"><div class="sc-dXZRIA sc-iptnGf hfphpR dHKryA"><svg xmlns="http://www.w3.org/2000/svg" height="16" fill="none" viewBox="0 0 34 32" overflow="visible" role="img" alt="Section enabled" aria-label="Section enabled"><path stroke="currentColor" stroke-width="1.5" d="M16.998 5C7.128 4.935 1 15.996 1 15.996s6.133 11.066 15.998 11c9.865.066 16.002-11 16.002-11S26.867 4.935 16.998 5Z" vector-effect="non-scaling-stroke"></path><path stroke="currentColor" stroke-width="1.5" d="M21.5 16.001a4.5 4.5 0 1 1-9-.002 4.5 4.5 0 0 1 9 .002Z" vector-effect="non-scaling-stroke"></path></svg></div><div title="Drag" role="button" tabindex="0" aria-disabled="false" aria-roledescription="sortable" aria-describedby="DndDescribedBy-16" class="sc-dXZRIA sc-godLpy hfphpR loTOlH"><svg xmlns="http://www.w3.org/2000/svg" height="12" fill="none" viewBox="0 0 32 32" overflow="visible" role="img"><path stroke="currentColor" stroke-width="1.5" d="M22 27.5a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5Zm0-13.25a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5ZM22 1a1.75 1.75 0 1 1 0 3.5A1.75 1.75 0 0 1 22 1ZM10 27.5a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5Zm0-13.25a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5ZM10 1a1.75 1.75 0 1 1 0 3.5A1.75 1.75 0 0 1 10 1Z" vector-effect="non-scaling-stroke"></path></svg></div></div></a><a class="sc-hJOupQ gJVUiq" href="/admin/dashboard/store-design/layout/index/sections/hero-1755212546"><div class="sc-kCIVfL kEQChT"><svg xmlns="http://www.w3.org/2000/svg" height="18" fill="none" viewBox="0 0 32 33" overflow="visible" role="img"><path stroke="currentColor" stroke-width="1.5" d="M0 32h8m-8-7h11m18-9L19.01 2l-5.242 6.196L10.12 5.96 3 16zm-9 16h7a4 4 0 0 0 0-8h-7a4 4 0 0 0 0 8Z" vector-effect="non-scaling-stroke"></path></svg><span class="sc-iBtsPe jLjkGX">Image banner</span></div><div class="sc-fZptZh jvQmzf"><div class="sc-dXZRIA sc-iptnGf hfphpR dHKryA"><svg xmlns="http://www.w3.org/2000/svg" height="16" fill="none" viewBox="0 0 34 32" overflow="visible" role="img" alt="Section enabled" aria-label="Section enabled"><path stroke="currentColor" stroke-width="1.5" d="M16.998 5C7.128 4.935 1 15.996 1 15.996s6.133 11.066 15.998 11c9.865.066 16.002-11 16.002-11S26.867 4.935 16.998 5Z" vector-effect="non-scaling-stroke"></path><path stroke="currentColor" stroke-width="1.5" d="M21.5 16.001a4.5 4.5 0 1 1-9-.002 4.5 4.5 0 0 1 9 .002Z" vector-effect="non-scaling-stroke"></path></svg></div><div title="Drag" role="button" tabindex="0" aria-disabled="false" aria-roledescription="sortable" aria-describedby="DndDescribedBy-16" class="sc-dXZRIA sc-godLpy hfphpR loTOlH"><svg xmlns="http://www.w3.org/2000/svg" height="12" fill="none" viewBox="0 0 32 32" overflow="visible" role="img"><path stroke="currentColor" stroke-width="1.5" d="M22 27.5a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5Zm0-13.25a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5ZM22 1a1.75 1.75 0 1 1 0 3.5A1.75 1.75 0 0 1 22 1ZM10 27.5a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5Zm0-13.25a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5ZM10 1a1.75 1.75 0 1 1 0 3.5A1.75 1.75 0 0 1 10 1Z" vector-effect="non-scaling-stroke"></path></svg></div></div></a><a class="sc-hJOupQ gJVUiq" href="/admin/dashboard/store-design/layout/index/sections/rich-text-d503ccac-4231-4685-94a1-f2b910a9b391"><div class="sc-kCIVfL kEQChT"><svg xmlns="http://www.w3.org/2000/svg" height="18" fill="none" viewBox="0 0 16 16" overflow="visible" role="img"><path fill="currentColor" fill-rule="evenodd" d="M1.75 1.5a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h12.5a.25.25 0 0 0 .25-.25V1.75a.25.25 0 0 0-.25-.25zM0 1.75C0 .784.784 0 1.75 0h12.5C15.216 0 16 .784 16 1.75v12.5A1.75 1.75 0 0 1 14.25 16H1.75A1.75 1.75 0 0 1 0 14.25zm8.58 3.617H3.65v-1.5h4.93zm3.77 3.383h-8.7v-1.5h8.7zm0 3.383h-8.7v-1.5h8.7z" clip-rule="evenodd" vector-effect="non-scaling-stroke"></path></svg><span class="sc-iBtsPe jLjkGX">Text</span></div><div class="sc-fZptZh jvQmzf"><div class="sc-dXZRIA sc-iptnGf hfphpR dHKryA"><svg xmlns="http://www.w3.org/2000/svg" height="16" fill="none" viewBox="0 0 34 32" overflow="visible" role="img" alt="Section enabled" aria-label="Section enabled"><path stroke="currentColor" stroke-width="1.5" d="M16.998 5C7.128 4.935 1 15.996 1 15.996s6.133 11.066 15.998 11c9.865.066 16.002-11 16.002-11S26.867 4.935 16.998 5Z" vector-effect="non-scaling-stroke"></path><path stroke="currentColor" stroke-width="1.5" d="M21.5 16.001a4.5 4.5 0 1 1-9-.002 4.5 4.5 0 0 1 9 .002Z" vector-effect="non-scaling-stroke"></path></svg></div><div title="Drag" role="button" tabindex="0" aria-disabled="false" aria-roledescription="sortable" aria-describedby="DndDescribedBy-16" class="sc-dXZRIA sc-godLpy hfphpR loTOlH"><svg xmlns="http://www.w3.org/2000/svg" height="12" fill="none" viewBox="0 0 32 32" overflow="visible" role="img"><path stroke="currentColor" stroke-width="1.5" d="M22 27.5a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5Zm0-13.25a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5ZM22 1a1.75 1.75 0 1 1 0 3.5A1.75 1.75 0 0 1 22 1ZM10 27.5a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5Zm0-13.25a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5ZM10 1a1.75 1.75 0 1 1 0 3.5A1.75 1.75 0 0 1 10 1Z" vector-effect="non-scaling-stroke"></path></svg></div></div></a><a class="sc-hJOupQ gJVUiq" href="/admin/dashboard/store-design/layout/index/sections/recent-videos-1755212546"><div class="sc-kCIVfL kEQChT"><svg xmlns="http://www.w3.org/2000/svg" height="18" fill="none" viewBox="0 0 32 32" overflow="visible" role="img"><path fill="currentColor" d="M26.75 5H5.25A5.26 5.26 0 0 0 0 10.252v12.161a5.26 5.26 0 0 0 5.25 5.254h21.5A5.26 5.26 0 0 0 32 22.413V10.252A5.26 5.26 0 0 0 26.75 5m-4.7 11.375-9.025 5.774a.67.67 0 0 1-.679.023.67.67 0 0 1-.346-.584v-11.55a.669.669 0 0 1 1.027-.562l9.025 5.776a.665.665 0 0 1-.001 1.123Z" vector-effect="non-scaling-stroke"></path></svg><span class="sc-iBtsPe jLjkGX">YouTube feed</span></div><div class="sc-fZptZh jvQmzf"><div class="sc-dXZRIA sc-iptnGf hfphpR dHKryA"><svg xmlns="http://www.w3.org/2000/svg" height="16" fill="none" viewBox="0 0 34 32" overflow="visible" role="img" alt="Section enabled" aria-label="Section enabled"><path stroke="currentColor" stroke-width="1.5" d="M16.998 5C7.128 4.935 1 15.996 1 15.996s6.133 11.066 15.998 11c9.865.066 16.002-11 16.002-11S26.867 4.935 16.998 5Z" vector-effect="non-scaling-stroke"></path><path stroke="currentColor" stroke-width="1.5" d="M21.5 16.001a4.5 4.5 0 1 1-9-.002 4.5 4.5 0 0 1 9 .002Z" vector-effect="non-scaling-stroke"></path></svg></div><div title="Drag" role="button" tabindex="0" aria-disabled="false" aria-roledescription="sortable" aria-describedby="DndDescribedBy-16" class="sc-dXZRIA sc-godLpy hfphpR loTOlH"><svg xmlns="http://www.w3.org/2000/svg" height="12" fill="none" viewBox="0 0 32 32" overflow="visible" role="img"><path stroke="currentColor" stroke-width="1.5" d="M22 27.5a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5Zm0-13.25a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5ZM22 1a1.75 1.75 0 1 1 0 3.5A1.75 1.75 0 0 1 22 1ZM10 27.5a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5Zm0-13.25a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5ZM10 1a1.75 1.75 0 1 1 0 3.5A1.75 1.75 0 0 1 10 1Z" vector-effect="non-scaling-stroke"></path></svg></div></div></a><a class="sc-hJOupQ gJVUiq" href="/admin/dashboard/store-design/layout/index/sections/instagram-feed-1755212546"><div class="sc-kCIVfL kEQChT"><svg xmlns="http://www.w3.org/2000/svg" height="18" fill="none" viewBox="0 0 32 32" overflow="visible" role="img"><path fill="currentColor" fill-rule="evenodd" d="M7.992 0h16.016A7.99 7.99 0 0 1 32 7.992v16.016A7.99 7.99 0 0 1 24.008 32H7.992A7.99 7.99 0 0 1 0 24.008V7.992A7.99 7.99 0 0 1 7.992 0M3.2 24.008A4.79 4.79 0 0 0 7.992 28.8h16.016a4.79 4.79 0 0 0 4.792-4.792V7.992A4.79 4.79 0 0 0 24.008 3.2H7.992A4.79 4.79 0 0 0 3.2 7.992zM8 16a8 8 0 1 1 16 0 8 8 0 0 1-16 0m12.8 0a4.8 4.8 0 1 0-9.6 0 4.8 4.8 0 0 0 9.6 0M24 9.6a1.6 1.6 0 1 0 0-3.2 1.6 1.6 0 0 0 0 3.2" clip-rule="evenodd" vector-effect="non-scaling-stroke"></path></svg><span class="sc-iBtsPe jLjkGX">Instagram feed</span></div><div class="sc-fZptZh jvQmzf"><div class="sc-dXZRIA sc-iptnGf hfphpR dHKryA"><svg xmlns="http://www.w3.org/2000/svg" height="16" fill="none" viewBox="0 0 34 32" overflow="visible" role="img" alt="Section enabled" aria-label="Section enabled"><path stroke="currentColor" stroke-width="1.5" d="M16.998 5C7.128 4.935 1 15.996 1 15.996s6.133 11.066 15.998 11c9.865.066 16.002-11 16.002-11S26.867 4.935 16.998 5Z" vector-effect="non-scaling-stroke"></path><path stroke="currentColor" stroke-width="1.5" d="M21.5 16.001a4.5 4.5 0 1 1-9-.002 4.5 4.5 0 0 1 9 .002Z" vector-effect="non-scaling-stroke"></path></svg></div><div title="Drag" role="button" tabindex="0" aria-disabled="false" aria-roledescription="sortable" aria-describedby="DndDescribedBy-16" class="sc-dXZRIA sc-godLpy hfphpR loTOlH"><svg xmlns="http://www.w3.org/2000/svg" height="12" fill="none" viewBox="0 0 32 32" overflow="visible" role="img"><path stroke="currentColor" stroke-width="1.5" d="M22 27.5a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5Zm0-13.25a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5ZM22 1a1.75 1.75 0 1 1 0 3.5A1.75 1.75 0 0 1 22 1ZM10 27.5a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5Zm0-13.25a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5ZM10 1a1.75 1.75 0 1 1 0 3.5A1.75 1.75 0 0 1 10 1Z" vector-effect="non-scaling-stroke"></path></svg></div></div></a><a class="sc-hJOupQ gJVUiq" href="/admin/dashboard/store-design/layout/index/sections/links-list-1755212546"><div class="sc-kCIVfL kEQChT"><svg xmlns="http://www.w3.org/2000/svg" height="18" fill="none" viewBox="0 0 34 32" overflow="visible" role="img"><path stroke="currentColor" stroke-width="1.5" d="M13.333 18.1H8.467C4.343 18.1 1 14.72 1 10.55S4.343 3 8.467 3h17.066C29.657 3 33 6.38 33 10.55a7.57 7.57 0 0 1-4.048 6.713m-3.915 4.373 3.6-3.25a.744.744 0 0 0-.222-1.242l-15.413-6.092c-.56-.22-1.13.294-.976.88l4.257 16.164c.141.534.79.73 1.199.362l3.597-3.248 3.906 4.407c.54.61 1.469.662 2.073.116l1.77-1.598a1.49 1.49 0 0 0 .115-2.092z" vector-effect="non-scaling-stroke" style="stroke-opacity: 1;"></path></svg><span class="sc-iBtsPe jLjkGX">Links list</span></div><div class="sc-fZptZh jvQmzf"><div class="sc-dXZRIA sc-iptnGf hfphpR dHKryA"><svg xmlns="http://www.w3.org/2000/svg" height="16" fill="none" viewBox="0 0 34 32" overflow="visible" role="img" alt="Section enabled" aria-label="Section enabled"><path stroke="currentColor" stroke-width="1.5" d="M16.998 5C7.128 4.935 1 15.996 1 15.996s6.133 11.066 15.998 11c9.865.066 16.002-11 16.002-11S26.867 4.935 16.998 5Z" vector-effect="non-scaling-stroke"></path><path stroke="currentColor" stroke-width="1.5" d="M21.5 16.001a4.5 4.5 0 1 1-9-.002 4.5 4.5 0 0 1 9 .002Z" vector-effect="non-scaling-stroke"></path></svg></div><div title="Drag" role="button" tabindex="0" aria-disabled="false" aria-roledescription="sortable" aria-describedby="DndDescribedBy-16" class="sc-dXZRIA sc-godLpy hfphpR loTOlH"><svg xmlns="http://www.w3.org/2000/svg" height="12" fill="none" viewBox="0 0 32 32" overflow="visible" role="img"><path stroke="currentColor" stroke-width="1.5" d="M22 27.5a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5Zm0-13.25a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5ZM22 1a1.75 1.75 0 1 1 0 3.5A1.75 1.75 0 0 1 22 1ZM10 27.5a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5Zm0-13.25a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5ZM10 1a1.75 1.75 0 1 1 0 3.5A1.75 1.75 0 0 1 10 1Z" vector-effect="non-scaling-stroke"></path></svg></div></div></a><a class="sc-hJOupQ gJVUiq" href="/admin/dashboard/store-design/layout/index/sections/custom-html-54fea9b8-892f-4892-ae45-e6846db23f1a"><div class="sc-kCIVfL kEQChT"><svg xmlns="http://www.w3.org/2000/svg" height="18" fill="none" viewBox="0 0 34 32" overflow="visible" role="img"><path stroke="currentColor" stroke-linecap="square" stroke-width="1.5" d="m8.665 10.335-6.665 6 6.665 6m16.668-12 6.667 6-6.667 6M18.666 7l-3.333 18.667" vector-effect="non-scaling-stroke"></path></svg><span class="sc-iBtsPe jLjkGX">Custom HTML</span></div><div class="sc-fZptZh jvQmzf"><div class="sc-dXZRIA sc-iptnGf hfphpR dHKryA"><svg xmlns="http://www.w3.org/2000/svg" height="16" fill="none" viewBox="0 0 34 32" overflow="visible" role="img" alt="Section enabled" aria-label="Section enabled"><path stroke="currentColor" stroke-width="1.5" d="M16.998 5C7.128 4.935 1 15.996 1 15.996s6.133 11.066 15.998 11c9.865.066 16.002-11 16.002-11S26.867 4.935 16.998 5Z" vector-effect="non-scaling-stroke"></path><path stroke="currentColor" stroke-width="1.5" d="M21.5 16.001a4.5 4.5 0 1 1-9-.002 4.5 4.5 0 0 1 9 .002Z" vector-effect="non-scaling-stroke"></path></svg></div><div title="Drag" role="button" tabindex="0" aria-disabled="false" aria-roledescription="sortable" aria-describedby="DndDescribedBy-16" class="sc-dXZRIA sc-godLpy hfphpR loTOlH"><svg xmlns="http://www.w3.org/2000/svg" height="12" fill="none" viewBox="0 0 32 32" overflow="visible" role="img"><path stroke="currentColor" stroke-width="1.5" d="M22 27.5a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5Zm0-13.25a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5ZM22 1a1.75 1.75 0 1 1 0 3.5A1.75 1.75 0 0 1 22 1ZM10 27.5a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5Zm0-13.25a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5ZM10 1a1.75 1.75 0 1 1 0 3.5A1.75 1.75 0 0 1 10 1Z" vector-effect="non-scaling-stroke"></path></svg></div></div></a></div><div id="DndDescribedBy-16" style="display: none;">
+    To pick up a draggable item, press the space bar.
+    While dragging, use the arrow keys to move the item.
+    Press space again to drop the item in its new position, or press escape to cancel.
+  </div><div id="DndLiveRegion-16" role="status" aria-live="assertive" aria-atomic="true" style="position: fixed; top: 0px; left: 0px; width: 1px; height: 1px; margin: -1px; border: 0px; padding: 0px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); clip-path: inset(100%); white-space: nowrap;"></div><div class="sc-fDQRv krUvaq"><button type="button" data-testid="AddButton" class="sc-icnseD cphVXy"><svg xmlns="http://www.w3.org/2000/svg" height="16" fill="none" viewBox="0 0 16 16" overflow="visible" role="img"><path fill="currentColor" fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13m-.75 5.63V4.132h1.5V7.13h3.117v1.5H8.75v3.238h-1.5V8.629H4.133v-1.5z" clip-rule="evenodd" vector-effect="non-scaling-stroke"></path></svg>Add page section</button></div></div><div><div><a class="sc-hJOupQ gJVUiq" href="/admin/dashboard/store-design/layout/index/sections/footer"><div class="sc-kCIVfL kEQChT"><svg xmlns="http://www.w3.org/2000/svg" height="18" fill="none" viewBox="0 0 32 32" overflow="visible" role="img"><path stroke="currentColor" stroke-width="1.5" d="M1 16.5v-4m30 4v-4m-30-9V1h2.5M31 3.5V1h-2.5M1 9.5v-4m30 4v-4M6.5 1h4M14 1h4m3.5 0h4M1 31h30V19H1z" vector-effect="non-scaling-stroke"></path></svg><span class="sc-iBtsPe jLjkGX">Footer</span></div><div class="sc-fZptZh jvQmzf"><div title="Drag" role="button" tabindex="0" aria-disabled="false" aria-roledescription="sortable" aria-describedby="DndDescribedBy-17" class="sc-dXZRIA sc-godLpy hfphpR loTOlH"><svg xmlns="http://www.w3.org/2000/svg" height="12" fill="none" viewBox="0 0 32 32" overflow="visible" role="img"><path stroke="currentColor" stroke-width="1.5" d="M22 27.5a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5Zm0-13.25a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5ZM22 1a1.75 1.75 0 1 1 0 3.5A1.75 1.75 0 0 1 22 1ZM10 27.5a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5Zm0-13.25a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5ZM10 1a1.75 1.75 0 1 1 0 3.5A1.75 1.75 0 0 1 10 1Z" vector-effect="non-scaling-stroke"></path></svg></div></div></a></div><div id="DndDescribedBy-17" style="display: none;">
+    To pick up a draggable item, press the space bar.
+    While dragging, use the arrow keys to move the item.
+    Press space again to drop the item in its new position, or press escape to cancel.
+  </div><div id="DndLiveRegion-17" role="status" aria-live="assertive" aria-atomic="true" style="position: fixed; top: 0px; left: 0px; width: 1px; height: 1px; margin: -1px; border: 0px; padding: 0px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); clip-path: inset(100%); white-space: nowrap;"></div><div class="sc-fDQRv krUvaq"><button type="button" data-testid="AddButton" class="sc-icnseD cphVXy"><svg xmlns="http://www.w3.org/2000/svg" height="16" fill="none" viewBox="0 0 16 16" overflow="visible" role="img"><path fill="currentColor" fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13m-.75 5.63V4.132h1.5V7.13h3.117v1.5H8.75v3.238h-1.5V8.629H4.133v-1.5z" clip-rule="evenodd" vector-effect="non-scaling-stroke"></path></svg>Add footer section</button></div></div></div><div class="sc-hMEIdA ljSCtr"></div></div></div></div></div></div></div></div><div class="Toastify" style=""></div></div>
+  
+
+<textarea id="BFI_DATA" style="width: 1px; height: 1px; display: none;"></textarea><title> </title><div id="WidgetFloaterPanels" translate="no" style="display: none; text-align: left; direction: ltr; visibility: hidden;" class="LTRStyle"> <div id="WidgetFloater" style="display: none" onmouseover="Microsoft.Translator.OnMouseOverFloater()" onmouseout="Microsoft.Translator.OnMouseOutFloater()"> <div id="WidgetLogoPanel"> <span id="WidgetTranslateWithSpan"><span>TRANSLATE with </span><img id="FloaterLogo"></span> <span id="WidgetCloseButton" title="Exit Translation" onclick="Microsoft.Translator.FloaterOnClose()">x</span></div> <div id="LanguageMenuPanel"> <div class="DDStyle_outer"><input name="LanguageMenu_svid" type="text" id="LanguageMenu_svid" style="display:none;" autocomplete="on" value="en" onclick="this.select()"> <input name="LanguageMenu_textid" type="text" id="LanguageMenu_textid" style="display:none;" autocomplete="on" onclick="this.select()"> <span onselectstart="return false" tabindex="0" class="DDStyle" id="__LanguageMenu_header" onclick="return LanguageMenu &amp;&amp; !LanguageMenu.Show('__LanguageMenu_popup', event);" onkeydown="return LanguageMenu &amp;&amp; !LanguageMenu.Show('__LanguageMenu_popup', event);">English</span> <div style="position:relative;text-align:left;left:0;"><div style="position:absolute;width:;left:0px;"><div class="DDStyle" style="display:none;" id="__LanguageMenu_popup"> <table id="LanguageMenu" border="0"> <tbody><tr> <td><a tabindex="-1" onclick="return LanguageMenu.onclick('ar');" ondragstart="LanguageMenu.ondragstart(event);" href="#ar">Arabic</a></td><td><a tabindex="-1" onclick="return LanguageMenu.onclick('he');" ondragstart="LanguageMenu.ondragstart(event);" href="#he">Hebrew</a></td><td><a tabindex="-1" onclick="return LanguageMenu.onclick('pl');" ondragstart="LanguageMenu.ondragstart(event);" href="#pl">Polish</a></td> </tr><tr> <td><a tabindex="-1" onclick="return LanguageMenu.onclick('bg');" ondragstart="LanguageMenu.ondragstart(event);" href="#bg">Bulgarian</a></td><td><a tabindex="-1" onclick="return LanguageMenu.onclick('hi');" ondragstart="LanguageMenu.ondragstart(event);" href="#hi">Hindi</a></td><td><a tabindex="-1" onclick="return LanguageMenu.onclick('pt');" ondragstart="LanguageMenu.ondragstart(event);" href="#pt">Portuguese</a></td> </tr><tr> <td><a tabindex="-1" onclick="return LanguageMenu.onclick('ca');" ondragstart="LanguageMenu.ondragstart(event);" href="#ca">Catalan</a></td><td><a tabindex="-1" onclick="return LanguageMenu.onclick('mww');" ondragstart="LanguageMenu.ondragstart(event);" href="#mww">Hmong Daw</a></td><td><a tabindex="-1" onclick="return LanguageMenu.onclick('ro');" ondragstart="LanguageMenu.ondragstart(event);" href="#ro">Romanian</a></td> </tr><tr> <td><a tabindex="-1" onclick="return LanguageMenu.onclick('zh-CHS');" ondragstart="LanguageMenu.ondragstart(event);" href="#zh-CHS">Chinese Simplified</a></td><td><a tabindex="-1" onclick="return LanguageMenu.onclick('hu');" ondragstart="LanguageMenu.ondragstart(event);" href="#hu">Hungarian</a></td><td><a tabindex="-1" onclick="return LanguageMenu.onclick('ru');" ondragstart="LanguageMenu.ondragstart(event);" href="#ru">Russian</a></td> </tr><tr> <td><a tabindex="-1" onclick="return LanguageMenu.onclick('zh-CHT');" ondragstart="LanguageMenu.ondragstart(event);" href="#zh-CHT">Chinese Traditional</a></td><td><a tabindex="-1" onclick="return LanguageMenu.onclick('id');" ondragstart="LanguageMenu.ondragstart(event);" href="#id">Indonesian</a></td><td><a tabindex="-1" onclick="return LanguageMenu.onclick('sk');" ondragstart="LanguageMenu.ondragstart(event);" href="#sk">Slovak</a></td> </tr><tr> <td><a tabindex="-1" onclick="return LanguageMenu.onclick('cs');" ondragstart="LanguageMenu.ondragstart(event);" href="#cs">Czech</a></td><td><a tabindex="-1" onclick="return LanguageMenu.onclick('it');" ondragstart="LanguageMenu.ondragstart(event);" href="#it">Italian</a></td><td><a tabindex="-1" onclick="return LanguageMenu.onclick('sl');" ondragstart="LanguageMenu.ondragstart(event);" href="#sl">Slovenian</a></td> </tr><tr> <td><a tabindex="-1" onclick="return LanguageMenu.onclick('da');" ondragstart="LanguageMenu.ondragstart(event);" href="#da">Danish</a></td><td><a tabindex="-1" onclick="return LanguageMenu.onclick('ja');" ondragstart="LanguageMenu.ondragstart(event);" href="#ja">Japanese</a></td><td><a tabindex="-1" onclick="return LanguageMenu.onclick('es');" ondragstart="LanguageMenu.ondragstart(event);" href="#es">Spanish</a></td> </tr><tr> <td><a tabindex="-1" onclick="return LanguageMenu.onclick('nl');" ondragstart="LanguageMenu.ondragstart(event);" href="#nl">Dutch</a></td><td><a tabindex="-1" onclick="return LanguageMenu.onclick('tlh');" ondragstart="LanguageMenu.ondragstart(event);" href="#tlh">Klingon</a></td><td><a tabindex="-1" onclick="return LanguageMenu.onclick('sv');" ondragstart="LanguageMenu.ondragstart(event);" href="#sv">Swedish</a></td> </tr><tr> <td><a tabindex="-1" onclick="return LanguageMenu.onclick('en');" ondragstart="LanguageMenu.ondragstart(event);" href="#en">English</a></td><td><a tabindex="-1" onclick="return LanguageMenu.onclick('ko');" ondragstart="LanguageMenu.ondragstart(event);" href="#ko">Korean</a></td><td><a tabindex="-1" onclick="return LanguageMenu.onclick('th');" ondragstart="LanguageMenu.ondragstart(event);" href="#th">Thai</a></td> </tr><tr> <td><a tabindex="-1" onclick="return LanguageMenu.onclick('et');" ondragstart="LanguageMenu.ondragstart(event);" href="#et">Estonian</a></td><td><a tabindex="-1" onclick="return LanguageMenu.onclick('lv');" ondragstart="LanguageMenu.ondragstart(event);" href="#lv">Latvian</a></td><td><a tabindex="-1" onclick="return LanguageMenu.onclick('tr');" ondragstart="LanguageMenu.ondragstart(event);" href="#tr">Turkish</a></td> </tr><tr> <td><a tabindex="-1" onclick="return LanguageMenu.onclick('fi');" ondragstart="LanguageMenu.ondragstart(event);" href="#fi">Finnish</a></td><td><a tabindex="-1" onclick="return LanguageMenu.onclick('lt');" ondragstart="LanguageMenu.ondragstart(event);" href="#lt">Lithuanian</a></td><td><a tabindex="-1" onclick="return LanguageMenu.onclick('uk');" ondragstart="LanguageMenu.ondragstart(event);" href="#uk">Ukrainian</a></td> </tr><tr> <td><a tabindex="-1" onclick="return LanguageMenu.onclick('fr');" ondragstart="LanguageMenu.ondragstart(event);" href="#fr">French</a></td><td><a tabindex="-1" onclick="return LanguageMenu.onclick('ms');" ondragstart="LanguageMenu.ondragstart(event);" href="#ms">Malay</a></td><td><a tabindex="-1" onclick="return LanguageMenu.onclick('ur');" ondragstart="LanguageMenu.ondragstart(event);" href="#ur">Urdu</a></td> </tr><tr> <td><a tabindex="-1" onclick="return LanguageMenu.onclick('de');" ondragstart="LanguageMenu.ondragstart(event);" href="#de">German</a></td><td><a tabindex="-1" onclick="return LanguageMenu.onclick('mt');" ondragstart="LanguageMenu.ondragstart(event);" href="#mt">Maltese</a></td><td><a tabindex="-1" onclick="return LanguageMenu.onclick('vi');" ondragstart="LanguageMenu.ondragstart(event);" href="#vi">Vietnamese</a></td> </tr><tr> <td><a tabindex="-1" onclick="return LanguageMenu.onclick('el');" ondragstart="LanguageMenu.ondragstart(event);" href="#el">Greek</a></td><td><a tabindex="-1" onclick="return LanguageMenu.onclick('no');" ondragstart="LanguageMenu.ondragstart(event);" href="#no">Norwegian</a></td><td><a tabindex="-1" onclick="return LanguageMenu.onclick('cy');" ondragstart="LanguageMenu.ondragstart(event);" href="#cy">Welsh</a></td> </tr><tr> <td><a tabindex="-1" onclick="return LanguageMenu.onclick('ht');" ondragstart="LanguageMenu.ondragstart(event);" href="#ht">Haitian Creole</a></td><td><a tabindex="-1" onclick="return LanguageMenu.onclick('fa');" ondragstart="LanguageMenu.ondragstart(event);" href="#fa">Persian</a></td><td></td> </tr> </tbody></table> <img alt="" style="height:7px;width:17px;border-width:0px;left:20px;"> </div></div></div></div> <script type="text/javascript"> var LanguageMenu; var LanguageMenu_keys=["ar","bg","ca","zh-CHS","zh-CHT","cs","da","nl","en","et","fi","fr","de","el","ht","he","hi","mww","hu","id","it","ja","tlh","ko","lv","lt","ms","mt","no","fa","pl","pt","ro","ru","sk","sl","es","sv","th","tr","uk","ur","vi","cy"]; var LanguageMenu_values=["Arabic","Bulgarian","Catalan","Chinese Simplified","Chinese Traditional","Czech","Danish","Dutch","English","Estonian","Finnish","French","German","Greek","Haitian Creole","Hebrew","Hindi","Hmong Daw","Hungarian","Indonesian","Italian","Japanese","Klingon","Korean","Latvian","Lithuanian","Malay","Maltese","Norwegian","Persian","Polish","Portuguese","Romanian","Russian","Slovak","Slovenian","Spanish","Swedish","Thai","Turkish","Ukrainian","Urdu","Vietnamese","Welsh"]; var LanguageMenu_callback=function(){ }; var LanguageMenu_popupid='__LanguageMenu_popup'; </script> </div> <div id="CTFLinksPanel"> <span id="ExternalLinksPanel"><a id="HelpLink" title="Help" target="_blank" href="https://go.microsoft.com/?linkid=9722454"> <img id="HelpImg"></a> <a id="EmbedLink" href="javascript:Microsoft.Translator.FloaterShowEmbed()" title="Get this widget for your own site"> <img id="EmbedImg"></a> <a id="ShareLink" title="Share translated page with friends" href="javascript:Microsoft.Translator.FloaterShowSharePanel()"> <img id="ShareImg"></a> </span> </div> <div id="FloaterProgressBar"> <span id="ProgressFill"></span> </div> </div> <div id="WidgetFloaterCollapsed" style="display: none" onmouseover="Microsoft.Translator.OnMouseOverFloater()"> <span>TRANSLATE with </span><img id="CollapsedLogoImg"></div> <div id="FloaterSharePanel" style="display: none"> <div id="ShareTextDiv"> <span id="ShareTextSpan"> COPY THE URL BELOW </span> </div> <div id="ShareTextboxDiv"> <input name="ShareTextbox" type="text" id="ShareTextbox" readonly="readonly" onclick="this.select()"> <!--a id="TwitterLink" title="Share on Twitter"> <img id="TwitterImg" /></a> <a-- id="FacebookLink" title="Share on Facebook"> <img id="FacebookImg" /></a--> <a id="EmailLink" title="Email this translation"> <img id="EmailImg"></a> </div> <div id="ShareFooter"> <span id="ShareHelpSpan"><a id="ShareHelpLink"> <img id="ShareHelpImg"></a></span> <span id="ShareBackSpan"><a id="ShareBack" href="javascript:Microsoft.Translator.FloaterOnShareBackClick()" title="Back To Translation"> Back</a></span> </div> <input name="EmailSubject" type="hidden" id="EmailSubject" value="Check out this page in {0} translated from {1}"> <input name="EmailBody" type="hidden" id="EmailBody" value="Translated: {0}%0d%0aOriginal: {1}%0d%0a%0d%0aAutomatic translation powered by Microsoft® Translator%0d%0ahttp://www.bing.com/translator?ref=MSTWidget"> <input type="hidden" id="ShareHelpText" value="This link allows visitors to launch this page and automatically translate it to {0}."> </div> <div id="FloaterEmbed" style="display: none"> <div id="EmbedTextDiv"> <span id="EmbedTextSpan">EMBED THE SNIPPET BELOW IN YOUR SITE</span> <a id="EmbedHelpLink" title="Copy this code and place it into your HTML."> <img id="EmbedHelpImg"></a> </div> <div id="EmbedTextboxDiv"> <input name="EmbedSnippetTextBox" type="text" id="EmbedSnippetTextBox" readonly="readonly" value="&lt;div id='MicrosoftTranslatorWidget' class='Dark' style='color:white;background-color:#555555'&gt;&lt;/div&gt;&lt;script type='text/javascript'&gt;setTimeout(function(){var s=document.createElement('script');s.type='text/javascript';s.charset='UTF-8';s.src=((location &amp;&amp; location.href &amp;&amp; location.href.indexOf('https') == 0)?'https://ssl.microsofttranslator.com':'http://www.microsofttranslator.com')+'/ajax/v3/WidgetV3.ashx?siteData=ueOIGRSKkd965FeEGM5JtQ**&amp;ctf=true&amp;ui=true&amp;settings=manual&amp;from=en';var p=document.getElementsByTagName('head')[0]||document.documentElement;p.insertBefore(s,p.firstChild); },0);&lt;/script&gt;" onclick="this.select()"> </div> <div id="EmbedNoticeDiv"><span id="EmbedNoticeSpan">Enable collaborative features and customize widget: <a href="http://www.bing.com/widget/translator" target="_blank">Bing Webmaster Portal</a></span></div> <div id="EmbedFooterDiv"><span id="EmbedBackSpan"><a href="javascript:Microsoft.Translator.FloaterOnEmbedBackClick()" title="Back To Translation">Back</a></span></div> </div> <script type="text/javascript"> var intervalId = setInterval(function () { if (MtPopUpList) { LanguageMenu = new MtPopUpList(); var langMenu = document.getElementById(LanguageMenu_popupid); var origLangDiv = document.createElement("div"); origLangDiv.id = "OriginalLanguageDiv"; origLangDiv.innerHTML = "<span id='OriginalTextSpan'>ORIGINAL: </span><span id='OriginalLanguageSpan'></span>"; langMenu.appendChild(origLangDiv); LanguageMenu.Init('LanguageMenu', LanguageMenu_keys, LanguageMenu_values, LanguageMenu_callback, LanguageMenu_popupid); window["LanguageMenu"] = LanguageMenu; clearInterval(intervalId); } }, 1); </script> </div><div id="chatbot-portal-root"><div></div></div><div id="omnisearch-portal-root"><div></div></div><div id="menu-drawer-root"><div></div></div><div style="display: none; visibility: hidden;"><script type="text/javascript" async="null" defer="defer" src="https://decagon.ai/loaders/fourthwall.js"></script>
+
+<style type="text/css">
+  iframe[src="https://decagon.ai/demo/fourthwall"] { color-scheme: light; }
+@media (max-width: 1023px) {
+    iframe[src="https://decagon.ai/demo/fourthwall"] {display: none !important;}
+}
+</style></div>
+<script type="text/javascript" id="" charset="">!function(b,e,f,g,a,c,d){b.fbq||(a=b.fbq=function(){a.callMethod?a.callMethod.apply(a,arguments):a.queue.push(arguments)},b._fbq||(b._fbq=a),a.push=a,a.loaded=!0,a.version="2.0",a.queue=[],c=e.createElement(f),c.async=!0,c.src=g,d=e.getElementsByTagName(f)[0],d.parentNode.insertBefore(c,d))}(window,document,"script","https://connect.facebook.net/en_US/fbevents.js");fbq("init","138816808094442");fbq("set","agent","gtmss","138816808094442");fbq("track",google_tag_manager["rm"]["49928796"](36),{},{eventID:google_tag_manager["rm"]["49928796"](38)});</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=138816808094442&amp;ev=PageView&amp;noscript=1"></noscript><iframe height="0" width="0" style="display: none; visibility: hidden;"></iframe>
+<script type="text/javascript" id="" charset="">"function"===typeof clarity&&(clarity("set","shop_tier",google_tag_manager["rm"]["49928796"](57)),clarity("identify",google_tag_manager["rm"]["49928796"](58)));</script><iframe src="about:blank" style="display: block !important; position: absolute; top: 0px; left: 0px; visibility: hidden;"></iframe><iframe allowfullscreen="" allow="fullscreen" src="https://decagon.ai/demo/fourthwall" id="decagon-iframe" style="position: fixed; right: 0px; bottom: 0px; border: 0px; margin: 0px; padding: 0px; z-index: 99999999; display: block; outline: none; color-scheme: normal; width: 100px; height: 100px;"></iframe><script type="text/javascript" id="" charset="">window.duet.setUserId(google_tag_manager["rm"]["49928796"](59));window.duet.setMetadata({userEmail:google_tag_manager["rm"]["49928796"](60),shopUrl:google_tag_manager["rm"]["49928796"](61),shopId:google_tag_manager["rm"]["49928796"](62),leadTier:google_tag_manager["rm"]["49928796"](63),offersCount:google_tag_manager["rm"]["49928796"](64)});</script>
+
+
+<ul class="iw-contextMenu iw-created iw-cm-menu" id="iw-contextMenu7825" menuid="34541"><li title="" class="iw-has-submenu iw-mTrigger">Im Wörterbuch speichern<div class="iw-cm-arrow-right"></div><ul class="iw-contextMenu iw-created iw-cm-menu" id="iw-contextMenu680" menuid="34541"><li title="" class="iw-mDisable">Keine Wortliste für Englisch → Deutsch...<div class="iw-mOverlay"></div></li><li title="" class="t-2">Eine neue Wortliste erstellen...</li></ul></li><li title="" class="t-2">Kopieren</li></ul></body></html>
