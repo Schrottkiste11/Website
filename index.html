@@ -225,53 +225,51 @@
         Schau dich doch mal um!
       </p>
     </section>
+<section class="yt-section">
+  <h2>🎬 Neueste Videos</h2>
 
-export default {
-  async fetch(request) {
-    // 👉 Deine Playlist (Website-Playlist mit den Videos)
-    const playlistId = "PLQLA52U7_qBNACsquGzbZV8uWutIi6goa";
-    const url = `https://www.youtube.com/feeds/videos.xml?playlist_id=${playlistId}`;
+  <div id="yt-grid" class="yt-grid">Lade Videos...</div>
 
-    try {
-      const ytResponse = await fetch(url);
-      const xmlText = await ytResponse.text();
+  <div class="yt-channel-btn-wrapper">
+    <a href="https://www.youtube.com/@Schrottkiste" target="_blank" class="yt-channel-btn">
+      🔥 Zum YouTube-Kanal
+    </a>
+  </div>
+</section>
 
-      const entries = [...xmlText.matchAll(/<entry>[\s\S]*?<\/entry>/g)].slice(0, 3);
+<script>
+const workerUrl = "https://youtubefeed.sophiefinkeldey.workers.dev/";
 
-      const videos = entries.map(entry => {
-        const block = entry[0];
-        const idMatch = block.match(/<yt:videoId>(.*?)<\/yt:videoId>/);
-        const titleMatch = block.match(/<title>(.*?)<\/title>/);
+async function loadLatestVideos() {
+  const box = document.getElementById("yt-grid");
 
-        const id = idMatch ? idMatch[1] : null;
-        const title = titleMatch ? titleMatch[1] : "Ohne Titel";
+  try {
+    const res = await fetch(workerUrl);
+    const videos = await res.json();
 
-        return {
-          id,
-          title,
-          link: `https://www.youtube.com/watch?v=${id}`
-        };
-      }).filter(v => v.id);
-
-      return new Response(JSON.stringify(videos), {
-        status: 200,
-        headers: {
-          "Content-Type": "application/json",
-          // 🔥 WICHTIG: CORS erlauben
-          "Access-Control-Allow-Origin": "*"
-        }
-      });
-    } catch (e) {
-      return new Response(
-        JSON.stringify({ error: "Could not load feed", detail: String(e) }),
-        {
-          status: 500,
-          headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*"
-          }
-        }
-      );
+    if (!Array.isArray(videos) || videos.length === 0) {
+      box.innerHTML = "<p>Keine Videos gefunden.</p>";
+      return;
     }
+
+    box.innerHTML = videos.map(v => `
+      <div class="yt-item">
+        <iframe
+          src="https://www.youtube.com/embed/${v.id}"
+          allowfullscreen
+        ></iframe>
+        <p class="yt-title">${v.title}</p>
+      </div>
+    `).join("");
+  } catch (err) {
+    console.error(err);
+    box.innerHTML = "<p>❌ Fehler beim Laden der Videos</p>";
   }
-};
+}
+
+loadLatestVideos();
+</script>
+
+<style>
+/* dein yt-section / yt-grid / buttons CSS hier */
+</style>
