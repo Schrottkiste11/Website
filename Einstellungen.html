@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Einstellungen – Schrottkiste</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Chewy&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: radial-gradient(circle at top, #202040 0%, #050510 55%, #020205 100%);
+      font-family: 'Poppins', sans-serif;
+      color: #e8ffff;
+      min-height: 100vh;
+    }
+
+    body.font-large {
+      font-size: 18px;
+    }
+
+    /* THEME TOGGLE SWITCH */
+    .theme-toggle-wrapper {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 21000;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(6px);
+      box-shadow: 0 0 14px rgba(0,0,0,0.6);
+    }
+
+    .theme-toggle-label {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #e8ffff;
+      white-space: nowrap;
+    }
+
+    .theme-toggle {
+      position: relative;
+      width: 64px;
+      height: 30px;
+      border-radius: 999px;
+      border: 2px solid rgba(255,255,255,0.4);
+      background: rgba(0, 0, 0, 0.7);
+      cursor: pointer;
+      transition: background 0.2s ease, border-color 0.2s ease;
+    }
+
+    .theme-toggle-knob {
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #e8ffff;
+      box-shadow: 0 0 8px rgba(0,255,255,0.5);
+      transition: transform 0.22s ease;
+    }
+
+    .theme-toggle.active {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255,255,255,0.7);
+    }
+
+    .theme-toggle.active .theme-toggle-knob {
+      transform: translateX(30px);
+      box-shadow: 0 0 8px rgba(255,255,255,0.6);
+    }
+
+    /* SIDEBAR */
+    #menuToggle { display: none; }
+
+    .hamburger-btn {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 20000;
+      background: rgba(0, 0, 0, 0.6);
+      border: 2px solid rgba(0, 255, 255, 0.6);
+      border-radius: 8px;
+      color: #00ffff;
+      font-size: 24px;
+      padding: 8px 14px;
+      cursor: pointer;
+      box-shadow: 0 0 10px #0ff;
+      transition: 0.25s ease;
+      font-family: 'Chewy', cursive;
+    }
+
+    .hamburger-btn:hover { transform: scale(1.1); box-shadow: 0 0 20px #0ff; }
+
+    .custom-sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 250px;
+      height: 100vh;
+      background: rgba(10, 10, 31, 0.96);
+      border-right: 2px solid rgba(0, 255, 255, 0.3);
+      box-shadow: 4px 0 25px rgba(0, 255, 255, 0.3);
+      backdrop-filter: blur(12px);
+      transform: translateX(-100%);
+      transition: transform 0.4s cubic-bezier(.55, .06, .68, .19);
+      padding-top: 80px;
+      z-index: 19999;
+    }
+
+    #menuToggle:checked ~ .custom-sidebar {
+      transform: translateX(0);
+      transition: transform 0.4s cubic-bezier(.18, .89, .32, 1.28);
+    }
+    #menuToggle:checked + .hamburger-btn {
+      left: 260px;
+      transition: left 0.4s ease;
+    }
+
+    .custom-sidebar nav {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      padding: 20px;
+    }
+    .custom-sidebar nav a {
+      color: #00ffff;
+      text-decoration: none;
+      font-family: 'Chewy', cursive;
+      font-size: 18px;
+      text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff;
+      transition: all 0.3s ease;
+    }
+    .custom-sidebar nav a:hover {
+      transform: translateX(8px);
+      background: rgba(0, 255, 255, 0.1);
+    }
+
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 80px 20px 60px;
+    }
+
+    /* HEADLINE */
+    .settings-header {
+      margin-bottom: 26px;
+      text-align: left;
+    }
+
+    .settings-header h1 {
+      font-family: 'Chewy', cursive;
+      font-size: 2.4rem;
+      text-shadow: 0 0 10px rgba(0,255,255,0.7);
+      margin-bottom: 6px;
+    }
+
+    .settings-header p {
+      font-size: 0.98rem;
+      color: #c6f4ff;
+      opacity: 0.9;
+    }
+
+    .settings-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .settings-card {
+      background: rgba(255,255,255,0.04);
+      border-radius: 16px;
+      padding: 18px 20px;
+      border: 1px solid rgba(0,255,255,0.25);
+      box-shadow: 0 0 18px rgba(0,255,255,0.12);
+    }
+
+    .settings-card h2 {
+      font-size: 1.3rem;
+      margin-bottom: 6px;
+      color: #e8ffff;
+    }
+
+    .settings-card p {
+      font-size: 0.95rem;
+      color: #cdefff;
+      margin-bottom: 10px;
+      opacity: 0.95;
+    }
+
+    .settings-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 20px;
+      align-items: center;
+    }
+
+    .settings-options label {
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+    }
+
+    .settings-options input[type="radio"],
+    .settings-options input[type="checkbox"] {
+      transform: scale(1.1);
+      cursor: pointer;
+    }
+
+    .settings-select {
+      padding: 6px 10px;
+      border-radius: 8px;
+      border: 1px solid rgba(0,255,255,0.3);
+      background: rgba(5,10,30,0.9);
+      color: #e8ffff;
+      font-family: inherit;
+      font-size: 0.95rem;
+    }
+
+    .settings-note {
+      font-size: 0.82rem;
+      margin-top: 6px;
+      color: #aacfe5;
+      opacity: 0.9;
+    }
+
+    .preview-box {
+      margin-top: 8px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      background: rgba(0,0,0,0.35);
+      border: 1px solid rgba(0,255,255,0.25);
+      font-size: 0.9rem;
+      color: #e8ffff;
+    }
+
+    /* PRO-MODE */
+
+    body.pro-mode {
+      background: #14161c;
+      color: #d6d9e0;
+    }
+
+    body.pro-mode .hamburger-btn {
+      background: #1f222a;
+      border: 1px solid #2d3038;
+      color: #d6d9e0;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+      text-shadow: none;
+    }
+
+    body.pro-mode .custom-sidebar {
+      background: #1c1f26;
+      border-right: 1px solid #2a2d35;
+      box-shadow: 4px 0 15px rgba(0,0,0,0.5);
+    }
+
+    body.pro-mode .custom-sidebar nav a {
+      color: #d6d9e0;
+      text-shadow: none;
+      background: transparent;
+    }
+
+    body.pro-mode .custom-sidebar nav a:hover {
+      background: #2b2f38;
+      transform: translateX(4px);
+    }
+
+    body.pro-mode .settings-card {
+      background: #1c1f26;
+      border: 1px solid #2a2d35;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    }
+
+    body.pro-mode .settings-header h1 {
+      text-shadow: none;
+      color: #e2e4ea;
+    }
+
+    body.pro-mode .settings-header p {
+      color: #b9bcc4;
+    }
+
+    body.pro-mode .preview-box {
+      background: #22252e;
+      border-color: #2a2d35;
+      color: #e2e4ea;
+    }
+
+    body.pro-mode .settings-select {
+      background: #1c1f26;
+      border-color: #2a2d35;
+      color: #e2e4ea;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SIDEBAR -->
+  <input type="checkbox" id="menuToggle" hidden>
+  <label for="menuToggle" class="hamburger-btn">☰</label>
+
+  <div class="theme-toggle-wrapper">
+    <span class="theme-toggle-label" id="themeToggleLabel">Neon Design</span>
+    <button class="theme-toggle" id="themeToggle" type="button">
+      <span class="theme-toggle-knob"></span>
+    </button>
+  </div>
+
+  <div class="custom-sidebar">
+    <nav>
+      <a href="index.html">🏠 Startseite</a>
+      <a href="ideen.html">💡 Ideen Liste</a>
+      <a href="soundboard.html">🎵 Soundboard</a>
+      <a href="radio.html">📻 Radioplayer</a>
+      <a href="sendeplan.html">📅 Sendeplan</a>
+      <a href="config.html">⚙️ Einstellungen</a>
+    </nav>
+  </div>
+
+  <main>
+    <header class="settings-header">
+      <h1
+        data-neon="Einstellungen"
+        data-pro="Konfiguration"
+      >
+        Einstellungen
+      </h1>
+      <p
+        data-neon="Passe hier das Design und die Lesbarkeit der Schrottkiste an deinen Geschmack an."
+        data-pro="Hier können Anzeige- und Spracheinstellungen der Schrottkiste-Seite angepasst werden."
+      >
+        Passe hier das Design und die Lesbarkeit der Schrottkiste an deinen Geschmack an.
+      </p>
+    </header>
+
+    <section class="settings-grid">
+
+      <article class="settings-card">
+        <h2
+          data-neon="Designmodus"
+          data-pro="Darstellungsmodus"
+        >
+          Designmodus
+        </h2>
+        <p
+          data-neon="Wechsle zwischen Neon-Look oder mattem, ruhigem Design."
+          data-pro="Es kann zwischen einem farbintensiven Neon-Layout und einem zurückhaltenden matten Design gewählt werden."
+        >
+          Wechsle zwischen Neon-Look oder mattem, ruhigem Design.
+        </p>
+
+        <div class="settings-options">
+          <label>
+            <input type="radio" name="designMode" value="neon" id="designNeon">
+            Neon Design
+          </label>
+          <label>
+            <input type="radio" name="designMode" value="pro" id="designMatt">
+            Mattes Design
+          </label>
+        </div>
+
+        <p class="settings-note">
+          Einstellung gilt für alle Seiten und bleibt im Browser gespeichert.
+        </p>
+      </article>
+
+      <article class="settings-card">
+        <h2
+          data-neon="Sprachstil"
+          data-pro="Sprachmodus"
+        >
+          Sprachstil
+        </h2>
+        <p
+          data-neon="Bestimme, wie locker oder seriös Texte auf der Seite formuliert werden."
+          data-pro="Hier wird festgelegt, ob Texte eher umgangssprachlich oder neutral-professionell angezeigt werden."
+        >
+          Bestimme, wie locker oder seriös Texte auf der Seite formuliert werden.
+        </p>
+
+        <div class="settings-options">
+          <label>
+            <input type="radio" name="langMode" value="auto" id="langAuto">
+            Automatisch (abhängig vom Design)
+          </label>
+          <label>
+            <input type="radio" name="langMode" value="casual" id="langLocker">
+            Locker
+          </label>
+          <label>
+            <input type="radio" name="langMode" value="pro" id="langPro">
+            Professionell
+          </label>
+        </div>
+
+        <p class="settings-note">
+          Automatisch: Neon = lockerer Ton, Mattes Design = professioneller Ton.
+        </p>
+      </article>
+
+      <article class="settings-card">
+        <h2
+          data-neon="Schriftgröße"
+          data-pro="Textgröße"
+        >
+          Schriftgröße
+        </h2>
+        <p
+          data-neon="Stell ein, wie groß Texte angezeigt werden."
+          data-pro="Die Darstellung der Textgröße kann hier angepasst werden."
+        >
+          Stell ein, wie groß Texte angezeigt werden.
+        </p>
+
+        <div class="settings-options">
+          <label for="fontSizeSelect">Textgröße:</label>
+          <select id="fontSizeSelect" class="settings-select">
+            <option value="normal">Normal</option>
+            <option value="large">Groß</option>
+          </select>
+        </div>
+
+        <div class="preview-box" id="fontPreview"
+          data-neon="Beispieltext: So könnten Texte auf der Seite aussehen – je nach Einstellung."
+          data-pro="Beispieltext: Die Darstellung des Textes richtet sich nach der gewählten Einstellung."
+        >
+          Beispieltext: So könnten Texte auf der Seite aussehen – je nach Einstellung.
+        </div>
+
+        <p class="settings-note">
+          Die gewählte Schriftgröße wirkt sich auf alle Seiten aus, die dieses System verwenden.
+        </p>
+      </article>
+
+    </section>
+  </main>
+
+ <script>
+  (function() {
+    const body = document.body;
+    const toggle = document.getElementById('themeToggle');
+    const label = document.getElementById('themeToggleLabel');
+    const textNodes = document.querySelectorAll('[data-neon][data-pro]');
+
+    const designNeon = document.getElementById('designNeon');
+    const designMatt = document.getElementById('designMatt');
+
+    const langAuto = document.getElementById('langAuto');
+    const langLocker = document.getElementById('langLocker');
+    const langPro = document.getElementById('langPro');
+
+    const fontSelect = document.getElementById('fontSizeSelect');
+    const fontPreview = document.getElementById('fontPreview');
+
+    const savedTheme = localStorage.getItem('sk_theme');
+    const savedFont = localStorage.getItem('sk_font_size');
+    const savedLang = localStorage.getItem('sk_lang_mode');
+
+    let currentTheme = (savedTheme === 'pro') ? 'pro' : 'neon';
+    let currentLangSetting = savedLang || 'auto'; // auto, casual, pro
+
+    function resolveTone() {
+      if (currentLangSetting === 'casual') return 'neon';
+      if (currentLangSetting === 'pro') return 'pro';
+      return currentTheme === 'pro' ? 'pro' : 'neon';
+    }
+
+    function updateTexts() {
+      const tone = resolveTone();
+      textNodes.forEach(el => {
+        const neonText = el.dataset.neon;
+        const proText = el.dataset.pro;
+        el.textContent = (tone === 'pro' ? proText : neonText);
+      });
+    }
+
+    function applyThemeFromValue(value) {
+      currentTheme = (value === 'pro') ? 'pro' : 'neon';
+
+      if (currentTheme === 'pro') {
+        body.classList.add('pro-mode');
+        if (toggle) toggle.classList.add('active');
+        if (label) label.textContent = 'Mattes Design';
+        if (designMatt) designMatt.checked = true;
+        if (designNeon) designNeon.checked = false;
+        localStorage.setItem('sk_theme', 'pro');
+      } else {
+        body.classList.remove('pro-mode');
+        if (toggle) toggle.classList.remove('active');
+        if (label) label.textContent = 'Neon Design';
+        if (designNeon) designNeon.checked = true;
+        if (designMatt) designMatt.checked = false;
+        localStorage.setItem('sk_theme', 'neon');
+      }
+      updateTexts();
+    }
+
+    function applyFontFromValue(value) {
+      const isLarge = (value === 'large');
+
+      // globale Seite
+      if (isLarge) {
+        body.classList.add('font-large');
+      } else {
+        body.classList.remove('font-large');
+      }
+
+      // Vorschau-Box extra anpassen
+      if (fontPreview) {
+        fontPreview.style.fontSize = isLarge ? '1.1rem' : '0.9rem';
+        fontPreview.style.lineHeight = isLarge ? '1.7' : '1.5';
+      }
+
+      if (fontSelect) fontSelect.value = value;
+      localStorage.setItem('sk_font_size', isLarge ? 'large' : 'normal');
+    }
+
+    function applyLangFromValue(value) {
+      currentLangSetting = value; // auto, casual, pro
+      localStorage.setItem('sk_lang_mode', value);
+
+      if (langAuto) langAuto.checked = (value === 'auto');
+      if (langLocker) langLocker.checked = (value === 'casual');
+      if (langPro) langPro.checked = (value === 'pro');
+
+      updateTexts();
+    }
+
+    // Initial Theme
+    applyThemeFromValue(currentTheme);
+
+    // Initial Font
+    if (savedFont === 'large') {
+      applyFontFromValue('large');
+    } else {
+      applyFontFromValue('normal');
+    }
+
+    // Initial Language
+    applyLangFromValue(currentLangSetting);
+
+    // Toggle click
+    if (toggle) {
+      toggle.addEventListener('click', () => {
+        const nextTheme = body.classList.contains('pro-mode') ? 'neon' : 'pro';
+        applyThemeFromValue(nextTheme);
+      });
+    }
+
+    // Design Radio
+    if (designNeon) {
+      designNeon.addEventListener('change', () => {
+        if (designNeon.checked) applyThemeFromValue('neon');
+      });
+    }
+    if (designMatt) {
+      designMatt.addEventListener('change', () => {
+        if (designMatt.checked) applyThemeFromValue('pro');
+      });
+    }
+
+    // Sprachstil Radio
+    if (langAuto) {
+      langAuto.addEventListener('change', () => {
+        if (langAuto.checked) applyLangFromValue('auto');
+      });
+    }
+    if (langLocker) {
+      langLocker.addEventListener('change', () => {
+        if (langLocker.checked) applyLangFromValue('casual');
+      });
+    }
+    if (langPro) {
+      langPro.addEventListener('change', () => {
+        if (langPro.checked) applyLangFromValue('pro');
+      });
+    }
+
+    // Font select
+    if (fontSelect) {
+      fontSelect.addEventListener('change', () => {
+        applyFontFromValue(fontSelect.value === 'large' ? 'large' : 'normal');
+      });
+    }
+  })();
+</script>
+
+
+</body>
+</html>
+
+
