@@ -50,7 +50,80 @@
       }
     }
 
-    /* PLAYER – NEON STANDARD */
+    /* =====================
+       NAVBAR / SIDEBAR
+       ===================== */
+    #menuToggle {
+      display: none;
+    }
+
+    .hamburger-btn {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 10000;
+      background: rgba(0,0,0,0.6);
+      border: 2px solid #74e4ff;
+      border-radius: 12px;
+      color: #74e4ff;
+      font-size: 24px;
+      padding: 8px 14px;
+      cursor: pointer;
+      transition: 0.25s ease;
+    }
+
+    .hamburger-btn:hover {
+      transform: scale(1.07);
+    }
+
+    .custom-sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 250px;
+      height: 100vh;
+      background: rgba(10, 10, 31, 0.96);
+      border-right: 2px solid rgba(116, 228, 255, 0.35);
+      box-shadow: 4px 0 25px rgba(0,0,0,0.7);
+      backdrop-filter: blur(12px);
+      transform: translateX(-100%);
+      transition: transform 0.35s ease;
+      padding-top: 80px;
+      z-index: 9000;
+    }
+
+    #menuToggle:checked ~ .custom-sidebar {
+      transform: translateX(0);
+    }
+
+    #menuToggle:checked + .hamburger-btn {
+      left: 260px;
+    }
+
+    .custom-sidebar nav {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      padding: 0 18px 24px;
+    }
+
+    .custom-sidebar nav a {
+      color: #74e4ff;
+      text-decoration: none;
+      font-size: 18px;
+      padding: 6px 8px;
+      text-shadow: 0 0 6px rgba(0,255,255,0.8);
+      transition: 0.2s ease;
+    }
+
+    .custom-sidebar nav a:hover {
+      transform: translateX(6px);
+      background: rgba(0,255,255,0.1);
+    }
+
+    /* =====================
+       PLAYER – NEON STANDARD
+       ===================== */
 
     .player-border {
       padding: 2px;
@@ -447,26 +520,25 @@
 
     @media (max-width: 900px) {
       body {
-        padding-top: 24px;
+        padding-top: 70px;
       }
     }
 
     /* ==============================
-       PRO-MODUS – DEIN BLOCK
+       PRO-MODUS – MATT
        ============================== */
 
-    /* PRO-MODUS – Matt, aber im gleichen Universum wie der Rest */
     body.pro-mode {
       background: radial-gradient(circle at top, #27245a 0%, #050415 55%, #020109 100%) !important;
       color: #f3f1ff !important;
     }
 
-    /* Sidebar im Matt-Modus (falls Sidebar auf anderen Seiten vorhanden) */
     body.pro-mode .custom-sidebar {
       background: linear-gradient(160deg, rgba(10,8,32,0.97), rgba(6,5,20,0.98)) !important;
       border-right: 1px solid rgba(246,196,92,0.35) !important;
       box-shadow: 18px 0 40px rgba(0,0,0,0.9);
     }
+
     body.pro-mode .custom-sidebar nav a {
       color: #74e4ff !important;
       text-shadow: none !important;
@@ -485,13 +557,13 @@
       box-shadow: 0 20px 45px rgba(0,0,0,0.95);
     }
 
-    /* Titel im Gold-Look wie auf der Ideen-Seite */
+    /* Titel im Gold-Look */
     body.pro-mode .radio-title {
       color: #f6c45c !important;
       text-shadow: 0 0 10px rgba(0,0,0,0.7);
     }
 
-    /* Buttons: edel, aber nicht neon */
+    /* Buttons: edel */
     body.pro-mode .btn {
       background: linear-gradient(135deg, #34324d, #2a2840) !important;
       color: #f3f1ff !important;
@@ -537,13 +609,13 @@
       text-shadow: 0 0 10px rgba(0,0,0,0.7);
     }
 
-    /* Sendeplan-Slots */
     body.pro-mode .fm-schedule__slot {
       background: rgba(10,10,31,0.96) !important;
       border-left-color: #74e4ff !important;
       color: #c0c4e8 !important;
       box-shadow: none !important;
     }
+
     body.pro-mode .fm-schedule__slot.active {
       background: rgba(12,12,40,1) !important;
       border-left-color: #f6c45c !important;
@@ -553,6 +625,7 @@
       background: rgba(0,0,0,0.55);
       box-shadow: none;
     }
+
     body.pro-mode .mode-toggle {
       border-color: rgba(246,196,92,0.8);
       background: rgba(10,8,32,0.95);
@@ -561,6 +634,20 @@
   </style>
 </head>
 <body>
+  <!-- NAV / SIDEBAR -->
+  <input type="checkbox" id="menuToggle" hidden>
+  <label for="menuToggle" class="hamburger-btn">☰</label>
+
+  <div class="custom-sidebar">
+    <nav>
+      <a href="index.html">🏠 Startseite</a>
+      <a href="ideen.html">💡 Ideen Liste</a>
+      <a href="soundboard.html">🎵 Soundboard</a>
+      <a href="radio.html">📻 Radioplayer</a>
+      <a href="config.html">⚙️ Einstellungen</a>
+    </nav>
+  </div>
+
   <div class="radio-layout">
     <!-- PLAYER -->
     <div class="player-border">
@@ -572,13 +659,13 @@
               <span>On Air</span>
             </div>
             <button id="modeToggle" class="mode-toggle">
-              ✨ Premium Design
+              ✨ Pro-Modus
             </button>
           </header>
 
           <h1 class="radio-title">Treasure Radio</h1>
           <p class="radio-subtitle">
-            Dein 24/7 Mix aus Pop, House, Gaming-Vibes & Nostalgie – von Laut.fm
+            Dein 24/7 Mix aus Pop, House, Meinen Lieblingssongs & Nostalgie –  von Laut.fm
           </p>
 
           <div class="now-playing">
@@ -605,7 +692,6 @@
             <span>Stream: <strong>Schrottkiste FM – Treasure Radio</strong> (laut.fm)</span>
           </div>
 
-          <!-- Laut.fm Stream -->
           <audio id="radioStream" preload="none">
             <source src="https://stream.laut.fm/treasure_radio" type="audio/mpeg" />
           </audio>
@@ -732,7 +818,7 @@
     updateLiveSlot();
     setInterval(updateLiveSlot, 60000);
 
-    // Pro-Modus Toggle (rein visuell, Design-Wechsel)
+    // Pro-Modus Toggle (Design)
     modeToggle.addEventListener('click', () => {
       document.body.classList.toggle('pro-mode');
       const isPro = document.body.classList.contains('pro-mode');
