@@ -59,7 +59,7 @@
       opacity: 0.6;
     }
 
-    /* THEME TOGGLE (global, wie auf Startseite/config) */
+    /* THEME TOGGLE */
     .theme-toggle-wrapper {
       position: fixed;
       top: 20px;
@@ -391,6 +391,87 @@
       position: absolute;
       left: 0;
       color: var(--accent);
+    }
+
+    /* ========= MATTES DESIGN (pro-mode) ========= */
+
+    body.pro-mode {
+      background: #1a1c22 !important;
+      color: #e1e3e8 !important;
+
+      --bg: #1a1c22;
+      --bg-soft: #1d1f26;
+      --card: #22252d;
+      --card-soft: #1e2026;
+      --accent: #dfe2e6;
+      --accent-soft: #b9bcc3;
+      --accent-alt: #c3c8d4;
+      --text: #e5e7eb;
+      --muted: #9ea2ac;
+      --border-soft: rgba(255,255,255,0.06);
+    }
+
+    body.pro-mode .bg-glow {
+      display: none !important;
+    }
+
+    body.pro-mode .content-header {
+      background: #22252d !important;
+      border-color: rgba(255,255,255,0.08) !important;
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.6) !important;
+    }
+
+    body.pro-mode .content-header::before {
+      display: none !important;
+    }
+
+    body.pro-mode .content-header h2 {
+      background: none !important;
+      color: #f0f1f3 !important;
+    }
+
+    body.pro-mode .content-box {
+      background: #22252d !important;
+      border-color: rgba(255,255,255,0.06) !important;
+      box-shadow: 0 10px 24px rgba(0,0,0,0.6) !important;
+    }
+
+    body.pro-mode .content-box::before {
+      display: none !important;
+    }
+
+    body.pro-mode .content-box h3 {
+      color: #e1e3e8 !important;
+      text-shadow: none !important;
+    }
+
+    body.pro-mode .modal-content {
+      background: #22252d !important;
+      border-color: rgba(255,255,255,0.06) !important;
+      box-shadow: 0 14px 30px rgba(0,0,0,0.7) !important;
+    }
+
+    body.pro-mode .modal-content::before {
+      display: none !important;
+    }
+
+    body.pro-mode .custom-sidebar {
+      background: #1f2128 !important;
+      border-right-color: rgba(255,255,255,0.05) !important;
+      box-shadow: 14px 0 26px rgba(0,0,0,0.8) !important;
+    }
+
+    body.pro-mode .custom-sidebar nav a {
+      color: #d6d9e0 !important;
+      text-shadow: none !important;
+    }
+
+    body.pro-mode .hamburger-btn {
+      background: #272a32 !important;
+      border-color: rgba(255,255,255,0.06) !important;
+      color: #e3e4e8 !important;
+      box-shadow: none !important;
+      text-shadow: none !important;
     }
 
     /* RESPONSIVE */
@@ -768,5 +849,4 @@
 </body>
 </html>
 
-</html>
 
