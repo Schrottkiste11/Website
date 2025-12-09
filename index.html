@@ -3,22 +3,81 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Start – Schrottkiste</title>
-
+  <title>Start – Schrottkiste</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Chewy&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
+
     body {
       background: radial-gradient(circle at top, #202040 0%, #050510 55%, #020205 100%);
       font-family: 'Poppins', sans-serif;
       color: #e8ffff;
       min-height: 100vh;
-      padding-top: 0;
     }
 
-    /* SIDEBAR */
+    body.font-large {
+      font-size: 18px;
+    }
+
+    /* THEME TOGGLE SWITCH */
+    .theme-toggle-wrapper {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 21000;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(6px);
+      box-shadow: 0 0 14px rgba(0,0,0,0.6);
+    }
+
+    .theme-toggle-label {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #e8ffff;
+      white-space: nowrap;
+    }
+
+    .theme-toggle {
+      position: relative;
+      width: 64px;
+      height: 30px;
+      border-radius: 999px;
+      border: 2px solid rgba(255,255,255,0.4);
+      background: rgba(0, 0, 0, 0.7);
+      cursor: pointer;
+      transition: background 0.2s ease, border-color 0.2s ease;
+    }
+
+    .theme-toggle-knob {
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #e8ffff;
+      box-shadow: 0 0 8px rgba(0,255,255,0.5);
+      transition: transform 0.22s ease;
+    }
+
+    .theme-toggle.active {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255,255,255,0.7);
+    }
+
+    .theme-toggle.active .theme-toggle-knob {
+      transform: translateX(30px);
+      box-shadow: 0 0 8px rgba(255,255,255,0.6);
+    }
+
+    /* SIDEBAR – NEON DEFAULT */
     #menuToggle { display: none; }
 
     .hamburger-btn {
@@ -56,10 +115,21 @@
       z-index: 19999;
     }
 
-    #menuToggle:checked ~ .custom-sidebar { transform: translateX(0); transition: transform 0.4s cubic-bezier(.18, .89, .32, 1.28); }
-    #menuToggle:checked + .hamburger-btn { left: 260px; transition: left 0.4s ease; }
+    #menuToggle:checked ~ .custom-sidebar {
+      transform: translateX(0);
+      transition: transform 0.4s cubic-bezier(.18, .89, .32, 1.28);
+    }
+    #menuToggle:checked + .hamburger-btn {
+      left: 260px;
+      transition: left 0.4s ease;
+    }
 
-    .custom-sidebar nav { display: flex; flex-direction: column; gap: 20px; padding: 20px; }
+    .custom-sidebar nav {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      padding: 20px;
+    }
     .custom-sidebar nav a {
       color: #00ffff;
       text-decoration: none;
@@ -68,16 +138,35 @@
       text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff;
       transition: all 0.3s ease;
     }
-    .custom-sidebar nav a:hover { transform: translateX(8px); background: rgba(0, 255, 255, 0.1); }
+    .custom-sidebar nav a:hover {
+      transform: translateX(8px);
+      background: rgba(0, 255, 255, 0.1);
+    }
 
-    main { max-width: 1100px; margin: 0 auto; padding: 80px 20px 60px; }
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 80px 20px 60px;
+    }
 
-    /* HERO */
-    .hero { text-align: center; margin-bottom: 40px; }
-    .hero-title { font-family: 'Chewy', cursive; font-size: 3rem; color: #00ffff; text-shadow: 0 0 16px #00ffff; }
-    .hero-sub { font-size: 1.1rem; color: #c0f7ff; opacity: 0.9; }
+    /* HERO – NEON */
+    .hero {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .hero-title {
+      font-family: 'Chewy', cursive;
+      font-size: 3rem;
+      color: #00ffff;
+      text-shadow: 0 0 16px #00ffff;
+    }
+    .hero-sub {
+      font-size: 1.1rem;
+      color: #c0f7ff;
+      opacity: 0.9;
+    }
 
-    /* ABOUT */
+    /* ABOUT – NEON */
     .about-section {
       max-width: 800px;
       margin: 40px auto 50px;
@@ -89,10 +178,25 @@
       backdrop-filter: blur(10px);
       box-shadow: 0 0 25px rgba(0,255,255,0.12);
     }
-    .about-section h2 { font-size: 2rem; color: #00ffff; text-shadow: 0 0 8px #00ffff; }
+    .about-section h2 {
+      font-size: 2rem;
+      color: #00ffff;
+      text-shadow: 0 0 8px #00ffff;
+    }
+    .about-section p {
+      margin-top: 10px;
+      font-size: 1rem;
+      line-height: 1.6;
+    }
 
-    /* QUICKLINKS */
-    .quicklinks { display: flex; justify-content: center; flex-wrap: wrap; gap: 15px; margin-bottom: 50px; }
+    /* QUICKLINKS – NEON */
+    .quicklinks {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-bottom: 50px;
+    }
     .quicklinks a {
       display: inline-block;
       padding: 12px 20px;
@@ -104,14 +208,179 @@
       text-shadow: 0 0 6px rgba(255,255,255,0.4);
       transition: 0.3s;
     }
-    .quicklinks a:hover { transform: scale(1.05); box-shadow: 0 0 22px rgba(255,76,157,0.7); }
+    .quicklinks a:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 22px rgba(255,76,157,0.7);
+    }
 
-    /* YOUTUBE FEED */
-    .yt-feed { max-width: 900px; margin: 0 auto 30px; padding: 25px; border-radius: 18px; background: rgba(5, 10, 30, 0.9); border: 1px solid rgba(255, 0, 150, 0.45); box-shadow: 0 0 28px rgba(255,0,150,0.35); }
-    .yt-feed h2 { text-align: center; font-size: 2rem; color: #ff4c9d; text-shadow: 0 0 10px #ff4c9d; }
-    .yt-hint { text-align: center; font-size: 0.95rem; color: #d8e8ff; }
-    .yt-embed-wrapper { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 16px; margin-top: 10px; box-shadow: 0 0 25px rgba(0,0,0,0.7); }
-    .yt-embed-wrapper iframe { position: absolute; width: 100%; height: 100%; border: 0; }
+    /* YOUTUBE FEED – NEON */
+    .yt-feed {
+      max-width: 900px;
+      margin: 0 auto 30px;
+      padding: 25px;
+      border-radius: 18px;
+      background: rgba(5, 10, 30, 0.9);
+      border: 1px solid rgba(255, 0, 150, 0.45);
+      box-shadow: 0 0 28px rgba(255,0,150,0.35);
+    }
+    .yt-feed h2 {
+      text-align: center;
+      font-size: 2rem;
+      color: #ff4c9d;
+      text-shadow: 0 0 10px #ff4c9d;
+      margin-bottom: 10px;
+    }
+
+    .yt-grid {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+
+    .yt-embed-wrapper {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 16px;
+      box-shadow: 0 0 25px rgba(0,0,0,0.7);
+      flex: 1 1 300px;
+      max-width: 480px;
+    }
+    .yt-embed-wrapper iframe {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .yt-channel-btn-wrapper {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 10px;
+    }
+
+    .yt-channel-btn {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: #ff4c9d;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      box-shadow: 0 0 18px rgba(255,76,157,0.7);
+      transition: 0.25s ease;
+    }
+
+    .yt-channel-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 0 24px rgba(255,76,157,0.9);
+    }
+
+    /* PRO-MODE (MATTES DESIGN) */
+
+    body.pro-mode {
+      background: #14161c;
+      color: #d6d9e0;
+    }
+
+    body.pro-mode .hamburger-btn {
+      background: #1f222a;
+      border: 1px solid #2d3038;
+      color: #d6d9e0;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+      text-shadow: none;
+    }
+
+    body.pro-mode .custom-sidebar {
+      background: #1c1f26;
+      border-right: 1px solid #2a2d35;
+      box-shadow: 4px 0 15px rgba(0,0,0,0.5);
+    }
+
+    body.pro-mode .custom-sidebar nav a {
+      color: #d6d9e0;
+      text-shadow: none;
+      background: transparent;
+    }
+
+    body.pro-mode .custom-sidebar nav a:hover {
+      background: #2b2f38;
+      transform: translateX(4px);
+    }
+
+    body.pro-mode .hero {
+      background: #1c1f26;
+      border-radius: 18px;
+      padding: 24px 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.45);
+    }
+
+    body.pro-mode .hero-title {
+      color: #e2e4ea;
+      text-shadow: none;
+    }
+
+    body.pro-mode .hero-sub {
+      color: #b9bcc4;
+    }
+
+    body.pro-mode .about-section {
+      background: #1c1f26;
+      border: 1px solid #2a2d35;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+      text-align: left;
+    }
+
+    body.pro-mode .about-section h2 {
+      color: #e2e4ea;
+      text-shadow: none;
+    }
+
+    body.pro-mode .about-section p {
+      color: #caced6;
+    }
+
+    body.pro-mode .quicklinks a {
+      background: #1f222a;
+      border-radius: 10px;
+      border: 1px solid #2d3038;
+      text-shadow: none;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.35);
+    }
+
+    body.pro-mode .quicklinks a:hover {
+      background: #272b34;
+      transform: translateY(-1px);
+      box-shadow: 0 10px 22px rgba(0,0,0,0.45);
+    }
+
+    body.pro-mode .yt-feed {
+      background: #1c1f26;
+      border: 1px solid #2a2d35;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+    }
+
+    body.pro-mode .yt-feed h2 {
+      color: #e2e4ea;
+      text-shadow: none;
+    }
+
+    body.pro-mode .yt-embed-wrapper {
+      box-shadow: 0 6px 18px rgba(0,0,0,0.6);
+    }
+
+    body.pro-mode .yt-channel-btn {
+      background: #2e313a;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.5);
+    }
+
+    body.pro-mode .yt-channel-btn:hover {
+      background: #373b45;
+      box-shadow: 0 10px 24px rgba(0,0,0,0.6);
+    }
   </style>
 </head>
 <body>
@@ -120,6 +389,14 @@
   <input type="checkbox" id="menuToggle" hidden>
   <label for="menuToggle" class="hamburger-btn">☰</label>
 
+  <!-- DESIGN-SCHALTER -->
+  <div class="theme-toggle-wrapper">
+    <span class="theme-toggle-label" id="themeToggleLabel">Neon Design</span>
+    <button class="theme-toggle" id="themeToggle" type="button">
+      <span class="theme-toggle-knob"></span>
+    </button>
+  </div>
+
   <div class="custom-sidebar">
     <nav>
       <a href="index.html">🏠 Startseite</a>
@@ -127,19 +404,41 @@
       <a href="soundboard.html">🎵 Soundboard</a>
       <a href="radio.html">📻 Radioplayer</a>
       <a href="sendeplan.html">📅 Sendeplan</a>
+      <a href="config.html">⚙️ Einstellungen</a>
     </nav>
   </div>
 
   <main>
     <section class="hero">
-      <h1 class="hero-title">Schrottkiste Community</h1>
-      <p class="hero-sub">Offizielle Fan-Website ❤️ Chaos, Projekte, Musik & Kreativität</p>
+      <h1
+        class="hero-title"
+        data-neon="Schrottkiste Community 🎉"
+        data-pro="Schrottkiste – Community-Startseite"
+      >
+        Schrottkiste Community 🎉
+      </h1>
+      <p
+        class="hero-sub"
+        data-neon="Offizielle Fan-Website – Chaos, Projekte, Musik & Kreativität."
+        data-pro="Offizielle Seite mit aktuellen Projekten, Inhalten und Formaten rund um Schrottkiste."
+      >
+        Offizielle Fan-Website – Chaos, Projekte, Musik & Kreativität.
+      </p>
     </section>
 
     <section class="about-section">
-      <h2>👋 Wer bin ich?</h2>
-      <p>Hi, ich bin Luka, 20 Jahre alt.<br>
-         Hier gibt's alle Projekte, Streams und kreativen Ideen meiner Community. Schau dich um!</p>
+      <h2
+        data-neon="👋 Wer bin ich?"
+        data-pro="Über Luka"
+      >
+        👋 Wer bin ich?
+      </h2>
+      <p
+        data-neon="Hi, ich bin Luka, 20 Jahre alt. Hier findest du alles rund um meine Projekte, Streams und verrückten Ideen mit der Community."
+        data-pro="Ich bin Luka, 20 Jahre alt. Auf dieser Seite sind Informationen zu Projekten, Streams und weiteren Inhalten der Schrottkiste-Community zusammengefasst."
+      >
+        Hi, ich bin Luka, 20 Jahre alt. Hier findest du alles rund um meine Projekte, Streams und verrückten Ideen mit der Community.
+      </p>
     </section>
 
     <section class="quicklinks">
@@ -149,32 +448,120 @@
       <a href="sendeplan.html">📅 Sendeplan</a>
       <a href="https://www.youtube.com/@Schrottkiste" target="_blank">🔥 YouTube Kanal</a>
     </section>
-<section class="yt-feed">
-  <h2>🎬 Neueste Videos</h2>
 
-  <div class="yt-grid" style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
-    <div class="yt-embed-wrapper" style="flex: 1 1 300px; max-width: 480px;">
-      <iframe
-        src="https://www.youtube.com/embed/jxjuys9isUE"
-        title="Video 1"
-        frameborder="0"
-        allowfullscreen>
-      </iframe>
-    </div>
+    <section class="yt-feed">
+      <h2
+        data-neon="🎬 Neueste Videos"
+        data-pro="Aktuelle YouTube-Videos"
+      >
+        🎬 Neueste Videos
+      </h2>
 
-    <div class="yt-embed-wrapper" style="flex: 1 1 300px; max-width: 480px;">
-      <iframe
-        src="https://www.youtube.com/embed/PMZf1Swb-Rk"
-        title="Video 2"
-        frameborder="0"
-        allowfullscreen>
-      </iframe>
-    </div>
-  </div>
+      <div class="yt-grid">
+        <div class="yt-embed-wrapper">
+          <iframe
+            src="https://www.youtube.com/embed/jxjuys9isUE"
+            title="Video 1"
+            allowfullscreen>
+          </iframe>
+        </div>
 
-  <div class="yt-channel-btn-wrapper">
-    <a href="https://www.youtube.com/@Schrottkiste" target="_blank" class="yt-channel-btn">
-      🔥 Zum YouTube-Kanal
-    </a>
-  </div>
-</section>
+        <div class="yt-embed-wrapper">
+          <iframe
+            src="https://www.youtube.com/embed/PMZf1Swb-Rk"
+            title="Video 2"
+            allowfullscreen>
+          </iframe>
+        </div>
+      </div>
+
+      <div class="yt-channel-btn-wrapper">
+        <a href="https://www.youtube.com/@Schrottkiste" target="_blank" class="yt-channel-btn">
+          🔥 Zum YouTube-Kanal
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    (function() {
+      const body = document.body;
+      const toggle = document.getElementById('themeToggle');
+      const label = document.getElementById('themeToggleLabel');
+      const textNodes = document.querySelectorAll('[data-neon][data-pro]');
+
+      const savedTheme = localStorage.getItem('sk_theme');
+      const savedFont = localStorage.getItem('sk_font_size');
+      const savedLang = localStorage.getItem('sk_lang_mode');
+
+      let currentTheme = (savedTheme === 'pro') ? 'pro' : 'neon';
+      let currentLangSetting = savedLang || 'auto'; // auto, casual, pro
+
+      function resolveTone() {
+        if (currentLangSetting === 'casual') return 'neon';
+        if (currentLangSetting === 'pro') return 'pro';
+        // auto:
+        return currentTheme === 'pro' ? 'pro' : 'neon';
+      }
+
+      function updateTexts() {
+        const tone = resolveTone();
+        textNodes.forEach(el => {
+          const neonText = el.dataset.neon;
+          const proText = el.dataset.pro;
+          el.textContent = (tone === 'pro' ? proText : neonText);
+        });
+      }
+
+      function applyThemeFromValue(value) {
+        currentTheme = (value === 'pro') ? 'pro' : 'neon';
+
+        if (currentTheme === 'pro') {
+          body.classList.add('pro-mode');
+          if (toggle) toggle.classList.add('active');
+          if (label) label.textContent = 'Mattes Design';
+          localStorage.setItem('sk_theme', 'pro');
+        } else {
+          body.classList.remove('pro-mode');
+          if (toggle) toggle.classList.remove('active');
+          if (label) label.textContent = 'Neon Design';
+          localStorage.setItem('sk_theme', 'neon');
+        }
+        updateTexts();
+      }
+
+      function applyFontFromValue(value) {
+        const isLarge = (value === 'large');
+        if (isLarge) {
+          body.classList.add('font-large');
+        } else {
+          body.classList.remove('font-large');
+        }
+        localStorage.setItem('sk_font_size', isLarge ? 'large' : 'normal');
+      }
+
+      // Initial Theme
+      applyThemeFromValue(currentTheme);
+
+      // Initial Font
+      if (savedFont === 'large') {
+        applyFontFromValue('large');
+      } else {
+        applyFontFromValue('normal');
+      }
+
+      // Initial Language (nur Setting speichern, Textupdate extra)
+      localStorage.setItem('sk_lang_mode', currentLangSetting);
+      updateTexts();
+
+      if (toggle) {
+        toggle.addEventListener('click', () => {
+          const nextTheme = body.classList.contains('pro-mode') ? 'neon' : 'pro';
+          applyThemeFromValue(nextTheme);
+        });
+      }
+    })();
+  </script>
+
+</body>
+</html>
