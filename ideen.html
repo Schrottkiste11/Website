@@ -41,6 +41,11 @@
       overflow-x: hidden;
     }
 
+    /* größere Schrift global (aus Einstellungen) */
+    body.font-large {
+      font-size: 18px;
+    }
+
     /* mystischer Glow-Hintergrund */
     .bg-glow {
       position: fixed;
@@ -54,7 +59,63 @@
       opacity: 0.6;
     }
 
-    /* SIDEBAR (wie bei der neuen Schrottkiste-Seite) */
+    /* THEME TOGGLE (global, wie auf Startseite/config) */
+    .theme-toggle-wrapper {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 21000;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(6px);
+      box-shadow: 0 0 14px rgba(0,0,0,0.6);
+    }
+
+    .theme-toggle-label {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #e8ffff;
+      white-space: nowrap;
+    }
+
+    .theme-toggle {
+      position: relative;
+      width: 64px;
+      height: 30px;
+      border-radius: 999px;
+      border: 2px solid rgba(255,255,255,0.4);
+      background: rgba(0, 0, 0, 0.7);
+      cursor: pointer;
+      transition: background 0.2s ease, border-color 0.2s ease;
+    }
+
+    .theme-toggle-knob {
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #e8ffff;
+      box-shadow: 0 0 8px rgba(0,255,255,0.5);
+      transition: transform 0.22s ease;
+    }
+
+    .theme-toggle.active {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255,255,255,0.7);
+    }
+
+    .theme-toggle.active .theme-toggle-knob {
+      transform: translateX(30px);
+      box-shadow: 0 0 8px rgba(255,255,255,0.6);
+    }
+
+    /* SIDEBAR */
     #menuToggle {
       display: none;
     }
@@ -375,6 +436,14 @@
   <input type="checkbox" id="menuToggle" hidden>
   <label for="menuToggle" class="hamburger-btn">☰</label>
 
+  <!-- DESIGN-SCHALTER -->
+  <div class="theme-toggle-wrapper">
+    <span class="theme-toggle-label" id="themeToggleLabel">Neon Design</span>
+    <button class="theme-toggle" id="themeToggle" type="button">
+      <span class="theme-toggle-knob"></span>
+    </button>
+  </div>
+
   <div class="custom-sidebar">
     <nav>
       <a href="index.html">🏠 Startseite</a>
@@ -382,15 +451,31 @@
       <a href="soundboard.html">🎵 Soundboard</a>
       <a href="radio.html">📻 Radioplayer</a>
       <a href="sendeplan.html">📅 Sendeplan</a>
+      <a href="config.html">⚙️ Einstellungen</a>
     </nav>
   </div>
 
   <section class="content-plan">
     <div class="content-header">
       <div class="content-header-inner">
-        <div class="content-eyebrow">Planung für das neue Jahr</div>
-        <h2>🎮 Content-Plan 2026</h2>
-        <p class="content-sub">
+        <div
+          class="content-eyebrow"
+          data-neon="Planung für das neue Jahr"
+          data-pro="Jahresplanung 2026"
+        >
+          Planung für das neue Jahr
+        </div>
+        <h2
+          data-neon="🎮 Content-Plan 2026"
+          data-pro="Content-Plan 2026"
+        >
+          🎮 Content-Plan 2026
+        </h2>
+        <p
+          class="content-sub"
+          data-neon="Grober Fahrplan für Projekte, Kooperationen und spontane Ideen."
+          data-pro="Übersicht über geplante Projekte, Kooperationen und optionale Zusatzformate für das Jahr 2026."
+        >
           Grober Fahrplan für Projekte, Kooperationen und spontane Ideen.
         </p>
       </div>
@@ -398,18 +483,48 @@
 
     <div class="content-grid">
       <div class="content-box" data-title="🎥 Solo-Projekte">
-        <h3>🎥 Solo-Projekte</h3>
-        <p>Klicke für Details</p>
+        <h3
+          data-neon="🎥 Solo-Projekte"
+          data-pro="Solo-Projekte"
+        >
+          🎥 Solo-Projekte
+        </h3>
+        <p
+          data-neon="Klicke für Details"
+          data-pro="Für Details bitte auswählen."
+        >
+          Klicke für Details
+        </p>
       </div>
 
       <div class="content-box" data-title="🤝 Projekte mit Diana">
-        <h3>🤝 Projekte mit Diana</h3>
-        <p>Klicke für Details</p>
+        <h3
+          data-neon="🤝 Projekte mit Diana"
+          data-pro="Projekte mit Diana"
+        >
+          🤝 Projekte mit Diana
+        </h3>
+        <p
+          data-neon="Klicke für Details"
+          data-pro="Für Details bitte auswählen."
+        >
+          Klicke für Details
+        </p>
       </div>
 
       <div class="content-box" data-title="💡 Weitere Ideen">
-        <h3>💡 Weitere Ideen</h3>
-        <p>Klicke für Details</p>
+        <h3
+          data-neon="💡 Weitere Ideen"
+          data-pro="Weitere Ideen"
+        >
+          💡 Weitere Ideen
+        </h3>
+        <p
+          data-neon="Klicke für Details"
+          data-pro="Für Details bitte auswählen."
+        >
+          Klicke für Details
+        </p>
       </div>
     </div>
   </section>
@@ -425,6 +540,7 @@
     </div>
   </div>
 
+  <!-- Modal-Logik -->
   <script>
     const modal = document.getElementById('modal');
     const modalTitle = document.getElementById('modal-title');
@@ -503,6 +619,154 @@
     window.onclick = e => { if (e.target === modal) modal.style.display = 'none'; };
   </script>
 
+  <!-- Globaler Einstellungs-Code (Design/Schrift/Sprachmodus) -->
+  <script>
+    (function() {
+      const body = document.body;
+
+      const toggle = document.getElementById('themeToggle');
+      const label = document.getElementById('themeToggleLabel');
+      const textNodes = document.querySelectorAll('[data-neon][data-pro]');
+
+      const designNeon = document.getElementById('designNeon');
+      const designMatt = document.getElementById('designMatt');
+
+      const langAuto   = document.getElementById('langAuto');
+      const langLocker = document.getElementById('langLocker');
+      const langPro    = document.getElementById('langPro');
+
+      const fontSelect  = document.getElementById('fontSizeSelect');
+      const fontPreview = document.getElementById('fontPreview');
+
+      const savedTheme = localStorage.getItem('sk_theme');
+      const savedFont  = localStorage.getItem('sk_font_size');
+      const savedLang  = localStorage.getItem('sk_lang_mode');
+
+      let currentTheme       = (savedTheme === 'pro') ? 'pro' : 'neon';
+      let currentLangSetting = savedLang || 'auto'; // auto, casual, pro
+
+      function resolveTone() {
+        if (currentLangSetting === 'casual') return 'neon';
+        if (currentLangSetting === 'pro')    return 'pro';
+        // auto:
+        return currentTheme === 'pro' ? 'pro' : 'neon';
+      }
+
+      function updateTexts() {
+        const tone = resolveTone();
+        textNodes.forEach(el => {
+          const neonText = el.dataset.neon;
+          const proText  = el.dataset.pro;
+          el.textContent = (tone === 'pro' ? proText : neonText);
+        });
+      }
+
+      function applyThemeFromValue(value) {
+        currentTheme = (value === 'pro') ? 'pro' : 'neon';
+
+        if (currentTheme === 'pro') {
+          body.classList.add('pro-mode');
+          if (toggle) toggle.classList.add('active');
+          if (label) label.textContent = 'Mattes Design';
+          if (designMatt) designMatt.checked = true;
+          if (designNeon) designNeon.checked = false;
+          localStorage.setItem('sk_theme', 'pro');
+        } else {
+          body.classList.remove('pro-mode');
+          if (toggle) toggle.classList.remove('active');
+          if (label) label.textContent = 'Neon Design';
+          if (designNeon) designNeon.checked = true;
+          if (designMatt) designMatt.checked = false;
+          localStorage.setItem('sk_theme', 'neon');
+        }
+        updateTexts();
+      }
+
+      function applyFontFromValue(value) {
+        const isLarge = (value === 'large');
+
+        if (isLarge) {
+          body.classList.add('font-large');
+        } else {
+          body.classList.remove('font-large');
+        }
+
+        if (fontPreview) {
+          fontPreview.style.fontSize   = isLarge ? '1.1rem' : '0.9rem';
+          fontPreview.style.lineHeight = isLarge ? '1.7'   : '1.5';
+        }
+
+        if (fontSelect) fontSelect.value = value;
+        localStorage.setItem('sk_font_size', isLarge ? 'large' : 'normal');
+      }
+
+      function applyLangFromValue(value) {
+        currentLangSetting = value; // auto, casual, pro
+        localStorage.setItem('sk_lang_mode', value);
+
+        if (langAuto)   langAuto.checked   = (value === 'auto');
+        if (langLocker) langLocker.checked = (value === 'casual');
+        if (langPro)    langPro.checked    = (value === 'pro');
+
+        updateTexts();
+      }
+
+      // Initiale Zustände
+      applyThemeFromValue(currentTheme);
+
+      if (savedFont === 'large') {
+        applyFontFromValue('large');
+      } else {
+        applyFontFromValue('normal');
+      }
+
+      applyLangFromValue(currentLangSetting);
+
+      // Events
+      if (toggle) {
+        toggle.addEventListener('click', () => {
+          const nextTheme = body.classList.contains('pro-mode') ? 'neon' : 'pro';
+          applyThemeFromValue(nextTheme);
+        });
+      }
+
+      if (designNeon) {
+        designNeon.addEventListener('change', () => {
+          if (designNeon.checked) applyThemeFromValue('neon');
+        });
+      }
+      if (designMatt) {
+        designMatt.addEventListener('change', () => {
+          if (designMatt.checked) applyThemeFromValue('pro');
+        });
+      }
+
+      if (langAuto) {
+        langAuto.addEventListener('change', () => {
+          if (langAuto.checked) applyLangFromValue('auto');
+        });
+      }
+      if (langLocker) {
+        langLocker.addEventListener('change', () => {
+          if (langLocker.checked) applyLangFromValue('casual');
+        });
+      }
+      if (langPro) {
+        langPro.addEventListener('change', () => {
+          if (langPro.checked) applyLangFromValue('pro');
+        });
+      }
+
+      if (fontSelect) {
+        fontSelect.addEventListener('change', () => {
+          applyFontFromValue(fontSelect.value === 'large' ? 'large' : 'normal');
+        });
+      }
+    })();
+  </script>
+
 </body>
+</html>
+
 </html>
 
