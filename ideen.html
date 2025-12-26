@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Content-Plan 2026 – Synchronized Animation</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Content-Plan 2026 🎮 – Schrottkiste</title>
+  <link href="https://fonts.googleapis.com/css2?family=Chewy&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -15,129 +15,214 @@
       --text: #f3f1ff;
       --muted: #c0c4e8;
       --border-soft: rgba(255, 255, 255, 0.12);
-      --shadow-glow: 0 0 35px rgba(116, 228, 255, 0.2);
     }
 
     body {
       background: radial-gradient(circle at top, #27245a 0%, #050415 55%, #020109 100%);
       font-family: 'Poppins', sans-serif;
       color: var(--text);
-      display: flex;
-      justify-content: center;
-      padding: 60px 20px;
       min-height: 100vh;
+      overflow-x: hidden;
     }
 
-    .container { width: 100%; max-width: 900px; }
-
-    .header-section { text-align: center; margin-bottom: 50px; }
-    .header-section h1 {
-      font-size: 2.8rem;
-      background: linear-gradient(120deg, var(--accent), var(--accent-alt));
-      -webkit-background-clip: text;
-      color: transparent;
-      margin-bottom: 10px;
+    .bg-glow {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -1;
+      background:
+        radial-gradient(circle at 15% 20%, rgba(246,196,92,0.15) 0, transparent 55%),
+        radial-gradient(circle at 85% 80%, rgba(116,228,255,0.15) 0, transparent 55%);
+      mix-blend-mode: screen;
+      opacity: 0.6;
     }
 
-    .content-card {
+    /* --- SIDEBAR & NAVIGATION --- */
+    #menuToggle { display: none; }
+
+    .hamburger-btn {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 20000;
+      background: rgba(0, 0, 0, 0.7);
+      border: 2px solid var(--accent-alt);
+      border-radius: 12px;
+      color: var(--accent-alt);
+      font-size: 24px;
+      padding: 8px 14px;
+      cursor: pointer;
+      box-shadow: 0 0 15px rgba(116, 228, 255, 0.4);
+      transition: 0.3s ease, left 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      font-family: 'Chewy', cursive;
+    }
+
+    .hamburger-btn:hover { transform: scale(1.07); box-shadow: 0 0 25px var(--accent-alt); }
+
+    .custom-sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 280px;
+      height: 100vh;
+      background: rgba(8, 7, 25, 0.98);
+      border-right: 2px solid rgba(116, 228, 255, 0.3);
+      backdrop-filter: blur(15px);
+      transform: translateX(-100%);
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      padding-top: 100px;
+      z-index: 9000;
+    }
+
+    #menuToggle:checked ~ .custom-sidebar { transform: translateX(0); }
+    #menuToggle:checked + .hamburger-btn { left: 295px; }
+
+    .custom-sidebar nav { display: flex; flex-direction: column; gap: 15px; padding: 0 25px; }
+    .custom-sidebar nav a {
+      color: var(--accent-alt);
+      text-decoration: none;
+      font-size: 1.2rem;
+      padding: 12px 15px;
+      text-shadow: 0 0 8px rgba(0,255,255,0.4);
+      transition: 0.3s;
+      border-radius: 10px;
+      border: 1px solid transparent;
+    }
+    .custom-sidebar nav a:hover {
+      background: rgba(116, 228, 255, 0.1);
+      border-color: rgba(116, 228, 255, 0.3);
+      transform: translateX(10px);
+    }
+
+    /* --- HAUPTBEREICH --- */
+    main { max-width: 900px; margin: 0 auto; padding: 120px 20px 60px; }
+
+    .hero { text-align: center; margin-bottom: 60px; }
+    .hero-title {
+      font-family: 'Chewy', cursive;
+      font-size: 3.5rem;
+      color: var(--accent-alt);
+      text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+    }
+
+    /* --- AKKORDEON KACHELN --- */
+    .content-box {
       background: var(--card);
       border: 1px solid var(--border-soft);
-      border-radius: 20px;
+      border-radius: 22px;
       margin-bottom: 25px;
       overflow: hidden;
       cursor: pointer;
-      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+      transition: 0.3s;
     }
+    .content-box:hover { border-color: var(--accent-alt); transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
 
-    .content-card:hover {
-      transform: translateY(-5px);
-      border-color: var(--accent-alt);
-      box-shadow: var(--shadow-glow);
-    }
+    .box-trigger { padding: 25px 30px; display: flex; justify-content: space-between; align-items: center; }
+    .box-trigger h3 { font-size: 1.5rem; color: var(--accent-alt); }
+    .arrow { color: var(--accent); transition: transform 1.5s ease-in-out; }
 
-    .card-trigger {
-      padding: 25px 30px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .card-trigger h3 { font-size: 1.5rem; color: var(--accent-alt); }
-
-    .arrow {
-      font-size: 1.2rem;
-      color: var(--accent);
-      /* Pfeil dreht sich jetzt in beide Richtungen gleich langsam (1.5s) */
-      transition: transform 1.5s ease;
-    }
-
-    .card-content {
+    .box-content {
       max-height: 0;
       opacity: 0;
-      /* TRANSITION HIER DEFINIERT: Gilt für AUF und ZU gleichermaßen (1.5s) */
       transition: max-height 1.5s ease-in-out, opacity 1.2s ease-in-out;
       background: rgba(0, 0, 0, 0.2);
     }
+    .content-box.active .box-content { max-height: 2000px; opacity: 1; padding: 10px 30px 40px; }
+    .content-box.active .arrow { transform: rotate(180deg); }
 
-    .content-card.active .card-content {
-      max-height: 2000px; 
-      opacity: 1;
-      padding: 10px 30px 40px 30px;
-    }
-
-    .content-card.active .arrow {
-      transform: rotate(180deg);
-    }
-
-    ul { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 10px; }
-    li {
-      padding: 8px 0;
-      color: var(--muted);
-      font-size: 0.95rem;
-      display: flex;
-      align-items: center;
-    }
+    ul { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 10px; list-style: none; }
+    li { padding: 8px 0; color: var(--muted); display: flex; align-items: center; }
     li::before { content: "✦"; color: var(--accent); margin-right: 12px; }
+
+    /* --- ABOUT & QUICKLINKS --- */
+    .about-section {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(116,228,255,0.2);
+      border-radius: 20px;
+      padding: 40px;
+      text-align: center;
+      margin: 60px 0;
+      backdrop-filter: blur(10px);
+    }
+    .about-section h2 { font-family: 'Chewy', cursive; color: var(--accent-alt); font-size: 2.2rem; margin-bottom: 15px; }
+
+    .quicklinks { display: flex; justify-content: center; flex-wrap: wrap; gap: 15px; margin-top: 30px; }
+    .quicklinks a {
+      padding: 12px 25px;
+      border-radius: 15px;
+      background: linear-gradient(135deg, #ff0099, #ff4d4d);
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      transition: 0.3s;
+      box-shadow: 0 5px 15px rgba(255, 0, 153, 0.3);
+    }
+    .quicklinks a:hover { transform: scale(1.1); box-shadow: 0 0 25px rgba(255, 0, 153, 0.6); }
+
+    /* --- CONTEXT MENU --- */
+    #custom-menu {
+      position: absolute; display: none; background: var(--card);
+      border: 1px solid var(--accent-alt); border-radius: 12px;
+      width: 200px; z-index: 30000; box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+      overflow: hidden;
+    }
+    #custom-menu li { padding: 12px 20px; cursor: pointer; list-style: none; color: var(--text); }
+    #custom-menu li:hover { background: rgba(0, 255, 255, 0.1); color: var(--accent-alt); }
   </style>
 </head>
-<body>
+<body oncontextmenu="return showMenu(event)" onclick="hideMenu()">
 
-  <div class="container">
-    <div class="header-section">
-      <h1>🎮 Content-Plan 2026</h1>
+  <div class="bg-glow"></div>
+
+  <input type="checkbox" id="menuToggle">
+  <label for="menuToggle" class="hamburger-btn">☰</label>
+
+  <aside class="custom-sidebar">
+    <nav>
+      <a href="#">🏠 Startseite</a>
+      <a href="#">💡 Ideen Liste</a>
+      <a href="#">🔊 Soundboard</a>
+      <a href="#">📻 Radio Player</a>
+      <a href="#">⚙️ Einstellungen</a>
+    </nav>
+  </aside>
+
+  <div id="custom-menu">
+    <li onclick="location.reload()">🔄 Refresh</li>
+    <li onclick="alert('Export gestartet...')">💾 Export</li>
+  </div>
+
+  <main>
+    <div class="hero">
+      <h1 class="hero-title">Content-Plan 2026 🎮</h1>
+      <p style="color: var(--muted); margin-top: 10px;"
     </div>
 
-    <div class="content-card" onclick="this.classList.toggle('active')">
-      <div class="card-trigger">
+    <div class="content-box" onclick="this.classList.toggle('active')">
+      <div class="box-trigger">
         <h3>🎥 Solo-Projekte</h3>
         <span class="arrow">▼</span>
       </div>
-      <div class="card-content">
+      <div class="box-content">
         <ul>
-          <li>Portal 1 (Stream-Projekt)</li>
-          <li>Fortnite (dauerhaftes Projekt)</li>
-          <li>Indie Games (Langzeit-Projekt)</li>
+          <li>Portal 1 & 2</li>
+          <li>Fortnite</li>
+          <li>Indie Games</li>
           <li>Outlast 1 & 2</li>
           <li>Poppy Playtime</li>
           <li>Speedy Eggbert</li>
-          <li>Omlet Arcade Nostalgia Time</li>
-          <li>Animal Crossing – erste Teile</li>
+          <li>Omlet Arcade Nostalgia</li>
+          <li>Animal Crossing</li>
           <li>Dogs Life Remastered</li>
-          <li>Mental Hospital: Evil Child</li>
+          <li>Mental Hospital</li>
           <li>Minecraft Server-Bau</li>
           <li>Donkey Kong Bananza</li>
-          <li>The Long Dark</li>
           <li>Spyro Trilogy</li>
           <li>Little Nightmares 3</li>
           <li>Haus der 1000 Türen</li>
-          <li>American Candy Test</li>
-          <li>24 Stunden wie ein Sim leben</li>
-          <li>Browser- & Flashgames</li>
-          <li>Sims 4 WG per Teamviewer</li>
+          <li>Sims 4 WG Teamviewer</li>
           <li>Skribbl.io / Gartic Phone</li>
-          <li>Indie Online Games</li>
           <li>Dead by Daylight</li>
-          <li>Portal 2</li>
           <li>Palworld</li>
           <li>Granny / Eyes</li>
           <li>Hokko Life</li>
@@ -145,12 +230,12 @@
       </div>
     </div>
 
-    <div class="content-card" onclick="this.classList.toggle('active')">
-      <div class="card-trigger">
+    <div class="content-box" onclick="this.classList.toggle('active')">
+      <div class="box-trigger">
         <h3>🤝 Projekte mit Diana</h3>
         <span class="arrow">▼</span>
       </div>
-      <div class="card-content">
+      <div class="box-content">
         <ul>
           <li>TikTok Streams</li>
           <li>Hide and Seek (SM64)</li>
@@ -158,19 +243,30 @@
           <li>Animal Crossing Wild World</li>
           <li>Click & Point Adventures</li>
           <li>Zelda: Ocarina of Time</li>
-          <li>Super Mario 64 Cursed Castle</li>
-          <li>Gesangs- & Tanz-Wettbewerb</li>
+          <li>SM64 Cursed Castle</li>
+          <li>Gesangs-Wettbewerb</li>
           <li>Minecraft Minigames</li>
           <li>Podcast Folgen</li>
           <li>Treasure Radio</li>
-          <li>ASMR, Challenges & Reactions</li>
+          <li>ASMR & Challenges</li>
           <li>12h / 24h Stream</li>
-          <li>Mario Party / Brawlhalla / Mario Kart</li>
+          <li>Mario Kart / Party</li>
           <li>Wer bin ich?</li>
         </ul>
       </div>
     </div>
-  </div>
-
+  <script>
+    const menu = document.getElementById('custom-menu');
+    function showMenu(e) {
+      e.preventDefault();
+      menu.style.display = 'block';
+      menu.style.left = e.pageX + 'px';
+      menu.style.top = e.pageY + 'px';
+      return false;
+    }
+    function hideMenu() {
+      menu.style.display = 'none';
+    }
+  </script>
 </body>
 </html>
