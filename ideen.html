@@ -3,654 +3,116 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Content-Plan 2026 – Schrottkiste</title>
-
-  <link href="https://fonts.googleapis.com/css2?family=Chewy&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-
+  <title>Content-Plan 2026 – Synchronized Animation</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
       --bg: #050415;
-      --bg-soft: #0b0a20;
       --card: rgba(18, 14, 40, 0.96);
-      --card-soft: rgba(18, 14, 40, 0.9);
-      --accent: #f6c45c;      /* edles Gold */
-      --accent-soft: #ffdd9a;
-      --accent-alt: #74e4ff;  /* sanftes Cyan */
+      --accent: #f6c45c;
+      --accent-alt: #74e4ff;
       --text: #f3f1ff;
       --muted: #c0c4e8;
       --border-soft: rgba(255, 255, 255, 0.12);
-      --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.75);
-      --radius-lg: 18px;
-      --radius-xl: 22px;
-      --radius-pill: 999px;
+      --shadow-glow: 0 0 35px rgba(116, 228, 255, 0.2);
     }
 
     body {
-      background:
-        radial-gradient(circle at top, #27245a 0%, #050415 55%, #020109 100%);
+      background: radial-gradient(circle at top, #27245a 0%, #050415 55%, #020109 100%);
       font-family: 'Poppins', sans-serif;
       color: var(--text);
-      padding-top: 80px;
+      display: flex;
+      justify-content: center;
+      padding: 60px 20px;
       min-height: 100vh;
-      overflow-x: hidden;
     }
 
-    /* größere Schrift global (aus Einstellungen) */
-    body.font-large {
-      font-size: 18px;
-    }
+    .container { width: 100%; max-width: 900px; }
 
-    /* mystischer Glow-Hintergrund */
-    .bg-glow {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: -1;
-      background:
-        radial-gradient(circle at 15% 20%, rgba(246,196,92,0.25) 0, transparent 55%),
-        radial-gradient(circle at 85% 80%, rgba(116,228,255,0.22) 0, transparent 55%);
-      mix-blend-mode: screen;
-      opacity: 0.6;
-    }
-
-    /* THEME TOGGLE */
-    .theme-toggle-wrapper {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      z-index: 21000;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 6px 10px;
-      border-radius: 999px;
-      background: rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(6px);
-      box-shadow: 0 0 14px rgba(0,0,0,0.6);
-    }
-
-    .theme-toggle-label {
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: #e8ffff;
-      white-space: nowrap;
-    }
-
-    .theme-toggle {
-      position: relative;
-      width: 64px;
-      height: 30px;
-      border-radius: 999px;
-      border: 2px solid rgba(255,255,255,0.4);
-      background: rgba(0, 0, 0, 0.7);
-      cursor: pointer;
-      transition: background 0.2s ease, border-color 0.2s ease;
-    }
-
-    .theme-toggle-knob {
-      position: absolute;
-      top: 3px;
-      left: 3px;
-      width: 22px;
-      height: 22px;
-      border-radius: 50%;
-      background: #e8ffff;
-      box-shadow: 0 0 8px rgba(0,255,255,0.5);
-      transition: transform 0.22s ease;
-    }
-
-    .theme-toggle.active {
-      background: rgba(255, 255, 255, 0.1);
-      border-color: rgba(255,255,255,0.7);
-    }
-
-    .theme-toggle.active .theme-toggle-knob {
-      transform: translateX(30px);
-      box-shadow: 0 0 8px rgba(255,255,255,0.6);
-    }
-
-    /* SIDEBAR */
-    #menuToggle {
-      display: none;
-    }
-
-    .hamburger-btn {
-      position: fixed;
-      top: 20px;
-      left: 20px;
-      z-index: 20000;
-      background: rgba(8, 7, 25, 0.92);
-      border: 1px solid rgba(246,196,92,0.7);
-      border-radius: 12px;
-      color: var(--accent);
-      font-size: 22px;
-      padding: 8px 14px;
-      cursor: pointer;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.85);
-      transition: transform 0.25s ease, box-shadow 0.25s ease, left 0.35s ease;
-      font-family: 'Chewy', cursive;
-    }
-
-    .hamburger-btn:hover {
-      transform: translateY(-1px) scale(1.03);
-      box-shadow: 0 14px 32px rgba(0, 0, 0, 0.9);
-    }
-
-    /* =====================
-       NAVBAR / SIDEBAR
-       ===================== */
-    #menuToggle {
-      display: none;
-    }
-
-    .hamburger-btn {
-      position: fixed;
-      top: 20px;
-      left: 20px;
-      z-index: 10000;
-      background: rgba(0,0,0,0.6);
-      border: 2px solid #74e4ff;
-      border-radius: 12px;
-      color: #74e4ff;
-      font-size: 24px;
-      padding: 8px 14px;
-      cursor: pointer;
-      transition: 0.25s ease;
-    }
-
-    .hamburger-btn:hover {
-      transform: scale(1.07);
-    }
-
-    .custom-sidebar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 250px;
-      height: 100vh;
-      background: rgba(10, 10, 31, 0.96);
-      border-right: 2px solid rgba(116, 228, 255, 0.35);
-      box-shadow: 4px 0 25px rgba(0,0,0,0.7);
-      backdrop-filter: blur(12px);
-      transform: translateX(-100%);
-      transition: transform 0.35s ease;
-      padding-top: 80px;
-      z-index: 9000;
-    }
-
-    #menuToggle:checked ~ .custom-sidebar {
-      transform: translateX(0);
-    }
-
-    #menuToggle:checked + .hamburger-btn {
-      left: 260px;
-    }
-
-    .custom-sidebar nav {
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-      padding: 0 18px 24px;
-    }
-
-    .custom-sidebar nav a {
-      color: #74e4ff;
-      text-decoration: none;
-      font-size: 18px;
-      padding: 6px 8px;
-      text-shadow: 0 0 6px rgba(0,255,255,0.8);
-      transition: 0.2s ease;
-    }
-
-    .custom-sidebar nav a:hover {
-      transform: translateX(6px);
-      background: rgba(0,255,255,0.1);
-    }
-
-
-    /* CONTENT GRID / Hauptbereich */
-    .content-plan {
-      padding: 40px 20px 60px;
-      max-width: 1000px;
-      margin: 0 auto;
-      text-align: center;
-    }
-
-    .content-header {
-      padding: 24px 22px 20px;
-      margin-bottom: 30px;
-      background: var(--card);
-      border-radius: var(--radius-xl);
-      border: 1px solid var(--border-soft);
-      box-shadow: var(--shadow-soft);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .content-header::before {
-      content: "";
-      position: absolute;
-      inset: -40%;
-      background:
-        radial-gradient(circle at 0% 0%, rgba(246,196,92,0.22) 0, transparent 55%),
-        radial-gradient(circle at 100% 100%, rgba(116,228,255,0.24) 0, transparent 55%);
-      mix-blend-mode: soft-light;
-      opacity: 0.85;
-      pointer-events: none;
-    }
-
-    .content-header-inner {
-      position: relative;
-      z-index: 1;
-    }
-
-    .content-eyebrow {
-      font-size: 0.82rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--accent-soft);
-      margin-bottom: 6px;
-    }
-
-    .content-plan h2 {
-      font-size: 2.1rem;
-      margin-bottom: 6px;
-      background: linear-gradient(120deg, var(--accent), var(--accent-soft), var(--accent-alt));
+    .header-section { text-align: center; margin-bottom: 50px; }
+    .header-section h1 {
+      font-size: 2.8rem;
+      background: linear-gradient(120deg, var(--accent), var(--accent-alt));
       -webkit-background-clip: text;
       color: transparent;
-      text-shadow: 0 0 10px rgba(0,0,0,0.6);
+      margin-bottom: 10px;
     }
 
-    .content-sub {
-      font-size: 0.95rem;
-      color: var(--muted);
-      max-width: 420px;
-      margin: 0 auto;
-    }
-
-    .content-grid {
-      display: grid;
-      gap: 26px;
-      max-width: 900px;
-      margin: 10px auto 0;
-    }
-
-    .content-box {
-      background: var(--card-soft);
-      border: 1px solid var(--border-soft);
-      border-radius: 18px;
-      padding: 26px 20px;
-      cursor: pointer;
-      transition: all 0.25s ease;
-      box-shadow: 0 14px 30px rgba(0,0,0,0.75);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .content-box::before {
-      content: "";
-      position: absolute;
-      inset: -40%;
-      background: radial-gradient(circle at 0 0, rgba(246,196,92,0.16) 0, transparent 55%);
-      mix-blend-mode: soft-light;
-      opacity: 0;
-      transition: opacity 0.25s ease;
-      pointer-events: none;
-    }
-
-    .content-box:hover {
-      transform: translateY(-4px) scale(1.01);
-      box-shadow: 0 18px 40px rgba(0,0,0,0.9);
-      border-color: rgba(246,196,92,0.6);
-    }
-
-    .content-box:hover::before {
-      opacity: 1;
-    }
-
-    .content-box h3 {
-      color: var(--accent-alt);
-      font-size: 1.3rem;
-      margin-bottom: 6px;
-      text-shadow: 0 0 6px rgba(0,0,0,0.8);
-    }
-
-    .content-box p {
-      font-size: 0.9rem;
-      color: var(--muted);
-    }
-
-    /* POPUP / MODAL */
-
-    .modal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      z-index: 30000;
-      background: rgba(0,0,0,0.75);
-      justify-content: center;
-      align-items: center;
-      backdrop-filter: blur(6px);
-      padding: 20px;
-    }
-
-    .modal-content {
+    .content-card {
       background: var(--card);
-      border-radius: 20px;
-      padding: 26px 30px 24px;
-      max-width: 720px;
-      width: 100%;
-      color: var(--text);
-      box-shadow: 0 20px 50px rgba(0,0,0,0.95);
-      position: relative;
-      text-align: left;
       border: 1px solid var(--border-soft);
+      border-radius: 20px;
+      margin-bottom: 25px;
       overflow: hidden;
-    }
-
-    .modal-content::before {
-      content: "";
-      position: absolute;
-      inset: -40%;
-      background:
-        radial-gradient(circle at 0 0, rgba(246,196,92,0.22) 0, transparent 55%),
-        radial-gradient(circle at 100% 100%, rgba(116,228,255,0.2) 0, transparent 55%);
-      mix-blend-mode: soft-light;
-      opacity: 0.9;
-      pointer-events: none;
-    }
-
-    .modal-inner {
-      position: relative;
-      z-index: 1;
-    }
-
-    .modal-content h3 {
-      color: var(--accent);
-      margin-bottom: 12px;
-      font-size: 1.5rem;
-    }
-
-    .close {
-      position: absolute;
-      top: 14px;
-      right: 20px;
-      font-size: 1.8rem;
-      color: var(--accent-alt);
       cursor: pointer;
-      z-index: 2;
-      text-shadow: 0 0 8px rgba(0,0,0,0.8);
-      transition: color 0.2s ease, transform 0.2s ease;
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
     }
 
-    .close:hover {
-      color: var(--accent-soft);
-      transform: scale(1.05);
+    .content-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--accent-alt);
+      box-shadow: var(--shadow-glow);
     }
 
-    ul {
-      list-style: none;
-      padding: 0;
-      margin-top: 6px;
-      font-size: 0.93rem;
-      color: var(--muted);
+    .card-trigger {
+      padding: 25px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
 
-    li {
-      margin: 6px 0;
-      padding-left: 18px;
-      position: relative;
-    }
+    .card-trigger h3 { font-size: 1.5rem; color: var(--accent-alt); }
 
-    li::before {
-      content: "•";
-      position: absolute;
-      left: 0;
+    .arrow {
+      font-size: 1.2rem;
       color: var(--accent);
+      /* Pfeil dreht sich jetzt in beide Richtungen gleich langsam (1.5s) */
+      transition: transform 1.5s ease;
     }
 
-    /* ========= MATTES DESIGN (pro-mode) ========= */
-
-    body.pro-mode {
-      background: #1a1c22 !important;
-      color: #e1e3e8 !important;
-
-      --bg: #1a1c22;
-      --bg-soft: #1d1f26;
-      --card: #22252d;
-      --card-soft: #1e2026;
-      --accent: #dfe2e6;
-      --accent-soft: #b9bcc3;
-      --accent-alt: #c3c8d4;
-      --text: #e5e7eb;
-      --muted: #9ea2ac;
-      --border-soft: rgba(255,255,255,0.06);
+    .card-content {
+      max-height: 0;
+      opacity: 0;
+      /* TRANSITION HIER DEFINIERT: Gilt für AUF und ZU gleichermaßen (1.5s) */
+      transition: max-height 1.5s ease-in-out, opacity 1.2s ease-in-out;
+      background: rgba(0, 0, 0, 0.2);
     }
 
-    body.pro-mode .bg-glow {
-      display: none !important;
+    .content-card.active .card-content {
+      max-height: 2000px; 
+      opacity: 1;
+      padding: 10px 30px 40px 30px;
     }
 
-    body.pro-mode .content-header {
-      background: #22252d !important;
-      border-color: rgba(255,255,255,0.08) !important;
-      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.6) !important;
+    .content-card.active .arrow {
+      transform: rotate(180deg);
     }
 
-    body.pro-mode .content-header::before {
-      display: none !important;
+    ul { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 10px; }
+    li {
+      padding: 8px 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
     }
-
-    body.pro-mode .content-header h2 {
-      background: none !important;
-      color: #f0f1f3 !important;
-    }
-
-    body.pro-mode .content-box {
-      background: #22252d !important;
-      border-color: rgba(255,255,255,0.06) !important;
-      box-shadow: 0 10px 24px rgba(0,0,0,0.6) !important;
-    }
-
-    body.pro-mode .content-box::before {
-      display: none !important;
-    }
-
-    body.pro-mode .content-box h3 {
-      color: #e1e3e8 !important;
-      text-shadow: none !important;
-    }
-
-    body.pro-mode .modal-content {
-      background: #22252d !important;
-      border-color: rgba(255,255,255,0.06) !important;
-      box-shadow: 0 14px 30px rgba(0,0,0,0.7) !important;
-    }
-
-    body.pro-mode .modal-content::before {
-      display: none !important;
-    }
-
-    body.pro-mode .custom-sidebar {
-      background: #1f2128 !important;
-      border-right-color: rgba(255,255,255,0.05) !important;
-      box-shadow: 14px 0 26px rgba(0,0,0,0.8) !important;
-    }
-
-    body.pro-mode .custom-sidebar nav a {
-      color: #d6d9e0 !important;
-      text-shadow: none !important;
-    }
-
-    body.pro-mode .hamburger-btn {
-      background: #272a32 !important;
-      border-color: rgba(255,255,255,0.06) !important;
-      color: #e3e4e8 !important;
-      box-shadow: none !important;
-      text-shadow: none !important;
-    }
-
-    /* RESPONSIVE */
-
-    @media (max-width: 720px) {
-      .content-plan {
-        padding-inline: 16px;
-      }
-
-      .content-header {
-        padding-inline: 18px;
-      }
-
-      #menuToggle:checked + .hamburger-btn {
-        left: 230px;
-      }
-
-      .custom-sidebar {
-        width: 230px;
-      }
-
-      .modal-content {
-        padding-inline: 20px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .content-plan h2 {
-        font-size: 1.8rem;
-      }
-
-      .content-box {
-        padding: 22px 16px;
-      }
-    }
+    li::before { content: "✦"; color: var(--accent); margin-right: 12px; }
   </style>
 </head>
-
 <body>
-  <div class="bg-glow"></div>
 
-  <!-- SIDEBAR -->
-  <input type="checkbox" id="menuToggle" hidden>
-  <label for="menuToggle" class="hamburger-btn">☰</label>
-
-  <!-- DESIGN-SCHALTER -->
-  <div class="theme-toggle-wrapper">
-    <span class="theme-toggle-label" id="themeToggleLabel">Neon Design</span>
-    <button class="theme-toggle" id="themeToggle" type="button">
-      <span class="theme-toggle-knob"></span>
-    </button>
-  </div>
-
-  <div class="custom-sidebar">
-    <nav>
-      <a href="index.html">🏠 Startseite</a>
-      <a href="ideen.html">💡 Ideen Liste</a>
-      <a href="soundboard.html">🎵 Soundboard</a>
-      <a href="radio.html">📻 Radioplayer</a>
-      <a href="config.html">⚙️ Einstellungen</a>
-    </nav>
-  </div>
-
-  <section class="content-plan">
-    <div class="content-header">
-      <div class="content-header-inner">
-        <div
-          class="content-eyebrow"
-          data-neon="Planung für das neue Jahr"
-          data-pro="Jahresplanung 2026"
-        >
-          Planung für das neue Jahr
-        </div>
-        <h2
-          data-neon="🎮 Content-Plan 2026"
-          data-pro="Content-Plan 2026"
-        >
-          🎮 Content-Plan 2026
-        </h2>
-        <p
-          class="content-sub"
-          data-neon="Grober Fahrplan für Projekte, Kooperationen und spontane Ideen."
-          data-pro="Übersicht über geplante Projekte, Kooperationen und optionale Zusatzformate für das Jahr 2026."
-        >
-          Grober Fahrplan für Projekte, Kooperationen und spontane Ideen.
-        </p>
-      </div>
+  <div class="container">
+    <div class="header-section">
+      <h1>🎮 Content-Plan 2026</h1>
     </div>
 
-    <div class="content-grid">
-      <div class="content-box" data-title="🎥 Solo-Projekte">
-        <h3
-          data-neon="🎥 Solo-Projekte"
-          data-pro="Solo-Projekte"
-        >
-          🎥 Solo-Projekte
-        </h3>
-        <p
-          data-neon="Klicke für Details"
-          data-pro="Für Details bitte auswählen."
-        >
-          Klicke für Details
-        </p>
+    <div class="content-card" onclick="this.classList.toggle('active')">
+      <div class="card-trigger">
+        <h3>🎥 Solo-Projekte</h3>
+        <span class="arrow">▼</span>
       </div>
-
-      <div class="content-box" data-title="🤝 Projekte mit Diana">
-        <h3
-          data-neon="🤝 Projekte mit Diana"
-          data-pro="Projekte mit Diana"
-        >
-          🤝 Projekte mit Diana
-        </h3>
-        <p
-          data-neon="Klicke für Details"
-          data-pro="Für Details bitte auswählen."
-        >
-          Klicke für Details
-        </p>
-      </div>
-
-      <div class="content-box" data-title="💡 Weitere Ideen">
-        <h3
-          data-neon="💡 Weitere Ideen"
-          data-pro="Weitere Ideen"
-        >
-          💡 Weitere Ideen
-        </h3>
-        <p
-          data-neon="Klicke für Details"
-          data-pro="Für Details bitte auswählen."
-        >
-          Klicke für Details
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- POPUP -->
-  <div class="modal" id="modal">
-    <div class="modal-content">
-      <span class="close">&times;</span>
-      <div class="modal-inner">
-        <h3 id="modal-title"></h3>
-        <div id="modal-body"></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Modal-Logik -->
-  <script>
-    const modal = document.getElementById('modal');
-    const modalTitle = document.getElementById('modal-title');
-    const modalBody = document.getElementById('modal-body');
-    const closeBtn = document.querySelector('.close');
-
-    const content = {
-      "🎥 Solo-Projekte": `
+      <div class="card-content">
         <ul>
           <li>Portal 1 (Stream-Projekt)</li>
           <li>Fortnite (dauerhaftes Projekt)</li>
@@ -666,10 +128,29 @@
           <li>Donkey Kong Bananza</li>
           <li>The Long Dark</li>
           <li>Spyro Trilogy</li>
+          <li>Little Nightmares 3</li>
+          <li>Haus der 1000 Türen</li>
+          <li>American Candy Test</li>
+          <li>24 Stunden wie ein Sim leben</li>
+          <li>Browser- & Flashgames</li>
+          <li>Sims 4 WG per Teamviewer</li>
+          <li>Skribbl.io / Gartic Phone</li>
+          <li>Indie Online Games</li>
+          <li>Dead by Daylight</li>
+          <li>Portal 2</li>
+          <li>Palworld</li>
+          <li>Granny / Eyes</li>
+          <li>Hokko Life</li>
         </ul>
-      `,
+      </div>
+    </div>
 
-      "🤝 Projekte mit Diana": `
+    <div class="content-card" onclick="this.classList.toggle('active')">
+      <div class="card-trigger">
+        <h3>🤝 Projekte mit Diana</h3>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="card-content">
         <ul>
           <li>TikTok Streams</li>
           <li>Hide and Seek (SM64)</li>
@@ -685,189 +166,11 @@
           <li>ASMR, Challenges & Reactions</li>
           <li>12h / 24h Stream</li>
           <li>Mario Party / Brawlhalla / Mario Kart</li>
-        </ul>
-      `,
-
-      "💡 Weitere Ideen": `
-        <ul>
-          <li>Little Nightmares 3</li>
-          <li>Haus der 1000 Türen</li>
-          <li>American Candy Test</li>
-          <li>24 Stunden wie ein Sim leben</li>
-          <li>Browser- & Flashgames</li>
-          <li>Sims 4 WG per Teamviewer</li>
-          <li>Skribbl.io / Gartic Phone</li>
           <li>Wer bin ich?</li>
-          <li>Indie Online Games</li>
-          <li>Dead by Daylight</li>
-          <li>Portal 2</li>
-          <li>Palworld</li>
-          <li>Granny / Eyes</li>
-          <li>Hokko Life</li>
         </ul>
-      `
-    };
-
-    document.querySelectorAll('.content-box').forEach(box => {
-      box.addEventListener('click', () => {
-        const title = box.dataset.title;
-        modalTitle.textContent = title;
-        modalBody.innerHTML = content[title] || "Keine Details verfügbar.";
-        modal.style.display = 'flex';
-      });
-    });
-
-    closeBtn.onclick = () => modal.style.display = 'none';
-    window.onclick = e => { if (e.target === modal) modal.style.display = 'none'; };
-  </script>
-
-  <!-- Globaler Einstellungs-Code (Design/Schrift/Sprachmodus) -->
-  <script>
-    (function() {
-      const body = document.body;
-
-      const toggle = document.getElementById('themeToggle');
-      const label = document.getElementById('themeToggleLabel');
-      const textNodes = document.querySelectorAll('[data-neon][data-pro]');
-
-      const designNeon = document.getElementById('designNeon');
-      const designMatt = document.getElementById('designMatt');
-
-      const langAuto   = document.getElementById('langAuto');
-      const langLocker = document.getElementById('langLocker');
-      const langPro    = document.getElementById('langPro');
-
-      const fontSelect  = document.getElementById('fontSizeSelect');
-      const fontPreview = document.getElementById('fontPreview');
-
-      const savedTheme = localStorage.getItem('sk_theme');
-      const savedFont  = localStorage.getItem('sk_font_size');
-      const savedLang  = localStorage.getItem('sk_lang_mode');
-
-      let currentTheme       = (savedTheme === 'pro') ? 'pro' : 'neon';
-      let currentLangSetting = savedLang || 'auto'; // auto, casual, pro
-
-      function resolveTone() {
-        if (currentLangSetting === 'casual') return 'neon';
-        if (currentLangSetting === 'pro')    return 'pro';
-        // auto:
-        return currentTheme === 'pro' ? 'pro' : 'neon';
-      }
-
-      function updateTexts() {
-        const tone = resolveTone();
-        textNodes.forEach(el => {
-          const neonText = el.dataset.neon;
-          const proText  = el.dataset.pro;
-          el.textContent = (tone === 'pro' ? proText : neonText);
-        });
-      }
-
-      function applyThemeFromValue(value) {
-        currentTheme = (value === 'pro') ? 'pro' : 'neon';
-
-        if (currentTheme === 'pro') {
-          body.classList.add('pro-mode');
-          if (toggle) toggle.classList.add('active');
-          if (label) label.textContent = 'Mattes Design';
-          if (designMatt) designMatt.checked = true;
-          if (designNeon) designNeon.checked = false;
-          localStorage.setItem('sk_theme', 'pro');
-        } else {
-          body.classList.remove('pro-mode');
-          if (toggle) toggle.classList.remove('active');
-          if (label) label.textContent = 'Neon Design';
-          if (designNeon) designNeon.checked = true;
-          if (designMatt) designMatt.checked = false;
-          localStorage.setItem('sk_theme', 'neon');
-        }
-        updateTexts();
-      }
-
-      function applyFontFromValue(value) {
-        const isLarge = (value === 'large');
-
-        if (isLarge) {
-          body.classList.add('font-large');
-        } else {
-          body.classList.remove('font-large');
-        }
-
-        if (fontPreview) {
-          fontPreview.style.fontSize   = isLarge ? '1.1rem' : '0.9rem';
-          fontPreview.style.lineHeight = isLarge ? '1.7'   : '1.5';
-        }
-
-        if (fontSelect) fontSelect.value = value;
-        localStorage.setItem('sk_font_size', isLarge ? 'large' : 'normal');
-      }
-
-      function applyLangFromValue(value) {
-        currentLangSetting = value; // auto, casual, pro
-        localStorage.setItem('sk_lang_mode', value);
-
-        if (langAuto)   langAuto.checked   = (value === 'auto');
-        if (langLocker) langLocker.checked = (value === 'casual');
-        if (langPro)    langPro.checked    = (value === 'pro');
-
-        updateTexts();
-      }
-
-      // Initiale Zustände
-      applyThemeFromValue(currentTheme);
-
-      if (savedFont === 'large') {
-        applyFontFromValue('large');
-      } else {
-        applyFontFromValue('normal');
-      }
-
-      applyLangFromValue(currentLangSetting);
-
-      // Events
-      if (toggle) {
-        toggle.addEventListener('click', () => {
-          const nextTheme = body.classList.contains('pro-mode') ? 'neon' : 'pro';
-          applyThemeFromValue(nextTheme);
-        });
-      }
-
-      if (designNeon) {
-        designNeon.addEventListener('change', () => {
-          if (designNeon.checked) applyThemeFromValue('neon');
-        });
-      }
-      if (designMatt) {
-        designMatt.addEventListener('change', () => {
-          if (designMatt.checked) applyThemeFromValue('pro');
-        });
-      }
-
-      if (langAuto) {
-        langAuto.addEventListener('change', () => {
-          if (langAuto.checked) applyLangFromValue('auto');
-        });
-      }
-      if (langLocker) {
-        langLocker.addEventListener('change', () => {
-          if (langLocker.checked) applyLangFromValue('casual');
-        });
-      }
-      if (langPro) {
-        langPro.addEventListener('change', () => {
-          if (langPro.checked) applyLangFromValue('pro');
-        });
-      }
-
-      if (fontSelect) {
-        fontSelect.addEventListener('change', () => {
-          applyFontFromValue(fontSelect.value === 'large' ? 'large' : 'normal');
-        });
-      }
-    })();
-  </script>
+      </div>
+    </div>
+  </div>
 
 </body>
 </html>
-
-
