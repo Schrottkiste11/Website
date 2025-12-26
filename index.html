@@ -3,428 +3,144 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Start – Schrottkiste</title>
+  <title>Start – Schrottkiste 🎮</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Chewy&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
   <style>
+    /* --- BASIS & VARIABLEN --- */
     * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --neon-pink: #ff0099;
+      --neon-blue: #00ffff;
+      --pro-bg: #14161c;
+      --pro-card: #1c1f26;
+      --accent-alt: #74e4ff;
+    }
 
     body {
       background: radial-gradient(circle at top, #202040 0%, #050510 55%, #020205 100%);
       font-family: 'Poppins', sans-serif;
       color: #e8ffff;
       min-height: 100vh;
+      overflow-x: hidden;
     }
 
-    body.font-large {
-      font-size: 18px;
-    }
-
-    /* THEME TOGGLE SWITCH */
+    /* DESIGN-SCHALTER (Rechts oben) */
     .theme-toggle-wrapper {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      z-index: 21000;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 6px 10px;
-      border-radius: 999px;
-      background: rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(6px);
-      box-shadow: 0 0 14px rgba(0,0,0,0.6);
+      position: fixed; top: 20px; right: 20px; z-index: 21000;
+      display: flex; align-items: center; gap: 8px; padding: 6px 10px;
+      border-radius: 999px; background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(6px);
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
     }
-
-    .theme-toggle-label {
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: #e8ffff;
-      white-space: nowrap;
-    }
-
     .theme-toggle {
-      position: relative;
-      width: 64px;
-      height: 30px;
-      border-radius: 999px;
-      border: 2px solid rgba(255,255,255,0.4);
-      background: rgba(0, 0, 0, 0.7);
-      cursor: pointer;
-      transition: background 0.2s ease, border-color 0.2s ease;
+      position: relative; width: 60px; height: 28px; border-radius: 999px;
+      border: 2px solid rgba(255,255,255,0.4); background: rgba(0, 0, 0, 0.7); cursor: pointer;
     }
-
     .theme-toggle-knob {
-      position: absolute;
-      top: 3px;
-      left: 3px;
-      width: 22px;
-      height: 22px;
-      border-radius: 50%;
-      background: #e8ffff;
-      box-shadow: 0 0 8px rgba(0,255,255,0.5);
-      transition: transform 0.22s ease;
+      position: absolute; top: 2px; left: 2px; width: 20px; height: 20px;
+      border-radius: 50%; background: #fff; transition: transform 0.25s ease;
     }
+    .theme-toggle.active .theme-toggle-knob { transform: translateX(32px); }
 
-    .theme-toggle.active {
-      background: rgba(255, 255, 255, 0.1);
-      border-color: rgba(255,255,255,0.7);
-    }
-
-    .theme-toggle.active .theme-toggle-knob {
-      transform: translateX(30px);
-      box-shadow: 0 0 8px rgba(255,255,255,0.6);
-    }
-
-    /* SIDEBAR – NEON DEFAULT */
+    /* --- SIDEBAR (Links) --- */
     #menuToggle { display: none; }
-
     .hamburger-btn {
-      position: fixed;
-      top: 20px;
-      left: 20px;
-      z-index: 20000;
-      background: rgba(0, 0, 0, 0.6);
-      border: 2px solid rgba(0, 255, 255, 0.6);
-      border-radius: 8px;
-      color: #00ffff;
-      font-size: 24px;
-      padding: 8px 14px;
-      cursor: pointer;
-      box-shadow: 0 0 10px #0ff;
-      transition: 0.25s ease;
-      font-family: 'Chewy', cursive;
+      position: fixed; top: 20px; left: 20px; z-index: 20000;
+      background: rgba(0, 0, 0, 0.7); border: 2px solid var(--neon-blue);
+      border-radius: 12px; color: var(--neon-blue); font-size: 24px;
+      padding: 8px 14px; cursor: pointer; transition: 0.3s ease;
+      box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
     }
-
-    .hamburger-btn:hover { transform: scale(1.1); box-shadow: 0 0 20px #0ff; }
- /* =====================
-       NAVBAR / SIDEBAR
-       ===================== */
-    #menuToggle {
-      display: none;
-    }
-
-    .hamburger-btn {
-      position: fixed;
-      top: 20px;
-      left: 20px;
-      z-index: 10000;
-      background: rgba(0,0,0,0.6);
-      border: 2px solid #74e4ff;
-      border-radius: 12px;
-      color: #74e4ff;
-      font-size: 24px;
-      padding: 8px 14px;
-      cursor: pointer;
-      transition: 0.25s ease;
-    }
-
-    .hamburger-btn:hover {
-      transform: scale(1.07);
-    }
+    .hamburger-btn:hover { transform: scale(1.1); box-shadow: 0 0 25px var(--neon-blue); }
 
     .custom-sidebar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 250px;
-      height: 100vh;
-      background: rgba(10, 10, 31, 0.96);
-      border-right: 2px solid rgba(116, 228, 255, 0.35);
-      box-shadow: 4px 0 25px rgba(0,0,0,0.7);
-      backdrop-filter: blur(12px);
-      transform: translateX(-100%);
-      transition: transform 0.35s ease;
-      padding-top: 80px;
-      z-index: 9000;
+      position: fixed; top: 0; left: 0; width: 280px; height: 100vh;
+      background: rgba(8, 7, 25, 0.98); border-right: 2px solid rgba(116, 228, 255, 0.3);
+      backdrop-filter: blur(15px); transform: translateX(-100%);
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      padding-top: 100px; z-index: 9000;
     }
+    #menuToggle:checked ~ .custom-sidebar { transform: translateX(0); }
+    #menuToggle:checked + .hamburger-btn { left: 295px; }
 
-    #menuToggle:checked ~ .custom-sidebar {
-      transform: translateX(0);
-    }
-
-    #menuToggle:checked + .hamburger-btn {
-      left: 260px;
-    }
-
-    .custom-sidebar nav {
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-      padding: 0 18px 24px;
-    }
-
+    .custom-sidebar nav { display: flex; flex-direction: column; gap: 12px; padding: 0 25px; }
     .custom-sidebar nav a {
-      color: #74e4ff;
-      text-decoration: none;
-      font-size: 18px;
-      padding: 6px 8px;
-      text-shadow: 0 0 6px rgba(0,255,255,0.8);
-      transition: 0.2s ease;
+      color: var(--accent-alt); text-decoration: none; font-size: 1.15rem;
+      padding: 12px 15px; border-radius: 10px; transition: 0.3s;
+      border: 1px solid transparent;
     }
-
     .custom-sidebar nav a:hover {
-      transform: translateX(6px);
-      background: rgba(0,255,255,0.1);
+      background: rgba(116, 228, 255, 0.1); border-color: rgba(116, 228, 255, 0.3);
+      transform: translateX(10px); color: #fff;
     }
 
+    /* --- HAUPTBEREICH --- */
+    main { max-width: 1100px; margin: 0 auto; padding: 120px 20px 60px; }
 
-    main {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 80px 20px 60px;
-    }
-
-    /* HERO – NEON */
-    .hero {
-      text-align: center;
-      margin-bottom: 40px;
-    }
+    .hero { text-align: center; margin-bottom: 60px; }
     .hero-title {
-      font-family: 'Chewy', cursive;
-      font-size: 3rem;
-      color: #00ffff;
-      text-shadow: 0 0 16px #00ffff;
+      font-family: 'Chewy', cursive; font-size: 4rem;
+      color: var(--neon-blue); text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
     }
-    .hero-sub {
-      font-size: 1.1rem;
-      color: #c0f7ff;
-      opacity: 0.9;
+    .hero-sub { color: #c0f7ff; font-size: 1.2rem; margin-top: 10px; }
+
+    /* DASHBOARD GRID */
+    .dashboard-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px; margin-bottom: 50px;
     }
 
-    /* ABOUT – NEON */
-    .about-section {
-      max-width: 800px;
-      margin: 40px auto 50px;
-      padding: 30px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(0,255,255,0.25);
-      border-radius: 18px;
-      text-align: center;
-      backdrop-filter: blur(10px);
-      box-shadow: 0 0 25px rgba(0,255,255,0.12);
+    .card {
+      background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(0, 255, 255, 0.2);
+      border-radius: 22px; padding: 35px 25px; backdrop-filter: blur(10px);
+      transition: 0.3s ease; text-decoration: none; color: inherit;
+      display: flex; flex-direction: column; align-items: center; text-align: center;
     }
-    .about-section h2 {
-      font-size: 2rem;
-      color: #00ffff;
-      text-shadow: 0 0 8px #00ffff;
+    .card:hover {
+      transform: translateY(-8px); border-color: var(--neon-blue);
+      box-shadow: 0 15px 35px rgba(0, 255, 255, 0.2);
     }
-    .about-section p {
-      margin-top: 10px;
-      font-size: 1rem;
-      line-height: 1.6;
-    }
+    .card i { font-size: 3.5rem; margin-bottom: 20px; display: block; }
+    .card h3 { font-family: 'Chewy', cursive; font-size: 1.8rem; color: var(--neon-blue); margin-bottom: 12px; }
+    .card p { font-size: 0.95rem; color: #c0f7ff; line-height: 1.5; }
 
-    /* QUICKLINKS – NEON */
-    .quicklinks {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 15px;
-      margin-bottom: 50px;
+    /* YOUTUBE FEEDS */
+    .yt-section {
+      background: rgba(5, 10, 30, 0.8); border: 1px solid var(--neon-pink);
+      border-radius: 25px; padding: 40px; margin-top: 30px;
+      box-shadow: 0 0 30px rgba(255, 0, 153, 0.15);
     }
-    .quicklinks a {
-      display: inline-block;
-      padding: 12px 20px;
-      border-radius: 12px;
-      background: linear-gradient(135deg, #ff0099, #ff4d4d, #ff9900);
-      color: white;
-      font-weight: 600;
-      text-decoration: none;
-      text-shadow: 0 0 6px rgba(255,255,255,0.4);
-      transition: 0.3s;
+    .yt-section h2 {
+      text-align: center; font-family: 'Chewy', cursive; font-size: 2.5rem;
+      color: var(--neon-pink); margin-bottom: 30px; text-shadow: 0 0 15px var(--neon-pink);
     }
-    .quicklinks a:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 22px rgba(255,76,157,0.7);
+    .yt-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
+    .yt-wrapper {
+      position: relative; padding-bottom: 56.25%; height: 0;
+      border-radius: 15px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.6);
     }
+    .yt-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
 
-    /* YOUTUBE FEED – NEON */
-    .yt-feed {
-      max-width: 900px;
-      margin: 0 auto 30px;
-      padding: 25px;
-      border-radius: 18px;
-      background: rgba(5, 10, 30, 0.9);
-      border: 1px solid rgba(255, 0, 150, 0.45);
-      box-shadow: 0 0 28px rgba(255,0,150,0.35);
-    }
-    .yt-feed h2 {
-      text-align: center;
-      font-size: 2rem;
-      color: #ff4c9d;
-      text-shadow: 0 0 10px #ff4c9d;
-      margin-bottom: 10px;
-    }
-
-    .yt-grid {
-      display: flex;
-      gap: 20px;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-bottom: 10px;
-    }
-
-    .yt-embed-wrapper {
-      position: relative;
-      padding-bottom: 56.25%;
-      height: 0;
-      overflow: hidden;
-      border-radius: 16px;
-      box-shadow: 0 0 25px rgba(0,0,0,0.7);
-      flex: 1 1 300px;
-      max-width: 480px;
-    }
-    .yt-embed-wrapper iframe {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      border: 0;
-    }
-
-    .yt-channel-btn-wrapper {
-      display: flex;
-      justify-content: flex-end;
-      margin-top: 10px;
-    }
-
-    .yt-channel-btn {
-      display: inline-block;
-      padding: 10px 18px;
-      border-radius: 999px;
-      background: #ff4c9d;
-      color: #fff;
-      text-decoration: none;
-      font-weight: 600;
-      box-shadow: 0 0 18px rgba(255,76,157,0.7);
-      transition: 0.25s ease;
-    }
-
-    .yt-channel-btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 0 24px rgba(255,76,157,0.9);
-    }
-
-    /* PRO-MODE (MATTES DESIGN) */
-
-    body.pro-mode {
-      background: #14161c;
-      color: #d6d9e0;
-    }
-
-    body.pro-mode .hamburger-btn {
-      background: #1f222a;
-      border: 1px solid #2d3038;
-      color: #d6d9e0;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.4);
-      text-shadow: none;
-    }
-
-    body.pro-mode .custom-sidebar {
-      background: #1c1f26;
-      border-right: 1px solid #2a2d35;
-      box-shadow: 4px 0 15px rgba(0,0,0,0.5);
-    }
-
-    body.pro-mode .custom-sidebar nav a {
-      color: #d6d9e0;
-      text-shadow: none;
-      background: transparent;
-    }
-
-    body.pro-mode .custom-sidebar nav a:hover {
-      background: #2b2f38;
-      transform: translateX(4px);
-    }
-
-    body.pro-mode .hero {
-      background: #1c1f26;
-      border-radius: 18px;
-      padding: 24px 20px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.45);
-    }
-
-    body.pro-mode .hero-title {
-      color: #e2e4ea;
-      text-shadow: none;
-    }
-
-    body.pro-mode .hero-sub {
-      color: #b9bcc4;
-    }
-
-    body.pro-mode .about-section {
-      background: #1c1f26;
-      border: 1px solid #2a2d35;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-      text-align: left;
-    }
-
-    body.pro-mode .about-section h2 {
-      color: #e2e4ea;
-      text-shadow: none;
-    }
-
-    body.pro-mode .about-section p {
-      color: #caced6;
-    }
-
-    body.pro-mode .quicklinks a {
-      background: #1f222a;
-      border-radius: 10px;
-      border: 1px solid #2d3038;
-      text-shadow: none;
-      box-shadow: 0 6px 16px rgba(0,0,0,0.35);
-    }
-
-    body.pro-mode .quicklinks a:hover {
-      background: #272b34;
-      transform: translateY(-1px);
-      box-shadow: 0 10px 22px rgba(0,0,0,0.45);
-    }
-
-    body.pro-mode .yt-feed {
-      background: #1c1f26;
-      border: 1px solid #2a2d35;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.5);
-    }
-
-    body.pro-mode .yt-feed h2 {
-      color: #e2e4ea;
-      text-shadow: none;
-    }
-
-    body.pro-mode .yt-embed-wrapper {
-      box-shadow: 0 6px 18px rgba(0,0,0,0.6);
-    }
-
-    body.pro-mode .yt-channel-btn {
-      background: #2e313a;
-      box-shadow: 0 8px 18px rgba(0,0,0,0.5);
-    }
-
-    body.pro-mode .yt-channel-btn:hover {
-      background: #373b45;
-      box-shadow: 0 10px 24px rgba(0,0,0,0.6);
-    }
+    /* PRO-MODE STYLES */
+    body.pro-mode { background: var(--pro-bg); color: #d6d9e0; }
+    body.pro-mode .card, body.pro-mode .yt-section { background: var(--pro-card); border-color: #2a2d35; box-shadow: none; }
+    body.pro-mode .hero-title, body.pro-mode .card h3 { color: #fff; text-shadow: none; }
+    body.pro-mode .hamburger-btn { background: var(--pro-card); border-color: #2a2d35; color: #fff; box-shadow: none; }
+    body.pro-mode .custom-sidebar { background: #1c1f26; border-right-color: #2a2d35; }
   </style>
 </head>
 <body>
 
-  <!-- SIDEBAR -->
   <input type="checkbox" id="menuToggle" hidden>
   <label for="menuToggle" class="hamburger-btn">☰</label>
 
-  <!-- DESIGN-SCHALTER -->
   <div class="theme-toggle-wrapper">
-    <span class="theme-toggle-label" id="themeToggleLabel">Neon Design</span>
-    <button class="theme-toggle" id="themeToggle" type="button">
-      <span class="theme-toggle-knob"></span>
-    </button>
+    <span id="themeToggleLabel" style="font-size: 0.85rem; font-weight: 600;">Neon Design</span>
+    <button class="theme-toggle" id="themeToggle" type="button"><span class="theme-toggle-knob"></span></button>
   </div>
 
-  <div class="custom-sidebar">
+  <aside class="custom-sidebar">
     <nav>
       <a href="index.html">🏠 Startseite</a>
       <a href="ideen.html">💡 Ideen Liste</a>
@@ -432,162 +148,99 @@
       <a href="radio.html">📻 Radioplayer</a>
       <a href="config.html">⚙️ Einstellungen</a>
     </nav>
-  </div>
+  </aside>
 
   <main>
     <section class="hero">
-      <h1
-        class="hero-title"
-        data-neon="Schrottkiste Community 🎉"
-        data-pro="Schrottkiste – Community-Startseite"
-      >
-        Schrottkiste Community 🎉
-      </h1>
-      <p
-        class="hero-sub"
-        data-neon="Offizielle Fan-Website – Chaos, Projekte, Musik & Kreativität."
-        data-pro="Offizielle Seite mit aktuellen Projekten, Inhalten und Formaten rund um Schrottkiste."
-      >
-        Offizielle Fan-Website – Chaos, Projekte, Musik & Kreativität.
-      </p>
+      <h1 class="hero-title" data-neon="Schrottkiste Dashboard 🎮" data-pro="Schrottkiste – Portal">Schrottkiste Dashboard 🎮</h1>
+      <p class="hero-sub" data-neon="Willkommen Luka! Wähle ein Modul aus." data-pro="Willkommen in der Verwaltungszentrale.">Willkommen Luka! Wähle ein Modul aus.</p>
     </section>
 
-    <section class="about-section">
-      <h2
-        data-neon="👋 Wer bin ich?"
-        data-pro="Über Luka"
-      >
-        👋 Wer bin ich?
-      </h2>
-      <p
-        data-neon="Hi, ich bin Luka, 20 Jahre alt. Hier findest du alles rund um meine Projekte, Streams und verrückten Ideen mit der Community."
-        data-pro="Ich bin Luka, 20 Jahre alt. Auf dieser Seite sind Informationen zu Projekten, Streams und weiteren Inhalten der Schrottkiste-Community zusammengefasst."
-      >
-        Hi, ich bin Luka, 20 Jahre alt. Hier findest du alles rund um meine Projekte, Streams und verrückten Ideen mit der Community.
-      </p>
-    </section>
+    <div class="dashboard-grid">
+      <a href="ideen.html" class="card">
+        <i>💡</i>
+        <h3 data-neon="Ideen Liste" data-pro="Projekte">Ideen Liste</h3>
+        <p>Verwalte deine Video-Ideen und den Content-Plan für 2026.</p>
+      </a>
 
-    <section class="quicklinks">
-      <a href="ideen.html">💡 Ideen Liste</a>
-      <a href="soundboard.html">🎵 Soundboard</a>
-      <a href="radio.html">📻 Radioplayer</a>
-      <a href="sendeplan.html">📅 Sendeplan</a>
-      <a href="https://www.youtube.com/@Schrottkiste" target="_blank">🔥 YouTube Kanal</a>
-    </section>
+      <a href="soundboard.html" class="card">
+        <i>🔊</i>
+        <h3 data-neon="Soundboard" data-pro="Audio">Soundboard</h3>
+        <p>Schneller Zugriff auf alle Sounds für Streams und Videos.</p>
+      </a>
 
-    <section class="yt-feed">
-      <h2
-        data-neon="🎬 Neueste Videos"
-        data-pro="Aktuelle YouTube-Videos"
-      >
-        🎬 Neueste Videos
-      </h2>
+      <a href="radio.html" class="card">
+        <i>📻</i>
+        <h3 data-neon="Radioplayer" data-pro="Musik">Radioplayer</h3>
+        <p>Streame die offizielle Schrottkiste-Playlist rund um die Uhr.</p>
+      </a>
 
+      <a href="sendeplan.html" class="card">
+        <i>📅</i>
+        <h3 data-neon="Sendeplan" data-pro="Termine">Sendeplan</h3>
+        <p>Checke, wann das nächste Mal live Chaos auf Twitch herrscht.</p>
+      </a>
+    </div>
+
+    <section class="yt-section">
+      <h2 data-neon="🎬 Neueste Videos" data-pro="YouTube Feed">🎬 Neueste Videos</h2>
       <div class="yt-grid">
-        <div class="yt-embed-wrapper">
-          <iframe
-            src="https://www.youtube.com/embed/d5yZ0pEsaAc"
-            title="Video 1"
-            allowfullscreen>
-          </iframe>
+        <div class="yt-wrapper">
+          <iframe src="https://www.youtube.com/embed/d5yZ0pEsaAc" allowfullscreen></iframe>
         </div>
-
-        <div class="yt-embed-wrapper">
-          <iframe
-            src="https://www.youtube.com/embed/EN6_WAgb-hY"
-            title="Video 2"
-            allowfullscreen>
-          </iframe>
+        <div class="yt-wrapper">
+          <iframe src="https://www.youtube.com/embed/EN6_WAgb-hY" allowfullscreen></iframe>
         </div>
       </div>
+    </section>
 
-      <div class="yt-channel-btn-wrapper">
-        <a href="https://www.youtube.com/@Schrottkiste" target="_blank" class="yt-channel-btn">
-          🔥 Zum YouTube-Kanal
-        </a>
-      </div>
+    <section class="card" style="margin-top: 50px; width: 100%; max-width: 800px; margin-left: auto; margin-right: auto;">
+      <h3 data-neon="👋 Wer bin ich?" data-pro="Info">👋 Wer bin ich?</h3>
+      <p data-neon="Ich bin Luka, 20 Jahre alt. Schrottkiste ist mein Projekt für kreativen Content und Gaming!" 
+         data-pro="Portal-Betreiber: Luka (20). Fokus auf Videoproduktion und Community-Management.">
+         Ich bin Luka, 20 Jahre alt. Schrottkiste ist mein Projekt für kreativen Content und Gaming!
+      </p>
     </section>
   </main>
 
   <script>
+    // THEME & TEXT LOGIC
     (function() {
       const body = document.body;
       const toggle = document.getElementById('themeToggle');
       const label = document.getElementById('themeToggleLabel');
       const textNodes = document.querySelectorAll('[data-neon][data-pro]');
 
-      const savedTheme = localStorage.getItem('sk_theme');
-      const savedFont = localStorage.getItem('sk_font_size');
-      const savedLang = localStorage.getItem('sk_lang_mode');
-
-      let currentTheme = (savedTheme === 'pro') ? 'pro' : 'neon';
-      let currentLangSetting = savedLang || 'auto'; // auto, casual, pro
-
-      function resolveTone() {
-        if (currentLangSetting === 'casual') return 'neon';
-        if (currentLangSetting === 'pro') return 'pro';
-        // auto:
-        return currentTheme === 'pro' ? 'pro' : 'neon';
-      }
-
-      function updateTexts() {
-        const tone = resolveTone();
+      function updateTexts(tone) {
         textNodes.forEach(el => {
-          const neonText = el.dataset.neon;
-          const proText = el.dataset.pro;
-          el.textContent = (tone === 'pro' ? proText : neonText);
+          el.textContent = (tone === 'pro' ? el.dataset.pro : el.dataset.neon);
         });
       }
 
-      function applyThemeFromValue(value) {
-        currentTheme = (value === 'pro') ? 'pro' : 'neon';
-
-        if (currentTheme === 'pro') {
+      function applyTheme(theme) {
+        if (theme === 'pro') {
           body.classList.add('pro-mode');
-          if (toggle) toggle.classList.add('active');
-          if (label) label.textContent = 'Mattes Design';
-          localStorage.setItem('sk_theme', 'pro');
+          toggle.classList.add('active');
+          label.textContent = 'Mattes Design';
+          updateTexts('pro');
         } else {
           body.classList.remove('pro-mode');
-          if (toggle) toggle.classList.remove('active');
-          if (label) label.textContent = 'Neon Design';
-          localStorage.setItem('sk_theme', 'neon');
+          toggle.classList.remove('active');
+          label.textContent = 'Neon Design';
+          updateTexts('neon');
         }
-        updateTexts();
+        localStorage.setItem('sk_theme', theme);
       }
 
-      function applyFontFromValue(value) {
-        const isLarge = (value === 'large');
-        if (isLarge) {
-          body.classList.add('font-large');
-        } else {
-          body.classList.remove('font-large');
-        }
-        localStorage.setItem('sk_font_size', isLarge ? 'large' : 'normal');
-      }
+      toggle.addEventListener('click', () => {
+        const current = body.classList.contains('pro-mode') ? 'neon' : 'pro';
+        applyTheme(current);
+      });
 
-      // Initial Theme
-      applyThemeFromValue(currentTheme);
-
-      // Initial Font
-      if (savedFont === 'large') {
-        applyFontFromValue('large');
-      } else {
-        applyFontFromValue('normal');
-      }
-
-      // Initial Language (nur Setting speichern, Textupdate extra)
-      localStorage.setItem('sk_lang_mode', currentLangSetting);
-      updateTexts();
-
-      if (toggle) {
-        toggle.addEventListener('click', () => {
-          const nextTheme = body.classList.contains('pro-mode') ? 'neon' : 'pro';
-          applyThemeFromValue(nextTheme);
-        });
-      }
+      // Start-Check
+      const savedTheme = localStorage.getItem('sk_theme') || 'neon';
+      applyTheme(savedTheme);
     })();
   </script>
-
 </body>
 </html>
