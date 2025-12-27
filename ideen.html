@@ -3,21 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Content-Plan 2026 – Schrottkiste</title>
+  <title>Content-Plan 2026 🎮 – Schrottkiste</title>
   <link href="https://fonts.googleapis.com/css2?family=Chewy&family=Poppins:wght@300;400;600&family=VT323&display=swap" rel="stylesheet">
   <style>
-    /* --- CORE DESIGN (Schrottkiste Standard) --- */
+    /* --- CORE DESIGN --- */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --accent: #ff0099;
-      --accent-alt: #00ffff;
       --bg: #050415;
       --card: rgba(18, 14, 40, 0.96);
+      --accent: #ff0099;
+      --accent-alt: #00ffff;
       --text: #f3f1ff;
       --muted: #c0c4e8;
-      --border-soft: rgba(255, 255, 255, 0.1);
+      --border-soft: rgba(255, 255, 255, 0.12);
     }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       background: #050415;
@@ -28,7 +27,6 @@
       color: var(--text);
       min-height: 100vh;
       overflow-x: hidden;
-      padding-top: 80px;
     }
 
     /* --- SIDEBAR --- */
@@ -58,100 +56,58 @@
     .custom-sidebar nav a:hover { background: var(--accent-alt); color: #000; transform: translateX(10px); }
 
     /* --- MAIN CONTENT --- */
-    main { max-width: 900px; margin: 0 auto; padding: 40px 20px 60px; }
+    main { max-width: 900px; margin: 0 auto; padding: 100px 20px 60px; }
 
     .hero { text-align: center; margin-bottom: 50px; }
     .hero-title {
       font-family: 'Chewy', cursive; font-size: clamp(3rem, 8vw, 4.5rem);
       color: #fff; text-shadow: 4px 4px 0px var(--accent);
-      margin-bottom: 10px;
     }
 
-    /* --- ACCORDION BOXES --- */
+    /* --- ACCORDION KACHELN --- */
     .content-box {
-      background: var(--card); 
-      border: 2px solid var(--accent-alt);
-      border-radius: 4px; 
-      margin-bottom: 25px; 
-      overflow: hidden; 
-      cursor: pointer;
-      box-shadow: 8px 8px 0px var(--accent);
+      background: var(--card); border: 2px solid var(--border-soft);
+      border-radius: 4px; margin-bottom: 20px; overflow: hidden; cursor: pointer;
       transition: 0.2s;
     }
-    .content-box:hover { transform: translate(-2px, -2px); box-shadow: 10px 10px 0px var(--accent); }
+    .content-box:hover { border-color: var(--accent-alt); }
 
-    .box-trigger { 
-      padding: 20px 30px; 
-      display: flex; 
-      justify-content: space-between; 
-      align-items: center; 
-      background: rgba(255, 255, 255, 0.03);
-    }
-    .box-trigger h3 { font-family: 'VT323', monospace; font-size: 2.2rem; color: #fff; }
-    .arrow { color: var(--accent-alt); transition: transform 0.4s steps(4); font-size: 1.5rem; }
+    .box-trigger { padding: 20px 30px; display: flex; justify-content: space-between; align-items: center; }
+    .box-trigger h3 { font-family: 'VT323', monospace; font-size: 2rem; color: var(--accent-alt); }
+    .arrow { color: var(--accent); transition: transform 0.5s; font-size: 1.5rem; }
 
     .box-content {
       max-height: 0; opacity: 0; overflow: hidden;
-      transition: max-height 0.6s steps(8), opacity 0.3s;
-      background: rgba(0, 0, 0, 0.4);
+      transition: max-height 0.8s ease, opacity 0.5s;
+      background: rgba(0, 0, 0, 0.3);
     }
-    .content-box.active .box-content { max-height: 2000px; opacity: 1; padding: 30px; border-top: 1px solid var(--accent-alt); }
-    .content-box.active .arrow { transform: rotate(180deg); color: var(--accent); }
+    .content-box.active .box-content { max-height: 1500px; opacity: 1; padding: 20px 30px 40px; }
+    .content-box.active .arrow { transform: rotate(180deg); }
 
-    /* --- PROJECT LIST --- */
-    .project-list { 
-      display: grid; 
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
-      gap: 15px; 
-      list-style: none; 
-    }
-    .project-list li { 
-      font-family: 'VT323', monospace; 
-      font-size: 1.5rem; 
-      color: var(--muted); 
-      display: flex; 
-      align-items: center; 
-      padding: 5px;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-    }
-    .project-list li::before { 
-      content: ">>"; 
-      color: var(--accent-alt); 
-      margin-right: 12px; 
-      font-weight: bold;
-    }
-
-    .badge {
-      font-size: 0.8rem;
-      background: var(--accent);
-      color: white;
-      padding: 2px 8px;
-      margin-left: 10px;
-      border-radius: 3px;
-      font-family: 'Poppins';
-      vertical-align: middle;
-    }
+    .project-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 10px; list-style: none; }
+    .project-list li { font-family: 'VT323', monospace; font-size: 1.4rem; color: var(--muted); display: flex; align-items: center; }
+    .project-list li::before { content: ">"; color: var(--accent); margin-right: 10px; }
 
   </style>
 </head>
 <body>
 
   <input type="checkbox" id="menuToggle" hidden>
-  <label for="menuToggle" class="hamburger-btn">☰ MENÜ</label>
+  <label for="menuToggle" class="hamburger-btn">☰ Menü</label>
 
   <aside class="custom-sidebar">
     <nav>
       <a href="index.html">Startseite</a>
       <a href="ideen.html">Ideen Liste</a>
       <a href="soundboard.html">Soundboard</a>
-      <a href="radio.html">Radioplayer</a>
+      <a href="radio.html">Radio</a>
     </nav>
   </aside>
 
   <main>
     <div class="hero">
       <h1 class="hero-title">Content-Plan 2026</h1>
-      <p style="color: var(--accent-alt); font-family: 'VT323'; font-size: 1.8rem; letter-spacing: 2px;">LOAD_ROADMAP_SUCCESSFUL...</p>
+      <p style="color: var(--accent-alt); font-family: 'VT323'; font-size: 1.5rem;">Roadmap & Projekte</p>
     </div>
 
     <div class="content-box" onclick="this.classList.toggle('active')">
@@ -161,16 +117,16 @@
       </div>
       <div class="box-content">
         <ul class="project-list">
-          <li>Portal 1 <span class="badge">Stream</span></li>
-          <li>Fortnite <span class="badge">Dauerhaft</span></li>
-          <li>Indie Games</li>
+          <li>Portal 1 (Stream-Projekt)</li>
+          <li>Fortnite (dauerhaftes Projekt)</li>
+          <li>Indie Games (Langzeit-Projekt)</li>
           <li>Outlast 1 & 2</li>
           <li>Poppy Playtime</li>
           <li>Speedy Eggbert</li>
-          <li>Omlet Arcade Nostalgia</li>
-          <li>Animal Crossing (Retro)</li>
+          <li>Omlet Arcade Nostalgia Time</li>
+          <li>Animal Crossing – erste Teile</li>
           <li>Dogs Life Remastered</li>
-          <li>Mental Hospital</li>
+          <li>Mental Hospital: Evil Child</li>
           <li>Minecraft Server-Bau</li>
           <li>Donkey Kong Bananza</li>
           <li>The Long Dark</li>
@@ -189,17 +145,17 @@
           <li>TikTok Streams</li>
           <li>Hide and Seek (SM64)</li>
           <li>WePlay & Rec Room</li>
-          <li>AC Wild World</li>
-          <li>Click & Point Adv.</li>
-          <li>Zelda: OoT</li>
-          <li>SM64 Cursed Castle</li>
-          <li>Tanz-Wettbewerb</li>
+          <li>Animal Crossing Wild World</li>
+          <li>Click & Point Adventures</li>
+          <li>Zelda: Ocarina of Time</li>
+          <li>Super Mario 64 Cursed Castle</li>
+          <li>Gesangs- & Tanz-Wettbewerb</li>
           <li>Minecraft Minigames</li>
           <li>Podcast Folgen</li>
           <li>Treasure Radio</li>
-          <li>ASMR & Challenges</li>
+          <li>ASMR, Challenges & Reactions</li>
           <li>12h / 24h Stream</li>
-          <li>Mario Party / Kart</li>
+          <li>Mario Party / Brawlhalla / Mario Kart</li>
         </ul>
       </div>
     </div>
@@ -212,13 +168,14 @@
       <div class="box-content">
         <ul class="project-list">
           <li>Little Nightmares 3</li>
-          <li>Haus d. 1000 Türen</li>
+          <li>Haus der 1000 Türen</li>
           <li>American Candy Test</li>
-          <li>Sims 24h Challenge</li>
-          <li>Flashgames</li>
-          <li>Sims 4 WG (Remote)</li>
-          <li>Gartic Phone</li>
+          <li>24 Stunden wie ein Sim leben</li>
+          <li>Browser- & Flashgames</li>
+          <li>Sims 4 WG per Teamviewer</li>
+          <li>Skribbl.io / Gartic Phone</li>
           <li>Wer bin ich?</li>
+          <li>Indie Online Games</li>
           <li>Dead by Daylight</li>
           <li>Portal 2</li>
           <li>Palworld</li>
@@ -230,8 +187,8 @@
 
   </main>
 
-  <div style="text-align: center; color: var(--accent); font-family: 'VT323'; font-size: 1.5rem; margin-bottom: 60px; text-shadow: 0 0 10px var(--accent);">
-    #SCHROTTKISTE2026 – BITTE WARTEN...
+  <div style="text-align: center; color: #444; font-family: 'VT323'; margin-bottom: 40px;">
+    #SCHROTTKISTE2026
   </div>
 
 </body>
