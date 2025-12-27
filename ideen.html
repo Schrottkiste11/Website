@@ -3,144 +3,155 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Content-Plan 2026 🎮 – Schrottkiste</title>
-  <link href="https://fonts.googleapis.com/css2?family=Chewy&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <title>Content-Plan 2026 – Schrottkiste</title>
+  <link href="https://fonts.googleapis.com/css2?family=Chewy&family=Poppins:wght@300;400;600&family=VT323&display=swap" rel="stylesheet">
   <style>
-    /* BASIS & VARIABLEN */
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    /* --- CORE DESIGN (Schrottkiste Standard) --- */
     :root {
+      --accent: #ff0099;
+      --accent-alt: #00ffff;
       --bg: #050415;
       --card: rgba(18, 14, 40, 0.96);
-      --accent: #f6c45c;
-      --accent-alt: #74e4ff;
       --text: #f3f1ff;
       --muted: #c0c4e8;
-      --border-soft: rgba(255, 255, 255, 0.12);
+      --border-soft: rgba(255, 255, 255, 0.1);
     }
 
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
     body {
-      background: radial-gradient(circle at top, #27245a 0%, #050415 55%, #020109 100%);
+      background: #050415;
+      background-image: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), 
+                        radial-gradient(circle at top, #151435 0%, #050415 70%, #020109 100%);
+      background-size: 100% 4px, 100% 100%;
       font-family: 'Poppins', sans-serif;
       color: var(--text);
       min-height: 100vh;
       overflow-x: hidden;
+      padding-top: 80px;
     }
 
-    /* MYSTISCHER GLOW */
-    .bg-glow {
-      position: fixed; inset: 0; pointer-events: none; z-index: -1;
-      background:
-        radial-gradient(circle at 15% 20%, rgba(246,196,92,0.1) 0, transparent 55%),
-        radial-gradient(circle at 85% 80%, rgba(116,228,255,0.1) 0, transparent 55%);
-      mix-blend-mode: screen; opacity: 0.6;
-    }
-
-    /* --- SIDEBAR & NAV (Exakt wie Startseite) --- */
+    /* --- SIDEBAR --- */
     #menuToggle { display: none; }
-
     .hamburger-btn {
       position: fixed; top: 20px; left: 20px; z-index: 20000;
-      background: rgba(0, 0, 0, 0.7); border: 2px solid var(--accent-alt);
-      border-radius: 12px; color: var(--accent-alt); font-size: 24px;
+      background: var(--accent); border: 2px solid #fff;
+      border-radius: 4px; color: #fff; font-size: 24px;
       padding: 8px 14px; cursor: pointer;
-      box-shadow: 0 0 15px rgba(116, 228, 255, 0.4);
-      transition: 0.3s ease, left 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      font-family: 'Chewy', cursive;
+      box-shadow: 6px 6px 0px var(--accent-alt);
+      font-family: 'VT323', monospace;
     }
-
-    .hamburger-btn:hover { transform: scale(1.07); box-shadow: 0 0 25px var(--accent-alt); }
 
     .custom-sidebar {
       position: fixed; top: 0; left: 0; width: 280px; height: 100vh;
-      background: rgba(8, 7, 25, 0.98); border-right: 2px solid rgba(116, 228, 255, 0.3);
-      backdrop-filter: blur(15px); transform: translateX(-100%);
-      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      background: #111; border-right: 4px solid var(--accent);
+      transform: translateX(-100%); transition: 0.4s steps(4);
       padding-top: 100px; z-index: 9000;
     }
-
     #menuToggle:checked ~ .custom-sidebar { transform: translateX(0); }
-    #menuToggle:checked + .hamburger-btn { left: 295px; }
 
-    .custom-sidebar nav { display: flex; flex-direction: column; gap: 12px; padding: 0 25px; }
+    .custom-sidebar nav { display: flex; flex-direction: column; gap: 15px; padding: 0 25px; }
     .custom-sidebar nav a {
-      color: var(--accent-alt); text-decoration: none; font-size: 1.15rem;
-      padding: 12px 15px; border-radius: 10px; transition: 0.3s;
-      border: 1px solid transparent;
+      color: #fff; text-decoration: none; font-size: 1.8rem; font-family: 'VT323', monospace;
+      padding: 10px; border: 1px solid #333; transition: 0.1s;
     }
-    .custom-sidebar nav a:hover {
-      background: rgba(116, 228, 255, 0.1); border-color: rgba(116, 228, 255, 0.3);
-      transform: translateX(10px);
-    }
+    .custom-sidebar nav a:hover { background: var(--accent-alt); color: #000; transform: translateX(10px); }
 
-    /* --- CONTENT --- */
-    main { max-width: 900px; margin: 0 auto; padding: 120px 20px 60px; }
+    /* --- MAIN CONTENT --- */
+    main { max-width: 900px; margin: 0 auto; padding: 40px 20px 60px; }
 
-    .hero { text-align: center; margin-bottom: 60px; }
+    .hero { text-align: center; margin-bottom: 50px; }
     .hero-title {
-      font-family: 'Chewy', cursive; font-size: 3.5rem;
-      color: var(--accent-alt); text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+      font-family: 'Chewy', cursive; font-size: clamp(3rem, 8vw, 4.5rem);
+      color: #fff; text-shadow: 4px 4px 0px var(--accent);
+      margin-bottom: 10px;
     }
 
-    /* AKKORDEON KACHELN (Langsames Ausfahren) */
+    /* --- ACCORDION BOXES --- */
     .content-box {
-      background: var(--card); border: 1px solid var(--border-soft);
-      border-radius: 22px; margin-bottom: 25px; overflow: hidden; cursor: pointer;
-      transition: 0.3s;
+      background: var(--card); 
+      border: 2px solid var(--accent-alt);
+      border-radius: 4px; 
+      margin-bottom: 25px; 
+      overflow: hidden; 
+      cursor: pointer;
+      box-shadow: 8px 8px 0px var(--accent);
+      transition: 0.2s;
     }
-    .content-box:hover { border-color: var(--accent-alt); transform: translateY(-3px); }
+    .content-box:hover { transform: translate(-2px, -2px); box-shadow: 10px 10px 0px var(--accent); }
 
-    .box-trigger { padding: 25px 30px; display: flex; justify-content: space-between; align-items: center; }
-    .box-trigger h3 { font-size: 1.5rem; color: var(--accent-alt); }
-    .arrow { color: var(--accent); transition: transform 1.5s ease-in-out; }
+    .box-trigger { 
+      padding: 20px 30px; 
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center; 
+      background: rgba(255, 255, 255, 0.03);
+    }
+    .box-trigger h3 { font-family: 'VT323', monospace; font-size: 2.2rem; color: #fff; }
+    .arrow { color: var(--accent-alt); transition: transform 0.4s steps(4); font-size: 1.5rem; }
 
     .box-content {
-      max-height: 0; opacity: 0;
-      transition: max-height 1.5s ease-in-out, opacity 1.2s ease-in-out;
-      background: rgba(0, 0, 0, 0.2);
+      max-height: 0; opacity: 0; overflow: hidden;
+      transition: max-height 0.6s steps(8), opacity 0.3s;
+      background: rgba(0, 0, 0, 0.4);
     }
-    .content-box.active .box-content { max-height: 2000px; opacity: 1; padding: 10px 30px 40px; }
-    .content-box.active .arrow { transform: rotate(180deg); }
+    .content-box.active .box-content { max-height: 2000px; opacity: 1; padding: 30px; border-top: 1px solid var(--accent-alt); }
+    .content-box.active .arrow { transform: rotate(180deg); color: var(--accent); }
 
-    ul { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 10px; list-style: none; }
-    li { padding: 8px 0; color: var(--muted); display: flex; align-items: center; }
-    li::before { content: "✦"; color: var(--accent); margin-right: 12px; }
-
-    /* RECHTSKLICK MENÜ */
-    #custom-menu {
-      position: absolute; display: none; background: var(--card);
-      border: 1px solid var(--accent-alt); border-radius: 12px;
-      width: 200px; z-index: 30000; box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+    /* --- PROJECT LIST --- */
+    .project-list { 
+      display: grid; 
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+      gap: 15px; 
+      list-style: none; 
     }
-    #custom-menu li { padding: 12px 20px; cursor: pointer; list-style: none; color: var(--text); }
-    #custom-menu li:hover { background: rgba(0, 255, 255, 0.1); color: var(--accent-alt); }
+    .project-list li { 
+      font-family: 'VT323', monospace; 
+      font-size: 1.5rem; 
+      color: var(--muted); 
+      display: flex; 
+      align-items: center; 
+      padding: 5px;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .project-list li::before { 
+      content: ">>"; 
+      color: var(--accent-alt); 
+      margin-right: 12px; 
+      font-weight: bold;
+    }
+
+    .badge {
+      font-size: 0.8rem;
+      background: var(--accent);
+      color: white;
+      padding: 2px 8px;
+      margin-left: 10px;
+      border-radius: 3px;
+      font-family: 'Poppins';
+      vertical-align: middle;
+    }
+
   </style>
 </head>
-<body oncontextmenu="return showMenu(event)" onclick="hideMenu()">
-
-  <div class="bg-glow"></div>
+<body>
 
   <input type="checkbox" id="menuToggle" hidden>
-  <label for="menuToggle" class="hamburger-btn">☰ Menü</label>
+  <label for="menuToggle" class="hamburger-btn">☰ MENÜ</label>
 
   <aside class="custom-sidebar">
     <nav>
-      <a href="index.html">🏠 Startseite</a>
-      <a href="ideen.html">💡 Ideen Liste</a>
-      <a href="soundboard.html">🔊 Soundboard</a>
-      <a href="radio.html">📻 Radio Player</a>
-      <a href="config.html">⚙️ Einstellungen</a>
+      <a href="index.html">Startseite</a>
+      <a href="ideen.html">Ideen Liste</a>
+      <a href="soundboard.html">Soundboard</a>
+      <a href="radio.html">Radioplayer</a>
     </nav>
   </aside>
 
-  <div id="custom-menu">
-    <li onclick="location.reload()">🔄 Refresh</li>
-    <li onclick="alert('Export gestartet...')">💾 Export</li>
-  </div>
-
   <main>
     <div class="hero">
-      <h1 class="hero-title">Content-Plan 2026 🎮</h1>
-      <p style="color: var(--muted); margin-top: 10px;">Vidio-Projekte & Roadmap</p>
+      <h1 class="hero-title">Content-Plan 2026</h1>
+      <p style="color: var(--accent-alt); font-family: 'VT323'; font-size: 1.8rem; letter-spacing: 2px;">LOAD_ROADMAP_SUCCESSFUL...</p>
     </div>
 
     <div class="content-box" onclick="this.classList.toggle('active')">
@@ -149,21 +160,21 @@
         <span class="arrow">▼</span>
       </div>
       <div class="box-content">
-        <ul>
-          <li>Portal 1 & 2</li>
-          <li>Fortnite</li>
+        <ul class="project-list">
+          <li>Portal 1 <span class="badge">Stream</span></li>
+          <li>Fortnite <span class="badge">Dauerhaft</span></li>
           <li>Indie Games</li>
           <li>Outlast 1 & 2</li>
           <li>Poppy Playtime</li>
           <li>Speedy Eggbert</li>
-          <li>Animal Crossing</li>
+          <li>Omlet Arcade Nostalgia</li>
+          <li>Animal Crossing (Retro)</li>
+          <li>Dogs Life Remastered</li>
+          <li>Mental Hospital</li>
           <li>Minecraft Server-Bau</li>
           <li>Donkey Kong Bananza</li>
-          <li>Little Nightmares 3</li>
-          <li>Sims 4 WG per Teamviewer</li>
-          <li>Dead by Daylight</li>
-          <li>Palworld</li>
-          <li>Granny / Eyes</li>
+          <li>The Long Dark</li>
+          <li>Spyro Trilogy</li>
         </ul>
       </div>
     </div>
@@ -174,36 +185,54 @@
         <span class="arrow">▼</span>
       </div>
       <div class="box-content">
-        <ul>
+        <ul class="project-list">
           <li>TikTok Streams</li>
           <li>Hide and Seek (SM64)</li>
           <li>WePlay & Rec Room</li>
-          <li>Zelda: Ocarina of Time</li>
+          <li>AC Wild World</li>
+          <li>Click & Point Adv.</li>
+          <li>Zelda: OoT</li>
           <li>SM64 Cursed Castle</li>
-          <li>Gesangs-Wettbewerb</li>
+          <li>Tanz-Wettbewerb</li>
           <li>Minecraft Minigames</li>
           <li>Podcast Folgen</li>
+          <li>Treasure Radio</li>
           <li>ASMR & Challenges</li>
-          <li>Mario Kart / Party</li>
+          <li>12h / 24h Stream</li>
+          <li>Mario Party / Kart</li>
         </ul>
       </div>
     </div>
 
-    <div style="text-align: center; margin-top: 40px;">
-        <a href="index.html" style="color: var(--accent-alt); text-decoration: none;">← Zurück zum Dashboard</a>
+    <div class="content-box" onclick="this.classList.toggle('active')">
+      <div class="box-trigger">
+        <h3>💡 Weitere Ideen</h3>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="box-content">
+        <ul class="project-list">
+          <li>Little Nightmares 3</li>
+          <li>Haus d. 1000 Türen</li>
+          <li>American Candy Test</li>
+          <li>Sims 24h Challenge</li>
+          <li>Flashgames</li>
+          <li>Sims 4 WG (Remote)</li>
+          <li>Gartic Phone</li>
+          <li>Wer bin ich?</li>
+          <li>Dead by Daylight</li>
+          <li>Portal 2</li>
+          <li>Palworld</li>
+          <li>Granny / Eyes</li>
+          <li>Hokko Life</li>
+        </ul>
+      </div>
     </div>
+
   </main>
 
-  <script>
-    const menu = document.getElementById('custom-menu');
-    function showMenu(e) {
-      e.preventDefault();
-      menu.style.display = 'block';
-      menu.style.left = e.pageX + 'px';
-      menu.style.top = e.pageY + 'px';
-      return false;
-    }
-    function hideMenu() { menu.style.display = 'none'; }
-  </script>
+  <div style="text-align: center; color: var(--accent); font-family: 'VT323'; font-size: 1.5rem; margin-bottom: 60px; text-shadow: 0 0 10px var(--accent);">
+    #SCHROTTKISTE2026 – BITTE WARTEN...
+  </div>
+
 </body>
 </html>
