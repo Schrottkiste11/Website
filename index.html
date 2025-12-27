@@ -70,18 +70,12 @@
 
     /* --- CONTENT AREA --- */
     .content-area { max-width: 800px; margin: 0 auto; padding: 20px; }
-    .video-card, .comment-card {
+    .video-card {
       background: var(--card); border: 3px solid var(--accent-alt);
       padding: 20px; box-shadow: 12px 12px 0px var(--accent); margin-bottom: 50px;
     }
     .responsive-video { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; }
     .responsive-video iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
-
-    .comment-card h3 {
-        font-family: 'VT323', monospace; font-size: 2rem; color: var(--accent-alt);
-        margin-bottom: 20px; text-align: left; border-bottom: 2px dashed var(--accent);
-        padding-bottom: 10px;
-    }
 
     /* --- BUTTONS --- */
     .btn-container { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 60px; }
@@ -90,7 +84,12 @@
       font-size: 1.5rem; text-decoration: none; border: 2px solid var(--accent);
       box-shadow: 6px 6px 0px var(--accent); transition: 0.2s;
     }
-    .main-btn:hover { background: var(--accent); color: #fff; box-shadow: 8px 8px 0px var(--accent-alt); }
+    .main-btn:hover { 
+        transform: translate(-2px, -2px);
+        background: var(--accent); 
+        color: #fff; 
+        box-shadow: 8px 8px 0px var(--accent-alt); 
+    }
 
     @media (max-width: 768px) { 
       .banner-content { flex-direction: column; text-align: center; gap: 20px; }
@@ -121,15 +120,16 @@
 
   <main class="content-area">
     <section class="video-card">
-      <h2 style="font-family:'VT323'; margin-bottom:15px;">LATEST_BROADCAST</h2>
+      <h2 style="font-family:'VT323'; margin-bottom:15px;">NEUESTES VIDEO: Wir bauen ein Spiel!</h2>
       <div class="responsive-video">
-        <iframe src="https://www.youtube.com/embed/0ooa58_CHG4" frameborder="0" allowfullscreen></iframe>
+        <iframe 
+            src="https://www.youtube.com/embed/0ooa58_CHG4" 
+            title="YouTube video player" 
+            frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+            allowfullscreen>
+        </iframe>
       </div>
-    </section>
-
-    <section class="comment-card">
-      <h3>LOG_MESSAGES</h3>
-      <div id="disqus_thread"></div>
     </section>
 
     <div class="btn-container">
@@ -139,18 +139,9 @@
     </div>
   </main>
 
-  <script>
-    var disqus_config = function () {
-        this.page.url = window.location.href;  
-        this.page.identifier = 'schrottkiste_home'; 
-    };
-    (function() { 
-        var d = document, s = d.createElement('script');
-        s.src = 'https://DEIN-SHORTNAME.disqus.com/embed.js'; 
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-    })();
-  </script>
+  <footer style="margin-top: 40px; padding-bottom: 40px; font-family: 'VT323'; color: #444; text-align: center;">
+    © 2026 SCHROTTKISTE // ALL_SYSTEMS_GO
+  </footer>
 
 </body>
 </html>
