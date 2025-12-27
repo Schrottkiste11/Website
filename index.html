@@ -133,6 +133,128 @@
     }
 
     .responsive-video iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+    <section class="comment-section">
+  <div class="comment-card">
+    <h3><span class="pulse-dot"></span> USER_COMMENTS</h3>
+    
+    <div class="comment-input-area">
+      <input type="text" placeholder="Dein Name..." class="comment-name">
+      <textarea placeholder="Schreib was zum Chaos..." class="comment-text"></textarea>
+      <button class="main-btn send-btn">SEND_MESSAGE</button>
+    </div>
+
+    <hr class="comment-divider">
+
+    <div class="comment-list">
+      <div class="single-comment">
+        <span class="user">@RetroGamer99:</span>
+        <p>Die Schrottkiste ist heute wieder richtig stabil unterwegs! Wann kommt das nächste Video?</p>
+      </div>
+      
+      <div class="single-comment">
+        <span class="user">@LukaFan:</span>
+        <p>Der Banner sieht extrem futuristisch aus, richtig gut gemacht!</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .comment-section {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 0 20px;
+  }
+
+  .comment-card {
+    background: var(--card);
+    border: 3px solid var(--accent);
+    padding: 25px;
+    box-shadow: 10px 10px 0px var(--accent-alt);
+    text-align: left;
+  }
+
+  .comment-card h3 {
+    font-family: 'VT323', monospace;
+    font-size: 2rem;
+    color: var(--accent-alt);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .pulse-dot {
+    width: 12px;
+    height: 12px;
+    background: var(--accent);
+    border-radius: 50%;
+    display: inline-block;
+    animation: pulse-glow-dot 1s infinite alternate;
+  }
+
+  @keyframes pulse-glow-dot {
+    from { opacity: 0.4; }
+    to { opacity: 1; box-shadow: 0 0 10px var(--accent); }
+  }
+
+  .comment-input-area {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 30px;
+  }
+
+  .comment-name, .comment-text {
+    background: rgba(0,0,0,0.3);
+    border: 2px solid #333;
+    padding: 10px;
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  .comment-name:focus, .comment-text:focus {
+    outline: none;
+    border-color: var(--accent-alt);
+  }
+
+  .comment-text {
+    min-height: 80px;
+    resize: vertical;
+  }
+
+  .send-btn {
+    align-self: flex-start;
+    font-size: 1.1rem !important;
+    padding: 8px 20px !important;
+  }
+
+  .comment-divider {
+    border: none;
+    border-top: 2px dashed #333;
+    margin-bottom: 20px;
+  }
+
+  .single-comment {
+    background: rgba(255,255,255,0.05);
+    padding: 15px;
+    border-left: 4px solid var(--accent-alt);
+    margin-bottom: 15px;
+  }
+
+  .single-comment .user {
+    font-family: 'VT323', monospace;
+    color: var(--accent);
+    font-size: 1.2rem;
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  .single-comment p {
+    font-size: 0.95rem;
+    line-height: 1.4;
+  }
+</style>
 
     /* --- BUTTONS --- */
     .btn-container { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 60px; }
