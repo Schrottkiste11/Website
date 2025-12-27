@@ -1,133 +1,185 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Schrottkiste | Community Website 🎮</title>
-  <link href="https://fonts.googleapis.com/css2?family=Chewy&family=VT323&display=swap" rel="stylesheet">
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Schrottkiste – Home</title>
+  <link href="https://fonts.googleapis.com/css2?family=Chewy&family=Poppins:wght@300;400;600&family=VT323&display=swap" rel="stylesheet">
   <style>
-    /* --- DER ROBUSTE SCHROTT-LOOK --- */
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    
-    body {
-      background-color: #0d0d0d;
-      /* Subtiler Scanline-Effekt für Textur */
-      background: 
-        linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%),
-        #0f0f0f;
-      background-size: 100% 4px, 100% 100%;
-      font-family: 'VT323', monospace;
-      color: #00ffcc;
-      min-height: 100vh;
-      overflow-x: hidden;
+    :root {
+      --accent: #ff0099;
+      --accent-alt: #00ffff;
+      --bg: #050415;
+      --card: rgba(18, 14, 40, 0.96);
+      --text: #f3f1ff;
     }
 
-    /* --- SIDEBAR ALS ROBUSTES ELEMENT --- */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #050415;
+      background-image: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), 
+                        radial-gradient(circle at top, #151435 0%, #050415 70%, #020109 100%);
+      background-size: 100% 4px, 100% 100%;
+      font-family: 'Poppins', sans-serif;
+      color: var(--text);
+      text-align: center;
+      min-height: 100vh;
+      padding-top: 100px;
+    }
+
+    /* --- SIDEBAR --- */
     #menuToggle { display: none; }
     .hamburger-btn {
-      position: fixed; top: 20px; left: 20px; z-index: 1000;
-      font-size: 26px; color: #fff; cursor: pointer;
-      background: #ff0099; padding: 8px 18px;
-      border: 3px solid #fff; box-shadow: 6px 6px 0px #00ffff;
-      transition: 0.1s;
+      position: fixed; top: 20px; left: 20px; z-index: 20000;
+      background: var(--accent); border: 2px solid #fff;
+      border-radius: 4px; color: #fff; font-size: 24px;
+      padding: 8px 14px; cursor: pointer;
+      box-shadow: 6px 6px 0px var(--accent-alt);
+      font-family: 'VT323', monospace;
     }
-    .hamburger-btn:hover { transform: translate(-2px, -2px); box-shadow: 8px 8px 0px #00ffff; }
 
-    .sidebar {
+    .custom-sidebar {
       position: fixed; top: 0; left: 0; width: 280px; height: 100vh;
-      background: #111; border-right: 6px solid #ff0099;
-      transform: translateX(-110%); transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      z-index: 900; padding: 100px 25px;
+      background: #111; border-right: 4px solid var(--accent);
+      transform: translateX(-100%); transition: 0.4s steps(4);
+      padding-top: 100px; z-index: 9000;
     }
-    #menuToggle:checked ~ .sidebar { transform: translateX(0); }
-    
-    .sidebar a {
-      display: block; color: #fff; text-decoration: none; font-size: 1.8rem;
-      margin-bottom: 15px; border: 2px solid #333; padding: 12px;
-      background: #1a1a1a; transition: 0.1s;
-    }
-    .sidebar a:hover {
-      background: #00ffcc; color: #000; border-color: #fff;
-      transform: scale(1.05);
-    }
+    #menuToggle:checked ~ .custom-sidebar { transform: translateX(0); }
 
-    /* --- HERO MIT GLITCH-TEXT --- */
-    .hero {
-      text-align: center; padding: 80px 20px;
+    .custom-sidebar nav { display: flex; flex-direction: column; gap: 15px; padding: 0 25px; }
+    .custom-sidebar nav a {
+      color: #fff; text-decoration: none; font-size: 1.8rem; font-family: 'VT323', monospace;
+      padding: 10px; border: 1px solid #333; transition: 0.1s;
     }
-    .main-logo {
-      font-family: 'Chewy', cursive; font-size: clamp(3.5rem, 12vw, 7rem);
-      color: #fff; position: relative; display: inline-block;
-      text-shadow: 5px 5px 0px #ff0099;
-      margin-bottom: 20px;
-    }
+    .custom-sidebar nav a:hover { background: var(--accent-alt); color: #000; transform: translateX(10px); }
 
-    /* --- HAUPT-BOX --- */
-    .content-box {
-      max-width: 900px; margin: 0 auto;
-      background: #151515;
-      border: 4px solid #fff;
-      padding: 40px 20px;
-      box-shadow: 12px 12px 0px #ff0099;
-    }
-
-    .video-container {
-      width: 100%; max-width: 700px; margin: 0 auto 30px;
-      aspect-ratio: 16/9; background: #000;
-      border: 3px solid #00ffcc;
-      box-shadow: 8px 8px 0px rgba(0, 255, 204, 0.2);
-    }
-
-    .info-text {
-      font-size: 1.6rem; color: #fff; line-height: 1.4;
-      max-width: 600px; margin: 0 auto;
-    }
-
-    /* --- DEKO-STICKER --- */
-    .sticker {
-      display: inline-block; background: #ffff00; color: #000;
-      padding: 4px 12px; font-weight: bold; font-size: 1.2rem;
-      transform: rotate(-3deg); border: 2px solid #000;
+    /* --- HERO SECTION --- */
+    h1 { 
+      font-family: 'Chewy', cursive; 
+      font-size: clamp(3rem, 10vw, 5rem); 
+      color: #fff; 
+      text-shadow: 5px 5px 0px var(--accent);
       margin-bottom: 10px;
+    }
+
+    .tagline {
+      font-family: 'VT323', monospace;
+      font-size: 1.5rem;
+      color: var(--accent-alt);
+      margin-bottom: 40px;
+      letter-spacing: 3px;
+    }
+
+    /* --- VIDEO CONTAINER --- */
+    .video-section {
+      max-width: 800px;
+      margin: 0 auto 50px;
+      padding: 20px;
+    }
+
+    .video-card {
+      background: var(--card);
+      border: 3px solid var(--accent-alt);
+      padding: 15px;
+      box-shadow: 12px 12px 0px var(--accent);
+      position: relative;
+    }
+
+    .video-card h2 {
+      font-family: 'VT323', monospace;
+      font-size: 1.8rem;
+      margin-bottom: 15px;
+      color: #fff;
+    }
+
+    .responsive-video {
+      position: relative;
+      padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+      height: 0;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .responsive-video iframe {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+    }
+
+    /* --- LINKS / BUTTONS --- */
+    .btn-container {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-top: 30px;
+    }
+
+    .main-btn {
+      background: #fff;
+      color: #000;
+      padding: 12px 30px;
+      font-family: 'VT323', monospace;
+      font-size: 1.5rem;
+      text-decoration: none;
+      border: 2px solid var(--accent);
+      box-shadow: 6px 6px 0px var(--accent);
+      transition: 0.2s;
+    }
+
+    .main-btn:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 8px 8px 0px var(--accent-alt);
+      background: var(--accent);
+      color: #fff;
     }
 
   </style>
 </head>
 <body>
 
-  <input type="checkbox" id="menuToggle">
-  <label for="menuToggle" class="hamburger-btn">MENÜ</label>
+  <input type="checkbox" id="menuToggle" hidden>
+  <label for="menuToggle" class="hamburger-btn">☰ MENÜ</label>
 
-  <aside class="sidebar">
+  <aside class="custom-sidebar">
     <nav>
       <a href="index.html">Startseite</a>
-      <a href="ideen.html">Ideen Liste</a>
+      <a href="ideen.html">Content-Plan</a>
       <a href="soundboard.html">Soundboard</a>
-      <a href="radio.html">Radio</a>
+      <a href="radio.html">Radioplayer</a>
     </nav>
   </aside>
 
-  <main class="hero">
-    <h1 class="main-logo">Schrottkiste</h1>
-    
-    <div class="content-box">
-      <div class="sticker">NEUESTES VIDEO</div>
-      
-      <div class="video-container">
-        <iframe src="https://www.youtube.com/embed/d5yZ0pEsaAc" width="100%" height="100%" frameborder="0" allowfullscreen></iframe>
-      </div>
+  <main>
+    <h1>Schrottkiste</h1>
+    <p class="tagline">WILLKOMMEN IM CHAOS // 2026</p>
 
-      <p class="info-text">
-        Willkommen auf der Community Website. <br>
-        Über das Menü links gelangst du zur Ideen Liste, zum Soundboard und zum Radio.
-      </p>
+    <section class="video-section">
+      <div class="video-card">
+        <h2>NEUESTES VIDEO: Wir bauen ein Spiel!</h2>
+        <div class="responsive-video">
+          <iframe 
+            src="https://www.youtube.com/embed/0ooa58_CHG4" 
+            title="YouTube video player" 
+            frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+            referrerpolicy="strict-origin-when-cross-origin" 
+            allowfullscreen>
+          </iframe>
+        </div>
+      </div>
+    </section>
+
+    <div class="btn-container">
+      <a href="soundboard.html" class="main-btn">ZUM SOUNDBOARD</a>
+      <a href="radio.html" class="main-btn">RADIO STARTEN</a>
+      <a href="https://www.youtube.com/@Schrottkiste" target="_blank" class="main-btn">YOUTUBE KANAL</a>
     </div>
   </main>
 
-  <div style="text-align: center; padding-bottom: 40px; color: #555; font-size: 1.2rem;">
-    #SCHROTTKISTE2026
-  </div>
+  <footer style="margin-top: 80px; padding-bottom: 40px; font-family: 'VT323'; color: #444;">
+    SYSTEM_STATUS: ONLINE | USER: SCHROTTKISTE
+  </footer>
 
 </body>
 </html>
