@@ -30,7 +30,7 @@
     /* --- BANNER CSS --- */
     .channel-banner {
       width: 100%;
-      min-height: 350px;
+      min-height: 300px;
       background: #08071b;
       background-image: 
         linear-gradient(to bottom, rgba(5, 4, 21, 0.4), #050415),
@@ -45,6 +45,7 @@
       padding: 60px 20px;
     }
 
+    /* Scanline-Effekt für den Banner */
     .channel-banner::after {
       content: " ";
       position: absolute;
@@ -58,34 +59,27 @@
     .banner-content {
       display: flex;
       align-items: center;
-      gap: 30px;
+      gap: 40px;
       z-index: 3;
     }
 
     .banner-logo {
-      width: clamp(120px, 20vw, 200px);
+      width: clamp(140px, 25vw, 200px);
+      height: clamp(140px, 25vw, 200px);
+      object-fit: cover; /* Verhindert Verzerrung */
+      border-radius: 50%; /* Macht das JPG rund */
+      border: 4px solid var(--accent-alt);
       filter: drop-shadow(0 0 20px var(--accent));
       animation: float-kiste 4s ease-in-out infinite;
     }
 
-    .banner-text { text-align: left; }
-
     .banner-main-title {
       font-family: 'Chewy', cursive;
-      font-size: clamp(3rem, 8vw, 6rem) !important;
+      font-size: clamp(3.5rem, 10vw, 7rem) !important;
       color: #fff;
-      text-shadow: 6px 6px 0px var(--accent);
+      text-shadow: 8px 8px 0px var(--accent);
       margin: 0 !important;
-      line-height: 0.9;
-    }
-
-    .banner-status {
-      font-family: 'VT323', monospace;
-      font-size: 1.5rem;
-      color: var(--accent-alt);
-      margin-top: 10px;
-      letter-spacing: 4px;
-      text-shadow: 0 0 10px var(--accent-alt);
+      line-height: 1;
     }
 
     @keyframes float-kiste {
@@ -131,7 +125,6 @@
       border: 3px solid var(--accent-alt);
       padding: 15px;
       box-shadow: 12px 12px 0px var(--accent);
-      position: relative;
     }
 
     .video-card h2 {
@@ -147,7 +140,7 @@
     .responsive-video iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
 
     /* --- BUTTONS --- */
-    .btn-container { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 50px; }
+    .btn-container { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 60px; }
 
     .main-btn {
       background: #fff; color: #000; padding: 12px 30px;
@@ -163,8 +156,8 @@
     }
 
     @media (max-width: 768px) {
-      .banner-content { flex-direction: column; text-align: center; }
-      .banner-text { text-align: center; }
+      .banner-content { flex-direction: column; text-align: center; gap: 20px; }
+      .channel-banner { min-height: 400px; }
     }
   </style>
 </head>
@@ -184,11 +177,8 @@
 
   <header class="channel-banner">
     <div class="banner-content">
-      <img src="deine-truhe.png" alt="Schrottkiste Logo" class="banner-logo">
-      <div class="banner-text">
-        <h1 class="banner-main-title">Schrottkiste</h1>
-        <p class="banner-status">// SYSTEM_STATUS: ONLINE</p>
-      </div>
+      <img src="channels4_profile%20Schrottkiste.jpg" alt="Schrottkiste Logo" class="banner-logo">
+      <h1 class="banner-main-title">Schrottkiste</h1>
     </div>
   </header>
 
@@ -216,7 +206,7 @@
   </main>
 
   <footer style="margin-top: 40px; padding-bottom: 40px; font-family: 'VT323'; color: #444; text-align: center;">
-    © 2026 SCHROTTKISTE // ALL_RIGHTS_RESERVED
+    © 2026 SCHROTTKISTE // ALL_SYSTEMS_GO
   </footer>
 
 </body>
