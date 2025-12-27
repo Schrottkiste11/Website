@@ -3,244 +3,132 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Start – Schrottkiste 🎮</title>
-
-  <link href="https://fonts.googleapis.com/css2?family=Chewy&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <title>Schrottkiste | Community Website 🎮</title>
+  <link href="https://fonts.googleapis.com/css2?family=Chewy&family=VT323&display=swap" rel="stylesheet">
 
   <style>
-    /* --- BASIS & VARIABLEN --- */
+    /* --- DER ROBUSTE SCHROTT-LOOK --- */
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --neon-pink: #ff0099;
-      --neon-blue: #00ffff;
-      --pro-bg: #14161c;
-      --pro-card: #1c1f26;
-      --accent-alt: #74e4ff;
-    }
-
+    
     body {
-      background: radial-gradient(circle at top, #202040 0%, #050510 55%, #020205 100%);
-      font-family: 'Poppins', sans-serif;
-      color: #e8ffff;
+      background-color: #0d0d0d;
+      /* Subtiler Scanline-Effekt für Textur */
+      background: 
+        linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%),
+        #0f0f0f;
+      background-size: 100% 4px, 100% 100%;
+      font-family: 'VT323', monospace;
+      color: #00ffcc;
       min-height: 100vh;
       overflow-x: hidden;
     }
 
-    /* DESIGN-SCHALTER (Rechts oben) */
-    .theme-toggle-wrapper {
-      position: fixed; top: 20px; right: 20px; z-index: 21000;
-      display: flex; align-items: center; gap: 8px; padding: 6px 10px;
-      border-radius: 999px; background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(6px);
-      box-shadow: 0 0 10px rgba(0,0,0,0.5);
-    }
-    .theme-toggle {
-      position: relative; width: 60px; height: 28px; border-radius: 999px;
-      border: 2px solid rgba(255,255,255,0.4); background: rgba(0, 0, 0, 0.7); cursor: pointer;
-    }
-    .theme-toggle-knob {
-      position: absolute; top: 2px; left: 2px; width: 20px; height: 20px;
-      border-radius: 50%; background: #fff; transition: transform 0.25s ease;
-    }
-    .theme-toggle.active .theme-toggle-knob { transform: translateX(32px); }
-
-    /* --- SIDEBAR (Links) --- */
+    /* --- SIDEBAR ALS ROBUSTES ELEMENT --- */
     #menuToggle { display: none; }
     .hamburger-btn {
-      position: fixed; top: 20px; left: 20px; z-index: 20000;
-      background: rgba(0, 0, 0, 0.7); border: 2px solid var(--neon-blue);
-      border-radius: 12px; color: var(--neon-blue); font-size: 24px;
-      padding: 8px 14px; cursor: pointer; transition: 0.3s ease;
-      box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+      position: fixed; top: 20px; left: 20px; z-index: 1000;
+      font-size: 26px; color: #fff; cursor: pointer;
+      background: #ff0099; padding: 8px 18px;
+      border: 3px solid #fff; box-shadow: 6px 6px 0px #00ffff;
+      transition: 0.1s;
     }
-    .hamburger-btn:hover { transform: scale(1.1); box-shadow: 0 0 25px var(--neon-blue); }
+    .hamburger-btn:hover { transform: translate(-2px, -2px); box-shadow: 8px 8px 0px #00ffff; }
 
-    .custom-sidebar {
+    .sidebar {
       position: fixed; top: 0; left: 0; width: 280px; height: 100vh;
-      background: rgba(8, 7, 25, 0.98); border-right: 2px solid rgba(116, 228, 255, 0.3);
-      backdrop-filter: blur(15px); transform: translateX(-100%);
-      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      padding-top: 100px; z-index: 9000;
+      background: #111; border-right: 6px solid #ff0099;
+      transform: translateX(-110%); transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      z-index: 900; padding: 100px 25px;
     }
-    #menuToggle:checked ~ .custom-sidebar { transform: translateX(0); }
-    #menuToggle:checked + .hamburger-btn { left: 295px; }
-
-    .custom-sidebar nav { display: flex; flex-direction: column; gap: 12px; padding: 0 25px; }
-    .custom-sidebar nav a {
-      color: var(--accent-alt); text-decoration: none; font-size: 1.15rem;
-      padding: 12px 15px; border-radius: 10px; transition: 0.3s;
-      border: 1px solid transparent;
+    #menuToggle:checked ~ .sidebar { transform: translateX(0); }
+    
+    .sidebar a {
+      display: block; color: #fff; text-decoration: none; font-size: 1.8rem;
+      margin-bottom: 15px; border: 2px solid #333; padding: 12px;
+      background: #1a1a1a; transition: 0.1s;
     }
-    .custom-sidebar nav a:hover {
-      background: rgba(116, 228, 255, 0.1); border-color: rgba(116, 228, 255, 0.3);
-      transform: translateX(10px); color: #fff;
+    .sidebar a:hover {
+      background: #00ffcc; color: #000; border-color: #fff;
+      transform: scale(1.05);
     }
 
-    /* --- HAUPTBEREICH --- */
-    main { max-width: 1100px; margin: 0 auto; padding: 120px 20px 60px; }
-
-    .hero { text-align: center; margin-bottom: 60px; }
-    .hero-title {
-      font-family: 'Chewy', cursive; font-size: 4rem;
-      color: var(--neon-blue); text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+    /* --- HERO MIT GLITCH-TEXT --- */
+    .hero {
+      text-align: center; padding: 80px 20px;
     }
-    .hero-sub { color: #c0f7ff; font-size: 1.2rem; margin-top: 10px; }
-
-    /* DASHBOARD GRID */
-    .dashboard-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 25px; margin-bottom: 50px;
+    .main-logo {
+      font-family: 'Chewy', cursive; font-size: clamp(3.5rem, 12vw, 7rem);
+      color: #fff; position: relative; display: inline-block;
+      text-shadow: 5px 5px 0px #ff0099;
+      margin-bottom: 20px;
     }
 
-    .card {
-      background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(0, 255, 255, 0.2);
-      border-radius: 22px; padding: 35px 25px; backdrop-filter: blur(10px);
-      transition: 0.3s ease; text-decoration: none; color: inherit;
-      display: flex; flex-direction: column; align-items: center; text-align: center;
+    /* --- HAUPT-BOX --- */
+    .content-box {
+      max-width: 900px; margin: 0 auto;
+      background: #151515;
+      border: 4px solid #fff;
+      padding: 40px 20px;
+      box-shadow: 12px 12px 0px #ff0099;
     }
-    .card:hover {
-      transform: translateY(-8px); border-color: var(--neon-blue);
-      box-shadow: 0 15px 35px rgba(0, 255, 255, 0.2);
-    }
-    .card i { font-size: 3.5rem; margin-bottom: 20px; display: block; }
-    .card h3 { font-family: 'Chewy', cursive; font-size: 1.8rem; color: var(--neon-blue); margin-bottom: 12px; }
-    .card p { font-size: 0.95rem; color: #c0f7ff; line-height: 1.5; }
 
-    /* YOUTUBE FEEDS */
-    .yt-section {
-      background: rgba(5, 10, 30, 0.8); border: 1px solid var(--neon-pink);
-      border-radius: 25px; padding: 40px; margin-top: 30px;
-      box-shadow: 0 0 30px rgba(255, 0, 153, 0.15);
+    .video-container {
+      width: 100%; max-width: 700px; margin: 0 auto 30px;
+      aspect-ratio: 16/9; background: #000;
+      border: 3px solid #00ffcc;
+      box-shadow: 8px 8px 0px rgba(0, 255, 204, 0.2);
     }
-    .yt-section h2 {
-      text-align: center; font-family: 'Chewy', cursive; font-size: 2.5rem;
-      color: var(--neon-pink); margin-bottom: 30px; text-shadow: 0 0 15px var(--neon-pink);
-    }
-    .yt-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
-    .yt-wrapper {
-      position: relative; padding-bottom: 56.25%; height: 0;
-      border-radius: 15px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.6);
-    }
-    .yt-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
 
-    /* PRO-MODE STYLES */
-    body.pro-mode { background: var(--pro-bg); color: #d6d9e0; }
-    body.pro-mode .card, body.pro-mode .yt-section { background: var(--pro-card); border-color: #2a2d35; box-shadow: none; }
-    body.pro-mode .hero-title, body.pro-mode .card h3 { color: #fff; text-shadow: none; }
-    body.pro-mode .hamburger-btn { background: var(--pro-card); border-color: #2a2d35; color: #fff; box-shadow: none; }
-    body.pro-mode .custom-sidebar { background: #1c1f26; border-right-color: #2a2d35; }
+    .info-text {
+      font-size: 1.6rem; color: #fff; line-height: 1.4;
+      max-width: 600px; margin: 0 auto;
+    }
+
+    /* --- DEKO-STICKER --- */
+    .sticker {
+      display: inline-block; background: #ffff00; color: #000;
+      padding: 4px 12px; font-weight: bold; font-size: 1.2rem;
+      transform: rotate(-3deg); border: 2px solid #000;
+      margin-bottom: 10px;
+    }
+
   </style>
 </head>
 <body>
 
-  <input type="checkbox" id="menuToggle" hidden>
-  <label for="menuToggle" class="hamburger-btn">☰</label>
+  <input type="checkbox" id="menuToggle">
+  <label for="menuToggle" class="hamburger-btn">MENÜ</label>
 
-  <div class="theme-toggle-wrapper">
-    <span id="themeToggleLabel" style="font-size: 0.85rem; font-weight: 600;">Neon Design</span>
-    <button class="theme-toggle" id="themeToggle" type="button"><span class="theme-toggle-knob"></span></button>
-  </div>
-
-  <aside class="custom-sidebar">
+  <aside class="sidebar">
     <nav>
-      <a href="index.html">🏠 Startseite</a>
-      <a href="ideen.html">💡 Ideen Liste</a>
-      <a href="soundboard.html">🎵 Soundboard</a>
-      <a href="radio.html">📻 Radioplayer</a>
-      <a href="config.html">⚙️ Einstellungen</a>
+      <a href="index.html">Startseite</a>
+      <a href="ideen.html">Ideen Liste</a>
+      <a href="soundboard.html">Soundboard</a>
+      <a href="radio.html">Radio</a>
     </nav>
   </aside>
 
-  <main>
-    <section class="hero">
-      <h1 class="hero-title" data-neon="Schrottkiste Dashboard 🎮" data-pro="Schrottkiste – Portal">Schrottkiste Dashboard 🎮</h1>
-      <p class="hero-sub" data-neon="Willkommen Luka! Wähle ein Modul aus." data-pro="Willkommen in der Verwaltungszentrale.">Willkommen Luka! Wähle ein Modul aus.</p>
-    </section>
-
-    <div class="dashboard-grid">
-      <a href="ideen.html" class="card">
-        <i>💡</i>
-        <h3 data-neon="Ideen Liste" data-pro="Projekte">Ideen Liste</h3>
-        <p>Verwalte deine Video-Ideen und den Content-Plan für 2026.</p>
-      </a>
-
-      <a href="soundboard.html" class="card">
-        <i>🔊</i>
-        <h3 data-neon="Soundboard" data-pro="Audio">Soundboard</h3>
-        <p>Schneller Zugriff auf alle Sounds für Streams und Videos.</p>
-      </a>
-
-      <a href="radio.html" class="card">
-        <i>📻</i>
-        <h3 data-neon="Radioplayer" data-pro="Musik">Radioplayer</h3>
-        <p>Streame die offizielle Schrottkiste-Playlist rund um die Uhr.</p>
-      </a>
-
-      <a href="sendeplan.html" class="card">
-        <i>📅</i>
-        <h3 data-neon="Sendeplan" data-pro="Termine">Sendeplan</h3>
-        <p>Checke, wann das nächste Mal live Chaos auf Twitch herrscht.</p>
-      </a>
-    </div>
-
-    <section class="yt-section">
-      <h2 data-neon="🎬 Neueste Videos" data-pro="YouTube Feed">🎬 Neueste Videos</h2>
-      <div class="yt-grid">
-        <div class="yt-wrapper">
-          <iframe src="https://www.youtube.com/embed/d5yZ0pEsaAc" allowfullscreen></iframe>
-        </div>
-        <div class="yt-wrapper">
-          <iframe src="https://www.youtube.com/embed/EN6_WAgb-hY" allowfullscreen></iframe>
-        </div>
+  <main class="hero">
+    <h1 class="main-logo">Schrottkiste</h1>
+    
+    <div class="content-box">
+      <div class="sticker">NEUESTES VIDEO</div>
+      
+      <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/d5yZ0pEsaAc" width="100%" height="100%" frameborder="0" allowfullscreen></iframe>
       </div>
-    </section>
 
-    <section class="card" style="margin-top: 50px; width: 100%; max-width: 800px; margin-left: auto; margin-right: auto;">
-      <h3 data-neon="👋 Wer bin ich?" data-pro="Info">👋 Wer bin ich?</h3>
-      <p data-neon="Ich bin Luka, 20 Jahre alt. Schrottkiste ist mein Projekt für kreativen Content und Gaming!" 
-         data-pro="Portal-Betreiber: Luka (20). Fokus auf Videoproduktion und Community-Management.">
-         Ich bin Luka, 20 Jahre alt. Schrottkiste ist mein Projekt für kreativen Content und Gaming!
+      <p class="info-text">
+        Willkommen auf der Community Website. <br>
+        Über das Menü links gelangst du zur Ideen Liste, zum Soundboard und zum Radio.
       </p>
-    </section>
+    </div>
   </main>
 
-  <script>
-    // THEME & TEXT LOGIC
-    (function() {
-      const body = document.body;
-      const toggle = document.getElementById('themeToggle');
-      const label = document.getElementById('themeToggleLabel');
-      const textNodes = document.querySelectorAll('[data-neon][data-pro]');
+  <div style="text-align: center; padding-bottom: 40px; color: #555; font-size: 1.2rem;">
+    #SCHROTTKISTE2026
+  </div>
 
-      function updateTexts(tone) {
-        textNodes.forEach(el => {
-          el.textContent = (tone === 'pro' ? el.dataset.pro : el.dataset.neon);
-        });
-      }
-
-      function applyTheme(theme) {
-        if (theme === 'pro') {
-          body.classList.add('pro-mode');
-          toggle.classList.add('active');
-          label.textContent = 'Mattes Design';
-          updateTexts('pro');
-        } else {
-          body.classList.remove('pro-mode');
-          toggle.classList.remove('active');
-          label.textContent = 'Neon Design';
-          updateTexts('neon');
-        }
-        localStorage.setItem('sk_theme', theme);
-      }
-
-      toggle.addEventListener('click', () => {
-        const current = body.classList.contains('pro-mode') ? 'neon' : 'pro';
-        applyTheme(current);
-      });
-
-      // Start-Check
-      const savedTheme = localStorage.getItem('sk_theme') || 'neon';
-      applyTheme(savedTheme);
-    })();
-  </script>
 </body>
 </html>
+
