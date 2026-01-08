@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Schrottkiste – App Download</title>
+  <link href="https://fonts.googleapis.com/css2?family=Chewy&family=Poppins:wght@300;400;600&family=VT323&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --accent: #ff0099;
+      --accent-alt: #00ffff;
+      --bg: #050415;
+      --card: rgba(18, 14, 40, 0.96);
+      --text: #f3f1ff;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #050415;
+      background-image: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), 
+                        radial-gradient(circle at top, #151435 0%, #050415 70%, #020109 100%);
+      background-size: 100% 4px, 100% 100%;
+      font-family: 'Poppins', sans-serif;
+      color: var(--text);
+      text-align: center;
+      min-height: 100vh;
+    }
+
+    /* --- SIDEBAR --- */
+    #menuToggle { display: none; }
+    .hamburger-btn {
+      position: fixed; top: 20px; left: 20px; z-index: 20000;
+      background: var(--accent); border: 2px solid #fff; padding: 8px 14px;
+      cursor: pointer; box-shadow: 6px 6px 0px var(--accent-alt); font-family: 'VT323', monospace;
+    }
+    .custom-sidebar {
+      position: fixed; top: 0; left: 0; width: 280px; height: 100vh;
+      background: #111; border-right: 4px solid var(--accent);
+      transform: translateX(-100%); transition: 0.4s steps(4);
+      padding-top: 100px; z-index: 9000;
+    }
+    #menuToggle:checked ~ .custom-sidebar { transform: translateX(0); }
+    .custom-sidebar nav { display: flex; flex-direction: column; gap: 15px; padding: 0 25px; }
+    .custom-sidebar nav a {
+      color: #fff; text-decoration: none; font-size: 1.8rem; font-family: 'VT323', monospace;
+      padding: 10px; border: 1px solid #333;
+    }
+
+    /* --- BANNER --- */
+    .channel-banner {
+      width: 100%; min-height: 250px; background: #08071b;
+      background-image: linear-gradient(to bottom, rgba(5, 4, 21, 0.4), #050415),
+                        url('https://www.transparenttextures.com/patterns/carbon-fibre.png');
+      border-bottom: 4px solid var(--accent);
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden; margin-bottom: 40px; padding: 60px 20px;
+    }
+    .banner-main-title {
+      font-family: 'Chewy', cursive; font-size: clamp(3rem, 10vw, 5rem);
+      color: #fff; text-shadow: 6px 6px 0px var(--accent); margin: 0;
+    }
+
+    /* --- CONTENT AREA --- */
+    .content-area { max-width: 800px; margin: 0 auto; padding: 20px; }
+    .download-card {
+      background: var(--card); border: 3px solid var(--accent-alt);
+      padding: 40px; box-shadow: 12px 12px 0px var(--accent); margin-bottom: 50px;
+    }
+
+    .main-btn {
+      background: #fff; color: #000; padding: 15px 40px; font-family: 'VT323', monospace;
+      font-size: 1.8rem; text-decoration: none; border: 2px solid var(--accent);
+      box-shadow: 8px 8px 0px var(--accent); transition: 0.2s; cursor: pointer;
+      display: inline-block;
+    }
+    .main-btn:hover { 
+        transform: translate(-2px, -2px);
+        background: var(--accent); color: #fff; 
+        box-shadow: 10px 10px 0px var(--accent-alt); 
+    }
+
+    /* --- MODAL --- */
+    .modal {
+      display: none; position: fixed; z-index: 30000; left: 0; top: 0;
+      width: 100%; height: 100%; background-color: rgba(0,0,0,0.9);
+      backdrop-filter: blur(5px);
+    }
+    .modal-content {
+      background-color: #111; border: 4px solid var(--accent-alt);
+      margin: 15% auto; padding: 30px; width: 90%; max-width: 500px;
+      box-shadow: 0 0 30px var(--accent); text-align: center;
+    }
+    .modal-content h3 { font-family: 'VT323'; font-size: 2.5rem; color: var(--accent-alt); margin-bottom: 15px; }
+    .modal-content p { line-height: 1.6; margin-bottom: 20px; font-size: 0.95rem; color: #fff; }
+    
+    .confirm-btn { background: var(--accent); color: white; padding: 12px 25px; text-decoration: none; font-family: 'VT323'; font-size: 1.5rem; display: inline-block; border: 2px solid #fff; }
+    .cancel-btn { background: transparent; color: #888; border: none; cursor: pointer; font-family: 'VT323'; font-size: 1.2rem; margin-right: 20px; }
+
+    footer { margin-top: 40px; padding-bottom: 40px; font-family: 'VT323'; color: #444; text-align: center; }
+  </style>
+</head>
+<body>
+
+  <input type="checkbox" id="menuToggle" hidden>
+  <label for="menuToggle" class="hamburger-btn">☰ MENÜ</label>
+
+  <aside class="custom-sidebar">
+    <nav>
+      <a href="index.html">Startseite</a>
+      <a href="app.html" style="color: var(--accent-alt); border-color: var(--accent-alt);">App Download</a>
+      <a href="ideen.html">Content-Plan</a>
+      <a href="soundboard.html">Soundboard</a>
+      <a href="radio.html">Radioplayer</a>
+    </nav>
+  </aside>
+
+  <header class="channel-banner">
+      <h1 class="banner-main-title">App Download</h1>
+  </header>
+
+  <main class="content-area">
+    <section class="download-card">
+      <h2 style="font-family:'VT323'; font-size: 2.5rem; margin-bottom:15px;">DEIN VIDEOARCHIV FÜR UNTERWEGS</h2>
+      <p style="margin-bottom: 25px;">Hol dir die offizielle App der Schrottkiste. Alle Videos, Sounds und Updates direkt in einer App vereint.</p>
+      
+      <button onclick="openModal()" class="main-btn">JETZT RUNTERLADEN</button>
+    </section>
+  </main>
+
+  <div id="securityModal" class="modal">
+    <div class="modal-content">
+      <h3>SICHERHEITSHINWEIS</h3>
+      <p>Du lädst die Datei <strong>app-debug.apk</strong> direkt aus dem Schrottkiste-Repository auf GitHub herunter.</p>
+      <p>Da dies ein Direkt-Download ist, wird dein Gerät dich eventuell vor "unbekannten Quellen" warnen. Dies kannst du für diese App bestätigen.</p>
+      
+      <div style="margin-top: 30px;">
+        <button onclick="closeModal()" class="cancel-btn">ABBRECHEN</button>
+        <a href="https://github.com/Schrottkiste11/Website/raw/main/app-debug.apk" class="confirm-btn">DOWNLOAD STARTEN</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function openModal() { document.getElementById("securityModal").style.display = "block"; }
+    function closeModal() { document.getElementById("securityModal").style.display = "none"; }
+    window.onclick = function(event) {
+      let modal = document.getElementById("securityModal");
+      if (event.target == modal) { modal.style.display = "none"; }
+    }
+  </script>
+
+  <footer>
+    © 2026 SCHROTTKISTE // ALL_SYSTEMS_GO
+  </footer>
+
+</body>
+</html>
