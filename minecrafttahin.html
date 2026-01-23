@@ -9,20 +9,20 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
-      /* HINTERGRUND-BILD AUS DER UNTERHALTUNG */
+      /* ZUGRIFF AUF DEINE DATEI minecraftwallpaper.jpg */
       background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
-                  url('https://images.unsplash.com/photo-1627398242454-45a1465c2479?q=80&w=1974&auto=format&fit=crop');
+                  url('minecraftwallpaper.jpg');
       background-size: cover;
       background-attachment: fixed;
       background-position: center;
+      background-repeat: no-repeat;
       font-family: 'VT323', monospace;
       color: #ffffff;
       min-height: 100vh;
-      overflow-x: hidden;
     }
 
     header {
-      padding: 30px;
+      padding: 40px 20px;
       text-align: center;
       background: rgba(0,0,0,0.7);
       border-bottom: 6px solid #5aa13e;
@@ -34,20 +34,26 @@
       border: 4px solid #fff;
       display: block;
       margin: 0 auto 15px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.8);
     }
 
-    h1 { font-size: 4rem; text-shadow: 4px 4px #000; letter-spacing: 2px; }
+    h1 { 
+      font-size: clamp(2.5rem, 8vw, 4.5rem); 
+      text-shadow: 4px 4px #000; 
+      margin-bottom: 20px;
+    }
 
-    nav { margin-top: 15px; }
     nav a {
       color: #fff;
       background: #795548;
-      padding: 8px 20px;
+      padding: 10px 20px;
       text-decoration: none;
       border: 3px solid #000;
-      margin: 0 10px;
+      margin: 5px;
+      display: inline-block;
       font-size: 1.5rem;
     }
+
     nav a:hover { background: #5aa13e; }
 
     .container {
@@ -81,13 +87,11 @@
       background: rgba(0,0,0,0.85);
       border: 4px solid #fff;
       padding: 10px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.6);
     }
 
-    /* Videoplayer Fix */
     .video-container {
       position: relative;
-      padding-bottom: 56.25%;
+      padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
       height: 0;
       background: #000;
     }
@@ -103,9 +107,12 @@
       padding: 40px;
       background: rgba(0,0,0,0.8);
       font-size: 1.2rem;
+      border-top: 4px solid #000;
     }
 
-    @media (max-width: 600px) { .video-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 500px) {
+      .video-grid { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
@@ -114,31 +121,47 @@
   <img src="Minecraft Tahin Logo.png" alt="Minecraft Tahin Logo" class="logo-img">
   <h1>MINECRAFT TAHIN</h1>
   <nav>
-    <a href="index.html">ZURÜCK</a>
-    <a href="https://www.youtube.com/@Schrottkiste" target="_blank">YOUTUBE</a>
+    <a href="index.html">STARTSEITE</a>
+    <a href="https://www.youtube.com/@Schrottkiste" target="_blank">YOUTUBE CHANNEL</a>
   </nav>
 </header>
 
 <main class="container">
   <section class="mc-panel">
     <h2 style="font-size: 2.5rem; margin-bottom: 10px; border-bottom: 4px solid #795548;">PROJEKT_INFO</h2>
-    <p style="font-size: 1.8rem; line-height: 1.3;">
-      Das Projekt <strong>Minecraft Tahin</strong> ist ein Creative Projekt in dem wir eine eigene Version von 
-      The Legend of Zelda Breath of the Wild in Minecraft nachbauen. Dass Projekt ist gerade im Anfangstadium der Entwicklung. 
+    <p style="font-size: 1.8rem; line-height: 1.4;">
+      Das Projekt <strong>Minecraft Tahin</strong> ist ein Creative Projekt, in dem wir eine eigene Version von 
+      The Legend of Zelda Breath of the Wild in Minecraft nachbauen. Das Projekt ist gerade im Anfangsstadium der Entwicklung. 
       Die Leitung übernehme ich und Schokoeulentv.
     </p>
   </section>
 
   <div class="video-grid">
-    <div class="video-card"><div class="video-container"><iframe src="https://www.youtube.com/embed/wbNHxvPP2Cg"></iframe></div></div>
-    <div class="video-card"><div class="video-container"><iframe src="https://www.youtube.com/embed/QyDCcJ2wpaM"></iframe></div></div>
-    <div class="video-card"><div class="video-container"><iframe src="https://www.youtube.com/embed/2g6lLNPV3-U"></iframe></div></div>
-    <div class="video-card"><div class="video-container"><iframe src="https://www.youtube.com/embed/WvkqQ-NVTq0"></iframe></div></div>
+    <div class="video-card">
+      <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/wbNHxvPP2Cg" allowfullscreen></iframe>
+      </div>
+    </div>
+    <div class="video-card">
+      <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/QyDCcJ2wpaM" allowfullscreen></iframe>
+      </div>
+    </div>
+    <div class="video-card">
+      <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/2g6lLNPV3-U" allowfullscreen></iframe>
+      </div>
+    </div>
+    <div class="video-card">
+      <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/WvkqQ-NVTq0" allowfullscreen></iframe>
+      </div>
+    </div>
   </div>
 </main>
 
 <footer>
-  © 2026 SCHROTTKISTE // MINECRAFT TAHIN
+  © 2026 SCHROTTKISTE // MINECRAFT TAHIN PROJECT
 </footer>
 
 </body>
