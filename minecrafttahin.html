@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Minecraft Tahin</title>
+  <title>Minecraft Tahin | Schrottkiste</title>
   <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
-      /* ZUGRIFF AUF DEINE DATEI minecraftwallpaper.jpg */
+      /* DEINE NEUE WEBP DATEI ALS HINTERGRUND */
       background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
-                  url('minecraftwallpaper.jpg');
+                  url('FfewvD2kURXXhEKcDXAg8vG4rB5WgLS7DWCLW3LH1Y0.webp');
       background-size: cover;
       background-attachment: fixed;
       background-position: center;
@@ -43,18 +43,28 @@
       margin-bottom: 20px;
     }
 
+    /* Navigation Buttons im Minecraft-Style */
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+    }
+
     nav a {
       color: #fff;
       background: #795548;
-      padding: 10px 20px;
+      padding: 8px 18px;
       text-decoration: none;
       border: 3px solid #000;
-      margin: 5px;
-      display: inline-block;
-      font-size: 1.5rem;
+      font-size: 1.4rem;
+      box-shadow: inset -3px -3px 0px rgba(0,0,0,0.3);
     }
 
-    nav a:hover { background: #5aa13e; }
+    nav a:hover {
+      background: #5aa13e;
+      box-shadow: inset -3px -3px 0px rgba(0,0,0,0.5);
+    }
 
     .container {
       max-width: 1000px;
@@ -62,7 +72,7 @@
       padding: 0 20px;
     }
 
-    /* Minecraft UI Panel */
+    /* Minecraft UI Panel für Texte */
     .mc-panel {
       background: #c6c6c6;
       border: 5px solid #000;
@@ -87,11 +97,12 @@
       background: rgba(0,0,0,0.85);
       border: 4px solid #fff;
       padding: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.5);
     }
 
     .video-container {
       position: relative;
-      padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+      padding-bottom: 56.25%;
       height: 0;
       background: #000;
     }
@@ -108,6 +119,7 @@
       background: rgba(0,0,0,0.8);
       font-size: 1.2rem;
       border-top: 4px solid #000;
+      color: #888;
     }
 
     @media (max-width: 500px) {
@@ -121,8 +133,11 @@
   <img src="Minecraft Tahin Logo.png" alt="Minecraft Tahin Logo" class="logo-img">
   <h1>MINECRAFT TAHIN</h1>
   <nav>
-    <a href="index.html">STARTSEITE</a>
-    <a href="https://www.youtube.com/@Schrottkiste" target="_blank">YOUTUBE CHANNEL</a>
+    <a href="index.html">START</a>
+    <a href="app.html">APP</a>
+    <a href="ideen.html">PLAN</a>
+    <a href="soundboard.html">SOUNDS</a>
+    <a href="https://www.youtube.com/@Schrottkiste" target="_blank">YOUTUBE</a>
   </nav>
 </header>
 
@@ -131,8 +146,8 @@
     <h2 style="font-size: 2.5rem; margin-bottom: 10px; border-bottom: 4px solid #795548;">PROJEKT_INFO</h2>
     <p style="font-size: 1.8rem; line-height: 1.4;">
       Das Projekt <strong>Minecraft Tahin</strong> ist ein Creative Projekt, in dem wir eine eigene Version von 
-      The Legend of Zelda Breath of the Wild in Minecraft nachbauen. Das Projekt ist gerade im Anfangsstadium der Entwicklung. 
-      Die Leitung übernehme ich und Schokoeulentv.
+      <strong>The Legend of Zelda: Breath of the Wild</strong> in Minecraft nachbauen. Das Projekt ist gerade im Anfangsstadium der Entwicklung. 
+      Die Leitung übernehmen <strong>Schrottkiste</strong> und <strong>Schokoeulentv</strong>.
     </p>
   </section>
 
@@ -161,7 +176,7 @@
 </main>
 
 <footer>
-  © 2026 SCHROTTKISTE // MINECRAFT TAHIN PROJECT
+  © 2026 SCHROTTKISTE // ALL_SYSTEMS_GO
 </footer>
 
 </body>
