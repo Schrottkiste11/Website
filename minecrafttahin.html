@@ -9,7 +9,6 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
-      /* DEIN HINTERGRUNDBILD */
       background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
                   url('FfewvD2kURXXhEKcDXAg8vG4rB5WgLS7DWCLW3LH1Y0.webp');
       background-size: cover;
@@ -43,7 +42,6 @@
       margin-bottom: 20px;
     }
 
-    /* Navigation */
     nav {
       display: flex;
       flex-wrap: wrap;
@@ -71,7 +69,7 @@
       padding: 0 20px;
     }
 
-    /* Minecraft UI Panel */
+    /* Minecraft UI Panels (Info & Video-Container) */
     .mc-panel {
       background: #c6c6c6;
       border: 5px solid #000;
@@ -81,23 +79,43 @@
       border-bottom-color: #555;
       color: #333;
       padding: 30px;
-      margin-bottom: 50px;
+      margin-bottom: 40px;
       box-shadow: 10px 10px 0px rgba(0,0,0,0.5);
     }
 
-    /* Video Sektion */
-    .video-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-      gap: 30px;
+    /* Der neue extra Container für die Videos */
+    .video-archive {
+      background: #c6c6c6;
+      border: 5px solid #000;
+      border-top-color: #fff;
+      border-left-color: #fff;
+      border-right-color: #555;
+      border-bottom-color: #555;
+      padding: 25px;
+      box-shadow: 10px 10px 0px rgba(0,0,0,0.5);
       margin-bottom: 60px;
     }
 
+    .archive-title {
+      color: #333;
+      font-size: 2.2rem;
+      margin-bottom: 20px;
+      border-bottom: 4px solid #795548;
+      display: inline-block;
+      padding-bottom: 5px;
+    }
+
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 25px;
+    }
+
     .video-card {
-      background: rgba(0,0,0,0.85);
-      border: 4px solid #fff;
-      padding: 10px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+      background: #000; /* Schwarzer Rand im Slot-Design */
+      border: 3px solid #333;
+      padding: 5px;
+      box-shadow: inset 2px 2px 5px rgba(0,0,0,0.8);
     }
 
     .video-container {
@@ -150,33 +168,34 @@
     </p>
   </section>
 
-  <div class="video-grid">
-    
-    <div class="video-card">
-      <div class="video-container">
-        <iframe src="https://www.youtube.com/embed/WvkqQ-NVTq0" allowfullscreen></iframe>
+  <section class="video-archive">
+    <h2 class="archive-title">PROJEKT_VIDEOS</h2>
+    <div class="video-grid">
+      <div class="video-card">
+        <div class="video-container">
+          <iframe src="https://www.youtube.com/embed/WvkqQ-NVTq0" allowfullscreen></iframe>
+        </div>
+      </div>
+
+      <div class="video-card">
+        <div class="video-container">
+          <iframe src="https://www.youtube.com/embed/2g6lLNPV3-U" allowfullscreen></iframe>
+        </div>
+      </div>
+
+      <div class="video-card">
+        <div class="video-container">
+          <iframe src="https://www.youtube.com/embed/QyDCcJ2wpaM" allowfullscreen></iframe>
+        </div>
+      </div>
+
+      <div class="video-card">
+        <div class="video-container">
+          <iframe src="https://www.youtube.com/embed/wbNHxvPP2Cg" allowfullscreen></iframe>
+        </div>
       </div>
     </div>
-
-    <div class="video-card">
-      <div class="video-container">
-        <iframe src="https://www.youtube.com/embed/2g6lLNPV3-U" allowfullscreen></iframe>
-      </div>
-    </div>
-
-    <div class="video-card">
-      <div class="video-container">
-        <iframe src="https://www.youtube.com/embed/QyDCcJ2wpaM" allowfullscreen></iframe>
-      </div>
-    </div>
-
-    <div class="video-card">
-      <div class="video-container">
-        <iframe src="https://www.youtube.com/embed/wbNHxvPP2Cg" allowfullscreen></iframe>
-      </div>
-    </div>
-
-  </div>
+  </section>
 </main>
 
 <footer>
