@@ -15,9 +15,9 @@
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
-
+    
     body {
-      background: #050415;
+      background: var(--bg);
       background-image: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), 
                         radial-gradient(circle at top, #151435 0%, #050415 70%, #020109 100%);
       background-size: 100% 4px, 100% 100%;
@@ -27,25 +27,24 @@
       min-height: 100vh;
     }
 
-    /* --- BANNER --- */
+    /* --- BANNER (BEIBEHALTEN) --- */
     .channel-banner {
       width: 100%; min-height: 300px; background: #08071b;
-      background-image: linear-gradient(to bottom, rgba(5, 4, 21, 0.4), #050415),
+      background-image: linear-gradient(to bottom, rgba(5, 4, 21, 0.4), #050415), 
                         url('https://www.transparenttextures.com/patterns/carbon-fibre.png');
       border-bottom: 4px solid var(--accent);
       display: flex; align-items: center; justify-content: center;
-      position: relative; overflow: hidden; margin-bottom: 40px; padding: 60px 20px;
+      padding: 60px 20px;
     }
-
-    .banner-content { display: flex; align-items: center; gap: 40px; z-index: 3; }
+    .banner-content { display: flex; align-items: center; gap: 40px; }
     .banner-logo {
       width: clamp(140px, 25vw, 200px); height: clamp(140px, 25vw, 200px);
       object-fit: cover; border-radius: 50%; border: 4px solid var(--accent-alt);
       filter: drop-shadow(0 0 20px var(--accent));
     }
     .banner-main-title {
-      font-family: 'Chewy', cursive; font-size: clamp(3.5rem, 10vw, 7rem) !important;
-      color: #fff; text-shadow: 8px 8px 0px var(--accent); margin: 0 !important;
+      font-family: 'Chewy', cursive; font-size: clamp(3.5rem, 10vw, 7rem);
+      color: #fff; text-shadow: 8px 8px 0px var(--accent);
     }
 
     /* --- SIDEBAR --- */
@@ -62,17 +61,38 @@
       padding-top: 100px; z-index: 9000;
     }
     #menuToggle:checked ~ .custom-sidebar { transform: translateX(0); }
-    .custom-sidebar nav { display: flex; flex-direction: column; gap: 15px; padding: 0 25px; }
     .custom-sidebar nav a {
-      color: #fff; text-decoration: none; font-size: 1.8rem; font-family: 'VT323', monospace;
-      padding: 10px; border: 1px solid #333;
+      display: block; color: #fff; text-decoration: none; font-size: 1.8rem; 
+      font-family: 'VT323', monospace; padding: 15px 25px; border-bottom: 1px solid #222;
     }
 
     /* --- CONTENT AREA --- */
     .content-area { max-width: 800px; margin: 0 auto; padding: 20px; }
+
+    /* STATUS TICKER */
+    .status-panel {
+      background: rgba(255, 0, 153, 0.1);
+      border: 2px dashed var(--accent);
+      padding: 10px 20px;
+      font-family: 'VT323', monospace;
+      font-size: 1.4rem;
+      margin-bottom: 30px;
+      display: flex; justify-content: space-between;
+      color: var(--accent-alt);
+    }
+
+    /* VIDEO CARD */
     .video-card {
       background: var(--card); border: 3px solid var(--accent-alt);
-      padding: 20px; box-shadow: 12px 12px 0px var(--accent); margin-bottom: 50px;
+      padding: 25px; box-shadow: 12px 12px 0px var(--accent); margin-bottom: 50px;
+    }
+    .video-title {
+      font-family: 'VT323', monospace;
+      font-size: 2.5rem;
+      color: #fff;
+      margin-bottom: 15px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
     }
     .responsive-video { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; }
     .responsive-video iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
@@ -84,16 +104,10 @@
       font-size: 1.5rem; text-decoration: none; border: 2px solid var(--accent);
       box-shadow: 6px 6px 0px var(--accent); transition: 0.2s;
     }
-    .main-btn:hover { 
-        transform: translate(-2px, -2px);
-        background: var(--accent); 
-        color: #fff; 
-        box-shadow: 8px 8px 0px var(--accent-alt); 
-    }
+    .main-btn:hover { transform: translate(-2px, -2px); background: var(--accent); color: #fff; box-shadow: 8px 8px 0px var(--accent-alt); }
 
-    @media (max-width: 768px) { 
-      .banner-content { flex-direction: column; text-align: center; gap: 20px; }
-      .channel-banner { min-height: 400px; }
+    footer {
+      padding-bottom: 40px; font-family: 'VT323'; color: #444; text-align: center;
     }
   </style>
 </head>
@@ -103,13 +117,11 @@
   <label for="menuToggle" class="hamburger-btn">☰ MENÜ</label>
 
   <aside class="custom-sidebar">
-<nav>
-  <a href="index.html">Startseite</a>
-  <a href="app.html">App Download</a>
-  <a href="ideen.html">Content-Plan</a>
-  <a href="minecrafttahin.html">Minecraft-Tahin</a>
-</nav>
-      
+    <nav>
+      <a href="index.html">Startseite</a>
+      <a href="app.html">App Download</a>
+      <a href="ideen.html">Content-Plan</a>
+      <a href="minecrafttahin.html">Minecraft-Tahin</a>
     </nav>
   </aside>
 
@@ -121,28 +133,25 @@
   </header>
 
   <main class="content-area">
-    <section class="video-card">
-      <h2 style="font-family:'VT323'; margin-bottom:15px;">ich habe eine Burg Ruine gefunden!</h2>
-      <div class="responsive-video">
-        <iframe 
-            src=https://www.youtube.com/embed/4_vrqFH-byU
+    <section class="status-panel">
+      <span>LETZTER_SCHLIFF: 06.02.2026</span>
+    </section>
 
-            title="YouTube video player" 
-            frameborder="0" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-            allowfullscreen>
-        </iframe>
+    <section class="video-card">
+      <h2 class="video-title">Alte Burgruine gefunden!</h2>
+      <div class="responsive-video">
+        <iframe src="https://www.youtube.com/embed/4_vrqFH-byU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
       </div>
     </section>
-<div class="btn-container">
-  <a href="app.html" class="main-btn" style="border-color: var(--accent-alt);">DIE APP</a>
-  <a href="https://www.youtube.com/@Schrottkiste" target="_blank" class="main-btn">YOUTUBE</a>
-  <a href="minecrafttahin.html" class="main-btn">Minecraft-Tahin</a>
-</div>
+
+    <div class="btn-container">
+      <a href="app.html" class="main-btn" style="border-color: var(--accent-alt);">DIE APP</a>
+      <a href="https://www.youtube.com/@Schrottkiste" target="_blank" class="main-btn">YOUTUBE</a>
+      <a href="minecrafttahin.html" class="main-btn">TAHIN</a>
     </div>
   </main>
 
-  <footer style="margin-top: 40px; padding-bottom: 40px; font-family: 'VT323'; color: #444; text-align: center;">
+  <footer>
     © 2026 SCHROTTKISTE // ALL_SYSTEMS_GO
   </footer>
 
