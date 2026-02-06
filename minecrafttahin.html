@@ -8,6 +8,64 @@
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
+    /* --- LOADING OVERLAY STYLES --- */
+    #loading-overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      /* Klassischer Minecraft Dirt-Look */
+      background: #312113 url('https://www.transparenttextures.com/patterns/dirt.png');
+      background-size: 128px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 100000;
+      transition: opacity 0.8s ease;
+    }
+
+    .loading-content {
+      text-align: center;
+      width: 80%;
+      max-width: 500px;
+    }
+
+    #loading-text {
+      font-family: 'VT323', monospace;
+      color: #ffffff;
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      text-shadow: 4px 4px #000;
+    }
+
+    .mc-loader-border {
+      width: 100%;
+      height: 40px;
+      background: #000;
+      border: 4px solid #888;
+      padding: 4px;
+      box-shadow: 4px 4px 0px rgba(0,0,0,0.5);
+    }
+
+    #mc-loader-fill {
+      height: 100%;
+      width: 0%;
+      background: #5aa13e;
+      box-shadow: inset -6px 0px 0px #3e702b;
+      /* Die 10 Sekunden Animation */
+      animation: loadProgress 10s linear forwards;
+    }
+
+    @keyframes loadProgress {
+      0% { width: 0%; }
+      20% { width: 10%; }
+      40% { width: 35%; }
+      60% { width: 70%; }
+      90% { width: 95%; }
+      100% { width: 100%; }
+    }
+
+    /* --- PAGE STYLES --- */
     body {
       background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
                   url('FfewvD2kURXXhEKcDXAg8vG4rB5WgLS7DWCLW3LH1Y0.webp');
@@ -69,7 +127,6 @@
       padding: 0 20px;
     }
 
-    /* Minecraft UI Panels (Info & Video-Container) */
     .mc-panel {
       background: #c6c6c6;
       border: 5px solid #000;
@@ -83,7 +140,6 @@
       box-shadow: 10px 10px 0px rgba(0,0,0,0.5);
     }
 
-    /* Der neue extra Container für die Videos */
     .video-archive {
       background: #c6c6c6;
       border: 5px solid #000;
@@ -112,7 +168,7 @@
     }
 
     .video-card {
-      background: #000; /* Schwarzer Rand im Slot-Design */
+      background: #000;
       border: 3px solid #333;
       padding: 5px;
       box-shadow: inset 2px 2px 5px rgba(0,0,0,0.8);
@@ -147,6 +203,15 @@
 </head>
 <body>
 
+<div id="loading-overlay">
+  <div class="loading-content">
+    <h2 id="loading-text">Generating Site...</h2>
+    <div class="mc-loader-border">
+      <div id="mc-loader-fill"></div>
+    </div>
+  </div>
+</div>
+
 <header>
   <img src="Minecraft Tahin Logo.png" alt="Minecraft Tahin Logo" class="logo-img">
   <h1>MINECRAFT TAHIN</h1>
@@ -176,19 +241,16 @@
           <iframe src="https://www.youtube.com/embed/WvkqQ-NVTq0" allowfullscreen></iframe>
         </div>
       </div>
-
       <div class="video-card">
         <div class="video-container">
           <iframe src="https://www.youtube.com/embed/2g6lLNPV3-U" allowfullscreen></iframe>
         </div>
       </div>
-
       <div class="video-card">
         <div class="video-container">
           <iframe src="https://www.youtube.com/embed/QyDCcJ2wpaM" allowfullscreen></iframe>
         </div>
       </div>
-
       <div class="video-card">
         <div class="video-container">
           <iframe src="https://www.youtube.com/embed/wbNHxvPP2Cg" allowfullscreen></iframe>
@@ -201,6 +263,35 @@
 <footer>
   © 2026 SCHROTTKISTE // MINECRAFT TAHIN PROJECT
 </footer>
+
+<script>
+  // Texte, die während des Ladens wechseln
+  const statusTexts = [
+    "Generating Site...",
+    "Building Shrines...",
+    "Loading Redstone...",
+    "Spawning Guardians...",
+    "Rendering Tahin..."
+  ];
+  
+  let index = 0;
+  const textEl = document.getElementById('loading-text');
+  
+  const textRotator = setInterval(() => {
+    index = (index + 1) % statusTexts.length;
+    textEl.innerText = statusTexts[index];
+  }, 2000);
+
+  // Nach 10 Sekunden den Ladescreen ausblenden
+  setTimeout(() => {
+    clearInterval(textRotator);
+    const overlay = document.getElementById('loading-overlay');
+    overlay.style.opacity = '0';
+    setTimeout(() => {
+      overlay.style.display = 'none';
+    }, 800);
+  }, 10000);
+</script>
 
 </body>
 </html>
