@@ -14,7 +14,7 @@
       --accent-alt: #00ffff;
       --bg: #050415;
       --card: rgba(18, 14, 40, 0.96);
-      --sidebar-width: 260px;
+      --sidebar-width: 240px;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -28,18 +28,18 @@
       color: #fff;
       display: flex;
       min-height: 100vh;
-      overflow-x: hidden;
+      overflow: hidden; /* Verhindert unnötiges Scrollen des Bodys */
     }
 
-    /* --- SIDEBAR --- */
+    /* SIDEBAR */
     .sidebar {
       width: var(--sidebar-width);
-      background: rgba(0, 0, 0, 0.9);
+      background: rgba(0, 0, 0, 0.92);
       border-right: 3px solid var(--accent);
       height: 100vh;
       position: fixed;
       left: 0; top: 0;
-      padding: 40px 20px;
+      padding: 30px 15px;
       display: flex;
       flex-direction: column;
       z-index: 1000;
@@ -50,7 +50,7 @@
       font-size: 2.2rem;
       color: var(--accent);
       text-align: center;
-      margin-bottom: 50px;
+      margin-bottom: 30px;
       text-shadow: 2px 2px 0px var(--accent-alt);
     }
 
@@ -59,90 +59,105 @@
       color: #fff;
       text-decoration: none;
       font-family: 'VT323';
-      font-size: 1.6rem;
-      padding: 12px 15px;
-      margin-bottom: 8px;
+      font-size: 1.4rem;
+      padding: 10px 15px;
+      margin-bottom: 5px;
       border-left: 4px solid transparent;
       transition: 0.2s;
     }
 
     .sidebar nav a:hover, .sidebar nav a.active {
-      background: rgba(255, 0, 153, 0.1);
+      background: rgba(255, 0, 153, 0.15);
       border-left: 4px solid var(--accent-alt);
       color: var(--accent-alt);
     }
 
-    /* --- MAIN CONTENT --- */
+    /* MAIN WRAPPER */
     .main-wrapper {
       margin-left: var(--sidebar-width);
       flex: 1;
-      padding: 40px;
+      padding: 15px;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
+      height: 100vh;
+      overflow-y: auto;
     }
 
     .dashboard-grid {
       display: grid;
-      grid-template-columns: 1.2fr 2.2fr 1.2fr;
-      gap: 20px;
+      grid-template-columns: 1fr 2fr 1.2fr;
+      grid-template-rows: auto auto;
+      gap: 15px;
       width: 100%;
       max-width: 1600px;
+      margin: 0 auto;
     }
 
     .card { 
       background: var(--card); 
       border: 2px solid #000; 
-      padding: 18px; 
-      box-shadow: 8px 8px 0px var(--accent);
+      padding: 12px; 
+      box-shadow: 6px 6px 0px var(--accent);
       display: flex; 
       flex-direction: column;
+      overflow: hidden;
     }
 
     .section-title { 
       font-family: 'VT323'; 
       color: var(--accent-alt); 
-      font-size: 1.1rem; 
-      margin-bottom: 12px; 
+      font-size: 1rem; 
+      margin-bottom: 8px; 
       text-transform: uppercase;
-      letter-spacing: 1px;
+      border-bottom: 1px solid rgba(0,255,255,0.1);
     }
 
-    /* Radio Anzeige */
-    .cover-img { width: 100%; aspect-ratio: 1/1; object-fit: cover; border: 2px solid var(--accent); margin-bottom: 15px; }
-    
-    #song-display { font-family: 'VT323'; min-height: 4.8rem; margin-bottom: 10px; line-height: 1.2; }
-    .artist-name { font-size: 1.5rem; color: #fff; display: block; }
-    .song-title { font-size: 1.1rem; color: var(--accent-alt); display: block; text-transform: uppercase; }
+    /* RADIO */
+    .cover-img { width: 80%; aspect-ratio: 1/1; align-self: center; object-fit: cover; border: 2px solid var(--accent); margin-bottom: 10px; }
+    #song-display { font-family: 'VT323'; min-height: 3.5rem; margin-bottom: 5px; }
+    .artist-name { font-size: 1.3rem; color: #fff; display: block; }
+    .song-title { font-size: 0.95rem; color: var(--accent-alt); display: block; text-transform: uppercase; }
 
-    /* Volume Slider (Empfindlich) */
-    .vol-container { margin-top: 15px; display: flex; align-items: center; gap: 10px; background: rgba(0,0,0,0.5); padding: 8px; border-radius: 4px; }
+    .vol-container { margin-top: 10px; display: flex; align-items: center; gap: 8px; background: rgba(0,0,0,0.4); padding: 5px; }
     input[type=range] { -webkit-appearance: none; width: 100%; background: transparent; cursor: pointer; }
-    input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 6px; background: #000; border: 1px solid var(--accent-alt); }
+    input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 4px; background: #000; border: 1px solid var(--accent-alt); }
     input[type=range]::-webkit-slider-thumb {
-      height: 20px; width: 10px; background: var(--accent); -webkit-appearance: none; margin-top: -8px; box-shadow: 0 0 8px var(--accent);
+      height: 16px; width: 8px; background: var(--accent); -webkit-appearance: none; margin-top: -6px; box-shadow: 0 0 5px var(--accent);
     }
 
     .btn-action { 
-      background: var(--accent); border: none; color: #fff; padding: 12px; 
-      font-family: 'VT323'; font-size: 1.6rem; cursor: pointer; transition: 0.2s;
+      background: var(--accent); border: none; color: #fff; padding: 8px; 
+      font-family: 'VT323'; font-size: 1.3rem; cursor: pointer;
     }
-    .btn-action:hover { filter: brightness(1.2); }
 
-    /* Video & Log */
-    .video-container { position: relative; padding-bottom: 56.25%; height: 0; border: 1px solid var(--accent-alt); background: #000; }
+    /* VIDEO */
+    .video-container { position: relative; padding-bottom: 56.25%; height: 0; border: 1px solid var(--accent-alt); }
     .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
     
-    #event-log { flex: 1; overflow-y: auto; font-family: 'VT323'; font-size: 0.9rem; color: #888; max-height: 400px; margin-bottom: 10px; }
-    #user-input { background: #000; border: 1px solid #333; color: var(--accent-alt); padding: 10px; font-family: 'VT323'; width: 100%; outline: none; }
+    /* LOG BOX */
+    .log-box { display: flex; flex-direction: column; height: 100%; }
+    #event-log { 
+      flex: 1; 
+      overflow-y: auto; 
+      font-family: 'VT323'; 
+      font-size: 0.8rem; 
+      color: #0f0; /* Klassisches Matrix-Grün für Logs */
+      background: rgba(0,0,0,0.3);
+      padding: 5px;
+      border: 1px solid #111;
+      max-height: 280px;
+    }
+    #user-input { background: #000; border: 1px solid #333; color: var(--accent-alt); padding: 5px; font-family: 'VT323'; width: 100%; margin-top: 5px; }
 
-    /* Status Bars */
-    .status-bar { height: 8px; background: #000; border: 1px solid #333; margin-top: 8px; overflow: hidden; }
-    .status-fill { height: 100%; background: var(--accent); box-shadow: 0 0 10px var(--accent); transition: width 0.5s; }
+    /* STATUS BARS */
+    .status-card { min-height: 70px; }
+    .status-bar { height: 6px; background: #000; border: 1px solid #333; margin-top: 5px; }
+    .status-fill { height: 100%; background: var(--accent); box-shadow: 0 0 8px var(--accent); transition: width 0.8s; }
 
     @media (max-width: 1200px) {
       .dashboard-grid { grid-template-columns: 1fr; }
-      .main-wrapper { margin-left: 0; padding-top: 80px; }
-      .sidebar { display: none; } /* Auf kleinen Screens wegschalten oder Toggle nutzen */
+      .main-wrapper { margin-left: 0; padding-top: 60px; }
+      .sidebar { display: none; }
     }
   </style>
 </head>
@@ -166,43 +181,43 @@
         <span class="section-title">RADIO_TUNER</span>
         <img src="channels4_profile Schrottkiste.jpg" class="cover-img">
         <div id="song-display">
-          <span class="artist-name">VERBINDE...</span>
-          <span class="song-title">SYSTEM STARTING</span>
+          <span class="artist-name">SYNCING...</span>
+          <span class="song-title">AWAITING_DATA</span>
         </div>
         <button class="btn-action" id="play-btn">START STREAM</button>
         <div class="vol-container">
-          <span style="font-family:'VT323'; color:var(--accent-alt); font-size: 1rem;">VOL</span>
+          <span style="font-family:'VT323'; color:var(--accent-alt); font-size: 0.8rem;">VOL</span>
           <input type="range" id="vol" min="0" max="1" step="0.01" value="0.5">
         </div>
       </section>
 
       <section class="card">
-        <span class="section-title">BROADCAST_SPOTLIGHT</span>
+        <span class="section-title">SPOTLIGHT</span>
         <div class="video-container">
           <iframe src="https://www.youtube.com/embed/5Ejw9OqqY20?si=xP3KKiApgkSbAoPK" frameborder="0" allowfullscreen></iframe>
         </div>
       </section>
 
-      <section class="card">
-        <span class="section-title">SYSTEM_LOG</span>
+      <section class="card log-box">
+        <span class="section-title">KERNEL_LOG</span>
         <div id="event-log"></div>
-        <input type="text" id="user-input" placeholder="Nachricht an Schrottkiste...">
+        <input type="text" id="user-input" placeholder="Eingabe...">
       </section>
 
-      <section class="card">
-        <span class="section-title">AKTUELL IM RADIO</span>
-        <div id="current-show" style="font-family:'VT323'; font-size:1.6rem; color:#fff;">Lade Sendeplan...</div>
+      <section class="card status-card">
+        <span class="section-title">SENDUNG</span>
+        <div id="current-show" style="font-family:'VT323'; font-size:1.2rem;">CALCULATING...</div>
       </section>
 
-      <section class="card">
-        <span class="section-title">PROJECT_STATUS</span>
-        <div style="font-family:'VT323'; font-size:1rem;">TAHIN BUILD PROGRESS</div>
+      <section class="card status-card">
+        <span class="section-title">PROGRESS</span>
+        <div style="font-family:'VT323'; font-size:0.8rem;">TAHIN COMPILING: 85%</div>
         <div class="status-bar"><div class="status-fill" style="width: 85%;"></div></div>
       </section>
 
-      <section class="card">
+      <section class="card status-card">
         <span class="section-title">UPTIME</span>
-        <div id="uptime-display" style="font-family:'VT323'; font-size:2rem; color:var(--accent-alt);">00:00:00</div>
+        <div id="uptime-display" style="font-family:'VT323'; font-size:1.6rem; color:var(--accent-alt);">00:00:00</div>
       </section>
 
     </div>
@@ -217,33 +232,41 @@
     const logBox = document.getElementById('event-log');
     const volSlider = document.getElementById('vol');
 
-    function addLog(msg, sys = true) {
+    // Funktion für echten System-Log Look
+    function addLog(msg, type = 'info') {
       const div = document.createElement('div');
-      div.style.marginBottom = "5px";
-      div.innerHTML = `<span style="color:#444">[${new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}]</span> <span style="color:${sys?'var(--accent-alt)':'var(--accent)'}">${sys?'[SYS]':'[MSG]'}</span> ${msg}`;
+      const time = new Date().toLocaleTimeString([], {hour12: false, hour: '2-digit', minute:'2-digit', second:'2-digit'});
+      let color = '#0f0'; // Default Grün
+      if (type === 'warn') color = '#ff0';
+      if (type === 'error') color = '#f00';
+      if (type === 'user') color = 'var(--accent-alt)';
+
+      div.innerHTML = `<span style="color:#555">[${time}]</span> <span style="color:${color}">${msg}</span>`;
       logBox.appendChild(div);
       logBox.scrollTop = logBox.scrollHeight;
     }
 
-    // Hier wird die Laut.fm API genutzt und der Artist getrennt
+    // Simulierte Boot-Sequenz
+    setTimeout(() => addLog("Initializing Schrottkiste OS v2.9..."), 500);
+    setTimeout(() => addLog("Connecting to Laut.fm API..."), 1200);
+    setTimeout(() => addLog("Handshake successful (200 OK)", "warn"), 1800);
+    setTimeout(() => addLog("UI Grid: Compact mode active."), 2500);
+
     async function updateTrack() {
       try {
-        const r = await fetch('https://api.laut.fm/station/treasure_radio/current_song');
+        const r = await fetch('https://api.laut.fm/station/treasure_radio/current_song?nocache=' + new Date().getTime());
         const d = await r.json();
-        
-        // Künstler und Titel aus der API ziehen
-        const artist = d.artist.toUpperCase();
-        const title = d.title.toUpperCase();
-        
-        // Anzeige aktualisieren
-        const htmlContent = `<span class="artist-name">${artist}</span><span class="song-title">${title}</span>`;
-        
-        if (songDisplay.innerHTML !== htmlContent) {
-          songDisplay.innerHTML = htmlContent;
-          addLog(`Track-Wechsel: ${artist} - ${title}`);
+        if (d && d.artist) {
+          const artist = d.artist.toUpperCase();
+          const title = d.title.toUpperCase();
+          const html = `<span class="artist-name">${artist}</span><span class="song-title">${title}</span>`;
+          if (songDisplay.innerHTML !== html) {
+            songDisplay.innerHTML = html;
+            addLog(`API_UPDATE: Track received -> ${d.artist.substring(0,15)}...`);
+          }
         }
-      } catch (e) { 
-        songDisplay.innerHTML = '<span class="artist-name">TREASURE RADIO</span><span class="song-title">LIVE</span>'; 
+      } catch (e) {
+        addLog("API_ERROR: Connection timed out.", "error");
       }
     }
 
@@ -251,7 +274,7 @@
       const h = new Date().getHours();
       let s = "NIGHT CHILL";
       if(h >= 6) s = "MORNING SHOW";
-      if(h >= 12) s = "IMMER AB 12! LIVE";
+      if(h >= 12) s = "IMMER AB 12!";
       if(h >= 18) s = "GAMING SOUNDS";
       document.getElementById('current-show').innerText = s;
     }
@@ -263,39 +286,37 @@
       const m = Math.floor((sec%3600)/60).toString().padStart(2,'0');
       const s = (sec%60).toString().padStart(2,'0');
       document.getElementById('uptime-display').innerText = `${h}:${m}:${s}`;
+      
+      // Gelegentliche zufällige System-Meldungen
+      if (sec % 45 === 0) addLog("Buffer health: 100% | Latency: 24ms");
     }, 1000);
 
     playBtn.onclick = () => {
       if(audio.paused) { 
         audio.play(); 
         playBtn.innerText = "STOP STREAM"; 
-        addLog("Stream aktiv."); 
+        addLog("Audio stream: CONNECTED", "warn"); 
       } else { 
         audio.pause(); 
         playBtn.innerText = "START STREAM"; 
-        addLog("Stream gestoppt."); 
+        addLog("Audio stream: DISCONNECTED"); 
       }
     };
 
     volSlider.oninput = (e) => {
-      const val = e.target.value;
-      audio.volume = val;
-      // Dynamischer Glow beim Verstellen
-      volSlider.style.filter = `drop-shadow(0 0 ${val * 15}px var(--accent-alt))`;
+      audio.volume = e.target.value;
     };
 
     document.getElementById('user-input').onkeypress = (e) => {
       if(e.key === 'Enter' && e.target.value.trim()) { 
-        addLog(e.target.value, false); 
+        addLog(`USER_INPUT: ${e.target.value}`, "user"); 
         e.target.value = ''; 
       }
     };
 
-    // Initialisierung
     updateTrack();
     updateShow();
-    setInterval(updateTrack, 20000);
-    addLog("Dashboard v2.9 geladen.");
+    setInterval(updateTrack, 15000);
   </script>
 </body>
 </html>
