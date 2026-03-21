@@ -196,32 +196,25 @@
       if (input.value.trim()) { addLog(input.value, 'user'); input.value = ""; }
     });
 
-    async function updateSong() {
+   async function updateSong() {
       try {
         const res = await fetch('https://api.laut.fm/station/treasure_radio/current_song');
         const data = await res.json();
-        const newTrack = data.title.toUpperCase();
-        if (songDisplay.innerText !== newTrack) {
-          songDisplay.innerText = newTrack;
-          addLog(`New Song: ${newTrack}`, "sys");
+        
+        // Hier ziehen wir jetzt Titel UND Artist
+        const songTitle = data.title.toUpperCase();
+        const artistName = data.artist.toUpperCase();
+        const fullDisplay = `${artistName} - ${songTitle}`;
+        
+        if (songDisplay.innerText !== fullDisplay) {
+          songDisplay.innerText = fullDisplay;
+          // Auch im System-Log wird nun beides angezeigt
+          addLog(`Track: ${artistName} - ${songTitle}`, "sys");
         }
-      } catch (e) { songDisplay.innerText = "TREASURE RADIO LIVE"; }
+      } catch (e) { 
+        songDisplay.innerText = "TREASURE RADIO LIVE"; 
+      }
     }
-
-    addLog("Dashboard-Kernel v1.0 geladen.");
-    updateSchedule();
-    updateSong();
-    setInterval(updateSong, 20000);
-    setInterval(updateSchedule, 60000);
-
-    let sec = 0;
-    setInterval(() => {
-      sec++;
-      const h = Math.floor(sec/3600).toString().padStart(2, '0');
-      const m = Math.floor((sec%3600)/60).toString().padStart(2, '0');
-      const s = (sec%60).toString().padStart(2, '0');
-      document.getElementById('uptime-display').innerText = `${h}:${m}:${s}`;
-    }, 1000);
   </script>
 </body>
 </html>
