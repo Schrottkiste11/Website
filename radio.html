@@ -27,8 +27,8 @@
       font-family: 'Poppins', sans-serif;
       color: #fff;
       display: flex;
-      min-height: 100vh;
-      overflow-x: hidden;
+      height: 100vh; /* Fest auf Viewport-Höhe */
+      overflow: hidden; /* Verhindert Scrollen der gesamten Seite */
     }
 
     /* --- SIDEBAR --- */
@@ -37,115 +37,93 @@
       background: rgba(0, 0, 0, 0.95);
       border-right: 3px solid var(--accent);
       height: 100vh;
-      position: fixed;
-      left: 0; top: 0;
       padding: 40px 20px;
       display: flex;
       flex-direction: column;
-      z-index: 1000;
+      flex-shrink: 0;
     }
 
     .sidebar-logo {
       font-family: 'Chewy';
-      font-size: 2.8rem;
-      color: var(--accent);
-      text-align: center;
-      margin-bottom: 50px;
+      font-size: 2.8rem; color: var(--accent);
+      text-align: center; margin-bottom: 40px;
       text-shadow: 3px 3px 0px var(--accent-alt);
     }
 
     .sidebar nav a {
-      display: block;
-      color: #fff;
-      text-decoration: none;
-      font-family: 'VT323';
-      font-size: 1.8rem;
-      padding: 15px;
-      margin-bottom: 10px;
-      border-left: 4px solid transparent;
-      transition: 0.3s;
+      display: block; color: #fff; text-decoration: none;
+      font-family: 'VT323'; font-size: 1.6rem;
+      padding: 12px 15px; margin-bottom: 10px;
+      border-left: 4px solid transparent; transition: 0.2s;
     }
 
-    .sidebar nav a:hover, .sidebar nav a.active {
-      background: rgba(255, 0, 153, 0.2);
-      border-left: 5px solid var(--accent-alt);
-      color: var(--accent-alt);
-      padding-left: 25px;
-    }
+    .sidebar nav a.active { border-left: 5px solid var(--accent-alt); color: var(--accent-alt); background: rgba(255, 0, 153, 0.1); }
 
-    /* --- MAIN --- */
+    /* --- MAIN CONTENT --- */
     .main-wrapper {
-      margin-left: var(--sidebar-width);
       flex: 1;
-      padding: 40px;
+      padding: 25px;
       display: flex;
+      flex-direction: column;
       justify-content: center;
+      overflow: hidden; /* Schneidet alles ab, was nicht reinpasst */
     }
 
     .dashboard-grid {
       display: grid;
-      grid-template-columns: 1.3fr 2.2fr 1.3fr;
-      gap: 30px;
+      grid-template-columns: 1.2fr 2fr 1.2fr;
+      grid-template-rows: 1fr auto; /* Obere Reihe nimmt Platz ein, untere passt sich an */
+      gap: 20px;
       width: 100%;
+      height: 100%;
       max-width: 1700px;
+      margin: 0 auto;
     }
 
     .card { 
       background: var(--card); 
       border: 2px solid #000; 
-      padding: 25px; 
-      box-shadow: 10px 10px 0px var(--accent);
+      padding: 20px; 
+      box-shadow: 8px 8px 0px var(--accent);
       display: flex; 
       flex-direction: column;
-      position: relative;
+      overflow: hidden; /* WICHTIG: Kein Inhalt darf die Box vergrößern */
     }
 
     .section-title { 
-      font-family: 'VT323'; 
-      color: var(--accent-alt); 
-      font-size: 1.3rem; 
-      margin-bottom: 20px; 
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      border-bottom: 2px solid rgba(0,255,255,0.2);
+      font-family: 'VT323'; color: var(--accent-alt); 
+      font-size: 1.1rem; margin-bottom: 15px; 
+      text-transform: uppercase; border-bottom: 1px solid rgba(0,255,255,0.1);
+      flex-shrink: 0;
     }
 
-    /* RADIO */
-    .cover-img { width: 100%; aspect-ratio: 1/1; object-fit: cover; border: 3px solid var(--accent); margin-bottom: 20px; }
-    #song-display { font-family: 'VT323'; min-height: 6rem; margin-bottom: 20px; }
-    .artist-name { font-size: 1.9rem; color: #fff; display: block; line-height: 1; }
-    .song-title { font-size: 1.3rem; color: var(--accent-alt); display: block; text-transform: uppercase; margin-top: 8px; }
+    /* RADIO BOX */
+    .cover-img { width: 100%; aspect-ratio: 1/1; max-height: 250px; object-fit: cover; border: 2px solid var(--accent); margin-bottom: 15px; flex-shrink: 1; }
+    #song-display { font-family: 'VT323'; margin-bottom: 10px; overflow: hidden; }
+    .artist-name { font-size: 1.6rem; color: #fff; display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .song-title { font-size: 1.1rem; color: var(--accent-alt); display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-    .vol-container { margin-top: 20px; display: flex; align-items: center; gap: 15px; background: rgba(0,0,0,0.6); padding: 15px; border: 1px solid #222; }
-    input[type=range] { -webkit-appearance: none; width: 100%; background: transparent; cursor: pointer; }
-    input[type=range]::-webkit-slider-runnable-track { height: 8px; background: #000; border: 1px solid var(--accent-alt); }
-    input[type=range]::-webkit-slider-thumb {
-      height: 28px; width: 14px; background: var(--accent); -webkit-appearance: none; margin-top: -11px; box-shadow: 0 0 15px var(--accent); border: 1px solid #fff;
-    }
-
-    .btn-action { 
-      background: var(--accent); border: none; color: #fff; padding: 18px; 
-      font-family: 'VT323'; font-size: 2rem; cursor: pointer; box-shadow: 0 4px 0 #990055;
-    }
-
-    /* REAL CONSOLE LOG */
+    /* LOG BOX */
     #event-log { 
-      flex: 1; overflow-y: auto; font-family: 'VT323'; font-size: 0.95rem; 
-      color: #0f0; background: rgba(0,0,0,0.5); padding: 15px; min-height: 420px;
-      border: 1px solid #111; line-height: 1.4;
+      flex: 1; 
+      font-family: 'VT323'; font-size: 0.9rem; 
+      color: #0f0; background: rgba(0,0,0,0.4); padding: 10px;
+      overflow-y: auto; /* Log darf intern scrollen */
+      scrollbar-width: thin;
+      scrollbar-color: var(--accent) #000;
     }
-    #user-input { background: #000; border: 1px solid #333; color: var(--accent-alt); padding: 15px; font-family: 'VT323'; width: 100%; margin-top: 15px; font-size: 1.1rem; }
 
-    /* STATUS */
-    .status-card { min-height: 120px; justify-content: center; }
-    .status-bar { height: 15px; background: #000; border: 1px solid #444; margin-top: 10px; }
-    .status-fill { height: 100%; background: var(--accent); box-shadow: 0 0 15px var(--accent); transition: width 1s; }
+    /* VIDEO */
+    .video-container { position: relative; width: 100%; padding-top: 56.25%; background: #000; border: 1px solid var(--accent-alt); flex-shrink: 0; }
+    .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
 
-    @media (max-width: 1400px) {
-      .dashboard-grid { grid-template-columns: 1fr; }
-      .main-wrapper { margin-left: 0; padding-top: 100px; }
-      .sidebar { display: none; }
-    }
+    /* UNTERE REIHE */
+    .status-card { height: 90px; }
+
+    .status-bar { height: 10px; background: #000; border: 1px solid #333; margin-top: 8px; }
+    .status-fill { height: 100%; background: var(--accent); width: 85%; box-shadow: 0 0 10px var(--accent); }
+
+    #user-input { background: #000; border: 1px solid #333; color: var(--accent-alt); padding: 10px; font-family: 'VT323'; width: 100%; margin-top: 10px; flex-shrink: 0; }
   </style>
 </head>
 <body>
@@ -165,46 +143,42 @@
     <div class="dashboard-grid">
       
       <section class="card">
-        <span class="section-title">RADIO_TUNER</span>
+        <span class="section-title">RADIO_CORE</span>
         <img src="channels4_profile Schrottkiste.jpg" class="cover-img">
         <div id="song-display">
-          <span class="artist-name" id="disp-artist">SYS_INIT...</span>
-          <span class="song-title" id="disp-title">WAITING_FOR_SIGNAL</span>
+          <span class="artist-name" id="disp-artist">SYNCING...</span>
+          <span class="song-title" id="disp-title">WAIT_FOR_DATA</span>
         </div>
-        <button class="btn-action" id="play-btn">START STREAM</button>
-        <div class="vol-container">
-          <span style="font-family:'VT323'; color:var(--accent-alt)">VOL</span>
-          <input type="range" id="vol" min="0" max="1" step="0.01" value="0.5">
-        </div>
+        <button class="btn-action" id="play-btn" style="background:var(--accent); border:none; color:#fff; padding:12px; font-family:'VT323'; font-size:1.5rem; cursor:pointer;">START STREAM</button>
       </section>
 
       <section class="card">
         <span class="section-title">VIDEO_FEED</span>
-        <div style="position: relative; padding-bottom: 56.25%; height: 0; border: 2px solid var(--accent-alt); background: #000;">
-          <iframe src="https://www.youtube.com/embed/5Ejw9OqqY20" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" frameborder="0" allowfullscreen></iframe>
+        <div class="video-container">
+          <iframe src="https://www.youtube.com/embed/5Ejw9OqqY20" frameborder="0" allowfullscreen></iframe>
         </div>
       </section>
 
       <section class="card">
-        <span class="section-title">CONSOLE_OUT</span>
+        <span class="section-title">CONSOLE_OUTPUT</span>
         <div id="event-log"></div>
-        <input type="text" id="user-input" placeholder="Enter command...">
+        <input type="text" id="user-input" placeholder="CMD_">
       </section>
 
       <section class="card status-card">
-        <span class="section-title">ON_AIR</span>
-        <div id="current-show" style="font-family:'VT323'; font-size: 1.8rem;">LOADING...</div>
+        <span class="section-title">CURRENT_SHOW</span>
+        <div id="current-show" style="font-family:'VT323'; font-size:1.4rem;">LOADING...</div>
       </section>
 
       <section class="card status-card">
-        <span class="section-title">TAHIN_COMPILER</span>
-        <div style="font-family:'VT323';">MODULE_STABILITY: 85%</div>
-        <div class="status-bar"><div class="status-fill" style="width: 85%;"></div></div>
+        <span class="section-title">TAHIN_BUILD</span>
+        <div style="font-family:'VT323'; font-size:0.9rem;">PROGRESS: 85%</div>
+        <div class="status-bar"><div class="status-fill"></div></div>
       </section>
 
       <section class="card status-card">
-        <span class="section-title">CORE_UPTIME</span>
-        <div id="uptime-display" style="font-family:'VT323'; font-size: 2.5rem; color:var(--accent-alt);">00:00:00</div>
+        <span class="section-title">UPTIME</span>
+        <div id="uptime-display" style="font-family:'VT323'; font-size:2rem; color:var(--accent-alt);">00:00:00</div>
       </section>
 
     </div>
@@ -216,110 +190,52 @@
     const audio = document.getElementById('radio-stream');
     const playBtn = document.getElementById('play-btn');
     const logBox = document.getElementById('event-log');
-    const volSlider = document.getElementById('vol');
 
     function addLog(msg, type = 'info') {
       const div = document.createElement('div');
-      const time = new Date().toLocaleTimeString([], {hour12: false, hour: '2-digit', minute:'2-digit', second:'2-digit'});
-      
-      let color = '#0f0'; // Info (Grün)
-      let prefix = '[INFO]';
-
-      if (type === 'network') { color = '#00ffff'; prefix = '[NET]'; }
-      if (type === 'warn') { color = '#ffff00'; prefix = '[WARN]'; }
-      if (type === 'error') { color = '#ff3333'; prefix = '[ERR]'; }
-      if (type === 'user') { color = '#ff0099'; prefix = '[USR]'; }
-
-      div.innerHTML = `<span style="color:#555">${time}</span> <span style="color:${color}">${prefix} ${msg}</span>`;
+      const colors = { info: '#0f0', net: '#0ff', err: '#f33', warn: '#ff0', usr: '#f09' };
+      const prefix = type.toUpperCase();
+      div.innerHTML = `<span style="color:#555">${new Date().toLocaleTimeString()}</span> <span style="color:${colors[type]}">[${prefix}] ${msg}</span>`;
       logBox.appendChild(div);
       logBox.scrollTop = logBox.scrollHeight;
     }
 
-    // --- REALE KONSOLENPROZESSE SIMULIEREN ---
-    
-    // 1. Initialer Boot
-    setTimeout(() => addLog("DOMContent Loaded: Parsing Schrottkiste_Layout..."), 500);
-    setTimeout(() => addLog("CSSOM reconstructed in 12ms. Reflow complete."), 800);
-    setTimeout(() => addLog("Resource fetch: favicon.ico - 404 (Ignored)", "warn"), 1200);
-
-    // 2. Netzwerk-Simulation (API)
+    // CORS FIX VERSUCH: Proxy oder direktes Catching
     async function updateTrack() {
-      addLog("GET https://api.laut.fm/station/treasure_radio/current_song", "network");
-      
+      addLog("Fetching metadata via API...", "net");
       try {
+        // Wir nutzen einen Cache-Buster (?t=...), um den Browser zu zwingen, neu zu laden
         const r = await fetch('https://api.laut.fm/station/treasure_radio/current_song?t=' + Date.now());
-        if (r.ok) {
-          addLog("Status 200 OK - Parsing JSON payload...", "network");
-          const d = await r.json();
-          document.getElementById('disp-artist').innerText = d.artist.toUpperCase();
-          document.getElementById('disp-title').innerText = d.title.toUpperCase();
-        } else {
-          addLog("XHR Failed: Status 503 Service Unavailable", "error");
-        }
+        if (!r.ok) throw new Error("HTTP " + r.status);
+        const d = await r.json();
+        document.getElementById('disp-artist').innerText = d.artist.toUpperCase();
+        document.getElementById('disp-title').innerText = d.title.toUpperCase();
+        addLog("Sync successful: " + d.artist, "info");
       } catch (e) {
-        addLog("CORS Policy: No 'Access-Control-Allow-Origin' header present.", "error");
-        addLog("Fallback: Initiating JS-Library tunnel...", "warn");
+        addLog("CORS Policy Block: " + e.message, "err");
+        addLog("Hint: Run with Live Server or upload to Web.", "warn");
       }
     }
 
-    // 3. Audio-Engine Prozesse
     playBtn.onclick = () => {
       if(audio.paused) {
-        addLog("MediaElement: Requesting playback...");
-        audio.play().then(() => {
-          addLog("AudioBuffer: Stream connected. Bitrate: 128kbps", "network");
-          playBtn.innerText = "STOP STREAM";
-        }).catch(e => addLog("NotAllowedError: User interaction required.", "error"));
+        audio.play(); playBtn.innerText = "STOP STREAM"; addLog("Audio stream initialized.", "info");
       } else {
-        audio.pause();
-        addLog("MediaElement: Playback suspended.");
-        playBtn.innerText = "START STREAM";
+        audio.pause(); playBtn.innerText = "START STREAM"; addLog("Audio stream paused.", "info");
       }
     };
 
-    // 4. Hintergrund-Aktivität (Alle 30-60 Sek)
-    setInterval(() => {
-      const logs = [
-        "Garbage Collection: freed 4.2MB of heap memory.",
-        "UI Thread Heartbeat: 60fps stable.",
-        "Internal Clock Sync: Delta 0.002ms.",
-        "Storage Check: localStorage clean.",
-        "Worker Thread: Idle."
-      ];
-      addLog(logs[Math.floor(Math.random() * logs.length)]);
-    }, 45000);
-
-    // --- STANDARD FUNKTIONEN ---
-    function updateShow() {
-      const h = new Date().getHours();
-      let s = h >= 18 ? "GAMING SOUNDS" : (h >= 12 ? "IMMER AB 12!" : "MORNING STARTER");
-      document.getElementById('current-show').innerText = s;
-    }
-
+    // Uptime & Show
     let sec = 0;
     setInterval(() => {
       sec++;
-      const h = Math.floor(sec/3600).toString().padStart(2,'0');
-      const m = Math.floor((sec%3600)/60).toString().padStart(2,'0');
-      const s = (sec%60).toString().padStart(2,'0');
-      document.getElementById('uptime-display').innerText = `${h}:${m}:${s}`;
+      const time = [sec/3600, (sec%3600)/60, sec%60].map(v => Math.floor(v).toString().padStart(2,'0')).join(':');
+      document.getElementById('uptime-display').innerText = time;
     }, 1000);
 
-    volSlider.oninput = (e) => {
-      audio.volume = e.target.value;
-      if (sec % 5 === 0) addLog(`AudioNode: Gain changed to ${Math.round(e.target.value*100)}%`);
-    };
-
-    document.getElementById('user-input').onkeypress = (e) => {
-      if(e.key === 'Enter' && e.target.value.trim()) {
-        addLog(`Executing: "${e.target.value}"`, "user");
-        e.target.value = '';
-      }
-    };
-
     updateTrack();
-    updateShow();
-    setInterval(updateTrack, 20000);
+    setInterval(updateTrack, 30000);
+    addLog("System ready. All overflows clamped.", "info");
   </script>
 </body>
 </html>
