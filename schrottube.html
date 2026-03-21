@@ -131,7 +131,7 @@
         iframe { width: 85%; height: 80%; border-radius: 10px; }
 
         @media (max-width: 600px) {
-            .search-container { display: none; } /* Suche auf Handy verstecken oder anders lösen */
+            .search-container { display: none; }
         }
     </style>
 </head>
@@ -173,7 +173,7 @@
 
 <script>
     const LIVES = ["UaaHEFTI9Os","Op2lWPimLWQ","UUIAQBfhgwQ","GoSsVko2btU","SkL8MNIkoQg","V75xUOSooiw","WJkKKwHt48U","IM-5xKFHT28","H7fAZjbt-q4","eVPcR4qCzc0","B1zeEi2vz1M","BIinfidGY0c","xEjLcNHEC5Q","BVUK6YcqWYA","7jTdSE3KxTA","eVoEpDNsHNY","XRpyHodig8o","uoyliN7PpLo","JDFHbbfT8_Q","k2lXAY4M-Og","mgGSPG9JoCQ","CmimbvUbZAw","pDi1D88LT2A","3noh1zOifLo","0L9nLLDP6tQ","2g6lLNPV3-U","WvkqQ-NVTq0","-23vMLNkqMw","5Ejw9OqqY20"];
-    const SHORTS = ["aV66i9_ubek","mzgtGfSxWKs","RtjSNQhWLyQ","AdhBzTEcYUY","lpmtkNmaGpQ","h3u8wBxb9sk","aNQhB4NQMr0","AN8FqdgaeFo","k55bn6AaDfs","KTVvFwuiV60","xFTxt97hV0I","PIcuAL90juw","gR4u6kOUN-o","d5yZ0pEsaAc","aNbVt4ifuCQ","EuVYYGNdV9k","bXP2jWx7gDQ","UtTWoSoaRVY","1QPj0yGLR-Y","HMDGVNR0dl4","bzi3zwmsxo4","W_v7aWzhRyc","ki8qm99UpwA","4vUQW4c-KYI","IxtsyrIfRH8"];
+    const SHORTS = ["u89RkBYE5Pc","l4umSPnJTs4","aV66i9_ubek","mzgtGfSxWKs","RtjSNQhWLyQ","AdhBzTEcYUY","lpmtkNmaGpQ","h3u8wBxb9sk","aNQhB4NQMr0","AN8FqdgaeFo","k55bn6AaDfs","KTVvFwuiV60","xFTxt97hV0I","PIcuAL90juw","gR4u6kOUN-o","d5yZ0pEsaAc","aNbVt4ifuCQ","EuVYYGNdV9k","bXP2jWx7gDQ","UtTWoSoaRVY","1QPj0yGLR-Y","HMDGVNR0dl4","bzi3zwmsxo4","W_v7aWzhRyc","ki8qm99UpwA","4vUQW4c-KYI","IxtsyrIfRH8"];
 
     const sb = supabase.createClient("https://cdhpeegsdamxqbldoniw.supabase.co", "sb_publishable_cdkDvyIyVRz75m1MjNd7wA_Cc4iUxqb");
     
@@ -192,7 +192,7 @@
         currentCategory = type;
         document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
         el.classList.add('active');
-        handleSearch(); // Filtert basierend auf Tab + Suchfeld
+        handleSearch();
     }
 
     function handleSearch() {
