@@ -50,7 +50,7 @@
     /* --- PLAYER BOX --- */
     .radio-box { grid-column: span 1; display: flex; flex-direction: column; }
     .mini-cover { width: 100%; aspect-ratio: 1/1; border-radius: 6px; border: 1px solid var(--accent); margin-bottom: 15px; object-fit: cover; }
-    #song-display { font-family: 'VT323'; font-size: 1.3rem; color: #fff; margin-bottom: 10px; height: 3.2rem; overflow: hidden; }
+    #song-display { font-family: 'VT323'; font-size: 1.1rem; color: #fff; margin-bottom: 10px; height: 3.2rem; overflow: hidden; line-height: 1.2; }
     .btn-play { background: var(--accent); color: white; border: none; padding: 12px; border-radius: 6px; font-family: 'VT323'; font-size: 1.4rem; cursor: pointer; transition: 0.2s; }
     .btn-play:hover { filter: brightness(1.2); box-shadow: 0 0 15px var(--accent); }
 
@@ -155,13 +155,6 @@
     const nextShowDisplay = document.getElementById('next-show');
     const volSlider = document.getElementById('vol');
 
-    const schedule = [
-      { h: 6, title: "Morning Vibes" },
-      { h: 12, title: "Immer ab 12! Live" },
-      { h: 18, title: "Retro & Gaming Hits" },
-      { h: 23, title: "Late Night Chill" }
-    ];
-
     function addLog(msg, type = 'sys') {
       const time = new Date().toLocaleTimeString([], { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' });
       const entry = document.createElement('div');
@@ -175,24 +168,15 @@
       logContainer.scrollTop = logContainer.scrollHeight;
     }
 
-    function updateSchedule() {
-      const now = new Date().getHours();
-      let current = schedule[schedule.length - 1]; 
-      for (let s of schedule) { if (now >= s.h) current = s; }
-      nextShowDisplay.innerText = current.title;
-    }
-
     playBtn.addEventListener('click', () => {
       if (audio.paused) {
         addLog("Requesting Media Access...", "net");
-        // Audio neu laden, um Buffer-Fehler zu vermeiden
         audio.load();
         audio.play().then(() => {
           playBtn.innerText = "STOP STREAM";
           addLog("Stream aktiv: Daten werden empfangen.", "sys");
         }).catch((e) => {
           addLog("Systemfehler: Stream-Buffer leer.", "err");
-          console.error("Playback failed:", e);
         });
       } else {
         audio.pause();
@@ -216,21 +200,24 @@
       try {
         const res = await fetch('https://api.laut.fm/station/treasure_radio/current_song?t=' + Date.now());
         const data = await res.json();
-        const newTrack = data.title.toUpperCase();
-        if (songDisplay.innerText !== newTrack) {
-          songDisplay.innerText = newTrack;
-          addLog(`Track Sync: ${newTrack}`, "net");
+        
+        // Holt Künstler und Titel aus dem Daten-Objekt
+        const artist = data.artist && data.artist.name ? data.artist.name.toUpperCase() : "UNKNOWN";
+        const title = data.title ? data.title.toUpperCase() : "LIVE STREAM";
+        const fullTrack = `${artist} - ${title}`;
+
+        if (songDisplay.innerText !== fullTrack) {
+          songDisplay.innerText = fullTrack;
+          addLog(`Track Sync: ${fullTrack}`, "net");
         }
       } catch (e) { 
         songDisplay.innerText = "TREASURE RADIO LIVE"; 
       }
     }
 
-    addLog("Dashboard-Kernel v2.2 geladen.");
-    updateSchedule();
+    addLog("Dashboard-Kernel v2.3 geladen.");
     updateSong();
     setInterval(updateSong, 30000);
-    setInterval(updateSchedule, 60000);
 
     let sec = 0;
     setInterval(() => {
