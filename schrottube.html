@@ -17,13 +17,12 @@
         body { 
             background: var(--bg); 
             color: var(--text); 
-            font-family: 'Segoe UI', Roboto, sans-serif; 
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
             margin: 0; 
             display: flex; 
             overflow-x: hidden;
         }
 
-        /* Header mit Logo & Suche */
         header {
             position: fixed;
             top: 0;
@@ -71,8 +70,14 @@
             font-size: 15px;
         }
 
-        /* Sidebar */
-        .hamburger-btn { cursor: pointer; font-size: 20px; }
+        .hamburger-btn { 
+            cursor: pointer; 
+            font-size: 18px;
+            background: #222; 
+            padding: 8px 12px; 
+            border-radius: 8px; 
+            border: 1px solid #333;
+        }
 
         .custom-sidebar { 
             width: 250px; 
@@ -90,48 +95,118 @@
         #menuToggle:checked ~ .custom-sidebar { left: 0; }
 
         .custom-sidebar nav a { 
-            display: block; padding: 15px 25px; color: #ccc; text-decoration: none; 
+            display: block; 
+            padding: 15px 25px; 
+            color: #ccc; 
+            text-decoration: none; 
+            font-size: 16px;
         }
-        .custom-sidebar nav a:hover { background: #1a1a1a; color: white; }
 
-        /* Content */
+        .custom-sidebar nav a:hover { background: #1a1a1a; color: white; }
+        .custom-sidebar nav a.active { border-left: 4px solid var(--red); background: #1a1a1a; color: white; font-weight: bold; }
+
         main { 
-            flex: 1; padding: 20px; padding-top: 90px; 
-            max-width: 1400px; margin: 0 auto;
+            flex: 1; 
+            padding: 20px; 
+            padding-top: 80px; 
+            min-height: 100vh;
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
         .tabs { 
-            display: flex; gap: 30px; margin-bottom: 30px; border-bottom: 1px solid #333; 
-            position: sticky; top: 60px; background: var(--bg); z-index: 10;
+            display: flex; 
+            gap: 30px; 
+            margin-bottom: 30px; 
+            border-bottom: 1px solid #333; 
+            position: sticky;
+            top: 60px;
+            background: var(--bg);
+            z-index: 10;
         }
 
         .tab { 
-            padding: 15px 5px; cursor: pointer; color: var(--gray); 
-            font-weight: 600; border-bottom: 3px solid transparent; 
-            text-transform: uppercase; font-size: 14px;
+            padding: 15px 5px; 
+            cursor: pointer; 
+            color: var(--gray); 
+            font-weight: 600; 
+            border-bottom: 3px solid transparent; 
+            text-transform: uppercase; 
+            font-size: 14px;
         }
 
         .tab.active { color: white; border-bottom-color: white; }
 
         .grid { 
             display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
-            gap: 20px; 
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
+            gap: 25px; 
         }
 
-        .v-card { background: var(--card); border-radius: 12px; overflow: hidden; cursor: pointer; transition: 0.2s; }
-        .v-card:hover { transform: scale(1.02); background: #222; }
+        .v-card { 
+            background: var(--card); 
+            border-radius: 12px; 
+            overflow: hidden; 
+            cursor: pointer; 
+            transition: 0.3s; 
+            border: 1px solid transparent;
+        }
 
-        .thumb { width: 100%; aspect-ratio: 16/9; background-size: cover; background-position: center; }
-        .v-title { padding: 12px; font-size: 14px; font-weight: 500; height: 40px; overflow: hidden; }
+        .v-card:hover { 
+            transform: translateY(-5px); 
+            background: #222;
+            border-color: #444;
+        }
 
-        /* Player */
-        #player { position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 2000; display: none; align-items: center; justify-content: center; }
-        .back-btn { position: absolute; top: 20px; left: 20px; color: white; cursor: pointer; background: #333; padding: 10px 20px; border-radius: 20px; z-index: 2100; }
-        iframe { width: 85%; height: 80%; border-radius: 10px; }
+        .thumb { 
+            width: 100%; 
+            aspect-ratio: 16/9; 
+            background-size: cover; 
+            background-position: center; 
+        }
 
-        @media (max-width: 600px) {
+        .v-title { 
+            padding: 15px; 
+            font-size: 15px; 
+            font-weight: 500;
+            line-height: 1.4;
+            height: 42px; 
+            overflow: hidden; 
+            display: -webkit-box; 
+            -webkit-line-clamp: 2; 
+            -webkit-box-orient: vertical; 
+        }
+
+        #player { 
+            position: fixed; 
+            inset: 0; 
+            background: rgba(0,0,0,0.95); 
+            z-index: 2000; 
+            display: none; 
+            align-items: center;
+            justify-content: center;
+        }
+
+        .back-btn { 
+            position: absolute; 
+            top: 25px; 
+            left: 25px; 
+            color: white; 
+            cursor: pointer; 
+            background: #222; 
+            padding: 12px 25px; 
+            border-radius: 50px; 
+            font-weight: bold; 
+            z-index: 2100;
+            border: 1px solid #444;
+        }
+
+        iframe { width: 90%; height: 80%; border-radius: 15px; }
+
+        @media (max-width: 768px) {
             .search-container { display: none; }
+            .grid { grid-template-columns: 1fr; }
+            iframe { width: 100%; height: 60%; }
         }
     </style>
 </head>
@@ -141,19 +216,23 @@
     
     <header>
         <div class="logo-area">
-            <label for="menuToggle" class="hamburger-btn">☰</label>
+            <label for="menuToggle" class="hamburger-btn">☰ MENÜ</label>
             <a href="#" class="logo">Schrott<span>Tube</span></a>
         </div>
         <div class="search-container">
             <input type="text" id="searchInput" placeholder="Videos suchen..." oninput="handleSearch()">
         </div>
-        <div style="width: 40px;"></div> </header>
+        <div style="width: 40px;"></div>
+    </header>
 
     <aside class="custom-sidebar">
         <nav>
             <a href="index.html">Startseite</a>
-            <a href="schrottube.html" style="font-weight:bold; color:white;">SchrottTube</a>
-            <a href="radio.html">Radio</a>
+            <a href="app.html">App Download</a>
+            <a href="ideen.html">Content-Plan</a>
+            <a href="minecrafttahin.html">Minecraft-Tahin</a>
+            <a href="radio.html">TREASURE RADIO</a>
+            <a href="schrottube.html" class="active">SchrottkisteTube</a>
         </nav>
     </aside>
 
@@ -163,27 +242,44 @@
             <div id="tab-short" class="tab" onclick="switchTab('short', this)">Shorts</div>
             <div id="tab-live" class="tab" onclick="switchTab('live', this)">Livestreams</div>
         </div>
-        <div id="grid" class="grid">Laden...</div>
+        <div id="grid" class="grid">Verbindung zur Schrottkiste-Datenbank wird hergestellt...</div>
     </main>
 
     <div id="player">
-        <div class="back-btn" onclick="closePlayer()">✕ Schließen</div>
+        <div class="back-btn" onclick="closePlayer()">← SCHLIESSEN</div>
         <iframe id="v-frame" frameborder="0" allow="autoplay; fullscreen"></iframe>
     </div>
 
 <script>
+    // IDs für die Kategorisierung (Diese müssen in Supabase existieren)
     const LIVES = ["UaaHEFTI9Os","Op2lWPimLWQ","UUIAQBfhgwQ","GoSsVko2btU","SkL8MNIkoQg","V75xUOSooiw","WJkKKwHt48U","IM-5xKFHT28","H7fAZjbt-q4","eVPcR4qCzc0","B1zeEi2vz1M","BIinfidGY0c","xEjLcNHEC5Q","BVUK6YcqWYA","7jTdSE3KxTA","eVoEpDNsHNY","XRpyHodig8o","uoyliN7PpLo","JDFHbbfT8_Q","k2lXAY4M-Og","mgGSPG9JoCQ","CmimbvUbZAw","pDi1D88LT2A","3noh1zOifLo","0L9nLLDP6tQ","2g6lLNPV3-U","WvkqQ-NVTq0","-23vMLNkqMw","5Ejw9OqqY20"];
     const SHORTS = ["u89RkBYE5Pc","l4umSPnJTs4","aV66i9_ubek","mzgtGfSxWKs","RtjSNQhWLyQ","AdhBzTEcYUY","lpmtkNmaGpQ","h3u8wBxb9sk","aNQhB4NQMr0","AN8FqdgaeFo","k55bn6AaDfs","KTVvFwuiV60","xFTxt97hV0I","PIcuAL90juw","gR4u6kOUN-o","d5yZ0pEsaAc","aNbVt4ifuCQ","EuVYYGNdV9k","bXP2jWx7gDQ","UtTWoSoaRVY","1QPj0yGLR-Y","HMDGVNR0dl4","bzi3zwmsxo4","W_v7aWzhRyc","ki8qm99UpwA","4vUQW4c-KYI","IxtsyrIfRH8"];
 
-    const sb = supabase.createClient("https://cdhpeegsdamxqbldoniw.supabase.co", "sb_publishable_cdkDvyIyVRz75m1MjNd7wA_Cc4iUxqb");
+    const SUPABASE_URL = "https://cdhpeegsdamxqbldoniw.supabase.co";
+    const SUPABASE_KEY = "sb_publishable_cdkDvyIyVRz75m1MjNd7wA_Cc4iUxqb";
+    const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
     
-    let allVideos = [];
+    let dbVideos = [];
     let currentCategory = 'video';
 
     async function fetchVideos() {
-        const { data } = await sb.from('videos').select('youtube_id, title').order('created_at', { ascending: false });
+        // Holt alles aus der Tabelle 'videos'
+        const { data, error } = await sb
+            .from('videos')
+            .select('youtube_id, title, created_at')
+            .order('created_at', { ascending: false });
+
+        if (error) {
+            console.error("Datenbank-Fehler:", error);
+            document.getElementById('grid').innerHTML = "Fehler beim Laden.";
+            return;
+        }
+
         if (data) {
-            allVideos = data.map(v => ({ id: v.youtube_id.trim(), title: v.title }));
+            dbVideos = data.map(v => ({
+                id: v.youtube_id ? v.youtube_id.trim() : "",
+                title: v.title || "Unbenanntes Video"
+            }));
             switchTab('video', document.getElementById('tab-video'));
         }
     }
@@ -200,11 +296,12 @@
         let list = [];
 
         if (currentCategory === 'live') {
-            list = LIVES.map(id => ({ id, title: allVideos.find(v => v.id === id)?.title || "Livestream" }));
+            list = dbVideos.filter(v => LIVES.includes(v.id));
         } else if (currentCategory === 'short') {
-            list = SHORTS.map(id => ({ id, title: allVideos.find(v => v.id === id)?.title || "Short" }));
+            list = dbVideos.filter(v => SHORTS.includes(v.id));
         } else {
-            list = allVideos.filter(v => !LIVES.includes(v.id) && !SHORTS.includes(v.id));
+            // Zeigt alles an, was kein Live oder Short ist (Normaler Feed)
+            list = dbVideos.filter(v => !LIVES.includes(v.id) && !SHORTS.includes(v.id));
         }
 
         const filtered = list.filter(v => v.title.toLowerCase().includes(query));
@@ -213,6 +310,11 @@
 
     function renderGrid(list) {
         const grid = document.getElementById('grid');
+        if (list.length === 0) {
+            grid.innerHTML = "<p style='text-align:center; grid-column: 1/-1; opacity:0.5;'>Keine Videos gefunden.</p>";
+            return;
+        }
+
         grid.innerHTML = list.map(v => `
             <div class="v-card" onclick="openPlayer('${v.id}')">
                 <div class="thumb" style="background-image:url('https://img.youtube.com/vi/${v.id}/mqdefault.jpg')"></div>
@@ -222,13 +324,19 @@
     }
 
     function openPlayer(id) {
-        document.getElementById('player').style.display = 'flex';
-        document.getElementById('v-frame').src = `https://www.youtube.com/embed/${id}?autoplay=1`;
+        const player = document.getElementById('player');
+        const frame = document.getElementById('v-frame');
+        player.style.display = 'flex';
+        frame.src = `https://www.youtube.com/embed/${id}?autoplay=1&rel=0`;
+        document.body.style.overflow = 'hidden';
     }
 
     function closePlayer() {
-        document.getElementById('player').style.display = 'none';
-        document.getElementById('v-frame').src = '';
+        const player = document.getElementById('player');
+        const frame = document.getElementById('v-frame');
+        player.style.display = 'none';
+        frame.src = '';
+        document.body.style.overflow = 'auto';
     }
 
     fetchVideos();
