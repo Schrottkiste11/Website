@@ -3,18 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <link rel="icon" href="channels4_profile Schrottkiste.jpg" type="image/jpeg">
+  <link rel="shortcut icon" href="channels4_profile Schrottkiste.jpg" type="image/jpeg">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard | Schrottkiste</title>
   <link href="https://fonts.googleapis.com/css2?family=Chewy&family=Poppins:wght@300;400;600&family=VT323&display=swap" rel="stylesheet">
+  
   <style>
     :root {
       --accent: #ff0099;
       --accent-alt: #00ffff;
       --bg: #050415;
       --card: rgba(18, 14, 40, 0.96);
+      --sidebar-width: 260px;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
+    
     body {
       background: var(--bg);
       background-image: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), 
@@ -22,106 +26,186 @@
       background-size: 100% 4px, 100% 100%;
       font-family: 'Poppins', sans-serif;
       color: #fff;
+      display: flex;
       min-height: 100vh;
-      padding: 20px;
+      overflow-x: hidden;
     }
 
-    /* Navigation */
-    .hamburger-btn {
-      position: fixed; top: 20px; left: 20px; z-index: 100;
-      background: var(--accent); border: 2px solid #fff; padding: 5px 15px;
-      cursor: pointer; font-family: 'VT323'; box-shadow: 4px 4px 0 var(--accent-alt);
+    /* --- SIDEBAR --- */
+    .sidebar {
+      width: var(--sidebar-width);
+      background: rgba(0, 0, 0, 0.9);
+      border-right: 3px solid var(--accent);
+      height: 100vh;
+      position: fixed;
+      left: 0; top: 0;
+      padding: 40px 20px;
+      display: flex;
+      flex-direction: column;
+      z-index: 1000;
     }
 
-    /* Dashboard Grid (Breit wie im Screenshot) */
+    .sidebar-logo {
+      font-family: 'Chewy';
+      font-size: 2.2rem;
+      color: var(--accent);
+      text-align: center;
+      margin-bottom: 50px;
+      text-shadow: 2px 2px 0px var(--accent-alt);
+    }
+
+    .sidebar nav a {
+      display: block;
+      color: #fff;
+      text-decoration: none;
+      font-family: 'VT323';
+      font-size: 1.6rem;
+      padding: 12px 15px;
+      margin-bottom: 8px;
+      border-left: 4px solid transparent;
+      transition: 0.2s;
+    }
+
+    .sidebar nav a:hover, .sidebar nav a.active {
+      background: rgba(255, 0, 153, 0.1);
+      border-left: 4px solid var(--accent-alt);
+      color: var(--accent-alt);
+    }
+
+    /* --- MAIN CONTENT --- */
+    .main-wrapper {
+      margin-left: var(--sidebar-width);
+      flex: 1;
+      padding: 40px;
+      display: flex;
+      justify-content: center;
+    }
+
     .dashboard-grid {
       display: grid;
-      grid-template-columns: 1.2fr 2fr 1.2fr; /* 3 Spalten Layout */
-      grid-template-rows: auto auto;
+      grid-template-columns: 1.2fr 2.2fr 1.2fr;
       gap: 20px;
-      max-width: 1800px;
-      margin: 60px auto 0;
+      width: 100%;
+      max-width: 1600px;
     }
 
     .card { 
-      background: var(--card); border: 2px solid #000; 
-      padding: 15px; box-shadow: 8px 8px 0px var(--accent);
-      display: flex; flex-direction: column;
+      background: var(--card); 
+      border: 2px solid #000; 
+      padding: 18px; 
+      box-shadow: 8px 8px 0px var(--accent);
+      display: flex; 
+      flex-direction: column;
     }
 
-    .section-title { font-family: 'VT323'; color: var(--accent-alt); font-size: 1.2rem; margin-bottom: 10px; }
+    .section-title { 
+      font-family: 'VT323'; 
+      color: var(--accent-alt); 
+      font-size: 1.1rem; 
+      margin-bottom: 12px; 
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
 
-    /* YouTube Video (Mitte) */
-    .video-box { grid-column: 2; grid-row: 1; }
-    .video-container { position: relative; padding-bottom: 56.25%; height: 0; border: 2px solid var(--accent-alt); }
-    .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+    /* Radio Anzeige */
+    .cover-img { width: 100%; aspect-ratio: 1/1; object-fit: cover; border: 2px solid var(--accent); margin-bottom: 15px; }
+    
+    #song-display { font-family: 'VT323'; min-height: 4.8rem; margin-bottom: 10px; line-height: 1.2; }
+    .artist-name { font-size: 1.5rem; color: #fff; display: block; }
+    .song-title { font-size: 1.1rem; color: var(--accent-alt); display: block; text-transform: uppercase; }
 
-    /* Radio Box (Links) */
-    .radio-box { grid-column: 1; grid-row: 1; }
-    .cover-img { width: 100%; aspect-ratio: 1/1; object-fit: cover; border: 1px solid var(--accent-alt); margin-bottom: 10px; }
-    #song-display { font-family: 'VT323'; font-size: 1.4rem; color: #fff; min-height: 3em; line-height: 1.2; }
-
-    /* Log Box (Rechts) */
-    .log-box { grid-column: 3; grid-row: 1; height: 100%; }
-    #event-log { flex: 1; overflow-y: auto; font-family: 'VT323'; font-size: 0.9rem; color: #888; margin-bottom: 10px; max-height: 400px; }
-
-    /* Untere Zeile */
-    .bottom-box { grid-row: 2; }
-    .status-bar { height: 10px; background: #000; border: 1px solid #333; position: relative; overflow: hidden; }
-    .status-fill { height: 100%; background: var(--accent); box-shadow: 0 0 15px var(--accent); transition: width 1s; }
+    /* Volume Slider (Empfindlich) */
+    .vol-container { margin-top: 15px; display: flex; align-items: center; gap: 10px; background: rgba(0,0,0,0.5); padding: 8px; border-radius: 4px; }
+    input[type=range] { -webkit-appearance: none; width: 100%; background: transparent; cursor: pointer; }
+    input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 6px; background: #000; border: 1px solid var(--accent-alt); }
+    input[type=range]::-webkit-slider-thumb {
+      height: 20px; width: 10px; background: var(--accent); -webkit-appearance: none; margin-top: -8px; box-shadow: 0 0 8px var(--accent);
+    }
 
     .btn-action { 
-      background: var(--accent); border: none; color: #fff; padding: 10px; 
-      font-family: 'VT323'; font-size: 1.5rem; cursor: pointer; width: 100%; margin-top: 10px;
+      background: var(--accent); border: none; color: #fff; padding: 12px; 
+      font-family: 'VT323'; font-size: 1.6rem; cursor: pointer; transition: 0.2s;
     }
+    .btn-action:hover { filter: brightness(1.2); }
 
-    #user-input { background: #000; border: 1px solid #333; color: var(--accent-alt); padding: 5px; font-family: 'VT323'; width: 100%; }
+    /* Video & Log */
+    .video-container { position: relative; padding-bottom: 56.25%; height: 0; border: 1px solid var(--accent-alt); background: #000; }
+    .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+    
+    #event-log { flex: 1; overflow-y: auto; font-family: 'VT323'; font-size: 0.9rem; color: #888; max-height: 400px; margin-bottom: 10px; }
+    #user-input { background: #000; border: 1px solid #333; color: var(--accent-alt); padding: 10px; font-family: 'VT323'; width: 100%; outline: none; }
 
-    @media (max-width: 1000px) { .dashboard-grid { grid-template-columns: 1fr; } .video-box, .radio-box, .log-box { grid-column: 1; } }
+    /* Status Bars */
+    .status-bar { height: 8px; background: #000; border: 1px solid #333; margin-top: 8px; overflow: hidden; }
+    .status-fill { height: 100%; background: var(--accent); box-shadow: 0 0 10px var(--accent); transition: width 0.5s; }
+
+    @media (max-width: 1200px) {
+      .dashboard-grid { grid-template-columns: 1fr; }
+      .main-wrapper { margin-left: 0; padding-top: 80px; }
+      .sidebar { display: none; } /* Auf kleinen Screens wegschalten oder Toggle nutzen */
+    }
   </style>
 </head>
 <body>
 
-  <button class="hamburger-btn" onclick="window.location.href='index.html'">🏠 HOME</button>
+  <aside class="sidebar">
+    <div class="sidebar-logo">SK</div>
+    <nav>
+      <a href="index.html">STARTSEITE</a>
+      <a href="radio.html" class="active">DASHBOARD</a>
+      <a href="ideen.html">PROJEKTE</a>
+      <a href="minecrafttahin.html">TAHIN</a>
+      <a href="app.html">APP</a>
+    </nav>
+  </aside>
 
-  <main class="dashboard-grid">
-    
-    <section class="card radio-box">
-      <span class="section-title">RADIO_TUNER</span>
-      <img src="channels4_profile Schrottkiste.jpg" class="cover-img">
-      <div id="song-display">INITIALISIERUNG...</div>
-      <button class="btn-action" id="play-btn">START STREAM</button>
-      <input type="range" id="vol" min="0" max="1" step="0.1" value="0.5" style="margin-top:10px; accent-color:var(--accent-alt);">
-    </section>
+  <main class="main-wrapper">
+    <div class="dashboard-grid">
+      
+      <section class="card">
+        <span class="section-title">RADIO_TUNER</span>
+        <img src="channels4_profile Schrottkiste.jpg" class="cover-img">
+        <div id="song-display">
+          <span class="artist-name">VERBINDE...</span>
+          <span class="song-title">SYSTEM STARTING</span>
+        </div>
+        <button class="btn-action" id="play-btn">START STREAM</button>
+        <div class="vol-container">
+          <span style="font-family:'VT323'; color:var(--accent-alt); font-size: 1rem;">VOL</span>
+          <input type="range" id="vol" min="0" max="1" step="0.01" value="0.5">
+        </div>
+      </section>
 
-    <section class="card video-box">
-      <div class="video-container">
-        <iframe src="https://www.youtube.com/embed/5Ejw9OqqY20?si=xP3KKiApgkSbAoPK" frameborder="0" allowfullscreen></iframe>
-      </div>
-    </section>
+      <section class="card">
+        <span class="section-title">BROADCAST_SPOTLIGHT</span>
+        <div class="video-container">
+          <iframe src="https://www.youtube.com/embed/5Ejw9OqqY20?si=xP3KKiApgkSbAoPK" frameborder="0" allowfullscreen></iframe>
+        </div>
+      </section>
 
-    <section class="card log-box">
-      <span class="section-title">SYSTEM_LOG & CHAT</span>
-      <div id="event-log"></div>
-      <input type="text" id="user-input" placeholder="Nachricht...">
-    </section>
+      <section class="card">
+        <span class="section-title">SYSTEM_LOG</span>
+        <div id="event-log"></div>
+        <input type="text" id="user-input" placeholder="Nachricht an Schrottkiste...">
+      </section>
 
-    <section class="card bottom-box">
-      <span class="section-title">AKTUELL IM RADIO</span>
-      <div id="current-show" style="font-family:'VT323'; font-size:1.5rem;">Lade Show...</div>
-    </section>
+      <section class="card">
+        <span class="section-title">AKTUELL IM RADIO</span>
+        <div id="current-show" style="font-family:'VT323'; font-size:1.6rem; color:#fff;">Lade Sendeplan...</div>
+      </section>
 
-    <section class="card bottom-box" style="grid-column: span 1;">
-      <span class="section-title">PROJECT_STATUS</span>
-      <div style="font-family:'VT323'; margin-bottom:5px;">ZELDA BUILD: 85%</div>
-      <div class="status-bar"><div class="status-fill" style="width: 85%;"></div></div>
-    </section>
+      <section class="card">
+        <span class="section-title">PROJECT_STATUS</span>
+        <div style="font-family:'VT323'; font-size:1rem;">TAHIN BUILD PROGRESS</div>
+        <div class="status-bar"><div class="status-fill" style="width: 85%;"></div></div>
+      </section>
 
-    <section class="card bottom-box">
-      <span class="section-title">UPTIME</span>
-      <div id="uptime-display" style="font-family:'VT323'; font-size:2rem;">00:00:00</div>
-    </section>
+      <section class="card">
+        <span class="section-title">UPTIME</span>
+        <div id="uptime-display" style="font-family:'VT323'; font-size:2rem; color:var(--accent-alt);">00:00:00</div>
+      </section>
 
+    </div>
   </main>
 
   <audio id="radio-stream" src="https://stream.laut.fm/treasure_radio"></audio>
@@ -131,66 +215,87 @@
     const playBtn = document.getElementById('play-btn');
     const songDisplay = document.getElementById('song-display');
     const logBox = document.getElementById('event-log');
-    const uptimeBox = document.getElementById('uptime-display');
+    const volSlider = document.getElementById('vol');
 
-    // 1. Log Funktion
     function addLog(msg, sys = true) {
       const div = document.createElement('div');
-      div.innerHTML = `<span style="color:#444">[${new Date().toLocaleTimeString()}]</span> <span style="color:${sys?'#0ff':'#f09'}">${sys?'[SYS]':'[MSG]'}</span> ${msg}`;
+      div.style.marginBottom = "5px";
+      div.innerHTML = `<span style="color:#444">[${new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}]</span> <span style="color:${sys?'var(--accent-alt)':'var(--accent)'}">${sys?'[SYS]':'[MSG]'}</span> ${msg}`;
       logBox.appendChild(div);
       logBox.scrollTop = logBox.scrollHeight;
     }
 
-    // 2. Song & Künstler API (EXAKT HIER WIRD GELADEN)
+    // Hier wird die Laut.fm API genutzt und der Artist getrennt
     async function updateTrack() {
       try {
         const r = await fetch('https://api.laut.fm/station/treasure_radio/current_song');
         const d = await r.json();
-        // Hier wird Künstler + Titel zusammengesetzt
-        const fullTrack = `${d.artist.toUpperCase()} <br> <span style="color:var(--accent-alt)">${d.title.toUpperCase()}</span>`;
         
-        if (songDisplay.innerHTML !== fullTrack) {
-          songDisplay.innerHTML = fullTrack;
-          addLog("Track-Wechsel: " + d.artist + " - " + d.title);
+        // Künstler und Titel aus der API ziehen
+        const artist = d.artist.toUpperCase();
+        const title = d.title.toUpperCase();
+        
+        // Anzeige aktualisieren
+        const htmlContent = `<span class="artist-name">${artist}</span><span class="song-title">${title}</span>`;
+        
+        if (songDisplay.innerHTML !== htmlContent) {
+          songDisplay.innerHTML = htmlContent;
+          addLog(`Track-Wechsel: ${artist} - ${title}`);
         }
-      } catch (e) { songDisplay.innerText = "TREASURE RADIO LIVE"; }
+      } catch (e) { 
+        songDisplay.innerHTML = '<span class="artist-name">TREASURE RADIO</span><span class="song-title">LIVE</span>'; 
+      }
     }
 
-    // 3. Sendeplan
     function updateShow() {
       const h = new Date().getHours();
       let s = "NIGHT CHILL";
       if(h >= 6) s = "MORNING SHOW";
       if(h >= 12) s = "IMMER AB 12! LIVE";
-      if(h >= 18) s = "GAMING SOUNDTRACKS";
+      if(h >= 18) s = "GAMING SOUNDS";
       document.getElementById('current-show').innerText = s;
     }
 
-    // 4. Uptime Timer
     let sec = 0;
     setInterval(() => {
       sec++;
-      const hrs = Math.floor(sec/3600).toString().padStart(2,'0');
-      const min = Math.floor((sec%3600)/60).toString().padStart(2,'0');
+      const h = Math.floor(sec/3600).toString().padStart(2,'0');
+      const m = Math.floor((sec%3600)/60).toString().padStart(2,'0');
       const s = (sec%60).toString().padStart(2,'0');
-      uptimeBox.innerText = `${hrs}:${min}:${s}`;
+      document.getElementById('uptime-display').innerText = `${h}:${m}:${s}`;
     }, 1000);
 
-    // Controls
     playBtn.onclick = () => {
-      if(audio.paused) { audio.play(); playBtn.innerText = "STOP STREAM"; addLog("Radio gestartet."); }
-      else { audio.pause(); playBtn.innerText = "START STREAM"; addLog("Radio gestoppt."); }
+      if(audio.paused) { 
+        audio.play(); 
+        playBtn.innerText = "STOP STREAM"; 
+        addLog("Stream aktiv."); 
+      } else { 
+        audio.pause(); 
+        playBtn.innerText = "START STREAM"; 
+        addLog("Stream gestoppt."); 
+      }
+    };
+
+    volSlider.oninput = (e) => {
+      const val = e.target.value;
+      audio.volume = val;
+      // Dynamischer Glow beim Verstellen
+      volSlider.style.filter = `drop-shadow(0 0 ${val * 15}px var(--accent-alt))`;
     };
 
     document.getElementById('user-input').onkeypress = (e) => {
-      if(e.key === 'Enter' && e.target.value) { addLog(e.target.value, false); e.target.value = ''; }
+      if(e.key === 'Enter' && e.target.value.trim()) { 
+        addLog(e.target.value, false); 
+        e.target.value = ''; 
+      }
     };
 
-    // INIT
+    // Initialisierung
     updateTrack();
     updateShow();
     setInterval(updateTrack, 20000);
-    addLog("Dashboard-Kernel v2.7 bereit.");
+    addLog("Dashboard v2.9 geladen.");
   </script>
 </body>
 </html>
