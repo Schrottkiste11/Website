@@ -65,11 +65,10 @@
     .log-entry { margin-bottom: 4px; padding-bottom: 2px; border-bottom: 1px solid #111; }
     .log-time { color: #444; margin-right: 8px; font-size: 0.8rem; }
     
-    /* Log Farben */
-    .log-sys { color: #0f0; }    /* Grün für System */
-    .log-net { color: #0ff; }    /* Cyan für Netzwerk */
-    .log-user { color: var(--accent); } /* Pink für User */
-    .log-err { color: #f33; }    /* Rot für Fehler */
+    .log-sys { color: #0f0; }    
+    .log-net { color: #0ff; }    
+    .log-user { color: var(--accent); } 
+    .log-err { color: #f33; }    
     
     .input-group { display: flex; gap: 5px; }
     #user-input { background: #000; border: 1px solid #222; color: #fff; padding: 10px; flex: 1; border-radius: 4px; font-family: 'VT323'; outline: none; }
@@ -112,7 +111,7 @@
 
       <section class="card video-spotlight">
         <div class="video-container">
-          <iframe src="https://www.youtube.com/embed/5Ejw9OqqY20?si=xP3KKiApgkSbAoPK" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          <iframe src="https://www.youtube.com/embed/5Ejw9OqqY20?si=xP3KKiApgkSbAoPK" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
         </div>
       </section>
 
@@ -146,7 +145,7 @@
     </div>
   </main>
 
-  <audio id="radio-stream" src="https://stream.laut.fm/treasure_radio" crossorigin="anonymous"></audio>
+  <audio id="radio-stream" src="https://stream.laut.fm/treasure_radio" preload="none"></audio>
 
   <script>
     const audio = document.getElementById('radio-stream');
@@ -163,19 +162,14 @@
       { h: 23, title: "Late Night Chill" }
     ];
 
-    // Erweiterte Log-Funktion
     function addLog(msg, type = 'sys') {
       const time = new Date().toLocaleTimeString([], { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' });
       const entry = document.createElement('div');
       entry.className = 'log-entry';
-      
-      let typeLabel = '[SYS]';
-      let colorClass = 'log-sys';
-      
+      let typeLabel = '[SYS]'; let colorClass = 'log-sys';
       if(type === 'net') { typeLabel = '[NET]'; colorClass = 'log-net'; }
       if(type === 'user') { typeLabel = '[USR]'; colorClass = 'log-user'; }
       if(type === 'err') { typeLabel = '[ERR]'; colorClass = 'log-err'; }
-
       entry.innerHTML = `<span class="log-time">${time}</span><span class="${colorClass}">${typeLabel}</span> ${msg}`;
       logContainer.appendChild(entry);
       logContainer.scrollTop = logContainer.scrollHeight;
@@ -191,10 +185,15 @@
     playBtn.addEventListener('click', () => {
       if (audio.paused) {
         addLog("Requesting Media Access...", "net");
+        // Audio neu laden, um Buffer-Fehler zu vermeiden
+        audio.load();
         audio.play().then(() => {
           playBtn.innerText = "STOP STREAM";
-          addLog("Radio-Stream synchronisiert.", "sys");
-        }).catch(() => addLog("Systemfehler: Stream-Buffer leer.", "err"));
+          addLog("Stream aktiv: Daten werden empfangen.", "sys");
+        }).catch((e) => {
+          addLog("Systemfehler: Stream-Buffer leer.", "err");
+          console.error("Playback failed:", e);
+        });
       } else {
         audio.pause();
         playBtn.innerText = "START STREAM";
@@ -202,42 +201,34 @@
       }
     });
 
-    volSlider.addEventListener('input', (e) => { 
-        audio.volume = e.target.value; 
-    });
+    volSlider.addEventListener('input', (e) => { audio.volume = e.target.value; });
 
     document.getElementById('send-btn').addEventListener('click', () => {
       const input = document.getElementById('user-input');
       if (input.value.trim()) { addLog(input.value, 'user'); input.value = ""; }
     });
 
-    // Enter-Key Unterstützung für den Input
     document.getElementById('user-input').addEventListener('keypress', (e) => {
       if (e.key === 'Enter') document.getElementById('send-btn').click();
     });
 
     async function updateSong() {
-      addLog("XHR: Fetching Metadata...", "net");
       try {
         const res = await fetch('https://api.laut.fm/station/treasure_radio/current_song?t=' + Date.now());
         const data = await res.json();
         const newTrack = data.title.toUpperCase();
         if (songDisplay.innerText !== newTrack) {
           songDisplay.innerText = newTrack;
-          addLog(`Track Sync: ${newTrack}`, "sys");
+          addLog(`Track Sync: ${newTrack}`, "net");
         }
       } catch (e) { 
         songDisplay.innerText = "TREASURE RADIO LIVE"; 
-        addLog("CORS / Network: Metadata blocked.", "err");
       }
     }
 
-    // Initialisierung
-    addLog("Dashboard-Kernel v2.1 geladen.");
-    addLog("Clamping active: Layout locked.", "sys");
+    addLog("Dashboard-Kernel v2.2 geladen.");
     updateSchedule();
     updateSong();
-    
     setInterval(updateSong, 30000);
     setInterval(updateSchedule, 60000);
 
