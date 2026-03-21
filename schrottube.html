@@ -3,33 +3,187 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SchrottkisteTube | Fixed</title>
+    <title>SchrottkisteTube | Offiziell</title>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
-        :root { --bg: #0f0f0f; --red: #ff0000; --card: #1a1a1a; }
-        body { background: var(--bg); color: white; font-family: sans-serif; margin: 0; display: flex; }
-        .hamburger-btn { position: fixed; top: 15px; left: 15px; z-index: 1001; background: #222; padding: 10px; cursor: pointer; border-radius: 5px; }
-        .custom-sidebar { width: 250px; position: fixed; top: 0; left: -250px; bottom: 0; background: #111; transition: 0.3s; z-index: 1000; padding-top: 60px; border-right: 1px solid #333; }
+        :root { 
+            --bg: #0f0f0f; 
+            --red: #ff0000; 
+            --card: #1a1a1a; 
+            --gray: #aaa; 
+            --text: #ffffff;
+        }
+        
+        body { 
+            background: var(--bg); 
+            color: var(--text); 
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
+            margin: 0; 
+            display: flex; 
+            overflow-x: hidden;
+        }
+
+        /* Sidebar Styling */
+        .hamburger-btn { 
+            position: fixed; 
+            top: 15px; 
+            left: 15px; 
+            z-index: 1001; 
+            background: #222; 
+            padding: 10px 15px; 
+            cursor: pointer; 
+            border-radius: 8px; 
+            border: 1px solid #333;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+
+        .custom-sidebar { 
+            width: 250px; 
+            position: fixed; 
+            top: 0; 
+            left: -250px; 
+            bottom: 0; 
+            background: #111; 
+            transition: 0.3s ease-in-out; 
+            z-index: 1000; 
+            padding-top: 80px; 
+            border-right: 1px solid #333; 
+        }
+
         #menuToggle:checked ~ .custom-sidebar { left: 0; }
-        .custom-sidebar nav a { display: block; padding: 15px 20px; color: #ccc; text-decoration: none; border-bottom: 1px solid #222; }
-        .custom-sidebar nav a.active { border-left: 4px solid var(--red); background: #1a1a1a; color: white; }
-        main { flex: 1; padding: 20px; padding-top: 80px; }
-        .tabs { display: flex; gap: 20px; margin-bottom: 25px; border-bottom: 1px solid #333; }
-        .tab { padding: 10px 0; cursor: pointer; color: #888; font-weight: bold; border-bottom: 2px solid transparent; text-transform: uppercase; }
+
+        .custom-sidebar nav a { 
+            display: block; 
+            padding: 15px 25px; 
+            color: #ccc; 
+            text-decoration: none; 
+            font-size: 16px;
+            transition: 0.2s;
+        }
+
+        .custom-sidebar nav a:hover { background: #1a1a1a; color: white; }
+        .custom-sidebar nav a.active { border-left: 4px solid var(--red); background: #1a1a1a; color: white; font-weight: bold; }
+
+        /* Main Content */
+        main { 
+            flex: 1; 
+            padding: 20px; 
+            padding-top: 80px; 
+            min-height: 100vh;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Tabs */
+        .tabs { 
+            display: flex; 
+            gap: 30px; 
+            margin-bottom: 30px; 
+            border-bottom: 1px solid #333; 
+            position: sticky;
+            top: 70px;
+            background: var(--bg);
+            z-index: 10;
+        }
+
+        .tab { 
+            padding: 15px 5px; 
+            cursor: pointer; 
+            color: var(--gray); 
+            font-weight: 600; 
+            border-bottom: 3px solid transparent; 
+            text-transform: uppercase; 
+            font-size: 14px;
+            letter-spacing: 1px;
+            transition: 0.3s;
+        }
+
+        .tab:hover { color: white; }
         .tab.active { color: white; border-bottom-color: white; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; }
-        .v-card { background: var(--card); border-radius: 10px; overflow: hidden; cursor: pointer; transition: 0.2s; }
-        .v-card:hover { transform: scale(1.03); background: #252525; }
-        .thumb { width: 100%; aspect-ratio: 16/9; background-size: cover; background-position: center; background-color: #222; }
-        .v-title { padding: 12px; font-size: 14px; height: 54px; overflow: hidden; line-height: 1.4; }
-        #player { position: fixed; inset: 0; background: #000; z-index: 2000; display: none; }
-        .back-btn { position: absolute; top: 20px; left: 20px; color: white; cursor: pointer; background: #333; padding: 10px 20px; border-radius: 20px; font-weight: bold; }
+
+        /* Video Grid */
+        .grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
+            gap: 25px; 
+        }
+
+        .v-card { 
+            background: var(--card); 
+            border-radius: 12px; 
+            overflow: hidden; 
+            cursor: pointer; 
+            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+            border: 1px solid transparent;
+        }
+
+        .v-card:hover { 
+            transform: translateY(-8px); 
+            background: #222;
+            border-color: #444;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+        }
+
+        .thumb { 
+            width: 100%; 
+            aspect-ratio: 16/9; 
+            background-size: cover; 
+            background-position: center; 
+            background-color: #222; 
+        }
+
+        .v-title { 
+            padding: 15px; 
+            font-size: 15px; 
+            font-weight: 500;
+            line-height: 1.4;
+            height: 42px; 
+            overflow: hidden; 
+            display: -webkit-box; 
+            -webkit-line-clamp: 2; 
+            -webkit-box-orient: vertical; 
+        }
+
+        /* Video Player Overlay */
+        #player { 
+            position: fixed; 
+            inset: 0; 
+            background: rgba(0,0,0,0.95); 
+            z-index: 2000; 
+            display: none; 
+            align-items: center;
+            justify-content: center;
+        }
+
+        .back-btn { 
+            position: absolute; 
+            top: 25px; 
+            left: 25px; 
+            color: white; 
+            cursor: pointer; 
+            background: #222; 
+            padding: 12px 25px; 
+            border-radius: 50px; 
+            font-weight: bold; 
+            z-index: 2100;
+            border: 1px solid #444;
+            transition: 0.2s;
+        }
+
+        .back-btn:hover { background: #333; transform: scale(1.05); }
+
+        iframe { width: 90%; height: 80%; border-radius: 15px; box-shadow: 0 0 50px rgba(0,0,0,1); }
+
+        @media (max-width: 768px) {
+            .grid { grid-template-columns: 1fr; }
+            iframe { width: 100%; height: 60%; border-radius: 0; }
+        }
     </style>
 </head>
 <body>
 
     <input type="checkbox" id="menuToggle" hidden>
-    <label for="menuToggle" class="hamburger-btn">☰</label>
+    <label for="menuToggle" class="hamburger-btn">☰ MENÜ</label>
 
     <aside class="custom-sidebar">
         <nav>
@@ -44,68 +198,108 @@
 
     <main>
         <div class="tabs">
-            <div class="tab active" onclick="show('video', this)">Videos</div>
-            <div class="tab" onclick="show('short', this)">Shorts</div>
-            <div class="tab" onclick="show('live', this)">Livestreams</div>
+            <div id="tab-video" class="tab active" onclick="switchTab('video', this)">Videos</div>
+            <div id="tab-short" class="tab" onclick="switchTab('short', this)">Shorts</div>
+            <div id="tab-live" class="tab" onclick="switchTab('live', this)">Livestreams</div>
         </div>
-        <div id="grid" class="grid">Lade...</div>
+        <div id="grid" class="grid">Verbindung zur Schrottkiste-Datenbank wird hergestellt...</div>
     </main>
 
     <div id="player">
-        <div class="back-btn" onclick="document.getElementById('player').style.display='none'; document.getElementById('v-frame').src=''">← ZURÜCK</div>
-        <iframe id="v-frame" width="100%" height="100%" frameborder="0" allow="autoplay; fullscreen"></iframe>
+        <div class="back-btn" onclick="closePlayer()">← SCHLIESSEN</div>
+        <iframe id="v-frame" frameborder="0" allow="autoplay; fullscreen"></iframe>
     </div>
 
 <script>
-    // FIXE LISTEN (Garantierte Anzeige)
-    const LIVES = ["5Ejw9OqqY20","-23vMLNkqMw","WvkqQ-NVTq0","2g6lLNPV3-U","0L9nLLDP6tQ","3noh1zOifLo","pDi1D88LT2A","CmimbvUbZAw","mgGSPG9JoCQ","k2lXAY4M-Og","JDFHbbfT8_Q","uoyliN7PpLo","XRpyHodig8o","eVoEpDNsHNY","7jTdSE3KxTA","BVUK6YcqWYA","xEjLcNHEC5Q","BIinfidGY0c","B1zeEi2zg1M","eVPcR4qCzc0","H7fAZjbt-q4","IM-5xKFHT28","WJkKKwHt48U","V75xUOSooiw","SkL8MNIkoQg","GoSsVko2btU","UUIAQBfhgwQ","Op2lWPimLWQ","UaaHEFTI9Os"].reverse();
+    // DEINE KONFIGURATION
+    const LIVES = ["UaaHEFTI9Os","Op2lWPimLWQ","UUIAQBfhgwQ","GoSsVko2btU","SkL8MNIkoQg","V75xUOSooiw","WJkKKwHt48U","IM-5xKFHT28","H7fAZjbt-q4","eVPcR4qCzc0","B1zeEi2vz1M","BIinfidGY0c","xEjLcNHEC5Q","BVUK6YcqWYA","7jTdSE3KxTA","eVoEpDNsHNY","XRpyHodig8o","uoyliN7PpLo","JDFHbbfT8_Q","k2lXAY4M-Og","mgGSPG9JoCQ","CmimbvUbZAw","pDi1D88LT2A","3noh1zOifLo","0L9nLLDP6tQ","2g6lLNPV3-U","WvkqQ-NVTq0","-23vMLNkqMw","5Ejw9OqqY20"];
+    const SHORTS = ["aV66i9_ubek","mzgtGfSxWKs","RtjSNQhWLyQ","AdhBzTEcYUY","lpmtkNmaGpQ","h3u8wBxb9sk","aNQhB4NQMr0","AN8FqdgaeFo","k55bn6AaDfs","KTVvFwuiV60","xFTxt97hV0I","PIcuAL90juw","gR4u6kOUN-o","d5yZ0pEsaAc","aNbVt4ifuCQ","EuVYYGNdV9k","bXP2jWx7gDQ","UtTWoSoaRVY","1QPj0yGLR-Y","HMDGVNR0dl4","bzi3zwmsxo4","W_v7aWzhRyc","ki8qm99UpwA","4vUQW4c-KYI","IxtsyrIfRH8"];
+
+    const SUPABASE_URL = "https://cdhpeegsdamxqbldoniw.supabase.co";
+    const SUPABASE_KEY = "sb_publishable_cdkDvyIyVRz75m1MjNd7wA_Cc4iUxqb";
+    const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
     
-    const SHORTS = ["aV66i9_ubek","mzgtGfSxWKs","RtjSNQhWLyQ","AdhBzTEcYUY","lpmtkNmaGpQ","h3u8wBxb9sk","aNQhB4NPMr0","AN8FqdgaeFo","k55bn6AaDfs","KTVvFwuiV60","xFTxt97hV0I","PIcuAL90juw","gR4u6kOUN-o","d5yZ0pEsaAc","aNbVt4ifuCQ","EuVYYGNdV9k","bXP2jWx7gDQ","UtTWoSoaRVY","1QPj0yGLR-Y","HMDGVNR0dl4","bzi3zwmsxo4","W_v7aWzhRyc","ki8qm99UpwA","4vUQW4c-KYI","IxtsyrIfRH8"];
+    let allVideos = [];
 
-    const sb = supabase.createClient("https://cdhpeegsdamxqbldoniw.supabase.co", "sb_publishable_cdkDvyIyVRz75m1MjNd7wA_Cc4iUxqb");
-    let dbData = [];
+    async function fetchVideos() {
+        // Tabellenname auf "videos" (kleines v) geändert
+        const { data, error } = await sb
+            .from('videos')
+            .select('youtube_id, title')
+            .order('created_at', { ascending: false });
 
-    async function init() {
-        try {
-            const { data } = await sb.from('Videos').select('youtube_id, title');
-            dbData = data || [];
-        } catch(e) { console.log("DB Offline"); }
-        show('video', document.querySelector('.tab.active'));
+        if (error) {
+            console.error("Fehler beim Abrufen der Daten:", error);
+            document.getElementById('grid').innerHTML = "Fehler beim Laden der Videos.";
+            return;
+        }
+
+        if (data) {
+            allVideos = data.map(v => ({
+                id: v.youtube_id ? v.youtube_id.trim() : "",
+                title: v.title || "Unbenanntes Video"
+            }));
+            // Standardmäßig Videos-Tab anzeigen
+            switchTab('video', document.getElementById('tab-video'));
+        }
     }
 
-    function show(type, el) {
+    function switchTab(type, el) {
         document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
         el.classList.add('active');
         
-        const grid = document.getElementById('grid');
-        let list = [];
-
-        if(type === 'live') {
-            list = LIVES.map(id => ({ id, title: "Livestream" }));
-        } else if(type === 'short') {
-            list = SHORTS.map(id => ({ id, title: "Short" }));
+        let filteredList = [];
+        
+        if (type === 'live') {
+            filteredList = LIVES.slice().reverse().map(id => {
+                const videoData = allVideos.find(v => v.id === id);
+                return { id, title: videoData ? videoData.title : "Livestream" };
+            });
+        } else if (type === 'short') {
+            filteredList = SHORTS.map(id => {
+                const videoData = allVideos.find(v => v.id === id);
+                return { id, title: videoData ? videoData.title : "Short" };
+            });
         } else {
-            // Zeige alles aus der DB, was kein Short oder Live ist
-            list = dbData.filter(v => !LIVES.includes(v.youtube_id) && !SHORTS.includes(v.youtube_id))
-                         .map(v => ({ id: v.youtube_id, title: v.title }));
+            // Zeigt alle Videos an, die NICHT in den Spezial-Listen stehen
+            filteredList = allVideos.filter(v => !LIVES.includes(v.id) && !SHORTS.includes(v.id));
+        }
+
+        renderGrid(filteredList);
+    }
+
+    function renderGrid(list) {
+        const grid = document.getElementById('grid');
+        if (list.length === 0) {
+            grid.innerHTML = "<p style='text-align:center; grid-column: 1/-1; opacity:0.6;'>Noch keine Videos in dieser Kategorie.</p>";
+            return;
         }
 
         grid.innerHTML = list.map(v => `
-            <div class="v-card" onclick="play('${v.id}')">
+            <div class="v-card" onclick="openPlayer('${v.id}')">
                 <div class="thumb" style="background-image:url('https://img.youtube.com/vi/${v.id}/mqdefault.jpg')"></div>
                 <div class="v-title">${v.title}</div>
             </div>
         `).join('');
-        
-        if(list.length === 0) grid.innerHTML = "Keine Videos in dieser Kategorie gefunden.";
     }
 
-    function play(id) {
-        document.getElementById('player').style.display = 'block';
-        document.getElementById('v-frame').src = 'https://www.youtube.com/embed/' + id + '?autoplay=1';
+    function openPlayer(id) {
+        const player = document.getElementById('player');
+        const frame = document.getElementById('v-frame');
+        player.style.display = 'flex';
+        frame.src = `https://www.youtube.com/embed/${id}?autoplay=1&rel=0`;
+        document.body.style.overflow = 'hidden';
     }
 
-    init();
+    function closePlayer() {
+        const player = document.getElementById('player');
+        const frame = document.getElementById('v-frame');
+        player.style.display = 'none';
+        frame.src = '';
+        document.body.style.overflow = 'auto';
+    }
+
+    fetchVideos();
 </script>
 </body>
 </html>
