@@ -3,9 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <link rel="icon" href="channels4_profile Schrottkiste.jpg" type="image/jpeg">
-  <link rel="shortcut icon" href="channels4_profile Schrottkiste.jpg" type="image/jpeg">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Command Center v3.4 | Schrottkiste</title>
+  <title>Command Center v4.6 | Schrottkiste</title>
   <link href="https://fonts.googleapis.com/css2?family=Chewy&family=Poppins:wght@300;400;600&family=VT323&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -24,6 +23,7 @@
       display: flex;
       min-height: 100vh;
       overflow-x: hidden;
+      position: relative; /* Für die MC-Version */
     }
 
     /* --- SIDEBAR --- */
@@ -32,69 +32,73 @@
       display: flex; flex-direction: column; padding: 30px 20px;
       position: sticky; top: 0; height: 100vh; flex-shrink: 0;
     }
-    .logo-area { font-family: 'Chewy'; font-size: 2rem; color: var(--accent); margin-bottom: 5px; text-align: center; }
-    .version-tag { font-family: 'VT323'; font-size: 0.9rem; color: #444; text-align: center; margin-bottom: 40px; letter-spacing: 2px; }
-    
-    .sidebar-nav a {
-      color: #666; text-decoration: none; font-family: 'VT323'; font-size: 1.5rem;
-      margin-bottom: 12px; padding: 12px; border-radius: 8px; transition: 0.2s;
+    .logo-area { font-family: 'Chewy'; font-size: 2.2rem; text-align: center; margin-bottom: 40px; }
+    .logo-area a { color: var(--accent); text-decoration: none; transition: 0.3s; }
+    .logo-area a:hover { text-shadow: 0 0 15px var(--accent); }
+
+    .sidebar-nav a.nav-link { 
+      color: #666; text-decoration: none; font-family: 'VT323'; font-size: 1.5rem; 
+      margin-bottom: 12px; padding: 12px; border-radius: 8px; transition: 0.2s; 
     }
-    .sidebar-nav a:hover, .sidebar-nav a.active { color: #fff; background: #111; box-shadow: inset 4px 0 0 var(--accent-alt); }
+    .sidebar-nav a.nav-link.active { color: #fff; background: #111; box-shadow: inset 4px 0 0 var(--accent-alt); }
 
     /* --- MAIN CONTENT --- */
     .main-content { flex: 1; padding: 25px; background: radial-gradient(circle at top right, #100820 0%, #020205 70%); }
     .dashboard-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; }
 
     .card { background: var(--card); border: 1px solid rgba(255,255,255,0.03); border-radius: 12px; padding: 20px; }
-    .section-title { font-family: 'VT323'; font-size: 1.2rem; color: var(--accent-alt); margin-bottom: 15px; display: block; letter-spacing: 1px; }
+    .section-title { font-family: 'VT323'; font-size: 1.1rem; color: var(--accent-alt); margin-bottom: 10px; display: block; }
 
-    /* --- RADIO BOX --- */
-    .radio-box { grid-column: span 1; display: flex; flex-direction: column; }
-    .mini-cover { width: 100%; aspect-ratio: 1/1; border-radius: 6px; border: 1px solid var(--accent); margin-bottom: 15px; object-fit: cover; }
-    #song-display { font-family: 'VT323'; font-size: 1.1rem; color: #fff; margin-bottom: 10px; height: 3.2rem; overflow: hidden; line-height: 1.2; }
-    .btn-play { background: var(--accent); color: white; border: none; padding: 12px; border-radius: 6px; font-family: 'VT323'; font-size: 1.4rem; cursor: pointer; transition: 0.2s; }
-    .btn-play:hover { filter: brightness(1.2); box-shadow: 0 0 15px var(--accent); }
+    /* --- COMPONENTS --- */
+    .radio-box { grid-column: span 1; }
+    .show-name-big { font-family: 'VT323'; font-size: 1.8rem; color: #fff; line-height: 1.1; min-height: 4rem; display: flex; align-items: center; }
+    .btn-play { background: var(--accent); color: white; border: none; padding: 12px; border-radius: 6px; font-family: 'VT323'; font-size: 1.4rem; cursor: pointer; width: 100%; margin-top: 15px; }
 
-    /* --- VIDEO SPOTLIGHT --- */
-    .video-spotlight { grid-column: span 2; padding: 0; background: #000; overflow: hidden; height: fit-content; border: 1px solid var(--accent-alt); }
+    .video-spotlight { grid-column: span 2; padding: 0; background: #000; border: 1px solid var(--accent-alt); overflow: hidden; height: fit-content; }
     .video-container { position: relative; padding-bottom: 56.25%; height: 0; }
-    .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+    .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
 
-    /* --- SYSTEM LOG --- */
-    .log-box { grid-column: span 1; display: flex; flex-direction: column; height: 480px; }
-    #event-log { flex: 1; overflow-y: auto; font-family: 'VT323'; font-size: 0.85rem; color: #aaa; margin-bottom: 10px; line-height: 1.2; }
-    .log-entry { margin-bottom: 4px; padding-bottom: 2px; border-bottom: 1px solid #111; }
-    .log-time { color: #555; margin-right: 8px; font-size: 0.75rem; }
-    
-    .log-sys { color: #0f0; }    
-    .log-net { color: #0ff; }    
-    .log-user { color: var(--accent); } 
-    .log-err { color: #ff3333; font-weight: bold; }    
-    
-    .input-group { display: flex; gap: 5px; }
-    #user-input { background: #000; border: 1px solid #222; color: #fff; padding: 10px; flex: 1; border-radius: 4px; font-family: 'VT323'; outline: none; }
-    #send-btn { background: #222; color: var(--accent-alt); border: none; padding: 0 15px; border-radius: 4px; cursor: pointer; font-family: 'VT323'; }
+    .log-box { grid-column: span 1; display: flex; flex-direction: column; height: 350px; }
+    #event-log { flex: 1; overflow-y: auto; font-family: 'VT323'; font-size: 0.85rem; color: #aaa; }
+    .input-group { display: flex; gap: 5px; margin-top: 10px; }
+    #user-input { background: #000; border: 1px solid #222; color: #fff; padding: 8px; flex: 1; border-radius: 4px; font-family: 'VT323'; outline: none; }
+    #send-btn { background: #222; color: var(--accent-alt); border: none; padding: 0 10px; border-radius: 4px; cursor: pointer; font-family: 'VT323'; }
 
-    .info-card { grid-column: span 1; text-align: left; }
-    .info-val { font-family: 'VT323'; font-size: 2rem; color: #fff; }
+    .schedule-header { font-family: 'VT323'; font-size: 2.2rem; color: var(--accent); margin-bottom: 15px; border-bottom: 2px solid var(--accent); }
+    .schedule-item { font-family: 'VT323'; font-size: 1.5rem; color: #444; padding: 10px; background: rgba(255,255,255,0.02); border-radius: 8px; margin-bottom: 10px; }
+    .schedule-item.active { background: rgba(0, 255, 255, 0.08); color: var(--accent-alt); border-left: 5px solid var(--accent-alt); }
 
-    @media (max-width: 1200px) {
-      .dashboard-grid { grid-template-columns: 1fr; }
-      .sidebar-nav { display: none; }
+    .watch-val { font-family: 'VT323'; font-size: 2.4rem; color: #fff; }
+    .neon-clock { color: var(--accent-alt); text-shadow: 0 0 10px var(--accent-alt); }
+    .compact-card { width: fit-content; min-width: 180px; }
+
+    /* --- MINECRAFT VERSION TAG --- */
+    .mc-version {
+      position: fixed;
+      bottom: 10px;
+      right: 15px;
+      font-family: 'VT323';
+      font-size: 1.1rem;
+      color: rgba(255, 255, 255, 0.6);
+      text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.8);
+      pointer-events: none;
+      z-index: 1000;
     }
+
+    @media (max-width: 1200px) { .dashboard-grid { grid-template-columns: 1fr; } .sidebar-nav { display: none; } }
   </style>
 </head>
 <body>
 
+  <div class="mc-version">Schrottkiste CC v4.6-stable</div>
+
   <aside class="sidebar-nav">
-    <div class="logo-area">SK RADIO</div>
-    <div class="version-tag">OS_CORE: V3.4</div>
+    <div class="logo-area">
+      <a href="index.html">SK RADIO</a> </div>
     <nav>
-      <a href="index.html">🏠 HOME</a>
-      <a href="radio.html" class="active">📻 DASHBOARD</a>
-      <a href="ideen.html">💡 PROJEKTE</a>
-      <a href="minecrafttahin.html">⚔️ TAHIN</a>
-      <a href="app.html">📱 APP</a>
+      <a href="index.html" class="nav-link">🏠 HOME</a>
+      <a href="#" class="nav-link active">📻 DASHBOARD</a>
+      <a href="#" class="nav-link">💡 PROJEKTE</a>
     </nav>
   </aside>
 
@@ -102,21 +106,19 @@
     <div class="dashboard-grid">
       
       <section class="card radio-box">
-        <span class="section-title">RADIO_TUNER</span>
-        <img src="channels4_profile Schrottkiste.jpg" class="mini-cover" id="cover-img" alt="Cover">
-        <div id="song-display">INITIALISIERUNG...</div>
+        <span class="section-title">ON_AIR</span>
+        <div id="current-show-display" class="show-name-big">SYNC...</div>
         <button class="btn-play" id="play-btn">START STREAM</button>
-        <input type="range" id="vol" min="0" max="1" step="0.1" value="0.5" style="width: 100%; margin-top: 15px; accent-color: var(--accent-alt);">
       </section>
 
       <section class="card video-spotlight">
         <div class="video-container">
-          <iframe src="https://www.youtube.com/embed/5Ejw9OqqY20?si=xP3KKiApgkSbAoPK" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
+          <iframe src="https://www.youtube.com/embed/5Ejw9OqqY20" allowfullscreen></iframe>
         </div>
       </section>
 
       <section class="card log-box">
-        <span class="section-title">SYSTEM_LOG & MONITORING</span>
+        <span class="section-title">SYSTEM_LOG</span>
         <div id="event-log"></div>
         <div class="input-group">
           <input type="text" id="user-input" placeholder="Befehl...">
@@ -124,22 +126,32 @@
         </div>
       </section>
 
-      <section class="card info-card">
-        <span class="section-title">ALS NÄCHSTES</span>
-        <p id="next-song-display" style="font-family: 'VT323'; color: #fff; font-size: 0.95rem; line-height: 1.3;">Abgleich...</p>
-      </section>
-
-      <section class="card info-card" style="grid-column: span 2;">
-        <span class="section-title">PROJECT_STATUS</span>
-        <p style="font-family: 'VT323'; font-size: 0.9rem; color: #aaa; margin-bottom: 5px;">Minecraft Tahin: Zelda Build</p>
-        <div style="width: 100%; height: 4px; background: #111; border-radius: 2px;">
-          <div style="width: 85%; height: 100%; background: var(--accent); box-shadow: 0 0 10px var(--accent);"></div>
+      <section class="card">
+        <h1 class="schedule-header">SENDEPLAN</h1>
+        <div id="schedule-container">
+          <div class="schedule-item" data-h="6"><span style="font-size:0.9rem;display:block">06:00</span>MORNING</div>
+          <div class="schedule-item" data-h="12"><span style="font-size:0.9rem;display:block">12:00</span>IMMER AB 12!</div>
+          <div class="schedule-item" data-h="18"><span style="font-size:0.9rem;display:block">18:00</span>HITS (60-90ER)</div>
+          <div class="schedule-item" data-h="23"><span style="font-size:0.9rem;display:block">23:00</span>NACHTEULEN PARTY</div>
         </div>
       </section>
 
-      <section class="card info-card">
+      <section class="card compact-card">
+        <span class="section-title">SYSTEM_TIME</span>
+        <div class="watch-val neon-clock" id="system-clock">00:00:00</div>
+      </section>
+
+      <section class="card compact-card">
         <span class="section-title">UPTIME</span>
-        <div class="info-val" id="uptime-display">00:00:00</div>
+        <div class="watch-val" id="uptime-display">00:00:00</div>
+      </section>
+
+      <section class="card" style="grid-column: span 2;">
+        <span class="section-title">PROJECT_STATUS</span>
+        <p style="font-family: 'VT323'; font-size: 1.1rem; color: #aaa; margin-bottom: 5px;">Minecraft Tahin: Zelda Build</p>
+        <div style="width: 100%; height: 8px; background: #111; border-radius: 4px;">
+          <div style="width: 85%; height: 100%; background: var(--accent); box-shadow: 0 0 10px var(--accent);"></div>
+        </div>
       </section>
 
     </div>
@@ -149,113 +161,64 @@
 
   <script>
     const logContainer = document.getElementById('event-log');
-    let logHistory = [];
+    const userInput = document.getElementById('user-input');
+    const audio = document.getElementById('radio-stream');
+    const playBtn = document.getElementById('play-btn');
+    const currentShow = document.getElementById('current-show-display');
+    const sysClock = document.getElementById('system-clock');
+    const upDisplay = document.getElementById('uptime-display');
+
+    const schedule = [
+      { start: 0, name: "Nachteulen Party" },
+      { start: 6, name: "Morning ab 6 Uhr" },
+      { start: 12, name: "immer ab 12!" },
+      { start: 18, name: "60er,70er,80er,90er Hits" },
+      { start: 23, name: "Nachteulen Party" }
+    ];
 
     function addLog(msg, type = 'sys') {
       const time = new Date().toLocaleTimeString([], { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' });
-      logHistory.push(`[${time}] [${type.toUpperCase()}] ${msg}`);
-      
       const entry = document.createElement('div');
       entry.className = 'log-entry';
-      let typeLabel = '[SYS]'; let colorClass = 'log-sys';
-      if(type === 'net') { typeLabel = '[NET]'; colorClass = 'log-net'; }
-      if(type === 'user') { typeLabel = '[USR]'; colorClass = 'log-user'; }
-      if(type === 'err') { typeLabel = '[ERR]'; colorClass = 'log-err'; }
-      
-      entry.innerHTML = `<span class="log-time">${time}</span><span class="${colorClass}">${typeLabel}</span> ${msg}`;
+      let colorClass = type === 'sys' ? 'log-sys' : 'log-user';
+      entry.innerHTML = `<span style="color:#555">${time}</span> <span class="${colorClass}">[${type.toUpperCase()}]</span> ${msg}`;
       logContainer.appendChild(entry);
       logContainer.scrollTop = logContainer.scrollHeight;
     }
 
-    // Global Error Monitoring
-    window.onerror = (msg) => addLog(`Script: ${msg}`, 'err');
-    window.addEventListener('unhandledrejection', (e) => addLog(`Async: ${e.reason}`, 'err'));
+    function updateDashboard() {
+      const now = new Date();
+      const hour = now.getHours();
+      sysClock.innerText = now.toLocaleTimeString([], { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' });
 
-    const audio = document.getElementById('radio-stream');
-    const playBtn = document.getElementById('play-btn');
-    const songDisplay = document.getElementById('song-display');
-    const nextSongDisplay = document.getElementById('next-song-display');
-
-    playBtn.addEventListener('click', () => {
-      if (audio.paused) {
-        addLog("Stream wird angefordert...", "net");
-        audio.play().then(() => {
-          playBtn.innerText = "STOP STREAM";
-          addLog("Wiedergabe aktiv.", "sys");
-        }).catch(e => addLog(`Blockiert: ${e.message}`, "err"));
-      } else {
-        audio.pause();
-        playBtn.innerText = "START STREAM";
-        addLog("Wiedergabe gestoppt.", "sys");
+      let activeIndex = 0;
+      for (let i = 0; i < schedule.length; i++) {
+        if (hour >= schedule[i].start) activeIndex = i;
       }
-    });
 
-    async function updateMetadata(isRetry = false) {
-      const t = Date.now();
-      try {
-        // 1. AKTUELLER SONG
-        const res = await fetch(`https://api.laut.fm/station/treasure_radio/current_song?t=${t}`, { cache: "no-store" });
-        if(!res.ok) throw new Error(`HTTP ${res.status}`);
-
-        const data = await res.json();
-        const track = `${(data.artist?.name || "TREASURE RADIO").toUpperCase()} - ${(data.title || "LIVE").toUpperCase()}`;
-        
-        if (songDisplay.innerText !== track) {
-          songDisplay.innerText = track;
-          addLog(`Sync: ${track}`, "net");
-        }
-
-        // 2. "ALS NÄCHSTES" - v3.4 Logic
-        setTimeout(async () => {
-          try {
-            const rNext = await fetch(`https://api.laut.fm/station/treasure_radio/next_song?t=${t}`, { cache: "no-store" });
-            const dNext = await rNext.json();
-            
-            if (dNext && dNext.title) {
-                // Konkreter Song
-                nextSongDisplay.innerHTML = `<span style="color:var(--accent-alt)">GLEICH:</span><br>${dNext.artist?.name?.toUpperCase()} - ${dNext.title.toUpperCase()}`;
-            } else {
-                // Sendung / Playlist aus Stations-Daten
-                const rStation = await fetch(`https://api.laut.fm/station/treasure_radio?t=${t}`);
-                const dStation = await rStation.json();
-                
-                if (dStation.current_playlist && dStation.current_playlist.name) {
-                    // Imitiert den Text aus deinem Beispiel
-                    nextSongDisplay.innerHTML = `<span style="color:var(--accent-alt)">SENDUNG:</span><br>»${dStation.current_playlist.name.toUpperCase()}«`;
-                } else {
-                    nextSongDisplay.innerText = "KEINE DATEN";
-                }
-            }
-          } catch(e) { nextSongDisplay.innerText = "OFFLINE"; }
-        }, 600);
-
-      } catch (e) {
-        addLog(`Fehler: ${e.message}`, "err");
-        if (!isRetry) setTimeout(() => updateMetadata(true), 10000); 
+      const active = schedule[activeIndex];
+      if(currentShow.innerText !== active.name.toUpperCase()) {
+        currentShow.innerText = active.name.toUpperCase();
+        addLog(`Sync: ${active.name}`, "sys");
       }
+
+      document.querySelectorAll('.schedule-item').forEach(item => {
+        item.classList.remove('active');
+        if(parseInt(item.getAttribute('data-h')) === active.start) item.classList.add('active');
+      });
     }
 
-    // CMD Input Logic
-    document.getElementById('send-btn').addEventListener('click', () => {
-      const input = document.getElementById('user-input');
-      const cmd = input.value.trim().toLowerCase();
-      if (!cmd) return;
+    playBtn.onclick = () => {
+      if (audio.paused) {
+        audio.play().then(() => { playBtn.innerText = "STOP STREAM"; addLog("Stream online.", "sys"); });
+      } else {
+        audio.pause(); playBtn.innerText = "START STREAM"; addLog("Stream offline.", "sys");
+      }
+    };
 
-      if (cmd === '/save') {
-        const blob = new Blob([logHistory.join('\n')], { type: 'text/plain' });
-        const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
-        a.download = `SK_Log.txt`; a.click();
-        addLog("Log exportiert.", "sys");
-      } else if (cmd === '/clear') {
-        logContainer.innerHTML = "";
-        addLog("Log bereinigt.", "sys");
-      } else { addLog(input.value, "user"); }
-      input.value = "";
-    });
-
-    addLog("System v3.4 gestartet. Smart-Sync aktiv.");
-    updateMetadata();
-    setInterval(updateMetadata, 30000);
+    document.getElementById('send-btn').onclick = () => {
+      if(userInput.value.trim()) { addLog(userInput.value, 'user'); userInput.value = ''; }
+    };
 
     let sec = 0;
     setInterval(() => {
@@ -263,8 +226,11 @@
       const h = Math.floor(sec/3600).toString().padStart(2, '0');
       const m = Math.floor((sec%3600)/60).toString().padStart(2, '0');
       const s = (sec%60).toString().padStart(2, '0');
-      document.getElementById('uptime-display').innerText = `${h}:${m}:${s}`;
+      upDisplay.innerText = `${h}:${m}:${s}`;
+      updateDashboard();
     }, 1000);
+
+    updateDashboard();
   </script>
 </body>
 </html>
