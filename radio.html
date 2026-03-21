@@ -17,6 +17,11 @@
       --sidebar-width: 260px;
     }
 
+    /* Scrollbar-Design für den Log */
+    #event-log::-webkit-scrollbar { width: 4px; }
+    #event-log::-webkit-scrollbar-track { background: #000; }
+    #event-log::-webkit-scrollbar-thumb { background: var(--accent); }
+
     * { margin: 0; padding: 0; box-sizing: border-box; }
     
     body {
@@ -27,11 +32,10 @@
       font-family: 'Poppins', sans-serif;
       color: #fff;
       display: flex;
-      height: 100vh; /* Fest auf Viewport-Höhe */
-      overflow: hidden; /* Verhindert Scrollen der gesamten Seite */
+      height: 100vh;
+      overflow: hidden; /* Hauptfenster bleibt starr */
     }
 
-    /* --- SIDEBAR --- */
     .sidebar {
       width: var(--sidebar-width);
       background: rgba(0, 0, 0, 0.95);
@@ -56,74 +60,82 @@
       padding: 12px 15px; margin-bottom: 10px;
       border-left: 4px solid transparent; transition: 0.2s;
     }
-
     .sidebar nav a.active { border-left: 5px solid var(--accent-alt); color: var(--accent-alt); background: rgba(255, 0, 153, 0.1); }
 
-    /* --- MAIN CONTENT --- */
     .main-wrapper {
       flex: 1;
-      padding: 25px;
+      padding: 20px;
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      overflow: hidden; /* Schneidet alles ab, was nicht reinpasst */
+      height: 100vh;
+      overflow: hidden;
     }
 
     .dashboard-grid {
       display: grid;
       grid-template-columns: 1.2fr 2fr 1.2fr;
-      grid-template-rows: 1fr auto; /* Obere Reihe nimmt Platz ein, untere passt sich an */
+      grid-template-rows: 1fr auto;
       gap: 20px;
       width: 100%;
       height: 100%;
-      max-width: 1700px;
+      max-width: 1750px;
       margin: 0 auto;
     }
 
     .card { 
       background: var(--card); 
       border: 2px solid #000; 
-      padding: 20px; 
+      padding: 15px; 
       box-shadow: 8px 8px 0px var(--accent);
       display: flex; 
       flex-direction: column;
-      overflow: hidden; /* WICHTIG: Kein Inhalt darf die Box vergrößern */
+      overflow: hidden; /* Clamping: Nichts geht raus */
     }
 
     .section-title { 
       font-family: 'VT323'; color: var(--accent-alt); 
-      font-size: 1.1rem; margin-bottom: 15px; 
+      font-size: 1.1rem; margin-bottom: 12px; 
       text-transform: uppercase; border-bottom: 1px solid rgba(0,255,255,0.1);
       flex-shrink: 0;
     }
 
-    /* RADIO BOX */
-    .cover-img { width: 100%; aspect-ratio: 1/1; max-height: 250px; object-fit: cover; border: 2px solid var(--accent); margin-bottom: 15px; flex-shrink: 1; }
-    #song-display { font-family: 'VT323'; margin-bottom: 10px; overflow: hidden; }
-    .artist-name { font-size: 1.6rem; color: #fff; display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    /* RADIO */
+    .cover-img { width: 100%; aspect-ratio: 1/1; max-height: 220px; object-fit: cover; border: 2px solid var(--accent); margin-bottom: 12px; flex-shrink: 1; }
+    #song-display { font-family: 'VT323'; margin-bottom: 10px; flex-shrink: 0; }
+    .artist-name { font-size: 1.5rem; color: #fff; display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .song-title { font-size: 1.1rem; color: var(--accent-alt); display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-    /* LOG BOX */
+    .btn-action { 
+      background: var(--accent); border: none; color: #fff; padding: 12px; 
+      font-family: 'VT323'; font-size: 1.6rem; cursor: pointer; width: 100%;
+      box-shadow: 0 4px 0 #990055; transition: 0.1s;
+    }
+    .btn-action:active { transform: translateY(2px); box-shadow: 0 2px 0 #990055; }
+
+    /* CONSOLE */
     #event-log { 
       flex: 1; 
-      font-family: 'VT323'; font-size: 0.9rem; 
-      color: #0f0; background: rgba(0,0,0,0.4); padding: 10px;
-      overflow-y: auto; /* Log darf intern scrollen */
-      scrollbar-width: thin;
-      scrollbar-color: var(--accent) #000;
+      font-family: 'VT323'; font-size: 0.85rem; 
+      color: #0f0; background: rgba(0,0,0,0.5); padding: 10px;
+      overflow-y: auto; 
+      line-height: 1.3;
+      border: 1px solid #111;
     }
+    #user-input { background: #000; border: 1px solid #333; color: var(--accent-alt); padding: 8px; font-family: 'VT323'; width: 100%; margin-top: 8px; flex-shrink: 0; outline: none; }
 
     /* VIDEO */
-    .video-container { position: relative; width: 100%; padding-top: 56.25%; background: #000; border: 1px solid var(--accent-alt); flex-shrink: 0; }
+    .video-container { position: relative; width: 100%; padding-top: 56.25%; background: #000; border: 1px solid var(--accent-alt); }
     .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
 
-    /* UNTERE REIHE */
-    .status-card { height: 90px; }
-
-    .status-bar { height: 10px; background: #000; border: 1px solid #333; margin-top: 8px; }
+    /* BOTTOM */
+    .status-card { height: 85px; justify-content: center; }
+    .status-bar { height: 10px; background: #000; border: 1px solid #333; margin-top: 5px; overflow: hidden; }
     .status-fill { height: 100%; background: var(--accent); width: 85%; box-shadow: 0 0 10px var(--accent); }
 
-    #user-input { background: #000; border: 1px solid #333; color: var(--accent-alt); padding: 10px; font-family: 'VT323'; width: 100%; margin-top: 10px; flex-shrink: 0; }
+    @media (max-width: 1200px) {
+      .dashboard-grid { grid-template-columns: 1fr; overflow-y: auto; }
+      body { overflow: auto; }
+    }
   </style>
 </head>
 <body>
@@ -143,48 +155,47 @@
     <div class="dashboard-grid">
       
       <section class="card">
-        <span class="section-title">RADIO_CORE</span>
+        <span class="section-title">RADIO_CORE_ENGINE</span>
         <img src="channels4_profile Schrottkiste.jpg" class="cover-img">
         <div id="song-display">
-          <span class="artist-name" id="disp-artist">SYNCING...</span>
-          <span class="song-title" id="disp-title">WAIT_FOR_DATA</span>
+          <span class="artist-name" id="disp-artist">IDLE_STATE</span>
+          <span class="song-title" id="disp-title">WAITING_FOR_BOOT</span>
         </div>
-        <button class="btn-action" id="play-btn" style="background:var(--accent); border:none; color:#fff; padding:12px; font-family:'VT323'; font-size:1.5rem; cursor:pointer;">START STREAM</button>
+        <button class="btn-action" id="play-btn">START_STREAM</button>
+        <audio id="radio-stream" src="https://stream.laut.fm/treasure_radio" crossorigin="anonymous"></audio>
       </section>
 
       <section class="card">
-        <span class="section-title">VIDEO_FEED</span>
+        <span class="section-title">BROADCAST_FEED</span>
         <div class="video-container">
           <iframe src="https://www.youtube.com/embed/5Ejw9OqqY20" frameborder="0" allowfullscreen></iframe>
         </div>
       </section>
 
       <section class="card">
-        <span class="section-title">CONSOLE_OUTPUT</span>
+        <span class="section-title">SYSTEM_CONSOLE</span>
         <div id="event-log"></div>
-        <input type="text" id="user-input" placeholder="CMD_">
+        <input type="text" id="user-input" placeholder="CMD_EXECUTE...">
       </section>
 
       <section class="card status-card">
-        <span class="section-title">CURRENT_SHOW</span>
-        <div id="current-show" style="font-family:'VT323'; font-size:1.4rem;">LOADING...</div>
+        <span class="section-title">AIR_TRACKER</span>
+        <div id="current-show" style="font-family:'VT323'; font-size:1.4rem; color: #fff;">SYNCING...</div>
       </section>
 
       <section class="card status-card">
-        <span class="section-title">TAHIN_BUILD</span>
-        <div style="font-family:'VT323'; font-size:0.9rem;">PROGRESS: 85%</div>
+        <span class="section-title">COMPILER_PROGRESS</span>
+        <div style="font-family:'VT323'; font-size:0.9rem;">TAHIN_OS: 85%</div>
         <div class="status-bar"><div class="status-fill"></div></div>
       </section>
 
       <section class="card status-card">
-        <span class="section-title">UPTIME</span>
+        <span class="section-title">CORE_UPTIME</span>
         <div id="uptime-display" style="font-family:'VT323'; font-size:2rem; color:var(--accent-alt);">00:00:00</div>
       </section>
 
     </div>
   </main>
-
-  <audio id="radio-stream" src="https://stream.laut.fm/treasure_radio" crossorigin="anonymous"></audio>
 
   <script>
     const audio = document.getElementById('radio-stream');
@@ -194,48 +205,70 @@
     function addLog(msg, type = 'info') {
       const div = document.createElement('div');
       const colors = { info: '#0f0', net: '#0ff', err: '#f33', warn: '#ff0', usr: '#f09' };
-      const prefix = type.toUpperCase();
-      div.innerHTML = `<span style="color:#555">${new Date().toLocaleTimeString()}</span> <span style="color:${colors[type]}">[${prefix}] ${msg}</span>`;
+      div.innerHTML = `<span style="color:#555">${new Date().toLocaleTimeString()}</span> <span style="color:${colors[type]}">[${type.toUpperCase()}] ${msg}</span>`;
       logBox.appendChild(div);
       logBox.scrollTop = logBox.scrollHeight;
     }
 
-    // CORS FIX VERSUCH: Proxy oder direktes Catching
     async function updateTrack() {
-      addLog("Fetching metadata via API...", "net");
+      addLog("XHR Request: Fetching Laut.fm Metadata", "net");
       try {
-        // Wir nutzen einen Cache-Buster (?t=...), um den Browser zu zwingen, neu zu laden
         const r = await fetch('https://api.laut.fm/station/treasure_radio/current_song?t=' + Date.now());
-        if (!r.ok) throw new Error("HTTP " + r.status);
+        if (!r.ok) throw new Error("Status " + r.status);
         const d = await r.json();
         document.getElementById('disp-artist').innerText = d.artist.toUpperCase();
         document.getElementById('disp-title').innerText = d.title.toUpperCase();
-        addLog("Sync successful: " + d.artist, "info");
+        addLog("Sync Successful: " + d.artist, "info");
       } catch (e) {
-        addLog("CORS Policy Block: " + e.message, "err");
-        addLog("Hint: Run with Live Server or upload to Web.", "warn");
+        addLog("CORS Error: Cross-Origin Request Blocked", "err");
+        addLog("Note: Open with Live Server or via Webhost", "warn");
       }
     }
 
     playBtn.onclick = () => {
       if(audio.paused) {
-        audio.play(); playBtn.innerText = "STOP STREAM"; addLog("Audio stream initialized.", "info");
+        audio.play().then(() => {
+          playBtn.innerText = "STOP_STREAM";
+          playBtn.style.background = "#00ffff";
+          playBtn.style.color = "#000";
+          addLog("Media: Stream Buffer Connected", "net");
+        }).catch(() => addLog("User Interaction Required for Media", "err"));
       } else {
-        audio.pause(); playBtn.innerText = "START STREAM"; addLog("Audio stream paused.", "info");
+        audio.pause();
+        playBtn.innerText = "START_STREAM";
+        playBtn.style.background = "var(--accent)";
+        playBtn.style.color = "#fff";
+        addLog("Media: Stream Connection Terminated", "info");
       }
     };
 
-    // Uptime & Show
     let sec = 0;
     setInterval(() => {
       sec++;
       const time = [sec/3600, (sec%3600)/60, sec%60].map(v => Math.floor(v).toString().padStart(2,'0')).join(':');
       document.getElementById('uptime-display').innerText = time;
+      if (sec % 50 === 0) addLog("Heap Check: Memory Leak 0%");
     }, 1000);
 
+    function updateShow() {
+      const h = new Date().getHours();
+      let s = h >= 18 ? "GAMING SOUNDS" : (h >= 12 ? "IMMER AB 12!" : "MORNING STARTER");
+      document.getElementById('current-show').innerText = s;
+    }
+
+    // Command Input Handling
+    document.getElementById('user-input').onkeypress = (e) => {
+      if(e.key === 'Enter' && e.target.value.trim()) {
+        addLog(`EXEC: ${e.target.value}`, "usr");
+        if(e.target.value === 'clear') logBox.innerHTML = '';
+        e.target.value = '';
+      }
+    };
+
     updateTrack();
+    updateShow();
     setInterval(updateTrack, 30000);
-    addLog("System ready. All overflows clamped.", "info");
+    addLog("System Initialized. Clamping Logic: ACTIVE", "info");
   </script>
 </body>
 </html>
