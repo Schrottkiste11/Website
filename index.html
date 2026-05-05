@@ -6,13 +6,16 @@
   <link rel="shortcut icon" href="channels4_profile Schrottkiste.jpg" type="image/jpeg">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Schrottkiste – Home</title>
+  <!-- Google Fonts & Font Awesome für Symbole -->
   <link href="https://fonts.googleapis.com/css2?family=Chewy&family=Poppins:wght@300;400;600&family=VT323&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
   <style>
     :root {
-      --accent: #ff0099; /* Dein Pink */
-      --accent-alt: #00ffff; /* Dein Cyan */
-      --bg: #1a1a24; /* Industrial Cyber-Grey */
-      --card-bg: #242430; /* Etwas helleres Grau für Karten */
+      --accent: #ff0099;
+      --accent-alt: #00ffff;
+      --bg: #1a1a24;
+      --card-bg: #242430;
       --text: #f3f1ff;
       --radius: 16px;
     }
@@ -44,6 +47,7 @@
     .nav-logo { width: 40px; height: 40px; border-radius: 50%; border: 2px solid var(--accent-alt); }
     .nav-brand { font-family: 'Chewy', cursive; font-size: 1.8rem; color: #fff; text-shadow: 2px 2px 0px var(--accent); }
 
+    .nav-main { display: flex; align-items: center; gap: 30px; }
     .nav-links { display: flex; gap: 20px; list-style: none; }
     .nav-links a { 
       text-decoration: none; 
@@ -54,21 +58,33 @@
     }
     .nav-links a:hover { color: var(--accent-alt); }
 
-    /* --- HERO AREA --- */
-    .hero {
-      padding: 60px 5%;
-      text-align: center;
-      margin-bottom: 20px;
+    /* SOCIAL ICONS IN NAV */
+    .nav-socials {
+      display: flex;
+      gap: 15px;
+      margin-left: 20px;
+      padding-left: 20px;
+      border-left: 1px solid #444;
     }
+    .nav-socials a {
+      color: #fff;
+      font-size: 1.4rem;
+      transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .nav-socials a:hover { transform: scale(1.2); }
+    .nav-socials .fa-twitch:hover { color: #9146FF; filter: drop-shadow(0 0 8px #9146FF); }
+    .nav-socials .fa-youtube:hover { color: #FF0000; filter: drop-shadow(0 0 8px #FF0000); }
+
+    /* --- HERO --- */
+    .hero { padding: 60px 5%; text-align: center; }
     .banner-main-title {
       font-family: 'Chewy', cursive; 
       font-size: clamp(3.5rem, 10vw, 6rem);
       color: #fff; 
       text-shadow: 6px 6px 0px var(--accent);
-      margin-bottom: 10px;
     }
 
-    /* --- MAIN CONTENT GRID --- */
+    /* --- GRID --- */
     .main-grid {
       max-width: 1200px;
       margin: 0 auto 60px;
@@ -80,9 +96,10 @@
 
     @media (max-width: 900px) {
       .main-grid { grid-template-columns: 1fr; }
+      .nav-main { flex-direction: column; gap: 10px; }
+      .nav-socials { border: none; padding: 0; margin: 0; }
     }
 
-    /* --- CARDS --- */
     .card {
       background: var(--card-bg);
       border-radius: var(--radius);
@@ -105,88 +122,33 @@
       border-radius: 10px;
     }
 
-    .video-title {
-      font-family: 'VT323', monospace;
-      font-size: 2rem;
-      color: #fff;
-      margin-bottom: 15px;
-      text-transform: uppercase;
-    }
+    .video-title { font-family: 'VT323', monospace; font-size: 2rem; color: #fff; margin-bottom: 15px; }
 
     .responsive-video { 
-      position: relative; 
-      padding-bottom: 56.25%; 
-      height: 0; 
-      overflow: hidden; 
-      border-radius: 12px;
-      border: 2px solid var(--accent);
+      position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; 
+      border-radius: 12px; border: 2px solid var(--accent);
     }
     .responsive-video iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
 
-    /* --- SIDEBAR --- */
-    .sidebar-title {
-      font-family: 'VT323', monospace;
-      font-size: 1.5rem;
-      color: var(--accent-alt);
-      margin-bottom: 15px;
-      display: block;
-      border-bottom: 2px solid var(--accent);
-    }
-
     .btn-container { display: flex; flex-direction: column; gap: 15px; }
     .main-btn {
-      background: #000; 
-      color: #fff; 
-      padding: 12px; 
-      font-family: 'VT323', monospace;
-      font-size: 1.5rem; 
-      text-decoration: none; 
-      border: 2px solid var(--accent-alt);
-      box-shadow: 4px 4px 0px var(--accent-alt); 
-      transition: 0.2s;
-      text-align: center;
+      background: #000; color: #fff; padding: 12px; font-family: 'VT323', monospace;
+      font-size: 1.5rem; text-decoration: none; border: 2px solid var(--accent-alt);
+      box-shadow: 4px 4px 0px var(--accent-alt); transition: 0.2s; text-align: center;
       border-radius: 4px;
     }
-    .main-btn:hover { 
-      transform: translate(-2px, -2px); 
-      background: var(--accent-alt); 
-      color: #000; 
-      box-shadow: 6px 6px 0px var(--accent); 
-    }
+    .main-btn:hover { transform: translate(-2px, -2px); background: var(--accent-alt); color: #000; box-shadow: 6px 6px 0px var(--accent); }
 
-    /* --- RANDOM VIDEO BOX --- */
     .video-display {
-      background: #0a0a0f;
-      color: var(--accent-alt);
-      padding: 20px;
-      font-family: 'VT323', monospace;
-      font-size: 1.5rem;
-      text-align: center;
-      border-radius: 8px;
-      margin-bottom: 15px;
-      border: 1px solid #333;
+      background: #0a0a0f; color: var(--accent-alt); padding: 20px; font-family: 'VT323', monospace;
+      font-size: 1.5rem; text-align: center; border-radius: 8px; margin-bottom: 15px; border: 1px solid #333;
     }
     .action-btn {
-      width: 100%;
-      background: var(--accent);
-      color: #fff;
-      border: none;
-      padding: 15px;
-      font-family: 'VT323', monospace;
-      font-size: 1.6rem;
-      cursor: pointer;
-      border-radius: 8px;
-      transition: 0.2s;
+      width: 100%; background: var(--accent); color: #fff; border: none; padding: 15px;
+      font-family: 'VT323', monospace; font-size: 1.6rem; cursor: pointer; border-radius: 8px;
     }
-    .action-btn:hover { background: #fff; color: #000; }
 
-    footer {
-      padding: 40px;
-      text-align: center;
-      font-family: 'VT323';
-      color: #555;
-      border-top: 1px solid #333;
-    }
+    footer { padding: 40px; text-align: center; font-family: 'VT323'; color: #555; border-top: 1px solid #333; }
   </style>
 </head>
 <body>
@@ -196,12 +158,20 @@
       <img src="channels4_profile Schrottkiste.jpg" alt="Logo" class="nav-logo">
       <span class="nav-brand">Schrottkiste</span>
     </a>
-    <ul class="nav-links">
-      <li><a href="index.html">START</a></li>
-      <li><a href="app.html">APP</a></li>
-      <li><a href="ideen.html">PLAN</a></li>
-      <li><a href="radio.html">RADIO</a></li>
-    </ul>
+    
+    <div class="nav-main">
+      <ul class="nav-links">
+        <li><a href="index.html">START</a></li>
+        <li><a href="app.html">APP</a></li>
+        <li><a href="ideen.html">PLAN</a></li>
+        <li><a href="radio.html">RADIO</a></li>
+      </ul>
+      
+      <div class="nav-socials">
+        <a href="https://www.twitch.tv/schrottkiste_luka" target="_blank" title="Twitch"><i class="fa-brands fa-twitch"></i></a>
+        <a href="https://www.youtube.com/@schrottkiste" target="_blank" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
+      </div>
+    </div>
   </nav>
 
   <header class="hero">
@@ -211,7 +181,7 @@
   <div class="main-grid">
     <main>
       <section class="status-panel">
-        <span>UPDATE: 05.05.2026</span>
+        <span>UPDATE: 21.04.2026</span>
         <span>READY_TO_WATCH</span>
       </section>
 
@@ -231,16 +201,11 @@
 
     <aside>
       <div class="card">
-        <span class="sidebar-title">LINKS</span>
         <div class="btn-container">
           <a href="app.html" class="main-btn">DIE APP</a>
           <a href="https://www.youtube.com/@Schrottkiste" target="_blank" class="main-btn">YOUTUBE</a>
           <a href="minecrafttahin.html" class="main-btn">TAHIN</a>
         </div>
-      </div>
-      
-      <div style="font-family: 'VT323'; font-size: 0.9rem; text-align: center; opacity: 0.5;">
-        © 2026 // ALL_SYSTEMS_GO
       </div>
     </aside>
   </div>
