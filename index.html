@@ -3,206 +3,250 @@
 <head>
   <meta charset="UTF-8">
   <link rel="icon" href="channels4_profile Schrottkiste.jpg" type="image/jpeg">
-<link rel="shortcut icon" href="channels4_profile Schrottkiste.jpg" type="image/jpeg">
+  <link rel="shortcut icon" href="channels4_profile Schrottkiste.jpg" type="image/jpeg">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Schrottkiste – Home</title>
   <link href="https://fonts.googleapis.com/css2?family=Chewy&family=Poppins:wght@300;400;600&family=VT323&display=swap" rel="stylesheet">
   <style>
     :root {
-      --accent: #ff0099;
-      --accent-alt: #00ffff;
-      --bg: #050415;
-      --card: rgba(18, 14, 40, 0.96);
+      --accent: #ff0099; /* Dein Pink */
+      --accent-alt: #00ffff; /* Dein Cyan */
+      --bg: #1a1a24; /* Industrial Cyber-Grey */
+      --card-bg: #242430; /* Etwas helleres Grau für Karten */
       --text: #f3f1ff;
+      --radius: 16px;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
       background: var(--bg);
-      background-image: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), 
-                        radial-gradient(circle at top, #151435 0%, #050415 70%, #020109 100%);
-      background-size: 100% 4px, 100% 100%;
       font-family: 'Poppins', sans-serif;
       color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* --- NAVIGATION --- */
+    .nav-header {
+      background: var(--card-bg);
+      padding: 15px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 3px solid var(--accent);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    .logo-area { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .nav-logo { width: 40px; height: 40px; border-radius: 50%; border: 2px solid var(--accent-alt); }
+    .nav-brand { font-family: 'Chewy', cursive; font-size: 1.8rem; color: #fff; text-shadow: 2px 2px 0px var(--accent); }
+
+    .nav-links { display: flex; gap: 20px; list-style: none; }
+    .nav-links a { 
+      text-decoration: none; 
+      color: #fff; 
+      font-family: 'VT323', monospace; 
+      font-size: 1.3rem; 
+      transition: 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent-alt); }
+
+    /* --- HERO AREA --- */
+    .hero {
+      padding: 60px 5%;
       text-align: center;
-      min-height: 100vh;
-    }
-
-    /* --- SIDEBAR --- */
-    #menuToggle { display: none; }
-    .hamburger-btn {
-      position: fixed; top: 20px; left: 20px; z-index: 20000;
-      background: var(--accent); border: 2px solid #fff; padding: 8px 14px;
-      cursor: pointer; box-shadow: 6px 6px 0px var(--accent-alt); font-family: 'VT323', monospace;
-    }
-    .custom-sidebar {
-      position: fixed; top: 0; left: 0; width: 280px; height: 100vh;
-      background: #111; border-right: 4px solid var(--accent);
-      transform: translateX(-100%); transition: 0.4s steps(4);
-      padding-top: 100px; z-index: 9000;
-    }
-    #menuToggle:checked ~ .custom-sidebar { transform: translateX(0); }
-    .custom-sidebar nav a {
-      display: block; color: #fff; text-decoration: none; font-size: 1.8rem; 
-      font-family: 'VT323', monospace; padding: 15px 25px; border-bottom: 1px solid #222;
-    }
-
-    /* --- BANNER --- */
-    .channel-banner {
-      width: 100%; min-height: 300px; background: #08071b;
-      background-image: linear-gradient(to bottom, rgba(5, 4, 21, 0.4), #050415), 
-                        url('https://www.transparenttextures.com/patterns/carbon-fibre.png');
-      border-bottom: 4px solid var(--accent);
-      display: flex; align-items: center; justify-content: center;
-      padding: 60px 20px;
-    }
-    .banner-content { display: flex; align-items: center; gap: 40px; }
-    .banner-logo {
-      width: clamp(140px, 25vw, 200px); height: clamp(140px, 25vw, 200px);
-      object-fit: cover; border-radius: 50%; border: 4px solid var(--accent-alt);
-      filter: drop-shadow(0 0 20px var(--accent));
+      margin-bottom: 20px;
     }
     .banner-main-title {
-      font-family: 'Chewy', cursive; font-size: clamp(3.5rem, 10vw, 7rem);
-      color: #fff; text-shadow: 8px 8px 0px var(--accent);
+      font-family: 'Chewy', cursive; 
+      font-size: clamp(3.5rem, 10vw, 6rem);
+      color: #fff; 
+      text-shadow: 6px 6px 0px var(--accent);
+      margin-bottom: 10px;
     }
 
-    /* --- CONTENT AREA --- */
-    .content-area { max-width: 800px; margin: 0 auto; padding: 20px; }
+    /* --- MAIN CONTENT GRID --- */
+    .main-grid {
+      max-width: 1200px;
+      margin: 0 auto 60px;
+      padding: 0 5%;
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 40px;
+    }
+
+    @media (max-width: 900px) {
+      .main-grid { grid-template-columns: 1fr; }
+    }
+
+    /* --- CARDS --- */
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 25px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      margin-bottom: 30px;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
 
     .status-panel {
-      background: rgba(255, 0, 153, 0.1); border: 2px dashed var(--accent);
-      padding: 10px 20px; font-family: 'VT323', monospace;
-      font-size: 1.4rem; margin-bottom: 30px; display: flex; 
-      justify-content: space-between; color: var(--accent-alt);
+      background: rgba(0, 255, 255, 0.05);
+      border: 2px dashed var(--accent-alt);
+      padding: 10px 20px;
+      font-family: 'VT323', monospace;
+      font-size: 1.2rem;
+      margin-bottom: 25px;
+      display: flex; 
+      justify-content: space-between;
+      color: var(--accent-alt);
+      border-radius: 10px;
     }
 
-    /* VIDEO CARD */
-    .video-card {
-      background: var(--card); border: 3px solid var(--accent-alt);
-      padding: 25px; box-shadow: 12px 12px 0px var(--accent); margin-bottom: 40px;
-    }
     .video-title {
-      font-family: 'VT323', monospace; font-size: 2.2rem; color: #fff;
-      margin-bottom: 15px; text-transform: uppercase; letter-spacing: 2px;
+      font-family: 'VT323', monospace;
+      font-size: 2rem;
+      color: #fff;
+      margin-bottom: 15px;
+      text-transform: uppercase;
     }
-    .responsive-video { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; }
+
+    .responsive-video { 
+      position: relative; 
+      padding-bottom: 56.25%; 
+      height: 0; 
+      overflow: hidden; 
+      border-radius: 12px;
+      border: 2px solid var(--accent);
+    }
     .responsive-video iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
 
-    /* --- ZUFALLS-VIDEO BUTTON STYLES --- */
-    .random-video-section {
-      margin: 40px auto 60px;
-      max-width: 600px;
-    }
-    .video-box {
-      background: #000;
-      border: 3px solid var(--accent-alt);
-      padding: 25px;
-      box-shadow: 10px 10px 0px var(--accent);
-    }
-    .video-display {
-      background: #080808;
-      border: 1px solid #222;
-      padding: 15px;
+    /* --- SIDEBAR --- */
+    .sidebar-title {
       font-family: 'VT323', monospace;
-      font-size: 1.6rem;
+      font-size: 1.5rem;
       color: var(--accent-alt);
-      margin-bottom: 20px;
-      min-height: 60px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      margin-bottom: 15px;
+      display: block;
+      border-bottom: 2px solid var(--accent);
+    }
+
+    .btn-container { display: flex; flex-direction: column; gap: 15px; }
+    .main-btn {
+      background: #000; 
+      color: #fff; 
+      padding: 12px; 
+      font-family: 'VT323', monospace;
+      font-size: 1.5rem; 
+      text-decoration: none; 
+      border: 2px solid var(--accent-alt);
+      box-shadow: 4px 4px 0px var(--accent-alt); 
+      transition: 0.2s;
+      text-align: center;
+      border-radius: 4px;
+    }
+    .main-btn:hover { 
+      transform: translate(-2px, -2px); 
+      background: var(--accent-alt); 
+      color: #000; 
+      box-shadow: 6px 6px 0px var(--accent); 
+    }
+
+    /* --- RANDOM VIDEO BOX --- */
+    .video-display {
+      background: #0a0a0f;
+      color: var(--accent-alt);
+      padding: 20px;
+      font-family: 'VT323', monospace;
+      font-size: 1.5rem;
+      text-align: center;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      border: 1px solid #333;
     }
     .action-btn {
       width: 100%;
       background: var(--accent);
       color: #fff;
       border: none;
-      padding: 18px;
+      padding: 15px;
       font-family: 'VT323', monospace;
-      font-size: 1.8rem;
+      font-size: 1.6rem;
       cursor: pointer;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      transition: 0.1s;
+      border-radius: 8px;
+      transition: 0.2s;
     }
-    .action-btn:hover:not(:disabled) {
-      background: #fff;
-      color: #000;
-    }
-    .action-btn:active {
-      transform: scale(0.98);
-    }
-    .action-btn:disabled {
-      background: #333;
-      color: #666;
-      cursor: not-allowed;
-    }
+    .action-btn:hover { background: #fff; color: #000; }
 
-    /* --- FOOTER & LINKS --- */
-    .btn-container { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 60px; }
-    .main-btn {
-      background: #fff; color: #000; padding: 12px 30px; font-family: 'VT323', monospace;
-      font-size: 1.5rem; text-decoration: none; border: 2px solid var(--accent);
-      box-shadow: 6px 6px 0px var(--accent); transition: 0.2s;
+    footer {
+      padding: 40px;
+      text-align: center;
+      font-family: 'VT323';
+      color: #555;
+      border-top: 1px solid #333;
     }
-    .main-btn:hover { transform: translate(-2px, -2px); background: var(--accent); color: #fff; box-shadow: 8px 8px 0px var(--accent-alt); }
-
-    footer { padding-bottom: 40px; font-family: 'VT323'; color: #444; }
   </style>
 </head>
 <body>
 
-  <input type="checkbox" id="menuToggle" hidden>
-  <label for="menuToggle" class="hamburger-btn">☰ MENÜ</label>
+  <nav class="nav-header">
+    <a href="index.html" class="logo-area">
+      <img src="channels4_profile Schrottkiste.jpg" alt="Logo" class="nav-logo">
+      <span class="nav-brand">Schrottkiste</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">START</a></li>
+      <li><a href="app.html">APP</a></li>
+      <li><a href="ideen.html">PLAN</a></li>
+      <li><a href="radio.html">RADIO</a></li>
+    </ul>
+  </nav>
 
-  <aside class="custom-sidebar">
-    <nav>
-      <a href="index.html">Startseite</a>
-      <a href="app.html">App Download</a>
-      <a href="ideen.html">Content-Plan</a>
-      <a href="minecrafttahin.html">Minecraft-Tahin</a>
-      <a href="radio.html">TREASURE RADIO</a>
-    </nav>
-  </aside>
-
-  <header class="channel-banner">
-    <div class="banner-content">
-      <img src="channels4_profile Schrottkiste.jpg" alt="Schrottkiste Logo" class="banner-logo">
-      <h1 class="banner-main-title">Schrottkiste</h1>
-    </div>
+  <header class="hero">
+    <h1 class="banner-main-title">Schrottkiste</h1>
   </header>
 
-  <main class="content-area">
-    <section class="status-panel">
-      <span>UPDATE: 21.04.2026</span>
-      <span>READY_TO_WATCH</span>
-    </section>
+  <div class="main-grid">
+    <main>
+      <section class="status-panel">
+        <span>UPDATE: 21.04.2026</span>
+        <span>READY_TO_WATCH</span>
+      </section>
 
-    <section class="video-card">
-      <h2 class="video-title">Aktuellstes Video</h2>
-      <div class="responsive-video">
-        <iframe src="https://www.youtube.com/embed/ihpsxtqTRfo" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
+      <div class="card">
+        <h2 class="video-title">Aktuellstes Video</h2>
+        <div class="responsive-video">
+          <iframe src="https://www.youtube.com/embed/ihpsxtqTRfo" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
+        </div>
       </div>
-    </section>
 
-    <section class="random-video-section">
-      <div class="video-box">
+      <div class="card">
+        <h2 class="video-title">Shuffle Mode</h2>
         <div class="video-display" id="video-display">ZUFÄLLIGES VIDEO WÄHLEN?</div>
-        <button class="action-btn" id="random-btn" onclick="playRandomVideo()">Zufälliges YT-Video abspielen</button>
+        <button class="action-btn" id="random-btn" onclick="playRandomVideo()">Video finden</button>
       </div>
-    </section>
+    </main>
 
-    <div class="btn-container">
-      <a href="app.html" class="main-btn" style="border-color: var(--accent-alt);">DIE APP</a>
-      <a href="https://www.youtube.com/@Schrottkiste" target="_blank" class="main-btn">YOUTUBE</a>
-      <a href="minecrafttahin.html" class="main-btn">TAHIN</a>
-    </div>
-  </main>
+    <aside>
+      <div class="card">
+        <span class="sidebar-title">LINKS</span>
+        <div class="btn-container">
+          <a href="app.html" class="main-btn">DIE APP</a>
+          <a href="https://www.youtube.com/@Schrottkiste" target="_blank" class="main-btn">YOUTUBE</a>
+          <a href="minecrafttahin.html" class="main-btn">TAHIN</a>
+        </div>
+      </div>
+      
+      <div style="font-family: 'VT323'; font-size: 0.9rem; text-align: center; opacity: 0.5;">
+        © 2026 // ALL_SYSTEMS_GO
+      </div>
+    </aside>
+  </div>
 
   <footer>
-    © 2026 SCHROTTKISTE // ALL_SYSTEMS_GO
+    SCHROTTKISTE // EST. 2025
   </footer>
 
   <script>
@@ -212,7 +256,6 @@
     async function playRandomVideo() {
       const display = document.getElementById('video-display');
       const btn = document.getElementById('random-btn');
-
       btn.disabled = true;
       display.innerText = "WÄHLE VIDEO...";
 
@@ -220,7 +263,6 @@
         const response = await fetch(`https://www.googleapis.com/youtube/v3/search?key=${YT_KEY}&channelId=${CH_ID}&part=snippet,id&order=date&maxResults=30&type=video`);
         const data = await response.json();
         const vids = data.items;
-
         if (!vids || vids.length === 0) throw new Error();
 
         let i = 0;
@@ -228,13 +270,11 @@
           display.innerText = "MISCHE KANAL...";
           display.style.color = (i % 2 === 0) ? "var(--accent)" : "var(--accent-alt)";
           i++;
-
           if (i > 10) {
             clearInterval(shuffle);
             const picked = vids[Math.floor(Math.random() * vids.length)];
             display.innerText = "VIDEO GEFUNDEN!";
             display.style.color = "#39ff14";
-
             setTimeout(() => {
               window.open("https://www.youtube.com/watch?v=" + picked.id.videoId, "_blank");
               display.innerText = "ZUFÄLLIGES VIDEO WÄHLEN?";
@@ -243,7 +283,6 @@
             }, 800);
           }
         }, 120);
-
       } catch (e) {
         display.innerText = "FEHLER BEIM LADEN.";
         display.style.color = "red";
