@@ -29,7 +29,7 @@
     font-family: 'Poppins', sans-serif;
     color: var(--text-main);
     margin: 0;
-    padding-top: 110px; /* Leicht erhöht, falls die Navbar zweizeilig umbricht */
+    padding-top: 110px;
     text-align: center;
   }
 
@@ -118,7 +118,7 @@
     color: var(--accent-alt);
   }
 
-  /* NAVBAR (KATEGORIEN) - Optimiert gegen Vollpackung */
+  /* NAVBAR (KATEGORIEN) - Extra kompakt und aufgeräumt */
   #navbar {
     position: fixed;
     top: 0; left: 0; right: 0;
@@ -129,24 +129,23 @@
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    gap: 10px 15px; /* Kompakterer vertikaler und horizontaler Abstand */
+    gap: 8px 16px;
     padding: 12px 20px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
     z-index: 1000;
-    max-width: 100%;
   }
 
   .nav-item {
     color: var(--text-main);
     font-family: 'VT323', monospace;
-    font-size: 1.3rem; /* Minimal kleiner für besseren Platzkomfort */
+    font-size: 1.3rem;
     text-decoration: none;
     cursor: pointer;
-    padding: 2px 10px; /* Schmaleres Padding */
+    padding: 2px 8px;
     transition: all 0.2s ease;
     position: relative;
     border-radius: 6px;
-    white-space: nowrap; /* Verhindert hässliche Zeilenumbrüche im Text selbst */
+    white-space: nowrap;
   }
 
   .nav-item::after {
@@ -180,7 +179,6 @@
     padding: 20px 10px;
   }
 
-  /* Vertikale Timeline-Linie im Neon-Style */
   #soundContainer::before {
     content: "";
     position: absolute;
@@ -215,7 +213,6 @@
     margin: 25px 0;
   }
 
-  /* Punkt auf der Timeline */
   .sound-item::before {
     content: "";
     position: absolute;
@@ -345,9 +342,9 @@
     cursor: pointer;
   }
 
-  /* Mobile: Timeline einfacher, alles untereinander */
+  /* Mobile Layout */
   @media (max-width: 768px) {
-    body { padding-top: 140px; } /* Mehr Platz für umgebrochene Navbar auf Mobilgeräten */
+    body { padding-top: 140px; }
     
     #soundContainer {
       padding-left: 32px;
@@ -425,14 +422,13 @@ let currentButton = null;
 
 volumeSlider.value = globalVolume;
 
-// categoryMap erweitert um "lifeisstrange"
 const categoryMap = {
   "minecraft": ["Sweden", "Wet Hands", "Moog City 2 Minecraft"],
   "animal": ["5 P.M.", "Kapp'n", "Title Screen", "Wild World", "Title Theme"],
   "series": ["Cosmo", "Ducktales", "Gravity Falls", "Kim Possible", "Lauras", "LazyTown", "Phineas", "Spongebob", "Scooby", "Zoés", "ALF"],
   "littlebigplanet": ["LittleBigPlanet", "Victoria", "Gardens", "Wedding", "Wilderness"],
   "speedy": ["Speedy", "Eggbert", "Adventure", "Intro", "Level"],
-  "lifeisstrange": ["LIS"],
+  "lifeisstrange": ["Life is Strange", "LIS"], /* Matcht sowohl LIS als auch den vollen Namen */
   "other": ["8 Bit", "AU SCHWARTE", "alf theme"]
 };
 
@@ -478,7 +474,6 @@ function renderList(cat) {
     const item = document.createElement("div");
     item.classList.add("sound-item");
 
-    // Timeline-Seite: abwechselnd links/rechts
     if (index % 2 === 0) {
       item.classList.add("left");
     } else {
