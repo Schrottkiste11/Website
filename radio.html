@@ -50,10 +50,25 @@
     .section-title { font-family: 'VT323'; font-size: 1.1rem; color: var(--accent-alt); margin-bottom: 10px; display: block; }
 
     /* --- COMPONENTS --- */
-    .radio-box { grid-column: span 1; }
+    .radio-box { grid-column: span 1; display: flex; flex-direction: column; justify-content: space-between; }
     .show-name-big { font-family: 'VT323'; font-size: 1.6rem; color: #fff; line-height: 1.2; min-height: 4rem; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; }
     .song-artist { font-size: 1.1rem; color: #aaa; }
     .btn-play { background: var(--accent); color: white; border: none; padding: 12px; border-radius: 6px; font-family: 'VT323'; font-size: 1.4rem; cursor: pointer; width: 100%; margin-top: 15px; }
+
+    /* --- LAUTSTÄRKE REGLER --- */
+    .volume-container { margin-top: 15px; display: flex; flex-direction: column; gap: 5px; }
+    .volume-label { font-family: 'VT323'; font-size: 1.1rem; color: #666; display: flex; justify-content: space-between; }
+    .volume-slider {
+      -webkit-appearance: none; width: 100%; height: 6px; background: #111; border-radius: 3px; outline: none; transition: 0.2s;
+    }
+    .volume-slider::-webkit-slider-thumb {
+      -webkit-appearance: none; appearance: none; width: 16px; height: 16px; border-radius: 50%; background: var(--accent-alt); cursor: pointer; box-shadow: 0 0 8px var(--accent-alt); transition: 0.1s;
+    }
+    .volume-slider::-moz-range-thumb {
+      width: 16px; height: 16px; border-radius: 50%; background: var(--accent-alt); cursor: pointer; box-shadow: 0 0 8px var(--accent-alt); border: none; transition: 0.1s;
+    }
+    .volume-slider::-webkit-slider-thumb:hover { background: #fff; box-shadow: 0 0 12px #fff; }
+    .volume-slider::-moz-range-thumb:hover { background: #fff; box-shadow: 0 0 12px #fff; }
 
     .video-spotlight { grid-column: span 2; padding: 0; background: #000; border: 1px solid var(--accent-alt); overflow: hidden; height: fit-content; }
     .video-container { position: relative; padding-bottom: 56.25%; height: 0; }
@@ -108,12 +123,23 @@
     <div class="dashboard-grid">
       
       <section class="card radio-box">
-        <span class="section-title">CURRENT_PLAYING</span>
-        <div class="show-name-big">
-          <div id="song-title">LÄDT...</div>
-          <div id="song-artist" class="song-artist">...</div>
+        <div>
+          <span class="section-title">CURRENT_PLAYING</span>
+          <div class="show-name-big">
+            <div id="song-title">LÄDT...</div>
+            <div id="song-artist" class="song-artist">...</div>
+          </div>
         </div>
-        <button class="btn-play" id="play-btn">START STREAM</button>
+        <div>
+          <button class="btn-play" id="play-btn">START STREAM</button>
+          <div class="volume-container">
+            <div class="volume-label">
+              <span>VOLUME</span>
+              <span id="volume-val">80%</span>
+            </div>
+            <input type="range" id="volume-slider" class="volume-slider" min="0" max="100" value="80">
+          </div>
+        </div>
       </section>
 
       <section class="card video-spotlight">
@@ -151,7 +177,7 @@
         <div class="watch-val" id="uptime-display">00:00:00</div>
       </section>
 
-      <section class="card style="grid-column: span 2;">
+      <section class="card" style="grid-column: span 2;">
         <span class="section-title">PROJECT_STATUS</span>
         <p style="font-family: 'VT323'; font-size: 1.1rem; color: #aaa; margin-bottom: 5px;">Minecraft Tahin: Zelda Build</p>
         <div style="width: 100%; height: 8px; background: #111; border-radius: 4px;">
@@ -171,6 +197,8 @@
     const playBtn = document.getElementById('play-btn');
     const sysClock = document.getElementById('system-clock');
     const upDisplay = document.getElementById('uptime-display');
+    const volumeSlider = document.getElementById('volume-slider');
+    const volumeVal = document.getElementById('volume-val');
     
     // Elemente für die Live-Songanzeige
     const songTitleDisplay = document.getElementById('song-title');
@@ -185,6 +213,9 @@
     ];
 
     let lastTrackInfo = "";
+
+    // Standard-Lautstärke initialisieren (80%)
+    audio.volume = volumeSlider.value / 100;
 
     function addLog(msg, type = 'sys') {
       const time = new Date().toLocaleTimeString([], { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' });
@@ -248,6 +279,13 @@
       } else {
         audio.pause(); playBtn.innerText = "START STREAM"; addLog("Stream offline.", "sys");
       }
+    };
+
+    // Dynamische Lautstärken-Regelung
+    volumeSlider.oninput = (e) => {
+      const vol = e.target.value;
+      audio.volume = vol / 100;
+      volumeVal.innerText = `${vol}%`;
     };
 
     document.getElementById('send-btn').onclick = () => {
