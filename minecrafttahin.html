@@ -54,8 +54,8 @@
       width: 0%;
       background: #5aa13e;
       box-shadow: inset -6px 0px 0px #3e702b;
-      /* Die 10 Sekunden Animation */
-      animation: loadProgress 10s linear forwards;
+      /* Auf 3 Sekunden verkürzt */
+      animation: loadProgress 3s linear forwards;
     }
 
     @keyframes loadProgress {
@@ -287,12 +287,13 @@
   let index = 0;
   const textEl = document.getElementById('loading-text');
   
+  // Schnellerer Textwechsel (alle 600ms), passend zu den 3 Sekunden Gesamtzeit
   const textRotator = setInterval(() => {
     index = (index + 1) % statusTexts.length;
     textEl.innerText = statusTexts[index];
-  }, 2000);
+  }, 600);
 
-  // Nach 10 Sekunden den Ladescreen ausblenden
+  // Nach genau 3 Sekunden (3000ms) den Ladescreen ausblenden
   setTimeout(() => {
     clearInterval(textRotator);
     const overlay = document.getElementById('loading-overlay');
@@ -300,7 +301,7 @@
     setTimeout(() => {
       overlay.style.display = 'none';
     }, 800);
-  }, 10000);
+  }, 3000);
 </script>
 
 </body>
