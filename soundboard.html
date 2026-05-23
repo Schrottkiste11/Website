@@ -30,6 +30,7 @@
     color: var(--text-main);
     margin: 0;
     padding-top: 110px;
+    padding-bottom: 90px;
     text-align: center;
   }
 
@@ -118,7 +119,7 @@
     color: var(--accent-alt);
   }
 
-  /* NAVBAR (KATEGORIEN) - Extra kompakt und aufgeräumt */
+  /* NAVBAR (KATEGORIEN) */
   #navbar {
     position: fixed;
     top: 0; left: 0; right: 0;
@@ -297,21 +298,24 @@
     100% { transform: scale(1.05); filter: drop-shadow(0 0 12px var(--accent)); }
   }
 
-  /* VOLUME CONTROL */
+  /* VOLUME CONTROL — schwebt fixiert am unteren Bildschirmrand */
   #volumeControl {
-    margin-top: 30px;
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 15px;
-    background: rgba(0, 255, 255, 0.05);
+    background: rgba(26, 26, 36, 0.92);
     border: 2px dashed var(--accent-alt);
     border-radius: 10px;
     padding: 12px 25px;
     width: fit-content;
-    margin-left: auto;
-    margin-right: auto;
-    box-shadow: 0 10px 24px rgba(0,0,0,0.15);
+    backdrop-filter: blur(14px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    z-index: 999;
   }
 
   #volumeControl label {
@@ -371,6 +375,15 @@
       margin-left: 0;
       margin-right: 0;
     }
+
+    #volumeControl {
+      width: calc(100% - 40px);
+      padding: 10px 16px;
+    }
+
+    input[type="range"] {
+      width: 100%;
+    }
   }
 </style>
 </head>
@@ -428,7 +441,7 @@ const categoryMap = {
   "series": ["Cosmo", "Ducktales", "Gravity Falls", "Kim Possible", "Lauras", "LazyTown", "Phineas", "Spongebob", "Scooby", "Zoés", "ALF"],
   "littlebigplanet": ["LittleBigPlanet", "Victoria", "Gardens", "Wedding", "Wilderness"],
   "speedy": ["Speedy", "Eggbert", "Adventure", "Intro", "Level"],
-  "lifeisstrange": ["Life is Strange", "LIS"], /* Matcht sowohl LIS als auch den vollen Namen */
+  "lifeisstrange": ["Life is Strange", "LIS"],
   "other": ["8 Bit", "AU SCHWARTE", "alf theme"]
 };
 
