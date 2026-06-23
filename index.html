@@ -162,48 +162,35 @@
   <footer>SCHROTTKISTE // EST. 2025</footer>
 
   <script>
-    const YT_KEY = 'AIzaSyBjXEtn67lwtWcbRo95C7k3V0egrhkjygM';
-    const CH_ID = 'UCiCt3UwZjOAFpF5Yce6DhLA';
-
     async function playRandomVideo() {
       const display = document.getElementById('video-display');
       const btn = document.getElementById('random-btn');
       btn.disabled = true;
-      display.innerText = "WÄHLE VIDEO...";
+      display.innerText = "LADE KANAL...";
+      display.style.color = "var(--accent-alt)";
 
       try {
-        const response = await fetch(`https://www.googleapis.com/youtube/v3/search?key=${YT_KEY}&channelId=${CH_ID}&part=snippet,id&order=date&maxResults=30&type=video`);
+        const channelId = 'UCiCt3UwZjOAFpF5Yce6DhLA';
+        const url = `https://api.rss2json.com/v1/api.json?rss_url=https://www.youtube.com/feeds/videos.xml?channel_id=${channelId}`;
+        const response = await fetch(url);
         const data = await response.json();
         
-        if (data.error) {
-            console.error("API Error:", data.error.message);
-            throw new Error(data.error.message);
-        }
+        if (data.status !== 'ok') throw new Error();
 
         const vids = data.items;
-        if (!vids || vids.length === 0) throw new Error("Keine Videos gefunden");
+        const picked = vids[Math.floor(Math.random() * vids.length)];
 
-        let i = 0;
-        const shuffle = setInterval(() => {
-          display.innerText = "MISCHE KANAL...";
-          display.style.color = (i % 2 === 0) ? "var(--accent)" : "var(--accent-alt)";
-          i++;
-          if (i > 10) {
-            clearInterval(shuffle);
-            const picked = vids[Math.floor(Math.random() * vids.length)];
-            display.innerText = "VIDEO GEFUNDEN!";
-            display.style.color = "#39ff14";
-            setTimeout(() => {
-              window.open("https://www.youtube.com/watch?v=" + picked.id.videoId, "_blank");
-              display.innerText = "ZUFÄLLIGES VIDEO?";
-              display.style.color = "var(--accent-alt)";
-              btn.disabled = false;
-            }, 800);
-          }
-        }, 120);
+        display.innerText = "VIDEO GEFUNDEN!";
+        display.style.color = "#39ff14";
+        
+        setTimeout(() => {
+          window.open(picked.link, "_blank");
+          display.innerText = "ZUFÄLLIGES VIDEO?";
+          display.style.color = "var(--accent-alt)";
+          btn.disabled = false;
+        }, 800);
       } catch (e) {
-        console.error("Fehler beim Abrufen:", e);
-        display.innerText = "FEHLER.";
+        display.innerText = "FEHLER BEIM LADEN.";
         display.style.color = "red";
         setTimeout(() => {
           display.innerText = "ZUFÄLLIGES VIDEO?";
