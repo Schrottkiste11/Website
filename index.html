@@ -16,24 +16,18 @@
     .nav-main { display: flex; align-items: center; gap: 20px; }
     .nav-links { display: flex; gap: 20px; list-style: none; font-family: 'VT323', monospace; }
     .nav-links a { text-decoration: none; color: #fff; font-size: 1.2rem; }
+    
     .nav-socials { display: flex; gap: 15px; padding-left: 15px; border-left: 1px solid #444; }
-    .nav-socials a { color: #fff; font-size: 1.2rem; }
+    .nav-socials a { color: #fff; font-size: 1.2rem; transition: transform 0.3s ease, color 0.3s ease; display: inline-block; }
+    .nav-socials a:hover { color: var(--accent-alt); transform: translateY(-3px) scale(1.2); }
 
     .section-full { width: 100%; padding: 40px 5%; border-bottom: 3px solid var(--accent); }
-    
-    /* Spezielle Sektion für den Shuffle-Mode mit dünner Linie */
     .section-footer-style { width: 100%; padding: 40px 5%; border-bottom: 1px solid var(--line-color); }
     
     .banner-main-title { font-family: 'Chewy', cursive; font-size: 4rem; color: #fff; text-shadow: 4px 4px 0px var(--accent); text-align: center; margin-bottom: 20px; }
     h2 { font-family: 'VT323', monospace; color: var(--accent-alt); margin-bottom: 20px; font-size: 2rem; }
 
-    #video-feed { 
-        display: grid; 
-        gap: 20px; 
-        grid-template-columns: repeat(4, 1fr); 
-        max-width: 1200px; 
-        margin: 0 auto; 
-    }
+    #video-feed { display: grid; gap: 20px; grid-template-columns: repeat(4, 1fr); max-width: 1200px; margin: 0 auto; }
     
     .video-wrapper { 
         padding: 5px; 
