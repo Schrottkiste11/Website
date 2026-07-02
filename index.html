@@ -20,49 +20,35 @@
     .nav-socials { display: flex; gap: 15px; padding-left: 15px; border-left: 1px solid #444; }
     .nav-socials a { color: #fff; font-size: 1.2rem; transition: transform 0.3s ease, color 0.3s ease; display: inline-block; }
     .nav-socials a:hover { transform: translateY(-3px) scale(1.2); }
-    .nav-socials a:nth-child(1):hover { color: #9146FF; } /* Twitch */
-    .nav-socials a:nth-child(2):hover { color: #FF0000; } /* YouTube */
-
-    .section-full { width: 100%; padding: 40px 5%; border-bottom: 3px solid var(--accent); }
-    .section-footer-style { width: 100%; padding: 40px 5%; border-bottom: 1px solid var(--line-color); }
+    
+    .page-wrapper { display: flex; flex-direction: row; padding: 40px 5%; gap: 40px; max-width: 1600px; margin: 0 auto; }
+    .main-content { flex: 3; }
+    .sidebar { flex: 1; min-width: 250px; }
+    
+    .section-full { width: 100%; padding: 40px 0; border-bottom: 3px solid var(--accent); }
+    .section-footer-style { width: 100%; padding: 40px 0; border-bottom: 1px solid var(--line-color); }
     
     .banner-main-title { font-family: 'Chewy', cursive; font-size: 4rem; color: #fff; text-shadow: 4px 4px 0px var(--accent); text-align: center; margin-bottom: 20px; }
     h2 { font-family: 'VT323', monospace; color: var(--accent-alt); margin-bottom: 20px; font-size: 2rem; }
 
-    #video-feed { display: grid; gap: 20px; grid-template-columns: repeat(4, 1fr); max-width: 1200px; margin: 0 auto; }
-    
-    .video-wrapper { 
-        padding: 5px; 
-        border: 2px solid transparent; 
-        border-radius: 14px; 
-        transition: transform 0.5s ease-in-out, box-shadow 0.5s ease-in-out, border-color 0.5s ease-in-out; 
+    .playlist-list { list-style: none; display: flex; flex-direction: column; gap: 15px; }
+    .playlist-item { 
+        background: var(--card-bg); padding: 15px; border-radius: 8px; 
+        border-left: 4px solid var(--accent); text-decoration: none; color: #fff;
+        font-family: 'VT323', monospace; transition: 0.3s;
     }
-    .video-wrapper:hover { 
-        transform: scale(1.03); 
-        border-color: var(--accent-alt); 
-        box-shadow: 0 10px 20px rgba(0, 255, 255, 0.3); 
-        z-index: 10;
-    }
+    .playlist-item:hover { background: #333; transform: translateX(5px); }
 
-    .video-container { grid-column: span 1; }
-    .video-container:nth-child(1), .video-container:nth-child(2) { grid-column: span 2; }
-    
+    #video-feed { display: grid; gap: 20px; grid-template-columns: repeat(3, 1fr); }
+    .video-wrapper { padding: 5px; border: 2px solid transparent; border-radius: 14px; transition: 0.5s; }
     .responsive-embed { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px; border: 2px solid var(--accent); }
     .responsive-embed iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
     
-    .action-btn { width: 100%; max-width: 400px; background: var(--accent); color: #fff; border: none; padding: 15px; font-family: 'VT323', monospace; font-size: 1.5rem; cursor: pointer; border-radius: 8px; margin-top: 20px; }
+    .action-btn { width: 100%; background: var(--accent); color: #fff; border: none; padding: 15px; font-family: 'VT323', monospace; font-size: 1.5rem; cursor: pointer; border-radius: 8px; }
     
     footer { padding: 30px; text-align: center; font-family: 'VT323', monospace; color: #555; border-top: 1px solid var(--line-color); }
-    .footer-date { font-size: 0.8rem; display: block; margin-top: 5px; }
 
-    @media (max-width: 768px) {
-      .nav-links { gap: 10px; }
-      .nav-links a { font-size: 1rem; }
-      .banner-main-title { font-size: 2.5rem; }
-      #video-feed { grid-template-columns: 1fr; } 
-      .video-container:nth-child(1), .video-container:nth-child(2) { grid-column: span 1; }
-      .video-wrapper:hover { transform: scale(1.01); }
-    }
+    @media (max-width: 950px) { .page-wrapper { flex-direction: column; } #video-feed { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
@@ -83,24 +69,35 @@
     </div>
   </nav>
 
-  <section class="section-full">
+  <section class="section-full" style="border:none;">
     <h1 class="banner-main-title">Schrottkiste</h1>
   </section>
 
-  <section class="section-full">
-    <h2>LETZTE 10 VIDEOS & STREAMS</h2>
-    <div id="video-feed">Lade Inhalte...</div>
-  </section>
+  <div class="page-wrapper">
+    <div class="main-content">
+        <section class="section-full">
+            <h2>LETZTE 10 VIDEOS & STREAMS</h2>
+            <div id="video-feed">Lade Inhalte...</div>
+        </section>
 
-  <section class="section-full">
-    <h2>Wer bin ich?</h2>
-    <p style="font-size: 1.2rem; max-width: 800px;">Hi ich bin Luka aka Schrottkiste, ich bin 20 Jahre alt. Diese Website ist aus einer Hobby Idee entstanden und hat sich hierher weiterentwickelt.</p>
-  </section>
+        <section class="section-full">
+            <h2>Wer bin ich?</h2>
+            <p style="font-size: 1.2rem;">Hi ich bin Luka aka Schrottkiste, ich bin 20 Jahre alt. Diese Website ist aus einer Hobby Idee entstanden und hat sich hierher weiterentwickelt.</p>
+        </section>
 
-  <section class="section-footer-style">
-    <h2>SHUFFLE MODE</h2>
-    <button class="action-btn" id="random-btn" onclick="playRandomVideo()">VIDEO FINDEN</button>
-  </section>
+        <section class="section-footer-style">
+            <h2>SHUFFLE MODE</h2>
+            <button class="action-btn" id="random-btn" onclick="playRandomVideo()">VIDEO FINDEN</button>
+        </section>
+    </div>
+
+    <aside class="sidebar">
+        <h2>Meine Jahresplaylists</h2>
+        <ul id="playlist-container" class="playlist-list">
+            <li>Lade Playlists...</li>
+        </ul>
+    </aside>
+  </div>
 
   <footer>
     SCHROTTKISTE // EST. 2025
@@ -108,26 +105,57 @@
   </footer>
 
   <script>
+    const API_KEY = 'AIzaSyBjXEtn67lwtWcbRo95C7k3V0egrhkjygM';
+    const playlistIds = [
+        'PLQLA52U7_qBOkmumSrvGZbE3CPPGqoLQX',
+        'PLQLA52U7_qBPqddrF9dAD9pR5HOhI-zpq',
+        'PLQLA52U7_qBNL4S4PhAzWYsu15Ta2q80B',
+        'PLQLA52U7_qBPJNw536VhdzwEmSeVHGCqx'
+    ];
+
+    // Lade Videos vom Kanal
     async function loadFeed() {
       const url = `https://api.rss2json.com/v1/api.json?rss_url=https://www.youtube.com/feeds/videos.xml?channel_id=UCiCt3UwZjOAFpF5Yce6DhLA`;
       try {
         const res = await fetch(url);
         const data = await res.json();
         const container = document.getElementById('video-feed');
-        container.innerHTML = data.items.slice(0, 10).map(item => {
+        container.innerHTML = data.items.slice(0, 9).map(item => {
           const videoId = item.link.split('v=')[1] || item.link.split('/').pop();
           return `
             <div class="video-wrapper">
-              <div class="video-container">
-                <div class="responsive-embed">
-                  <iframe src="https://www.youtube.com/embed/${videoId}" allowfullscreen></iframe>
-                </div>
+              <div class="responsive-embed">
+                <iframe src="https://www.youtube.com/embed/${videoId}" allowfullscreen></iframe>
               </div>
             </div>`;
         }).join('');
       } catch(e) { document.getElementById('video-feed').innerText = "Fehler beim Laden."; }
     }
-    loadFeed();
+
+    // Lade Playlist-Metadaten via V3 API
+    async function loadPlaylistMetadata() {
+        const container = document.getElementById('playlist-container');
+        try {
+            const ids = playlistIds.join(',');
+            const url = `https://www.googleapis.com/youtube/v3/playlists?part=snippet,contentDetails&id=${ids}&key=${API_KEY}`;
+            const response = await fetch(url);
+            const data = await response.json();
+
+            container.innerHTML = data.items.map(pl => `
+                <li>
+                    <a href="https://music.youtube.com/playlist?list=${pl.id}" target="_blank" class="playlist-item" style="display:flex; align-items:center; gap:10px;">
+                        <img src="${pl.snippet.thumbnails.default.url}" style="width:50px; border-radius:4px;">
+                        <div>
+                            <div style="font-size: 1.1rem;">${pl.snippet.title}</div>
+                            <div style="font-size: 0.8rem; color: #00ffff;">${pl.contentDetails.itemCount} Tracks</div>
+                        </div>
+                    </a>
+                </li>
+            `).join('');
+        } catch (e) {
+            container.innerHTML = '<li>Fehler beim Laden der Playlists.</li>';
+        }
+    }
 
     async function playRandomVideo() {
         const url = `https://api.rss2json.com/v1/api.json?rss_url=https://www.youtube.com/feeds/videos.xml?channel_id=UCiCt3UwZjOAFpF5Yce6DhLA`;
@@ -136,6 +164,9 @@
         const picked = data.items[Math.floor(Math.random() * data.items.length)];
         window.open(picked.link, "_blank");
     }
+
+    loadFeed();
+    loadPlaylistMetadata();
   </script>
 </body>
 </html>
