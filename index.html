@@ -4,86 +4,48 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Schrottkiste – Home</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;600&family=Chewy&family=VT323&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;600&family=Chewy&display=swap" rel="stylesheet">
   <style>
-    :root { --accent: #ff0099; --accent-alt: #00ffff; --bg: #1a1a24; --card-bg: #242430; --text: #f3f1ff; --line-color: #444; }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root { --accent: #ff0099; --bg: #0f0f0f; --card-bg: #1e1e1e; --text: #ffffff; }
     body { background: var(--bg); font-family: 'Roboto', sans-serif; color: var(--text); }
     
-    .nav-header { background: var(--card-bg); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--line-color); }
-    .nav-brand { font-family: 'Chewy', cursive; font-size: 1.8rem; color: #fff; text-decoration: none; }
-    .nav-links { display: flex; gap: 20px; list-style: none; font-family: 'VT323', monospace; }
-    .nav-links a { text-decoration: none; color: #fff; font-size: 1.2rem; }
-    
     .page-wrapper { display: flex; padding: 40px 5%; gap: 40px; max-width: 1600px; margin: 0 auto; }
-    .main-content { flex: 3; }
-    .sidebar { flex: 1; min-width: 280px; }
-    
-    .section-full { width: 100%; padding: 40px 0; border-bottom: 3px solid var(--accent); }
-    .banner-main-title { font-family: 'Chewy', cursive; font-size: 4rem; color: #fff; text-shadow: 4px 4px 0px var(--accent); text-align: center; margin-bottom: 20px; }
-    h2 { font-family: 'VT323', monospace; color: var(--accent-alt); margin-bottom: 20px; font-size: 2rem; }
+    .sidebar { width: 300px; }
+    h2 { font-family: 'Chewy', cursive; color: var(--accent); margin-bottom: 20px; font-size: 2rem; }
 
-    /* YT Music Sidebar Design */
-    .playlist-list { list-style: none; display: flex; flex-direction: column; gap: 15px; }
-    .playlist-item { display: flex; align-items: center; gap: 15px; text-decoration: none; color: #fff; transition: transform 0.2s; }
-    .playlist-item:hover { transform: translateX(5px); }
-    .thumb-wrap { position: relative; width: 65px; height: 65px; flex-shrink: 0; box-shadow: 0 8px 16px rgba(0,0,0,0.4); border-radius: 8px; }
-    .thumb-wrap img { width: 100%; height: 100%; border-radius: 8px; object-fit: cover; }
-    .playlist-title { font-weight: 600; font-size: 1rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .playlist-meta { font-size: 0.85rem; color: #aaa; margin-top: 2px; }
-
-    /* Video Feed */
-    #video-feed { display: grid; gap: 20px; grid-template-columns: repeat(4, 1fr); }
-    .responsive-embed { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px; border: 2px solid var(--accent); }
-    .responsive-embed iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
-    
-    .action-btn { width: 100%; background: var(--accent); color: #fff; border: none; padding: 15px; font-family: 'VT323', monospace; font-size: 1.5rem; cursor: pointer; border-radius: 8px; margin-top: 20px; }
-    footer { padding: 30px; text-align: center; font-family: 'VT323', monospace; color: #555; border-top: 1px solid var(--line-color); }
-
-    @media (max-width: 950px) { .page-wrapper { flex-direction: column; } #video-feed { grid-template-columns: 1fr; } }
+    /* Playlist Kacheln ohne Link-Unterstreichung oder Text-Optik */
+    .playlist-list { list-style: none; display: flex; flex-direction: column; gap: 20px; }
+    .playlist-card { 
+        display: block; 
+        background: var(--card-bg); 
+        padding: 12px; 
+        border-radius: 12px; 
+        text-decoration: none; 
+        color: inherit; 
+        transition: background 0.3s;
+    }
+    .playlist-card:hover { background: #333; }
+    .card-thumb { width: 100%; aspect-ratio: 1/1; border-radius: 8px; object-fit: cover; margin-bottom: 10px; }
+    .card-title { font-weight: 600; font-size: 1.1rem; }
+    .card-meta { font-size: 0.9rem; color: #aaa; margin-top: 4px; }
   </style>
 </head>
 <body>
 
-  <nav class="nav-header">
-    <a href="index.html" class="nav-brand">Schrottkiste</a>
-    <ul class="nav-links">
-        <li><a href="index.html">START</a></li>
-        <li><a href="ideen.html">PLAN</a></li>
-    </ul>
-  </nav>
-
-  <section class="section-full">
-    <h1 class="banner-main-title">Schrottkiste</h1>
-  </section>
-
   <div class="page-wrapper">
-    <div class="main-content">
-        <section class="section-full">
-            <h2>LETZTE VIDEOS</h2>
-            <div id="video-feed">Lade Inhalte...</div>
-        </section>
-        <button class="action-btn" onclick="playRandomVideo()">SHUFFLE MODE</button>
-    </div>
-
     <aside class="sidebar">
-        <h2>Meine Jahresplaylists</h2>
-        <ul id="playlist-container" class="playlist-list">
-            <li>Lade Playlists...</li>
-        </ul>
+        <h2>Jahresplaylists</h2>
+        <div id="playlist-container" class="playlist-list">
+            <div>Lade...</div>
+        </div>
     </aside>
   </div>
-
-  <footer>SCHROTTKISTE // EST. 2025</footer>
 
   <script>
     const API_KEY = 'AIzaSyBjXEtn67lwtWcbRo95C7k3V0egrhkjygM';
     const playlistData = [
         {id: 'PLQLA52U7_qBOkmumSrvGZbE3CPPGqoLQX', title: 'Jahresplaylist 2026'},
-        {id: 'PLQLA52U7_qBPqddrF9dAD9pR5HOhI-zpq', title: 'Jahresplaylist 2025'},
-        {id: 'PLQLA52U7_qBNL4S4PhAzWYsu15Ta2q80B', title: 'Jahresplaylist 2024'},
-        {id: 'PLQLA52U7_qBPJNw536VhdzwEmSeVHGCqx', title: 'Jahresplaylist 2023'}
+        {id: 'PLQLA52U7_qBPqddrF9dAD9pR5HOhI-zpq', title: 'Jahresplaylist 2025'}
     ];
 
     async function loadPlaylistMetadata() {
@@ -93,40 +55,17 @@
             const res = await fetch(url);
             const data = await res.json();
             container.innerHTML = data.items.map(pl => `
-                <li>
-                    <a href="https://music.youtube.com/playlist?list=${pl.id}" target="_blank" class="playlist-item">
-                        <div class="thumb-wrap">
-                            <img src="${pl.snippet.thumbnails.medium.url}" alt="Cover">
-                        </div>
-                        <div class="playlist-info">
-                            <div class="playlist-title">${pl.snippet.title}</div>
-                            <div class="playlist-meta">${pl.contentDetails.itemCount} Titel • Schrottkiste</div>
-                        </div>
-                    </a>
-                </li>
+                <a href="https://music.youtube.com/playlist?list=${pl.id}" target="_blank" class="playlist-card">
+                    <img src="${pl.snippet.thumbnails.high.url}" class="card-thumb" alt="Cover">
+                    <div class="card-title">${pl.snippet.title}</div>
+                    <div class="card-meta">${pl.contentDetails.itemCount} Tracks</div>
+                </a>
             `).join('');
         } catch (e) {
-            container.innerHTML = playlistData.map(p => `
-                <li><a href="https://music.youtube.com/playlist?list=${p.id}" target="_blank" class="playlist-item">${p.title}</a></li>
-            `).join('');
+            container.innerHTML = "Fehler.";
         }
     }
-    
-    async function loadFeed() {
-        const res = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=https://www.youtube.com/feeds/videos.xml?channel_id=UCiCt3UwZjOAFpF5Yce6DhLA`);
-        const data = await res.json();
-        document.getElementById('video-feed').innerHTML = data.items.slice(0, 8).map(item => `
-            <div class="responsive-embed"><iframe src="https://www.youtube.com/embed/${item.link.split('v=')[1]}" allowfullscreen></iframe></div>
-        `).join('');
-    }
-
-    async function playRandomVideo() {
-        const res = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=https://www.youtube.com/feeds/videos.xml?channel_id=UCiCt3UwZjOAFpF5Yce6DhLA`);
-        const data = await res.json();
-        window.open(data.items[Math.floor(Math.random() * data.items.length)].link, "_blank");
-    }
-
-    loadFeed(); loadPlaylistMetadata();
+    loadPlaylistMetadata();
   </script>
 </body>
 </html>
