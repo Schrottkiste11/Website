@@ -113,7 +113,6 @@
         'PLQLA52U7_qBPJNw536VhdzwEmSeVHGCqx'
     ];
 
-    // Lade Videos vom Kanal
     async function loadFeed() {
       const url = `https://api.rss2json.com/v1/api.json?rss_url=https://www.youtube.com/feeds/videos.xml?channel_id=UCiCt3UwZjOAFpF5Yce6DhLA`;
       try {
@@ -132,7 +131,6 @@
       } catch(e) { document.getElementById('video-feed').innerText = "Fehler beim Laden."; }
     }
 
-    // Lade Playlist-Metadaten via V3 API
     async function loadPlaylistMetadata() {
         const container = document.getElementById('playlist-container');
         try {
@@ -143,11 +141,16 @@
 
             container.innerHTML = data.items.map(pl => `
                 <li>
-                    <a href="https://music.youtube.com/playlist?list=${pl.id}" target="_blank" class="playlist-item" style="display:flex; align-items:center; gap:10px;">
-                        <img src="${pl.snippet.thumbnails.default.url}" style="width:50px; border-radius:4px;">
-                        <div>
-                            <div style="font-size: 1.1rem;">${pl.snippet.title}</div>
-                            <div style="font-size: 0.8rem; color: #00ffff;">${pl.contentDetails.itemCount} Tracks</div>
+                    <a href="https://music.youtube.com/playlist?list=${pl.id}" target="_blank" class="playlist-item" style="display:flex; align-items:center; gap:12px; transition: 0.3s;">
+                        <div style="position:relative;">
+                            <img src="${pl.snippet.thumbnails.default.url}" style="width:60px; height:60px; border-radius:8px; object-fit:cover;">
+                            <i class="fa-brands fa-youtube" style="position:absolute; bottom:2px; right:2px; color:#ff0000; background:white; border-radius:50%; padding:2px; font-size:0.8rem;"></i>
+                        </div>
+                        <div style="overflow:hidden;">
+                            <div style="font-size: 1rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${pl.snippet.title}</div>
+                            <div style="font-size: 0.8rem; color: #aaa; margin-top: 2px;">
+                                <i class="fa-solid fa-music"></i> ${pl.contentDetails.itemCount} Tracks
+                            </div>
                         </div>
                     </a>
                 </li>
