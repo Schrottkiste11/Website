@@ -30,9 +30,9 @@
     .blog-post { background: var(--card-bg); padding: 25px; border-radius: 12px; margin-bottom: 30px; border-left: 5px solid var(--accent); }
     .post-time { font-family: 'VT323', monospace; opacity: 0.7; font-size: 0.9rem; margin-bottom: 10px; display: block; }
     .post-title { font-size: 1.8rem; margin-bottom: 15px; color: var(--accent-alt); }
-    .post-text { line-height: 1.6; transition: 0.3s; }
+    .post-text { line-height: 1.6; transition: 0.3s; max-height: 1000px; }
     .collapsed { display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
-    .read-more { background: var(--accent); color: #fff; border: none; padding: 8px 15px; cursor: pointer; border-radius: 4px; font-family: 'VT323', monospace; margin-top: 15px; }
+    .read-more { background: var(--accent); color: #fff; border: none; padding: 8px 15px; cursor: pointer; border-radius: 4px; font-family: 'VT323', monospace; margin-top: 15px; display: none; }
     
     .playlist-item { margin-bottom: 20px; text-align: center; }
     .cover-img { width: 100%; max-width: 200px; border-radius: 8px; display: block; margin: 0 auto 5px; transition: 0.3s; }
@@ -67,7 +67,7 @@
         <div class="post-text collapsed" id="text-1">
           Ich habe mir überlegt, es wäre vielleicht ganz cool, einen Blog hier zu führen. Vielleicht gefällt euch diese Idee ja auch. Rechts seht ihr schon, befindet sich Musik die ich mir bei YT Music zusammengestellt habe. Schaut dort gerne mal rein.
         </div>
-        <button class="read-more" onclick="toggleText('text-1', this)">Weiterlesen</button>
+        <button class="read-more" id="btn-1" onclick="toggleText('text-1', this)">Weiterlesen</button>
       </article>
     </main>
 
@@ -78,6 +78,13 @@
   </div>
 
   <script>
+    // Logik: Button nur anzeigen, wenn der Text wirklich gekürzt wurde
+    document.querySelectorAll('.post-text').forEach((el, index) => {
+        if (el.scrollHeight > el.clientHeight) {
+            document.getElementById(`btn-${index + 1}`).style.display = 'block';
+        }
+    });
+
     function toggleText(id, btn) {
         const el = document.getElementById(id);
         el.classList.toggle('collapsed');
