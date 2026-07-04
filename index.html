@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Schrottkiste – Home</title>
+  <title>Schrottkiste – Radio</title>
   <link href="https://fonts.googleapis.com/css2?family=Chewy&family=Poppins:wght@300;400;600&family=VT323&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
@@ -16,11 +16,7 @@
     .nav-right { display: flex; align-items: center; gap: 20px; }
     .nav-links { display: flex; gap: 20px; list-style: none; font-family: 'VT323', monospace; }
     .nav-links a { text-decoration: none; color: #fff; font-size: 1.2rem; }
-    
-    /* Vertikaler Strich */
     .nav-divider { width: 1px; height: 24px; background: var(--line-color); margin: 0 10px; }
-    
-    /* Social Media Hover Effekte */
     .social-btns { display: flex; gap: 15px; align-items: center; }
     .social-btn { color: #fff; font-size: 1.5rem; transition: 0.3s; }
     .social-btn.twitch:hover { color: #9146ff; }
@@ -34,19 +30,17 @@
     .banner-main-title { font-family: 'Chewy', cursive; font-size: 4rem; color: #fff; text-shadow: 4px 4px 0px var(--accent); text-align: center; margin-bottom: 20px; }
     h2 { font-family: 'VT323', monospace; color: var(--accent-alt); margin-bottom: 20px; font-size: 2rem; }
 
-    /* Player Bereich */
     .responsive-embed { position: relative; padding-bottom: 56.25%; height: 0; background: #000; border-radius: 12px; overflow: hidden; border: 3px solid var(--accent); }
     .responsive-embed iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
 
-    /* Playlist Kacheln */
-    .playlist-nav { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
-    .cover-btn { background: none; border: none; padding: 0; cursor: pointer; border-radius: 8px; overflow: hidden; border: 2px solid transparent; }
+    .playlist-nav { display: grid; gap: 20px; }
+    .playlist-item { display: flex; flex-direction: column; gap: 10px; }
+    .cover-btn { background: none; border: 2px solid transparent; padding: 0; cursor: pointer; border-radius: 8px; overflow: hidden; transition: 0.3s; }
     .cover-btn:hover { border-color: var(--accent); }
-    .cover-img { width: 100%; aspect-ratio: 1/1; object-fit: cover; display: block; }
+    .cover-img { width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block; }
+    .playlist-title { font-family: 'VT323', monospace; font-size: 1.2rem; text-align: center; color: #fff; }
 
-    .action-btn { background: var(--accent); color: #fff; border: none; padding: 15px 30px; font-family: 'VT323', monospace; font-size: 1.5rem; cursor: pointer; border-radius: 8px; margin-top: 20px; }
     footer { padding: 40px; text-align: center; color: #555; border-top: 1px solid var(--line-color); }
-
     @media (max-width: 950px) { .page-wrapper { flex-direction: column; } }
   </style>
 </head>
@@ -69,10 +63,6 @@
     </div>
   </nav>
 
-  <section class="section-full">
-    <h1 class="banner-main-title">Schrottkiste</h1>
-  </section>
-
   <div class="page-wrapper">
     <div class="main-content">
         <section class="section-full">
@@ -80,34 +70,55 @@
             <div class="responsive-embed" id="player">
                 <iframe src="https://www.youtube.com/embed/videoseries?list=PLQLA52U7_qBOkmumSrvGZbE3CPPGqoLQX" allowfullscreen></iframe>
             </div>
-            <button class="action-btn" onclick="playRandomVideo()">SHUFFLE MODE</button>
         </section>
     </div>
 
     <aside class="sidebar">
         <h2>Meine Playlists</h2>
-        <div class="playlist-nav">
-            <button class="cover-btn" onclick="setPlaylist('PLQLA52U7_qBOkmumSrvGZbE3CPPGqoLQX')"><img src="https://i.ytimg.com/vi/a-d7N03wW9o/hqdefault.jpg" class="cover-img"></button>
-            <button class="cover-btn" onclick="setPlaylist('PLQLA52U7_qBPqddrF9dAD9pR5HOhI-zpq')"><img src="https://i.ytimg.com/vi/b-d7N03wW9o/hqdefault.jpg" class="cover-img"></button>
-            <button class="cover-btn" onclick="setPlaylist('PLQLA52U7_qBNL4S4PhAzWYsu15Ta2q80B')"><img src="https://i.ytimg.com/vi/c-d7N03wW9o/hqdefault.jpg" class="cover-img"></button>
-            <button class="cover-btn" onclick="setPlaylist('PLQLA52U7_qBPJNw536VhdzwEmSeVHGCqx')"><img src="https://i.ytimg.com/vi/d-d7N03wW9o/hqdefault.jpg" class="cover-img"></button>
-            <button class="cover-btn" onclick="setPlaylist('PLQLA52U7_qBN4VcQskCzUQoONu-RMwgwP')"><img src="https://i.ytimg.com/vi/e-d7N03wW9o/hqdefault.jpg" class="cover-img"></button>
-        </div>
+        <div id="playlist-container" class="playlist-nav"></div>
     </aside>
   </div>
 
   <footer>SCHROTTKISTE // EST. 2025</footer>
 
   <script>
+    const API_KEY = 'AIzaSyBjXEtn67lwtWcbRo95C7k3V0egrhkjygM';
+    const playlistIds = [
+        'PLQLA52U7_qBOkmumSrvGZbE3CPPGqoLQX',
+        'PLQLA52U7_qBPJNw536VhdzwEmSeVHGCqx',
+        'PLQLA52U7_qBN4VcQskCzUQoONu-RMwgwP',
+        'PLQLA52U7_qBPqddrF9dAD9pR5HOhI-zpq',
+        'PLQLA52U7_qBNL4S4PhAzWYsu15Ta2q80B'
+    ];
+
+    async function loadPlaylists() {
+        const container = document.getElementById('playlist-container');
+        for (const id of playlistIds) {
+            const url = `https://www.googleapis.com/youtube/v3/playlists?part=snippet&id=${id}&key=${API_KEY}`;
+            try {
+                const res = await fetch(url);
+                const data = await res.json();
+                if (data.items && data.items.length > 0) {
+                    const item = data.items[0];
+                    const div = document.createElement('div');
+                    div.className = 'playlist-item';
+                    div.innerHTML = `
+                        <button class="cover-btn" onclick="setPlaylist('${id}')">
+                            <img src="${item.snippet.thumbnails.high.url}" class="cover-img" alt="${item.snippet.title}">
+                        </button>
+                        <span class="playlist-title">${item.snippet.title}</span>
+                    `;
+                    container.appendChild(div);
+                }
+            } catch (e) { console.error("Fehler beim Laden:", e); }
+        }
+    }
+
     function setPlaylist(id) {
         document.getElementById('player').innerHTML = `<iframe src="https://www.youtube.com/embed/videoseries?list=${id}" allowfullscreen></iframe>`;
     }
 
-    async function playRandomVideo() {
-        const res = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=https://www.youtube.com/feeds/videos.xml?channel_id=UCiCt3UwZjOAFpF5Yce6DhLA`);
-        const data = await res.json();
-        window.open(data.items[Math.floor(Math.random() * data.items.length)].link, "_blank");
-    }
+    loadPlaylists();
   </script>
 </body>
 </html>
