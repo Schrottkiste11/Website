@@ -72,6 +72,19 @@
     </div>
 
     <main class="blog-section" id="blog-container">
+      
+      <article class="blog-post">
+        <div class="post-meta">
+            <span class="post-time">06.07.2026</span>
+            <span class="post-time">20:45 Uhr</span>
+        </div>
+        <h2 class="post-title">Mein Sommerurlaub 2026</h2>
+        <div class="post-text collapsed" id="text-2">
+          Ich nehme mir einen kleinen Sommerurlaub vom 20.07. bis zum 24.07. – haltet die Augen auf nach neuem Content! Wie immer werde ich den Urlaub unter anderem dazu nutzen, um Streams und Videos zu machen. Aber auch, um Freunde zu treffen und die Sonne zu genießen. Wobei man ja bei mir nicht wirklich von Sonne sprechen kann, wenn der Wettertrend so bleibt. 😉
+        </div>
+        <button class="read-more" id="btn-2" onclick="toggleText('text-2', this)">Weiterlesen</button>
+      </article>
+
       <article class="blog-post">
         <div class="post-meta">
             <span class="post-time">04.07.2026</span>
@@ -83,6 +96,7 @@
         </div>
         <button class="read-more" id="btn-1" onclick="toggleText('text-1', this)">Weiterlesen</button>
       </article>
+
     </main>
 
     <aside class="sidebar">
@@ -92,6 +106,7 @@
   </div>
 
   <script>
+    // Button-Logik: Prüft, ob Text abgeschnitten ist
     document.querySelectorAll('.post-text').forEach((el, index) => {
         if (el.scrollHeight > el.clientHeight) {
             document.getElementById(`btn-${index + 1}`).style.display = 'block';
