@@ -68,30 +68,23 @@
 
   <div class="container">
     <div class="gif-container">
-        <!-- Deutschland GIF -->
-        <div class="gif-box" id="gif1" 
-             style="background-image: url('images/GermanyGerGIF.gif');" 
-             onclick="toggleGif('gif1', 'images/GermanyGerGIF.gif', 'images/image.png')">
-        </div>
-        <!-- July GIF -->
-        <div class="gif-box" id="gif2" 
-             style="background-image: url('images/July Gif.gif');" 
-             onclick="toggleGif('gif2', 'images/July Gif.gif', 'images/Bild_2026-07-06_210330659.png')">
-        </div>
+        <div class="gif-box" id="gif1" style="background-image: url('images/GermanyGerGIF.gif');" onclick="toggleGif('gif1', 'images/GermanyGerGIF.gif', 'images/image.png')"></div>
+        <div class="gif-box" id="gif2" style="background-image: url('images/July Gif.gif');" onclick="toggleGif('gif2', 'images/July Gif.gif', 'images/Bild_2026-07-06_210330659.png')"></div>
     </div>
 
     <main class="blog-section">
       <article class="blog-post">
         <div class="post-meta"><span class="post-time">06.07.2026</span><span class="post-time">20:45 Uhr</span></div>
         <h2 class="post-title">Mein Sommerurlaub 2026</h2>
-        <div class="post-text collapsed" id="text-2">Ich nehme mir einen kleinen Sommerurlaub vom 20.07. bis zum 24.07. – haltet die Augen auf nach neuem Content!</div>
-        <button class="read-more" onclick="toggleText('text-2', this)">Weiterlesen</button>
+        <div class="post-text collapsed" id="text-2">Ich nehme mir einen kleinen Sommerurlaub vom 20.07. bis zum 24.07. – haltet die Augen auf nach neuem Content! Wie immer werde ich den Urlaub unter anderem dazu nutzen, um Streams und Videos zu machen. Aber auch, um Freunde zu treffen und die Sonne zu genießen. Wobei man ja bei mir nicht wirklich von Sonne sprechen kann, wenn der Wettertrend so bleibt. 😉</div>
+        <button class="read-more" id="btn-2" onclick="toggleText('text-2', this)">Weiterlesen</button>
       </article>
+
       <article class="blog-post">
         <div class="post-meta"><span class="post-time">04.07.2026</span><span class="post-time">18:10 Uhr</span></div>
         <h2 class="post-title">Mein neuer Blog</h2>
-        <div class="post-text collapsed" id="text-1">Ich habe mir überlegt, es wäre vielleicht ganz cool, einen Blog hier zu führen.</div>
-        <button class="read-more" onclick="toggleText('text-1', this)">Weiterlesen</button>
+        <div class="post-text collapsed" id="text-1">Ich habe mir überlegt, es wäre vielleicht ganz cool, einen Blog hier zu führen. Vielleicht gefällt euch diese Idee ja auch. Links seht ihr jetzt auch eine kleine Animation von mir!</div>
+        <button class="read-more" id="btn-1" onclick="toggleText('text-1', this)">Weiterlesen</button>
       </article>
     </main>
 
@@ -116,11 +109,21 @@
 
     const playlists = [
         { id: 'PLQLA52U7_qBOkmumSrvGZbE3CPPGqoLQX', title: 'Top 2026 Songs', img: 'https://yt3.googleusercontent.com/0at97SvH71PXtFz8le5gciUThF1dv9XsQ4rMv31yV4Nx62FqpsRWbLTV5wGXrBSkCGNGk4ZauA=s1200' },
-        { id: 'PLQLA52U7_qBPJNw536VhdzwEmSeVHGCqx', title: 'Besties 2025', img: 'https://yt3.googleusercontent.com/Vs7i88V-4wi7LJPwtYV9TPABM_wYeLdMxpVms3sE9GuJZEspkjitm8_DyvXIpqqlt6oaVoJ7QOs=s1200' }
+        { id: 'PLQLA52U7_qBPJNw536VhdzwEmSeVHGCqx', title: 'Besties 2025', img: 'https://yt3.googleusercontent.com/Vs7i88V-4wi7LJPwtYV9TPABM_wYeLdMxpVms3sE9GuJZEspkjitm8_DyvXIpqqlt6oaVoJ7QOs=s1200' },
+        { id: 'PLQLA52U7_qBN4VcQskCzUQoONu-RMwgwP', title: 'Top 2024 Songs', img: 'https://yt3.googleusercontent.com/67bJsnCGY4g2qY-zQfl_hH6Ob4TPXCFg3w7wcXuS2UM71boD8rLHLztq2oV6qSG1SfatjnE5_Lo=s1200' },
+        { id: 'PLQLA52U7_qBPqddrF9dAD9pR5HOhI-zpq', title: '2023 Songs', img: 'https://yt3.googleusercontent.com/NhSgqBhtHOHQCY5CoxCh7oMxAbzd9Eme4Floq_rQy69dxQK3Wz2Ftt1pOkA3U6A-_BAcQ5BOXgM=s1200' },
+        { id: 'PLQLA52U7_qBNL4S4PhAzWYsu15Ta2q80B', title: 'Top 100 2022', img: 'https://yt3.googleusercontent.com/Mz1LKO_hkuQYZwtH2x-zEHY8ZaM7zKuK_PEvRtb8Q9fLOTIBbfLXvZFIwpPic1QrvY9mHnuEMnD6=s1200' }
     ];
     const container = document.getElementById('playlist-container');
     playlists.forEach(pl => {
-        container.innerHTML += `<div class="playlist-item"><a href="https://music.youtube.com/playlist?list=${pl.id}" target="_blank"><img src="${pl.img}" class="cover-img"></a><span>${pl.title}</span></div>`;
+        container.innerHTML += `
+            <div class="playlist-item">
+                <a href="https://music.youtube.com/playlist?list=${pl.id}" target="_blank">
+                    <img src="${pl.img}" class="cover-img" alt="${pl.title}">
+                </a>
+                <span style="font-family: 'VT323'; font-size: 1.4rem;">${pl.title}</span>
+            </div>
+        `;
     });
   </script>
 </body>
