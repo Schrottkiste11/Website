@@ -26,7 +26,6 @@
     
     .container { display: flex; padding: 40px 5%; gap: 40px; max-width: 1400px; margin: 0 auto; }
     
-    /* GIF Bereich */
     .gif-container { flex: 0 0 200px; text-align: center; }
     .gif-container img { width: 100%; border-radius: 12px; display: block; }
     
@@ -39,7 +38,7 @@
     .post-title { font-size: 2.2rem; margin-bottom: 20px; color: var(--accent-alt); }
     .post-text { line-height: 1.8; font-size: 1.2rem; transition: 0.3s; max-height: 1000px; }
     .collapsed { display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
-    .read-more { background: var(--accent); color: #fff; border: none; padding: 10px 20px; cursor: pointer; border-radius: 4px; font-family: 'VT323', monospace; font-size: 1.2rem; margin-top: 20px; display: none; }
+    .read-more { background: var(--accent); color: #fff; border: none; padding: 10px 20px; cursor: pointer; border-radius: 4px; font-family: 'VT323', monospace; font-size: 1.2rem; margin-top: 20px; display: block; }
     
     .playlist-item { margin-bottom: 25px; text-align: center; }
     .cover-img { width: 100%; max-width: 220px; border-radius: 8px; display: block; margin: 0 auto 10px; transition: 0.3s; }
@@ -106,13 +105,6 @@
   </div>
 
   <script>
-    // Button-Logik: Prüft, ob Text abgeschnitten ist
-    document.querySelectorAll('.post-text').forEach((el, index) => {
-        if (el.scrollHeight > el.clientHeight) {
-            document.getElementById(`btn-${index + 1}`).style.display = 'block';
-        }
-    });
-
     function toggleText(id, btn) {
         const el = document.getElementById(id);
         el.classList.toggle('collapsed');
