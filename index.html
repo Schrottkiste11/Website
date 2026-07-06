@@ -30,7 +30,13 @@
     .gif-container img { width: 100%; border-radius: 12px; display: block; }
     
     .blog-section { flex: 2; }
-    .sidebar { flex: 1; }
+    
+    /* Hier ist die neue Trennlinie für die Sidebar */
+    .sidebar { 
+      flex: 1; 
+      border-left: 2px solid var(--line-color); 
+      padding-left: 40px; 
+    }
     
     .blog-post { background: var(--card-bg); padding: 30px; border-radius: 12px; margin-bottom: 30px; border-left: 6px solid var(--accent); }
     .post-meta { display: flex; gap: 15px; margin-bottom: 15px; }
@@ -44,7 +50,11 @@
     .cover-img { width: 100%; max-width: 220px; border-radius: 8px; display: block; margin: 0 auto 10px; transition: 0.3s; }
     .cover-img:hover { transform: scale(1.05); }
     
-    @media (max-width: 900px) { .container { flex-direction: column; } .gif-container { order: -1; } }
+    @media (max-width: 900px) { 
+      .container { flex-direction: column; } 
+      .gif-container { order: -1; }
+      .sidebar { border-left: none; border-top: 2px solid var(--line-color); padding-left: 0; padding-top: 40px; }
+    }
   </style>
 </head>
 <body>
@@ -72,7 +82,6 @@
     </div>
 
     <main class="blog-section" id="blog-container">
-      
       <article class="blog-post">
         <div class="post-meta">
             <span class="post-time">06.07.2026</span>
@@ -96,7 +105,6 @@
         </div>
         <button class="read-more" id="btn-1" onclick="toggleText('text-1', this)">Weiterlesen</button>
       </article>
-
     </main>
 
     <aside class="sidebar">
