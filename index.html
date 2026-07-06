@@ -21,7 +21,6 @@
     
     .social-btns { display: flex; gap: 20px; }
     .social-btn { color: #fff; font-size: 1.8rem; transition: 0.3s; }
-    /* Farbige Hover-Effekte für Social Media */
     .twitch:hover { color: #9146FF; }
     .youtube:hover { color: #FF0000; }
     
@@ -29,7 +28,7 @@
     
     /* GIF Bereich */
     .gif-container { flex: 0 0 200px; text-align: center; }
-    .gif-container img { width: 100%; border-radius: 12px; }
+    .gif-container img { width: 100%; border-radius: 12px; display: block; }
     
     .blog-section { flex: 2; }
     .sidebar { flex: 1; }
@@ -69,7 +68,7 @@
 
   <div class="container">
     <div class="gif-container">
-        <img src="GermanyGerGIF.jpg" alt="Schrottkiste Flagge">
+        <img src="images/GermanyGerGIF.gif" alt="Schrottkiste Flagge">
     </div>
 
     <main class="blog-section" id="blog-container">
@@ -80,7 +79,7 @@
         </div>
         <h2 class="post-title">Mein neuer Blog</h2>
         <div class="post-text collapsed" id="text-1">
-          Ich habe mir überlegt, es wäre vielleicht ganz cool, einen Blog hier zu führen. Vielleicht gefällt euch diese Idee ja auch. Rechts seht ihr schon, befindet sich Musik die ich mir bei YT Music zusammengestellt habe. Schaut dort gerne mal rein.
+          Ich habe mir überlegt, es wäre vielleicht ganz cool, einen Blog hier zu führen. Vielleicht gefällt euch diese Idee ja auch. Links seht ihr jetzt auch eine kleine Animation von mir!
         </div>
         <button class="read-more" id="btn-1" onclick="toggleText('text-1', this)">Weiterlesen</button>
       </article>
