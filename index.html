@@ -26,6 +26,11 @@
     .youtube:hover { color: #FF0000; }
     
     .container { display: flex; padding: 40px 5%; gap: 40px; max-width: 1400px; margin: 0 auto; }
+    
+    /* GIF Bereich */
+    .gif-container { flex: 0 0 200px; text-align: center; }
+    .gif-container img { width: 100%; border-radius: 12px; }
+    
     .blog-section { flex: 2; }
     .sidebar { flex: 1; }
     
@@ -41,7 +46,7 @@
     .cover-img { width: 100%; max-width: 220px; border-radius: 8px; display: block; margin: 0 auto 10px; transition: 0.3s; }
     .cover-img:hover { transform: scale(1.05); }
     
-    @media (max-width: 900px) { .container { flex-direction: column; } }
+    @media (max-width: 900px) { .container { flex-direction: column; } .gif-container { order: -1; } }
   </style>
 </head>
 <body>
@@ -63,6 +68,10 @@
   </header>
 
   <div class="container">
+    <div class="gif-container">
+        <img src="GermanyGerGIF.jpg" alt="Schrottkiste Flagge">
+    </div>
+
     <main class="blog-section" id="blog-container">
       <article class="blog-post">
         <div class="post-meta">
