@@ -47,152 +47,6 @@
     .cover-img { width: 100%; max-width: 220px; border-radius: 8px; display: block; margin: 0 auto 10px; transition: 0.3s; }
     .cover-img:hover { transform: scale(1.05); }
 
-    .interaction-box { margin-top: 20px; padding-top: 15px; border-top: 1px solid var(--line-color); display: flex; flex-direction: column; gap: 15px; }
-  </style>
-</head>
-<body>
-
-  <header class="nav-header">
-    <div class="brand-row"><a href="index.html" class="nav-brand">Schrottkiste</a></div>
-    <div class="menu-row">
-      <ul class="nav-links">
-          <li><a href="index.html">START</a></li>
-          <li><a href="ideen.html">PLAN</a></li>
-          <li><a href="radio.html">RADIO</a></li>
-          <li><a href="soundboard.html">SOUNDBOARD</a></li>
-      </ul>
-      <div class="social-btns">
-        <a href="https://www.twitch.tv/schrottkiste_luka" target="_blank" class="social-btn twitch"><i class="fa-brands fa-twitch"></i></a>
-        <a href="https://www.youtube.com/@schrottkiste" target="_blank" class="social-btn youtube"><i class="fa-brands fa-youtube"></i></a>
-      </div>
-    </div>
-  </header>
-
-  <div class="container">
-    <div class="gif-container">
-        <div class="gif-box" id="gif1" style="background-image: url('images/GermanyGerGIF.gif');" onclick="toggleGif('gif1', 'images/GermanyGerGIF.gif', 'images/image.png')"></div>
-        <div class="gif-box" id="gif2" style="background-image: url('images/July Gif.gif');" onclick="toggleGif('gif2', 'images/July Gif.gif', 'images/Bild_2026-07-06_210330659.png')"></div>
-    </div>
-
-    <main class="blog-section">
-      <!-- Post 1 -->
-      <article class="blog-post">
-        <div class="post-meta"><span class="post-time">07.07.2026</span><span class="post-time">11:00 Uhr</span></div>
-        <h2 class="post-title">Social Media: Realität oder Fake?</h2>
-        <div class="post-text collapsed" id="text-3">
-          <p>Ich selbst habe die Erfahrung gemacht, dass Social Media einer Person eine Version von sich selbst aufdrücken möchte, die man vielleicht gar nicht ist.</p>
-          <p>Man sieht Schönheitsideale, nach denen man sich richten soll. Dabei sind diese Schönheitsideale total fake und unschön inszeniert. Wenn man im Internet einen Creator verfolgt, sieht man meistens nur eine Seite von der Person. Ihr wahres Gesicht kennen nur wenige. Sie inszenieren das perfekte Leben, das keiner hat.</p>
-        </div>
-        <button class="read-more" onclick="toggleText('text-3', this)">Weiterlesen</button>
-        
-        <div class="interaction-box">
-            <span class="likebtn-wrapper" data-lang="de" data-theme="heart" data-ef_voting="heartbeat" data-identifier="post_social_media" data-counter_count="true"></span>
-            <div id="cusdis_thread" data-host="https://cusdis.com" data-app-id="57a5de9b-95c1-43e5-95f8-90a46ebbafd1" data-page-id="post_social_media" data-page-url="https://schrottkiste.github.io/index.html#post_social_media" data-page-title="Social Media: Realität oder Fake?"></div>
-        </div>
-      </article>
-
-      <!-- Post 2 -->
-      <article class="blog-post">
-        <div class="post-meta"><span class="post-time">06.07.2026</span><span class="post-time">20:45 Uhr</span></div>
-        <h2 class="post-title">Mein Sommerurlaub 2026</h2>
-        <div class="post-text collapsed" id="text-2">Ich nehme mir einen kleinen Sommerurlaub vom 20.07. bis zum 24.07. – haltet die Augen auf nach neuem Content! Wie immer werde ich den Urlaub unter anderem dazu nutzen, um Streams und Videos zu machen. Aber auch, um Freunde zu treffen und die Sonne zu genießen.</div>
-        <button class="read-more" onclick="toggleText('text-2', this)">Weiterlesen</button>
-        
-        <div class="interaction-box">
-            <span class="likebtn-wrapper" data-lang="de" data-theme="heart" data-ef_voting="heartbeat" data-identifier="post_sommerurlaub" data-counter_count="true"></span>
-            <div id="cusdis_thread" data-host="https://cusdis.com" data-app-id="57a5de9b-95c1-43e5-95f8-90a46ebbafd1" data-page-id="post_sommerurlaub" data-page-url="https://schrottkiste.github.io/index.html#post_sommerurlaub" data-page-title="Mein Sommerurlaub 2026"></div>
-        </div>
-      </article>
-    </main>
-
-    <aside class="sidebar">
-      <h2 style="margin-bottom: 25px; font-family: 'VT323'; font-size: 2rem; color: var(--accent-alt);">Meine Playlists</h2>
-      <div id="playlist-container"></div>
-    </aside>
-  </div>
-
-  <script>
-<!DOCTYPE html>
-<html lang="de">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=1200, initial-scale=1.0">
-  <title>Schrottkiste – Home</title>
-  <link href="https://fonts.googleapis.com/css2?family=Chewy&family=Poppins:wght@300;400;600&family=VT323&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
-    :root { --accent: #ff0099; --accent-alt: #00ffff; --bg: #1a1a24; --card-bg: #242430; --text: #f3f1ff; --line-color: #444; }
-    body { background: var(--bg); font-family: 'Poppins', sans-serif; color: var(--text); padding-bottom: 50px; margin: 0; min-width: 1200px; }
-    
-    .nav-header { background: var(--card-bg); padding: 15px 5%; border-bottom: 1px solid var(--line-color); }
-    .brand-row { display: flex; justify-content: center; margin-bottom: 15px; }
-    .nav-brand { font-family: 'Chewy', cursive; font-size: 3.5rem; color: #fff; text-decoration: none; }
-    .menu-row { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--line-color); padding-top: 10px; }
-    
-    .nav-links { display: flex; gap: 25px; list-style: none; font-family: 'VT323', monospace; }
-    .nav-links a { text-decoration: none; color: #fff; font-size: 1.6rem; transition: 0.3s; }
-    .nav-links a:hover { color: var(--accent); }
-    
-    .social-btns { display: flex; gap: 20px; }
-    .social-btn { color: #fff; font-size: 1.8rem; transition: 0.3s; }
-    .twitch:hover { color: #9146FF; }
-    .youtube:hover { color: #FF0000; }
-    
-    .container { display: flex; padding: 40px 5%; gap: 40px; max-width: 1400px; margin: 0 auto; align-items: flex-start; }
-    
-    .gif-container { flex: 0 0 200px; display: flex; flex-direction: column; gap: 20px; }
-    .gif-box { width: 100%; aspect-ratio: 1/1; cursor: pointer; border-radius: 12px; background-size: cover; background-position: center; transition: transform 0.2s; border: 2px solid transparent; }
-    .gif-box:hover { transform: scale(1.02); border-color: var(--accent); }
-    
-<!DOCTYPE html>
-<html lang="de">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=1200, initial-scale=1.0">
-  <title>Schrottkiste – Home</title>
-  <link href="https://fonts.googleapis.com/css2?family=Chewy&family=Poppins:wght@300;400;600&family=VT323&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
-    :root { --accent: #ff0099; --accent-alt: #00ffff; --bg: #1a1a24; --card-bg: #242430; --text: #f3f1ff; --line-color: #444; }
-    body { background: var(--bg); font-family: 'Poppins', sans-serif; color: var(--text); padding-bottom: 50px; margin: 0; min-width: 1200px; }
-    
-    .nav-header { background: var(--card-bg); padding: 15px 5%; border-bottom: 1px solid var(--line-color); }
-    .brand-row { display: flex; justify-content: center; margin-bottom: 15px; }
-    .nav-brand { font-family: 'Chewy', cursive; font-size: 3.5rem; color: #fff; text-decoration: none; }
-    .menu-row { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--line-color); padding-top: 10px; }
-    
-    .nav-links { display: flex; gap: 25px; list-style: none; font-family: 'VT323', monospace; }
-    .nav-links a { text-decoration: none; color: #fff; font-size: 1.6rem; transition: 0.3s; }
-    .nav-links a:hover { color: var(--accent); }
-    
-    .social-btns { display: flex; gap: 20px; }
-    .social-btn { color: #fff; font-size: 1.8rem; transition: 0.3s; }
-    .twitch:hover { color: #9146FF; }
-    .youtube:hover { color: #FF0000; }
-    
-    .container { display: flex; padding: 40px 5%; gap: 40px; max-width: 1400px; margin: 0 auto; align-items: flex-start; }
-    
-    .gif-container { flex: 0 0 200px; display: flex; flex-direction: column; gap: 20px; }
-    .gif-box { width: 100%; aspect-ratio: 1/1; cursor: pointer; border-radius: 12px; background-size: cover; background-position: center; transition: transform 0.2s; border: 2px solid transparent; }
-    .gif-box:hover { transform: scale(1.02); border-color: var(--accent); }
-    
-    .blog-section { flex: 2; display: flex; flex-direction: column; gap: 30px; }
-    .sidebar { flex: 1; border-left: 2px solid var(--line-color); padding-left: 40px; }
-    
-    .blog-post { background: var(--card-bg); padding: 30px; border-radius: 12px; border-left: 6px solid var(--accent); }
-    .post-meta { display: flex; gap: 15px; margin-bottom: 15px; }
-    .post-time { font-family: 'VT323', monospace; opacity: 0.8; font-size: 1.3rem; }
-    .post-title { font-size: 2.2rem; margin-bottom: 20px; color: var(--accent-alt); }
-    .post-text { line-height: 1.8; font-size: 1.2rem; transition: 0.3s; }
-    .post-text p { margin-bottom: 1em; }
-    
-    .collapsed { display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
-    .read-more { background: var(--accent); color: #fff; border: none; padding: 10px 20px; cursor: pointer; border-radius: 4px; font-family: 'VT323', monospace; font-size: 1.2rem; margin-top: 15px; display: block; }
-    
-    .playlist-item { margin-bottom: 25px; text-align: center; }
-    .cover-img { width: 100%; max-width: 220px; border-radius: 8px; display: block; margin: 0 auto 10px; transition: 0.3s; }
-    .cover-img:hover { transform: scale(1.05); }
-
     .interaction-box { margin-top: 20px; padding-top: 15px; border-top: 1px solid var(--line-color); }
     .view-count { font-family: 'VT323', monospace; font-size: 1.2rem; margin-top: 10px; color: #888; }
   </style>
@@ -238,143 +92,58 @@
       </article>
 
       <article class="blog-post">
-<!DOCTYPE html>
-<html lang="de">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=1200, initial-scale=1.0">
-  <title>Schrottkiste – Home</title>
-  <link href="https://fonts.googleapis.com/css2?family=Chewy&family=Poppins:wght@300;400;600&family=VT323&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
-    :root { --accent: #ff0099; --accent-alt: #00ffff; --bg: #1a1a24; --card-bg: #242430; --text: #f3f1ff; --line-color: #444; }
-    body { background: var(--bg); font-family: 'Poppins', sans-serif; color: var(--text); padding-bottom: 50px; margin: 0; min-width: 1200px; }
-    
-    .nav-header { background: var(--card-bg); padding: 15px 5%; border-bottom: 1px solid var(--line-color); }
-    .brand-row { display: flex; justify-content: center; margin-bottom: 15px; }
-    .nav-brand { font-family: 'Chewy', cursive; font-size: 3.5rem; color: #fff; text-decoration: none; }
-    .menu-row { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--line-color); padding-top: 10px; }
-    
-    .nav-links { display: flex; gap: 25px; list-style: none; font-family: 'VT323', monospace; }
-    .nav-links a { text-decoration: none; color: #fff; font-size: 1.6rem; transition: 0.3s; }
-    .nav-links a:hover { color: var(--accent); }
-    
-    .social-btns { display: flex; gap: 20px; }
-    .social-btn { color: #fff; font-size: 1.8rem; transition: 0.3s; }
-    .twitch:hover { color: #9146FF; }
-    .youtube:hover { color: #FF0000; }
-    
-    .container { display: flex; padding: 40px 5%; gap: 40px; max-width: 1400px; margin: 0 auto; align-items: flex-start; }
-    
-    .gif-container { flex: 0 0 200px; display: flex; flex-direction: column; gap: 20px; }
-    .gif-box { width: 100%; aspect-ratio: 1/1; cursor: pointer; border-radius: 12px; background-size: cover; background-position: center; transition: transform 0.2s; border: 2px solid transparent; }
-    .gif-box:hover { transform: scale(1.02); border-color: var(--accent); }
-    
-    .blog-section { flex: 2; display: flex; flex-direction: column; gap: 30px; }
-    .sidebar { flex: 1; border-left: 2px solid var(--line-color); padding-left: 40px; }
-    
-    .blog-post { background: var(--card-bg); padding: 30px; border-radius: 12px; border-left: 6px solid var(--accent); }
-    .post-meta { display: flex; gap: 15px; margin-bottom: 15px; }
-    .post-time { font-family: 'VT323', monospace; opacity: 0.8; font-size: 1.3rem; }
-    .post-title { font-size: 2.2rem; margin-bottom: 20px; color: var(--accent-alt); }
-    .post-text { line-height: 1.8; font-size: 1.2rem; transition: 0.3s; }
-    .post-text p { margin-bottom: 1em; }
-    
-    .collapsed { display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
-    .read-more { background: var(--accent); color: #fff; border: none; padding: 10px 20px; cursor: pointer; border-radius: 4px; font-family: 'VT323', monospace; font-size: 1.2rem; margin-top: 15px; display: block; }
-    
-    .playlist-item { margin-bottom: 25px; text-align: center; }
-    .cover-img { width: 100%; max-width: 220px; border-radius: 8px; display: block; margin: 0 auto 10px; transition: 0.3s; }
-    .cover-img:hover { transform: scale(1.05); }
-
-    .interaction-box { margin-top: 20px; padding-top: 15px; border-top: 1px solid var(--line-color); }
-    .view-count { font-family: 'VT323', monospace; font-size: 1.2rem; margin-top: 10px; color: #888; }
-  </style>
-</head>
-<body>
-
-  <header class="nav-header">
-    <div class="brand-row"><a href="index.html" class="nav-brand">Schrottkiste</a></div>
-    <div class="menu-row">
-      <ul class="nav-links">
-          <li><a href="index.html">START</a></li>
-          <li><a href="ideen.html">PLAN</a></li>
-          <li><a href="radio.html">RADIO</a></li>
-          <li><a href="soundboard.html">SOUNDBOARD</a></li>
-      </ul>
-<!DOCTYPE html>
-<html lang="de">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=1200, initial-scale=1.0">
-  <title>Schrottkiste – Home</title>
-  <link href="https://fonts.googleapis.com/css2?family=Chewy&family=Poppins:wght@300;400;600&family=VT323&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
-    :root { --accent: #ff0099; --accent-alt: #00ffff; --bg: #1a1a24; --card-bg: #242430; --text: #f3f1ff; --line-color: #444; }
-    body { background: var(--bg); font-family: 'Poppins', sans-serif; color: var(--text); padding-bottom: 50px; margin: 0; min-width: 1200px; }
-    
-    .nav-header { background: var(--card-bg); padding: 15px 5%; border-bottom: 1px solid var(--line-color); }
-    .brand-row { display: flex; justify-content: center; margin-bottom: 15px; }
-    .nav-brand { font-family: 'Chewy', cursive; font-size: 3.5rem; color: #fff; text-decoration: none; }
-    .menu-row { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--line-color); padding-top: 10px; }
-    
-    .nav-links { display: flex; gap: 25px; list-style: none; font-family: 'VT323', monospace; }
-    .nav-links a { text-decoration: none; color: #fff; font-size: 1.6rem; transition: 0.3s; }
-    .nav-links a:hover { color: var(--accent); }
-    
-    .social-btns { display: flex; gap: 20px; }
-    .social-btn { color: #fff; font-size: 1.8rem; transition: 0.3s; }
-    .twitch:hover { color: #9146FF; }
-    .youtube:hover { color: #FF0000; }
-    
-    .container { display: flex; padding: 40px 5%; gap: 40px; max-width: 1400px; margin: 0 auto; align-items: flex-start; }
-    
-    .blog-section { flex: 2; display: flex; flex-direction: column; gap: 30px; }
-    
-    .blog-post { background: var(--card-bg); padding: 30px; border-radius: 12px; border-left: 6px solid var(--accent); }
-    .post-meta { display: flex; gap: 15px; margin-bottom: 15px; }
-    .post-time { font-family: 'VT323', monospace; opacity: 0.8; font-size: 1.3rem; }
-    .post-title { font-size: 2.2rem; margin-bottom: 20px; color: var(--accent-alt); }
-    .post-text { line-height: 1.8; font-size: 1.2rem; }
-    .post-text p { margin-bottom: 1em; }
-  </style>
-</head>
-<body>
-
-  <header class="nav-header">
-    <div class="brand-row"><a href="index.html" class="nav-brand">Schrottkiste</a></div>
-    <div class="menu-row">
-      <ul class="nav-links">
-          <li><a href="index.html">START</a></li>
-          <li><a href="ideen.html">PLAN</a></li>
-          <li><a href="radio.html">RADIO</a></li>
-          <li><a href="soundboard.html">SOUNDBOARD</a></li>
-      </ul>
-      <div class="social-btns">
-        <a href="https://www.twitch.tv/schrottkiste_luka" target="_blank" class="social-btn twitch"><i class="fa-brands fa-twitch"></i></a>
-        <a href="https://www.youtube.com/@schrottkiste" target="_blank" class="social-btn youtube"><i class="fa-brands fa-youtube"></i></a>
-      </div>
-    </div>
-  </header>
-
-  <div class="container">
-    <main class="blog-section">
-      <article class="blog-post">
-        <div class="post-meta"><span class="post-time">07.07.2026</span><span class="post-time">11:00 Uhr</span></div>
-        <h2 class="post-title">Social Media: Realität oder Fake?</h2>
-        <div class="post-text">
-          <p>Ich selbst habe die Erfahrung gemacht, dass Social Media einer Person eine Version von sich selbst aufdrücken möchte, die man vielleicht gar nicht ist.</p>
-        </div>
-      </article>
-
-      <article class="blog-post">
         <div class="post-meta"><span class="post-time">06.07.2026</span><span class="post-time">20:45 Uhr</span></div>
         <h2 class="post-title">Mein Sommerurlaub 2026</h2>
-        <div class="post-text">Ich nehme mir einen kleinen Sommerurlaub vom 20.07. bis zum 24.07. – haltet die Augen auf nach neuem Content!</div>
+        <div class="post-text collapsed" id="text-2">Ich nehme mir einen kleinen Sommerurlaub vom 20.07. bis zum 24.07. – haltet die Augen auf nach neuem Content!</div>
+        <button class="read-more" onclick="toggleText('text-2', this)">Weiterlesen</button>
+        <div class="interaction-box">
+            <span class="likebtn-wrapper" data-theme="heart" data-identifier="post_sommerurlaub" data-counter_count="true"></span>
+        </div>
       </article>
     </main>
+
+    <aside class="sidebar">
+      <h2 style="margin-bottom: 25px; font-family: 'VT323'; font-size: 2rem; color: var(--accent-alt);">Meine Playlists</h2>
+      <div id="playlist-container"></div>
+    </aside>
   </div>
 
+  <script>
+    // 1. Like Button Skript
+    (function(d,e,s){if(d.getElementById("likebtn_wjs"))return;a=d.createElement(e);m=d.getElementsByTagName(e)[0];a.async=1;a.id="likebtn_wjs";a.src=s;m.parentNode.insertBefore(a, m)})(document,"script","//w.likebtn.com/js/w/widget.js");
+    
+    // 2. Toggle Funktionen
+    function toggleGif(id, gifSrc, stillSrc) {
+        const el = document.getElementById(id);
+        const current = el.style.backgroundImage;
+        el.style.backgroundImage = current.includes('.gif') ? `url('${stillSrc}')` : `url('${gifSrc}')`;
+    }
+
+    function toggleText(id, btn) {
+        const el = document.getElementById(id);
+        el.classList.toggle('collapsed');
+        btn.innerText = el.classList.contains('collapsed') ? 'Weiterlesen' : 'Einklappen';
+    }
+
+    // 3. Playlists laden
+    const playlists = [
+        { id: 'PLQLA52U7_qBOkmumSrvGZbE3CPPGqoLQX', title: 'Top 2026 Songs', img: 'https://yt3.googleusercontent.com/0at97SvH71PXtFz8le5gciUThF1dv9XsQ4rMv31yV4Nx62FqpsRWbLTV5wGXrBSkCGNGk4ZauA=s1200' },
+        { id: 'PLQLA52U7_qBPJNw536VhdzwEmSeVHGCqx', title: 'Besties 2025', img: 'https://yt3.googleusercontent.com/Vs7i88V-4wi7LJPwtYV9TPABM_wYeLdMxpVms3sE9GuJZEspkjitm8_DyvXIpqqlt6oaVoJ7QOs=s1200' },
+        { id: 'PLQLA52U7_qBN4VcQskCzUQoONu-RMwgwP', title: 'Top 2024 Songs', img: 'https://yt3.googleusercontent.com/67bJsnCGY4g2qY-zQfl_hH6Ob4TPXCFg3w7wcXuS2UM71boD8rLHLztq2oV6qSG1SfatjnE5_Lo=s1200' },
+        { id: 'PLQLA52U7_qBPqddrF9dAD9pR5HOhI-zpq', title: '2023 Songs', img: 'https://yt3.googleusercontent.com/NhSgqBhtHOHQCY5CoxCh7oMxAbzd9Eme4Floq_rQy69dxQK3Wz2Ftt1pOkA3U6A-_BAcQ5BOXgM=s1200' },
+        { id: 'PLQLA52U7_qBNL4S4PhAzWYsu15Ta2q80B', title: 'Top 100 2022', img: 'https://yt3.googleusercontent.com/Mz1LKO_hkuQYZwtH2x-zEHY8ZaM7zKuK_PEvRtb8Q9fLOTIBbfLXvZFIwpPic1QrvY9mHnuEMnD6=s1200' }
+    ];
+    const container = document.getElementById('playlist-container');
+    playlists.forEach(pl => {
+        container.innerHTML += `
+            <div class="playlist-item">
+                <a href="https://music.youtube.com/playlist?list=${pl.id}" target="_blank">
+                    <img src="${pl.img}" class="cover-img" alt="${pl.title}">
+                </a>
+                <span style="font-family: 'VT323'; font-size: 1.4rem;">${pl.title}</span>
+            </div>
+        `;
+    });
+  </script>
 </body>
 </html>
