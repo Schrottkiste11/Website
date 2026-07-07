@@ -37,18 +37,17 @@
     .post-meta { display: flex; gap: 15px; margin-bottom: 15px; }
     .post-time { font-family: 'VT323', monospace; opacity: 0.8; font-size: 1.3rem; }
     .post-title { font-size: 2.2rem; margin-bottom: 20px; color: var(--accent-alt); }
-    
     .post-text { line-height: 1.8; font-size: 1.2rem; transition: 0.3s; }
-    .post-text.collapsed { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
     .post-text p { margin-bottom: 1em; }
     
+    .collapsed { display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
     .read-more { background: var(--accent); color: #fff; border: none; padding: 10px 20px; cursor: pointer; border-radius: 4px; font-family: 'VT323', monospace; font-size: 1.2rem; margin-top: 15px; display: block; }
     
     .playlist-item { margin-bottom: 25px; text-align: center; }
     .cover-img { width: 100%; max-width: 220px; border-radius: 8px; display: block; margin: 0 auto 10px; transition: 0.3s; }
     .cover-img:hover { transform: scale(1.05); }
-
-    .interaction-box { margin-top: 20px; padding-top: 15px; border-top: 1px solid var(--line-color); }
+    
+    .interactive-area { margin-top: 25px; padding-top: 20px; border-top: 1px solid var(--line-color); }
   </style>
 </head>
 <body>
@@ -82,25 +81,22 @@
         <div class="post-text collapsed" id="text-3">
           <p>Ich selbst habe die Erfahrung gemacht, dass Social Media einer Person eine Version von sich selbst aufdrücken möchte, die man vielleicht gar nicht ist.</p>
           <p>Man sieht Schönheitsideale, nach denen man sich richten soll. Dabei sind diese Schönheitsideale total fake und unschön inszeniert. Wenn man im Internet einen Creator verfolgt, sieht man meistens nur eine Seite von der Person. Ihr wahres Gesicht kennen nur wenige. Sie inszenieren das perfekte Leben, das keiner hat.</p>
-          <p>Es ist ein ständiger Druck, mithalten zu wollen, obwohl die Basis oft nur auf einem Filter oder einem gut ausgeleuchteten Bild beruht.</p>
+          <p>Dadurch passieren ein paar Dinge, die nicht passieren sollten: Menschen verlieren sich in Fake-Versionen einer Person ohne zu erkennen: aha, das ist gar nicht echt. Ich bin mehr wert als diese Influencer. Aber das checken viele nicht und werden depressiv, weil sie denken, all die Creator da draußen hätten immer ein perfektes Leben. Dabei ist das gar nicht wahr.</p>
         </div>
         <button class="read-more" onclick="toggleText('text-3', this)">Weiterlesen</button>
-        <div class="interaction-box">
-            <span class="likebtn-wrapper" data-theme="heart" data-identifier="post_social_media" data-counter_count="true"></span>
+        <div class="interactive-area">
+            <span class="likebtn-wrapper" data-theme="heart" data-identifier="post_1" data-counter_count="true"></span>
+            <div id="disqus_thread" style="margin-top:20px;"></div>
         </div>
       </article>
 
       <article class="blog-post">
         <div class="post-meta"><span class="post-time">06.07.2026</span><span class="post-time">20:45 Uhr</span></div>
         <h2 class="post-title">Mein Sommerurlaub 2026</h2>
-        <div class="post-text collapsed" id="text-2">
-            <p>Ich nehme mir einen kleinen Sommerurlaub vom 20.07. bis zum 24.07. – haltet die Augen auf nach neuem Content!</p>
-            <p>Wie immer werde ich den Urlaub unter anderem dazu nutzen, um Streams und Videos zu machen. Aber auch, um Freunde zu treffen und die Sonne zu genießen. Es ist wichtig, auch mal kurz durchzuatmen, um danach wieder mit voller Energie durchzustarten.</p>
-            <p>Vielleicht gibt es auch ein paar spontane Vlogs direkt aus dem Urlaub. Werde auf jeden Fall alles mit euch teilen, was es wert ist, gesehen zu werden!</p>
-        </div>
+        <div class="post-text collapsed" id="text-2">Ich nehme mir einen kleinen Sommerurlaub vom 20.07. bis zum 24.07. – haltet die Augen auf nach neuem Content! Wie immer werde ich den Urlaub unter anderem dazu nutzen, um Streams und Videos zu machen. Aber auch, um Freunde zu treffen und die Sonne zu genießen. Wobei man ja bei mir nicht wirklich von Sonne sprechen kann, wenn der Wettertrend so bleibt. 😉</div>
         <button class="read-more" onclick="toggleText('text-2', this)">Weiterlesen</button>
-        <div class="interaction-box">
-            <span class="likebtn-wrapper" data-theme="heart" data-identifier="post_sommerurlaub" data-counter_count="true"></span>
+        <div class="interactive-area">
+            <span class="likebtn-wrapper" data-theme="heart" data-identifier="post_2" data-counter_count="true"></span>
         </div>
       </article>
     </main>
@@ -114,6 +110,14 @@
   <script>
     (function(d,e,s){if(d.getElementById("likebtn_wjs"))return;a=d.createElement(e);m=d.getElementsByTagName(e)[0];a.async=1;a.id="likebtn_wjs";a.src=s;m.parentNode.insertBefore(a, m)})(document,"script","//w.likebtn.com/js/w/widget.js");
     
+    var disqus_config = function () { this.page.identifier = 'post_1'; };
+    (function() {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://schrottkiste.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+
     function toggleGif(id, gifSrc, stillSrc) {
         const el = document.getElementById(id);
         const current = el.style.backgroundImage;
