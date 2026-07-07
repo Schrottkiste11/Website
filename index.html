@@ -2,13 +2,13 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=1200, initial-scale=1.0">
   <title>Schrottkiste – Home</title>
   <link href="https://fonts.googleapis.com/css2?family=Chewy&family=Poppins:wght@300;400;600&family=VT323&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     :root { --accent: #ff0099; --accent-alt: #00ffff; --bg: #1a1a24; --card-bg: #242430; --text: #f3f1ff; --line-color: #444; }
-    body { background: var(--bg); font-family: 'Poppins', sans-serif; color: var(--text); padding-bottom: 50px; margin: 0; }
+    body { background: var(--bg); font-family: 'Poppins', sans-serif; color: var(--text); padding-bottom: 50px; margin: 0; min-width: 1200px; }
     
     .nav-header { background: var(--card-bg); padding: 15px 5%; border-bottom: 1px solid var(--line-color); }
     .brand-row { display: flex; justify-content: center; margin-bottom: 15px; }
@@ -46,8 +46,6 @@
     .playlist-item { margin-bottom: 25px; text-align: center; }
     .cover-img { width: 100%; max-width: 220px; border-radius: 8px; display: block; margin: 0 auto 10px; transition: 0.3s; }
     .cover-img:hover { transform: scale(1.05); }
-    
-    @media (max-width: 900px) { .container { flex-direction: column; } .gif-container { order: -1; } .sidebar { border-left: none; border-top: 2px solid var(--line-color); padding-left: 0; padding-top: 40px; } }
   </style>
 </head>
 <body>
@@ -81,13 +79,7 @@
         <div class="post-text collapsed" id="text-3">
           <p>Ich selbst habe die Erfahrung gemacht, dass Social Media einer Person eine Version von sich selbst aufdrücken möchte, die man vielleicht gar nicht ist.</p>
           <p>Man sieht Schönheitsideale, nach denen man sich richten soll. Dabei sind diese Schönheitsideale total fake und unschön inszeniert. Wenn man im Internet einen Creator verfolgt, sieht man meistens nur eine Seite von der Person. Ihr wahres Gesicht kennen nur wenige. Sie inszenieren das perfekte Leben, das keiner hat.</p>
-          <p>Dadurch passieren ein paar Dinge, die nicht passieren sollten:</p>
-          <p>Menschen verlieren sich in Fake-Versionen einer Person ohne zu erkennen: aha, das ist gar nicht echt. Ich bin mehr wert als diese Influencer. Aber das checken viele nicht und werden depressiv, weil sie denken, all die Creator da draußen hätten immer ein perfektes Leben. Dabei ist das gar nicht wahr. Auch diese Creator haben mal einen schlechten Tag oder einfach mal schlechte Laune. Genau das zeigen aber nur die wenigsten im Internet, damit ihre Fassade nicht bröckelt.</p>
-          <p>Aber das ist nicht mal das Schlimmste. Große Creator und auch private Nutzer bekommen regelrecht Cybermobbing ab und viele zweifeln dadurch an sich selbst.</p>
-          <p>Meine Meinung dazu ist: langfristig werden diese Creator, die ihr ganzes Leben durch inszenieren, nichts erreichen im Leben und an ihrem eigenen Showbusiness untergehen. Dasselbe gilt für Privatpersonen, die diese Inhalte konsumieren.</p>
-          <p>Diese Leute haben nie gelernt, dass es auch ein Leben außerhalb des Internets gibt. Diese Menschen wissen nicht, wie es ist, frei zu sein.</p>
-          <p>Aus beruflicher Sicht sind Influencer meiner Meinung nach kein gutes Vorbild. Sie gaukeln Menschen etwas vor, das in der Realität ganz anders aussieht. Social Media ist da null hilfreich.</p>
-          <p>Sie tun so, als wäre es total einfach, einen Job zu finden.</p>
+          <p>Dadurch passieren ein paar Dinge, die nicht passieren sollten: Menschen verlieren sich in Fake-Versionen einer Person ohne zu erkennen: aha, das ist gar nicht echt. Ich bin mehr wert als diese Influencer. Aber das checken viele nicht und werden depressiv, weil sie denken, all die Creator da draußen hätten immer ein perfektes Leben. Dabei ist das gar nicht wahr.</p>
         </div>
         <button class="read-more" onclick="toggleText('text-3', this)">Weiterlesen</button>
       </article>
@@ -97,13 +89,6 @@
         <h2 class="post-title">Mein Sommerurlaub 2026</h2>
         <div class="post-text collapsed" id="text-2">Ich nehme mir einen kleinen Sommerurlaub vom 20.07. bis zum 24.07. – haltet die Augen auf nach neuem Content! Wie immer werde ich den Urlaub unter anderem dazu nutzen, um Streams und Videos zu machen. Aber auch, um Freunde zu treffen und die Sonne zu genießen. Wobei man ja bei mir nicht wirklich von Sonne sprechen kann, wenn der Wettertrend so bleibt. 😉</div>
         <button class="read-more" onclick="toggleText('text-2', this)">Weiterlesen</button>
-      </article>
-
-      <article class="blog-post">
-        <div class="post-meta"><span class="post-time">04.07.2026</span><span class="post-time">18:10 Uhr</span></div>
-        <h2 class="post-title">Mein neuer Blog</h2>
-        <div class="post-text collapsed" id="text-1">Ich habe mir überlegt, es wäre vielleicht ganz cool, einen Blog hier zu führen. Vielleicht gefällt euch diese Idee ja auch. Links seht ihr jetzt auch eine kleine Animation von mir!</div>
-        <button class="read-more" onclick="toggleText('text-1', this)">Weiterlesen</button>
       </article>
     </main>
 
@@ -129,9 +114,7 @@
     const playlists = [
         { id: 'PLQLA52U7_qBOkmumSrvGZbE3CPPGqoLQX', title: 'Top 2026 Songs', img: 'https://yt3.googleusercontent.com/0at97SvH71PXtFz8le5gciUThF1dv9XsQ4rMv31yV4Nx62FqpsRWbLTV5wGXrBSkCGNGk4ZauA=s1200' },
         { id: 'PLQLA52U7_qBPJNw536VhdzwEmSeVHGCqx', title: 'Besties 2025', img: 'https://yt3.googleusercontent.com/Vs7i88V-4wi7LJPwtYV9TPABM_wYeLdMxpVms3sE9GuJZEspkjitm8_DyvXIpqqlt6oaVoJ7QOs=s1200' },
-        { id: 'PLQLA52U7_qBN4VcQskCzUQoONu-RMwgwP', title: 'Top 2024 Songs', img: 'https://yt3.googleusercontent.com/67bJsnCGY4g2qY-zQfl_hH6Ob4TPXCFg3w7wcXuS2UM71boD8rLHLztq2oV6qSG1SfatjnE5_Lo=s1200' },
-        { id: 'PLQLA52U7_qBPqddrF9dAD9pR5HOhI-zpq', title: '2023 Songs', img: 'https://yt3.googleusercontent.com/NhSgqBhtHOHQCY5CoxCh7oMxAbzd9Eme4Floq_rQy69dxQK3Wz2Ftt1pOkA3U6A-_BAcQ5BOXgM=s1200' },
-        { id: 'PLQLA52U7_qBNL4S4PhAzWYsu15Ta2q80B', title: 'Top 100 2022', img: 'https://yt3.googleusercontent.com/Mz1LKO_hkuQYZwtH2x-zEHY8ZaM7zKuK_PEvRtb8Q9fLOTIBbfLXvZFIwpPic1QrvY9mHnuEMnD6=s1200' }
+        { id: 'PLQLA52U7_qBN4VcQskCzUQoONu-RMwgwP', title: 'Top 2024 Songs', img: 'https://yt3.googleusercontent.com/67bJsnCGY4g2qY-zQfl_hH6Ob4TPXCFg3w7wcXuS2UM71boD8rLHLztq2oV6qSG1SfatjnE5_Lo=s1200' }
     ];
     const container = document.getElementById('playlist-container');
     playlists.forEach(pl => {
