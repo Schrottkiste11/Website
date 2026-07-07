@@ -9,33 +9,25 @@
 
 <style>
   :root {
+    --bg-main: #1a1a24;
+    --bg-top: #1a1a24; /* Oben jetzt auch das dunkle Blau */
+    --bg-deep: #101014;
     --text-main: #f3f1ff;
     --accent: #ff0099;
     --accent-alt: #00ffff;
-    --card-soft: rgba(26, 26, 36, 0.7);
+    --card: #242430;
+    --card-soft: rgba(36, 36, 48, 0.96);
   }
 
   body {
+    /* Gradient ohne Weißstich oben */
+    background: linear-gradient(to bottom, var(--bg-top), var(--bg-main) 50%, var(--bg-deep) 100%);
+    font-family: 'Poppins', sans-serif;
+    color: var(--text-main);
     margin: 0;
     padding-top: 180px;
     padding-bottom: 90px;
     text-align: center;
-    font-family: 'Poppins', sans-serif;
-    color: var(--text-main);
-    background-color: #000; /* Tiefschwarz als Basis */
-  }
-
-  /* Video Hintergrund - Absicherung */
-  #bg-video {
-    position: fixed;
-    right: 0;
-    bottom: 0;
-    min-width: 100%;
-    min-height: 100%;
-    width: auto;
-    height: auto;
-    z-index: -999;
-    background-size: cover;
   }
 
   .logo-link {
@@ -64,8 +56,8 @@
     left: 0; 
     right: 0;
     height: 60px;
-    background: rgba(26, 26, 36, 0.8);
-    backdrop-filter: blur(10px);
+    background: rgba(26, 26, 36, 0.96);
+    backdrop-filter: blur(14px);
     border-bottom: 3px solid var(--accent);
     display: flex;
     justify-content: center;
@@ -138,10 +130,10 @@
     align-items: center;
     gap: 15px;
     background: var(--card-soft);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.05);
     border-radius: 16px;
     padding: 14px 18px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
     backdrop-filter: blur(10px);
     transition: all 0.18s ease;
     width: 48%;
@@ -156,7 +148,7 @@
     width: 14px;
     height: 14px;
     border-radius: 50%;
-    background: #000;
+    background: var(--bg-main);
     border: 3px solid var(--accent-alt);
     box-shadow: 0 0 12px var(--accent-alt);
   }
@@ -168,7 +160,7 @@
 
   .sound-item:hover {
     border-color: var(--accent);
-    box-shadow: 0 16px 34px rgba(0,0,0,0.6), 0 0 16px rgba(255, 0, 153, 0.3);
+    box-shadow: 0 16px 34px rgba(0,0,0,0.4), 0 0 16px rgba(255, 0, 153, 0.2);
     transform: translateY(-2px);
   }
 
@@ -208,23 +200,25 @@
     justify-content: center;
     align-items: center;
     gap: 15px;
-    background: rgba(26, 26, 36, 0.8);
+    background: rgba(26, 26, 36, 0.92);
     border: 2px dashed var(--accent-alt);
     border-radius: 10px;
     padding: 12px 25px;
     width: fit-content;
     backdrop-filter: blur(14px);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
     z-index: 999;
+  }
+
+  @media (max-width: 768px) {
+    body { padding-top: 200px; }
+    #navbar { top: 120px; padding-left: 0; justify-content: center; flex-wrap: wrap; height: auto; padding: 10px; }
+    .logo-link { position: static; display: block; margin-bottom: 20px; }
   }
 </style>
 </head>
 
 <body>
-
-<video id="bg-video" autoplay muted loop playsinline>
-  <source src="space.mp4" type="video/mp4">
-</video>
 
 <a href="index.html" class="logo-link">Schrottkiste</a>
 
