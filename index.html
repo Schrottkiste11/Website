@@ -167,6 +167,59 @@
     .view-count { font-family: 'VT323', monospace; font-size: 1.2rem; margin-top: 10px; color: #888; }
   </style>
 </head>
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1200, initial-scale=1.0">
+  <title>Schrottkiste – Home</title>
+  <link href="https://fonts.googleapis.com/css2?family=Chewy&family=Poppins:wght@300;400;600&family=VT323&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root { --accent: #ff0099; --accent-alt: #00ffff; --bg: #1a1a24; --card-bg: #242430; --text: #f3f1ff; --line-color: #444; }
+    body { background: var(--bg); font-family: 'Poppins', sans-serif; color: var(--text); padding-bottom: 50px; margin: 0; min-width: 1200px; }
+    
+    .nav-header { background: var(--card-bg); padding: 15px 5%; border-bottom: 1px solid var(--line-color); }
+    .brand-row { display: flex; justify-content: center; margin-bottom: 15px; }
+    .nav-brand { font-family: 'Chewy', cursive; font-size: 3.5rem; color: #fff; text-decoration: none; }
+    .menu-row { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--line-color); padding-top: 10px; }
+    
+    .nav-links { display: flex; gap: 25px; list-style: none; font-family: 'VT323', monospace; }
+    .nav-links a { text-decoration: none; color: #fff; font-size: 1.6rem; transition: 0.3s; }
+    .nav-links a:hover { color: var(--accent); }
+    
+    .social-btns { display: flex; gap: 20px; }
+    .social-btn { color: #fff; font-size: 1.8rem; transition: 0.3s; }
+    .twitch:hover { color: #9146FF; }
+    .youtube:hover { color: #FF0000; }
+    
+    .container { display: flex; padding: 40px 5%; gap: 40px; max-width: 1400px; margin: 0 auto; align-items: flex-start; }
+    
+    .gif-container { flex: 0 0 200px; display: flex; flex-direction: column; gap: 20px; }
+    .gif-box { width: 100%; aspect-ratio: 1/1; cursor: pointer; border-radius: 12px; background-size: cover; background-position: center; transition: transform 0.2s; border: 2px solid transparent; }
+    .gif-box:hover { transform: scale(1.02); border-color: var(--accent); }
+    
+    .blog-section { flex: 2; display: flex; flex-direction: column; gap: 30px; }
+    .sidebar { flex: 1; border-left: 2px solid var(--line-color); padding-left: 40px; }
+    
+    .blog-post { background: var(--card-bg); padding: 30px; border-radius: 12px; border-left: 6px solid var(--accent); }
+    .post-meta { display: flex; gap: 15px; margin-bottom: 15px; }
+    .post-time { font-family: 'VT323', monospace; opacity: 0.8; font-size: 1.3rem; }
+    .post-title { font-size: 2.2rem; margin-bottom: 20px; color: var(--accent-alt); }
+    .post-text { line-height: 1.8; font-size: 1.2rem; transition: 0.3s; }
+    .post-text p { margin-bottom: 1em; }
+    
+    .collapsed { display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
+    .read-more { background: var(--accent); color: #fff; border: none; padding: 10px 20px; cursor: pointer; border-radius: 4px; font-family: 'VT323', monospace; font-size: 1.2rem; margin-top: 15px; display: block; }
+    
+    .playlist-item { margin-bottom: 25px; text-align: center; }
+    .cover-img { width: 100%; max-width: 220px; border-radius: 8px; display: block; margin: 0 auto 10px; transition: 0.3s; }
+    .cover-img:hover { transform: scale(1.05); }
+
+    .interaction-box { margin-top: 20px; padding-top: 15px; border-top: 1px solid var(--line-color); }
+    .view-count { font-family: 'VT323', monospace; font-size: 1.2rem; margin-top: 10px; color: #888; }
+  </style>
+</head>
 <body>
 
   <header class="nav-header">
@@ -189,16 +242,12 @@
     <div class="gif-container">
         <div class="gif-box" id="gif1" style="background-image: url('images/GermanyGerGIF.gif');" onclick="toggleGif('gif1', 'images/GermanyGerGIF.gif', 'images/image.png')"></div>
         <div class="gif-box" id="gif2" style="background-image: url('images/July Gif.gif');" onclick="toggleGif('gif2', 'images/July Gif.gif', 'images/Bild_2026-07-06_210330659.png')"></div>
-        
-        <!-- View Counter -->
         <div class="view-count">
            <img src="https://hitwebcounter.com/counter/counter.php?page=8055677&style=0006&nbdigits=5&type=page&initCount=0" title="Counter" Alt="web counter" border="0">
-           <span>Besucher</span>
         </div>
     </div>
 
     <main class="blog-section">
-      <!-- Post 1 -->
       <article class="blog-post">
         <div class="post-meta"><span class="post-time">07.07.2026</span><span class="post-time">11:00 Uhr</span></div>
         <h2 class="post-title">Social Media: Realität oder Fake?</h2>
@@ -206,21 +255,18 @@
           <p>Ich selbst habe die Erfahrung gemacht, dass Social Media einer Person eine Version von sich selbst aufdrücken möchte, die man vielleicht gar nicht ist.</p>
         </div>
         <button class="read-more" onclick="toggleText('text-3', this)">Weiterlesen</button>
-        
         <div class="interaction-box">
-            <span class="likebtn-wrapper" data-lang="de" data-theme="custom" data-btn_size="30" data-f_size="20" data-icon_size="20" data-ef_voting="heartbeat" data-identifier="post_social_media" data-counter_count="true"></span>
+            <span class="likebtn-wrapper" data-theme="heart" data-identifier="post_social_media" data-counter_count="true"></span>
         </div>
       </article>
 
-      <!-- Post 2 -->
       <article class="blog-post">
         <div class="post-meta"><span class="post-time">06.07.2026</span><span class="post-time">20:45 Uhr</span></div>
         <h2 class="post-title">Mein Sommerurlaub 2026</h2>
         <div class="post-text collapsed" id="text-2">Ich nehme mir einen kleinen Sommerurlaub vom 20.07. bis zum 24.07. – haltet die Augen auf nach neuem Content!</div>
         <button class="read-more" onclick="toggleText('text-2', this)">Weiterlesen</button>
-        
         <div class="interaction-box">
-            <span class="likebtn-wrapper" data-lang="de" data-theme="custom" data-btn_size="30" data-f_size="20" data-icon_size="20" data-ef_voting="heartbeat" data-identifier="post_sommerurlaub" data-counter_count="true"></span>
+            <span class="likebtn-wrapper" data-theme="heart" data-identifier="post_sommerurlaub" data-counter_count="true"></span>
         </div>
       </article>
     </main>
