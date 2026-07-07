@@ -46,7 +46,7 @@
     .playlist-item { margin-bottom: 25px; text-align: center; }
     .cover-img { width: 100%; max-width: 220px; border-radius: 8px; display: block; margin: 0 auto 10px; transition: 0.3s; }
     .cover-img:hover { transform: scale(1.05); }
-    
+
     .interactive-area { margin-top: 25px; padding-top: 20px; border-top: 1px solid var(--line-color); }
   </style>
 </head>
@@ -86,7 +86,6 @@
         <button class="read-more" onclick="toggleText('text-3', this)">Weiterlesen</button>
         <div class="interactive-area">
             <span class="likebtn-wrapper" data-theme="heart" data-identifier="post_1" data-counter_count="true"></span>
-            <div id="disqus_thread" style="margin-top:20px;"></div>
         </div>
       </article>
 
@@ -109,14 +108,6 @@
 
   <script>
     (function(d,e,s){if(d.getElementById("likebtn_wjs"))return;a=d.createElement(e);m=d.getElementsByTagName(e)[0];a.async=1;a.id="likebtn_wjs";a.src=s;m.parentNode.insertBefore(a, m)})(document,"script","//w.likebtn.com/js/w/widget.js");
-    
-    var disqus_config = function () { this.page.identifier = 'post_1'; };
-    (function() {
-      var d = document, s = d.createElement('script');
-      s.src = 'https://schrottkiste.disqus.com/embed.js';
-      s.setAttribute('data-timestamp', +new Date());
-      (d.head || d.body).appendChild(s);
-    })();
 
     function toggleGif(id, gifSrc, stillSrc) {
         const el = document.getElementById(id);
