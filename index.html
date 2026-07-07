@@ -48,6 +48,7 @@
     .cover-img:hover { transform: scale(1.05); }
 
     .interactive-area { margin-top: 25px; padding-top: 20px; border-top: 1px solid var(--line-color); }
+    .comment-widget { margin-top: 20px; }
   </style>
 </head>
 <body>
@@ -81,11 +82,16 @@
         <div class="post-text collapsed" id="text-3">
           <p>Ich selbst habe die Erfahrung gemacht, dass Social Media einer Person eine Version von sich selbst aufdrücken möchte, die man vielleicht gar nicht ist.</p>
           <p>Man sieht Schönheitsideale, nach denen man sich richten soll. Dabei sind diese Schönheitsideale total fake und unschön inszeniert. Wenn man im Internet einen Creator verfolgt, sieht man meistens nur eine Seite von der Person. Ihr wahres Gesicht kennen nur wenige. Sie inszenieren das perfekte Leben, das keiner hat.</p>
-          <p>Dadurch passieren ein paar Dinge, die nicht passieren sollten: Menschen verlieren sich in Fake-Versionen einer Person ohne zu erkennen: aha, das ist gar nicht echt. Ich bin mehr wert als diese Influencer. Aber das checken viele nicht und werden depressiv, weil sie denken, all die Creator da draußen hätten immer ein perfektes Leben. Dabei ist das gar nicht wahr.</p>
+          <p>Dadurch passieren ein paar Dinge, die nicht passieren sollten: Menschen verlieren sich in Fake-Versionen einer Person ohne zu erkennen: aha, das ist gar nicht echt. Ich bin mehr wert als diese Influencer. Aber das checken viele nicht und werden depressiv, weil sie denken, all the Creator da draußen hätten immer ein perfektes Leben. Dabei ist das gar nicht wahr.</p>
         </div>
         <button class="read-more" onclick="toggleText('text-3', this)">Weiterlesen</button>
         <div class="interactive-area">
             <span class="likebtn-wrapper" data-theme="heart" data-identifier="post_1" data-counter_count="true"></span>
+            <div class="comment-widget">
+                <input type="text" placeholder="Kommentar schreiben..." class="comment-input" style="width: 90%; padding: 10px; border-radius: 4px; border: 1px solid #444; background: #1a1a24; color: #fff;">
+                <button onclick="addComment(this)" style="margin-top: 10px; background: var(--accent); border: none; padding: 5px 15px; color: #fff; cursor: pointer; border-radius: 4px;">Abschicken</button>
+                <div class="comment-list"></div>
+            </div>
         </div>
       </article>
 
@@ -96,6 +102,11 @@
         <button class="read-more" onclick="toggleText('text-2', this)">Weiterlesen</button>
         <div class="interactive-area">
             <span class="likebtn-wrapper" data-theme="heart" data-identifier="post_2" data-counter_count="true"></span>
+            <div class="comment-widget">
+                <input type="text" placeholder="Kommentar schreiben..." class="comment-input" style="width: 90%; padding: 10px; border-radius: 4px; border: 1px solid #444; background: #1a1a24; color: #fff;">
+                <button onclick="addComment(this)" style="margin-top: 10px; background: var(--accent); border: none; padding: 5px 15px; color: #fff; cursor: pointer; border-radius: 4px;">Abschicken</button>
+                <div class="comment-list"></div>
+            </div>
         </div>
       </article>
     </main>
@@ -108,6 +119,22 @@
 
   <script>
     (function(d,e,s){if(d.getElementById("likebtn_wjs"))return;a=d.createElement(e);m=d.getElementsByTagName(e)[0];a.async=1;a.id="likebtn_wjs";a.src=s;m.parentNode.insertBefore(a, m)})(document,"script","//w.likebtn.com/js/w/widget.js");
+
+    function addComment(btn) {
+        const parent = btn.parentElement;
+        const input = parent.querySelector('.comment-input');
+        const list = parent.querySelector('.comment-list');
+        if (input.value.trim() !== "") {
+            const newComment = document.createElement('div');
+            newComment.style.background = '#2e2e3e';
+            newComment.style.padding = '10px';
+            newComment.style.marginTop = '10px';
+            newComment.style.borderRadius = '4px';
+            newComment.innerText = input.value;
+            list.appendChild(newComment);
+            input.value = "";
+        }
+    }
 
     function toggleGif(id, gifSrc, stillSrc) {
         const el = document.getElementById(id);
