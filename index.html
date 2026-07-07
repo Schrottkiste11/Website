@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     :root { --accent: #ff0099; --accent-alt: #00ffff; --bg: #1a1a24; --card-bg: #242430; --text: #f3f1ff; --line-color: #444; }
-    body { background: var(--bg); font-family: 'Poppins', sans-serif; color: var(--text); padding-bottom: 50px; }
+    body { background: var(--bg); font-family: 'Poppins', sans-serif; color: var(--text); padding-bottom: 50px; margin: 0; }
     
     .nav-header { background: var(--card-bg); padding: 15px 5%; border-bottom: 1px solid var(--line-color); }
     .brand-row { display: flex; justify-content: center; margin-bottom: 15px; }
@@ -24,23 +24,21 @@
     .twitch:hover { color: #9146FF; }
     .youtube:hover { color: #FF0000; }
     
-    .container { display: flex; padding: 40px 5%; gap: 40px; max-width: 1400px; margin: 0 auto; }
+    .container { display: flex; padding: 40px 5%; gap: 40px; max-width: 1400px; margin: 0 auto; align-items: flex-start; }
     
     .gif-container { flex: 0 0 200px; display: flex; flex-direction: column; gap: 20px; }
     .gif-box { width: 100%; aspect-ratio: 1/1; cursor: pointer; border-radius: 12px; background-size: cover; background-position: center; transition: transform 0.2s; border: 2px solid transparent; }
     .gif-box:hover { transform: scale(1.02); border-color: var(--accent); }
     
-    .blog-section { flex: 2; }
+    .blog-section { flex: 2; display: flex; flex-direction: column; gap: 30px; }
     .sidebar { flex: 1; border-left: 2px solid var(--line-color); padding-left: 40px; }
     
-    .blog-post { background: var(--card-bg); padding: 30px; border-radius: 12px; margin-bottom: 30px; border-left: 6px solid var(--accent); }
+    .blog-post { background: var(--card-bg); padding: 30px; border-radius: 12px; border-left: 6px solid var(--accent); }
     .post-meta { display: flex; gap: 15px; margin-bottom: 15px; }
     .post-time { font-family: 'VT323', monospace; opacity: 0.8; font-size: 1.3rem; }
     .post-title { font-size: 2.2rem; margin-bottom: 20px; color: var(--accent-alt); }
-    .post-text { line-height: 1.8; font-size: 1.2rem; transition: 0.3s; max-height: 1000px; }
+    .post-text { line-height: 1.8; font-size: 1.2rem; transition: 0.3s; }
     .post-text p { margin-bottom: 1em; }
-    .collapsed { display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
-    .read-more { background: var(--accent); color: #fff; border: none; padding: 10px 20px; cursor: pointer; border-radius: 4px; font-family: 'VT323', monospace; font-size: 1.2rem; margin-top: 20px; display: block; }
     
     .playlist-item { margin-bottom: 25px; text-align: center; }
     .cover-img { width: 100%; max-width: 220px; border-radius: 8px; display: block; margin: 0 auto 10px; transition: 0.3s; }
@@ -77,7 +75,7 @@
       <article class="blog-post">
         <div class="post-meta"><span class="post-time">07.07.2026</span><span class="post-time">11:00 Uhr</span></div>
         <h2 class="post-title">Social Media: Realität oder Fake?</h2>
-        <div class="post-text collapsed" id="text-3">
+        <div class="post-text">
           <p>Ich selbst habe die Erfahrung gemacht, dass Social Media einer Person eine Version von sich selbst aufdrücken möchte, die man vielleicht gar nicht ist.</p>
           <p>Man sieht Schönheitsideale, nach denen man sich richten soll. Dabei sind diese Schönheitsideale total fake und unschön inszeniert. Wenn man im Internet einen Creator verfolgt, sieht man meistens nur eine Seite von der Person. Ihr wahres Gesicht kennen nur wenige. Sie inszenieren das perfekte Leben, das keiner hat.</p>
           <p>Dadurch passieren ein paar Dinge, die nicht passieren sollten:</p>
@@ -88,21 +86,18 @@
           <p>Aus beruflicher Sicht sind Influencer meiner Meinung nach kein gutes Vorbild. Sie gaukeln Menschen etwas vor, das in der Realität ganz anders aussieht. Social Media ist da null hilfreich.</p>
           <p>Sie tun so, als wäre es total einfach, einen Job zu finden.</p>
         </div>
-        <button class="read-more" id="btn-3" onclick="toggleText('text-3', this)">Weiterlesen</button>
       </article>
 
       <article class="blog-post">
         <div class="post-meta"><span class="post-time">06.07.2026</span><span class="post-time">20:45 Uhr</span></div>
         <h2 class="post-title">Mein Sommerurlaub 2026</h2>
-        <div class="post-text collapsed" id="text-2">Ich nehme mir einen kleinen Sommerurlaub vom 20.07. bis zum 24.07. – haltet die Augen auf nach neuem Content! Wie immer werde ich den Urlaub unter anderem dazu nutzen, um Streams und Videos zu machen. Aber auch, um Freunde zu treffen und die Sonne zu genießen. Wobei man ja bei mir nicht wirklich von Sonne sprechen kann, wenn der Wettertrend so bleibt. 😉</div>
-        <button class="read-more" id="btn-2" onclick="toggleText('text-2', this)">Weiterlesen</button>
+        <div class="post-text">Ich nehme mir einen kleinen Sommerurlaub vom 20.07. bis zum 24.07. – haltet die Augen auf nach neuem Content! Wie immer werde ich den Urlaub unter anderem dazu nutzen, um Streams und Videos zu machen. Aber auch, um Freunde zu treffen und die Sonne zu genießen. Wobei man ja bei mir nicht wirklich von Sonne sprechen kann, wenn der Wettertrend so bleibt. 😉</div>
       </article>
 
       <article class="blog-post">
         <div class="post-meta"><span class="post-time">04.07.2026</span><span class="post-time">18:10 Uhr</span></div>
         <h2 class="post-title">Mein neuer Blog</h2>
-        <div class="post-text collapsed" id="text-1">Ich habe mir überlegt, es wäre vielleicht ganz cool, einen Blog hier zu führen. Vielleicht gefällt euch diese Idee ja auch. Links seht ihr jetzt auch eine kleine Animation von mir!</div>
-        <button class="read-more" id="btn-1" onclick="toggleText('text-1', this)">Weiterlesen</button>
+        <div class="post-text">Ich habe mir überlegt, es wäre vielleicht ganz cool, einen Blog hier zu führen. Vielleicht gefällt euch diese Idee ja auch. Links seht ihr jetzt auch eine kleine Animation von mir!</div>
       </article>
     </main>
 
@@ -117,12 +112,6 @@
         const el = document.getElementById(id);
         const current = el.style.backgroundImage;
         el.style.backgroundImage = current.includes('.gif') ? `url('${stillSrc}')` : `url('${gifSrc}')`;
-    }
-
-    function toggleText(id, btn) {
-        const el = document.getElementById(id);
-        el.classList.toggle('collapsed');
-        btn.innerText = el.classList.contains('collapsed') ? 'Weiterlesen' : 'Einklappen';
     }
 
     const playlists = [
@@ -145,4 +134,5 @@
     });
   </script>
 </body>
+</html>
 </html>
