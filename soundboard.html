@@ -22,19 +22,20 @@
     text-align: center;
     font-family: 'Poppins', sans-serif;
     color: var(--text-main);
-    /* Fallback-Farbe, falls das Video nicht lädt */
-    background-color: #101014; 
+    background-color: #000; /* Tiefschwarz als Basis */
   }
 
-  /* Video Hintergrund fixiert */
+  /* Video Hintergrund - Absicherung */
   #bg-video {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: -999; /* Ganz nach hinten */
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -999;
+    background-size: cover;
   }
 
   .logo-link {
@@ -222,7 +223,7 @@
 <body>
 
 <video id="bg-video" autoplay muted loop playsinline>
-  <source src="Space.mov" type="video/mp4">
+  <source src="space.mp4" type="video/mp4">
 </video>
 
 <a href="index.html" class="logo-link">Schrottkiste</a>
