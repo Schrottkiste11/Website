@@ -144,29 +144,6 @@
     .gif-box { width: 100%; aspect-ratio: 1/1; cursor: pointer; border-radius: 12px; background-size: cover; background-position: center; transition: transform 0.2s; border: 2px solid transparent; }
     .gif-box:hover { transform: scale(1.02); border-color: var(--accent); }
     
-    .blog-section { flex: 2; display: flex; flex-direction: column; gap: 30px; }
-    .sidebar { flex: 1; border-left: 2px solid var(--line-color); padding-left: 40px; }
-    
-    .blog-post { background: var(--card-bg); padding: 30px; border-radius: 12px; border-left: 6px solid var(--accent); }
-    .post-meta { display: flex; gap: 15px; margin-bottom: 15px; }
-    .post-time { font-family: 'VT323', monospace; opacity: 0.8; font-size: 1.3rem; }
-    .post-title { font-size: 2.2rem; margin-bottom: 20px; color: var(--accent-alt); }
-    .post-text { line-height: 1.8; font-size: 1.2rem; transition: 0.3s; }
-    .post-text p { margin-bottom: 1em; }
-    
-    .collapsed { display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
-    .read-more { background: var(--accent); color: #fff; border: none; padding: 10px 20px; cursor: pointer; border-radius: 4px; font-family: 'VT323', monospace; font-size: 1.2rem; margin-top: 15px; display: block; }
-    
-    .playlist-item { margin-bottom: 25px; text-align: center; }
-    .cover-img { width: 100%; max-width: 220px; border-radius: 8px; display: block; margin: 0 auto 10px; transition: 0.3s; }
-    .cover-img:hover { transform: scale(1.05); }
-
-    .interaction-box { margin-top: 20px; padding-top: 15px; border-top: 1px solid var(--line-color); }
-    
-    /* View Counter Style */
-    .view-count { font-family: 'VT323', monospace; font-size: 1.2rem; margin-top: 10px; color: #888; }
-  </style>
-</head>
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -278,8 +255,10 @@
   </div>
 
   <script>
+    // 1. Die Like-Button Logik
     (function(d,e,s){if(d.getElementById("likebtn_wjs"))return;a=d.createElement(e);m=d.getElementsByTagName(e)[0];a.async=1;a.id="likebtn_wjs";a.src=s;m.parentNode.insertBefore(a, m)})(document,"script","//w.likebtn.com/js/w/widget.js");
     
+    // 2. Deine eigenen Funktionen (Toggle & Playlists)
     function toggleGif(id, gifSrc, stillSrc) {
         const el = document.getElementById(id);
         const current = el.style.backgroundImage;
