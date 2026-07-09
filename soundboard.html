@@ -10,7 +10,7 @@
 <style>
   :root {
     --bg-main: #1a1a24;
-    --bg-top: #1a1a24; /* Oben jetzt auch das dunkle Blau */
+    --bg-top: #1a1a24;
     --bg-deep: #101014;
     --text-main: #f3f1ff;
     --accent: #ff0099;
@@ -20,7 +20,6 @@
   }
 
   body {
-    /* Gradient ohne Weißstich oben */
     background: linear-gradient(to bottom, var(--bg-top), var(--bg-main) 50%, var(--bg-deep) 100%);
     font-family: 'Poppins', sans-serif;
     color: var(--text-main);
@@ -48,6 +47,21 @@
     color: #fff;
     text-shadow: 4px 4px 0px var(--accent);
     font-size: 3.5rem;
+  }
+
+  /* Suchfeld Design */
+  #searchBox {
+    margin: 20px auto;
+    width: 80%;
+    max-width: 400px;
+    padding: 12px 20px;
+    border-radius: 25px;
+    border: 2px solid var(--accent);
+    background: var(--bg-deep);
+    color: white;
+    font-family: 'VT323', monospace;
+    font-size: 1.2rem;
+    outline: none;
   }
 
   #navbar {
@@ -234,6 +248,9 @@
 </div>
 
 <h1 style="margin-top: 60px;">Nostalgie Soundboard ⚡</h1>
+
+<input type="text" id="searchBox" placeholder="🔍 Suche nach einem Song..." />
+
 <div id="soundContainer">Lade Sounds...</div>
 
 <div id="volumeControl">
@@ -246,6 +263,7 @@ const username = "Schrottkiste11";
 const repo = "e";
 const soundContainer = document.getElementById("soundContainer");
 const volumeSlider = document.getElementById("volume");
+const searchBox = document.getElementById("searchBox");
 
 let globalVolume = parseFloat(localStorage.getItem("soundVolume")) || 0.5;
 let currentAudio = null;
@@ -276,17 +294,25 @@ async function loadSounds() {
       name: file.name.replace(/\.[^/.]+$/, ""),
       url: `https://raw.githubusercontent.com/${username}/${repo}/main/${encodeURIComponent(file.name)}`
     }));
-    renderList("all");
+    renderList();
   } catch {
     soundContainer.innerHTML = "<p style='font-family:\"VT323\"; font-size:1.8rem; color:red;'>Fehler beim Laden 😢</p>";
   }
 }
 
-function renderList(cat) {
-  soundContainer.innerHTML = "";
-  let songs = (cat === "all") ? allSongs : allSongs.filter(s => categoryMap[cat].some(k => s.name.toLowerCase().includes(k.toLowerCase())));
+function renderList() {
+  const activeCat = document.querySelector(".nav-item.active").dataset.cat;
+  const searchTerm = searchBox.value.toLowerCase();
 
-  if (songs.length === 0) { soundContainer.innerHTML = "<p style='font-family:\"VT323\"; font-size:1.8rem;'>Keine Songs in dieser Kategorie 😢</p>"; return; }
+  let songs = (activeCat === "all") ? allSongs : allSongs.filter(s => categoryMap[activeCat].some(k => s.name.toLowerCase().includes(k.toLowerCase())));
+  
+  // Suche filtern
+  if (searchTerm) {
+    songs = songs.filter(s => s.name.toLowerCase().includes(searchTerm));
+  }
+
+  soundContainer.innerHTML = "";
+  if (songs.length === 0) { soundContainer.innerHTML = "<p style='font-family:\"VT323\"; font-size:1.8rem;'>Keine Songs gefunden 😢</p>"; return; }
 
   songs.forEach((song, index) => {
     const item = document.createElement("div");
@@ -317,11 +343,14 @@ volumeSlider.addEventListener("input", () => {
   if (currentAudio) currentAudio.volume = globalVolume; 
 });
 
+// Event Listener für Suche
+searchBox.addEventListener("input", renderList);
+
 document.querySelectorAll(".nav-item").forEach(nav => {
   nav.addEventListener("click", () => {
     document.querySelectorAll(".nav-item").forEach(n => n.classList.remove("active"));
     nav.classList.add("active");
-    renderList(nav.dataset.cat);
+    renderList();
   });
 });
 
