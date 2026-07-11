@@ -2,21 +2,31 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=1200, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Schrottkiste – Home</title>
+  <meta name="description" content="Schrottkiste – Twitch- und YouTube-Content von Luka. Streams, Blog-Updates und Playlists.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Schrottkiste">
+  <meta property="og:description" content="Twitch- und YouTube-Content von Luka. Streams, Blog-Updates und Playlists.">
+  <meta property="og:image" content="images/image.png">
+  <meta name="theme-color" content="#1a1a24">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%231a1a24'/%3E%3Ctext x='50' y='70' font-family='Arial,sans-serif' font-weight='900' font-size='58' fill='%23ff0099' text-anchor='middle'%3ES%3C/text%3E%3C/svg%3E">
   <link href="https://fonts.googleapis.com/css2?family=Chewy&family=Poppins:wght@300;400;600&family=VT323&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     :root { --accent: #ff0099; --accent-alt: #00ffff; --bg: #1a1a24; --card-bg: #242430; --text: #f3f1ff; --line-color: #444; }
-    body { background: var(--bg); font-family: 'Poppins', sans-serif; color: var(--text); padding-bottom: 50px; margin: 0; min-width: 1200px; }
+    * { box-sizing: border-box; }
+    body { background: var(--bg); font-family: 'Poppins', sans-serif; color: var(--text); margin: 0; overflow-wrap: break-word; }
+
+    a:focus-visible, button:focus-visible, .gif-box:focus-visible { outline: 2px solid var(--accent-alt); outline-offset: 3px; }
     
     .nav-header { background: var(--card-bg); padding: 15px 5%; border-bottom: 1px solid var(--line-color); }
     .brand-row { display: flex; justify-content: center; margin-bottom: 15px; }
     .nav-brand { font-family: 'Chewy', cursive; font-size: 3.5rem; color: #fff; text-decoration: none; }
-    .menu-row { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--line-color); padding-top: 10px; }
+    .menu-row { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--line-color); padding-top: 10px; flex-wrap: wrap; gap: 15px; }
     
-    .nav-links { display: flex; gap: 25px; list-style: none; font-family: 'VT323', monospace; }
-    .nav-links a { text-decoration: none; color: #fff; font-size: 1.6rem; transition: 0.3s; }
+    .nav-links { display: flex; gap: 25px; list-style: none; font-family: 'Poppins', sans-serif; flex-wrap: wrap; padding-left: 0; margin: 0; }
+    .nav-links a { text-decoration: none; color: #fff; font-size: 0.95rem; font-weight: 600; letter-spacing: 0.05em; transition: 0.3s; }
     .nav-links a:hover { color: var(--accent); }
     
     .social-btns { display: flex; gap: 20px; }
@@ -30,8 +40,9 @@
     .gif-box { width: 100%; aspect-ratio: 1/1; cursor: pointer; border-radius: 12px; background-size: cover; background-position: center; transition: transform 0.2s; border: 2px solid transparent; }
     .gif-box:hover { transform: scale(1.02); border-color: var(--accent); }
     
-    .blog-section { flex: 2; display: flex; flex-direction: column; gap: 30px; }
-    .sidebar { flex: 1; border-left: 2px solid var(--line-color); padding-left: 40px; }
+    .blog-section { flex: 2; display: flex; flex-direction: column; gap: 30px; min-width: 0; }
+    .sidebar { flex: 1; border-left: 2px solid var(--line-color); padding-left: 40px; min-width: 0; }
+    .sidebar-title { margin: 0 0 25px; font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 1.3rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--accent-alt); }
     
     .blog-post { background: var(--card-bg); padding: 30px; border-radius: 12px; border-left: 6px solid var(--accent); }
     .post-meta { display: flex; gap: 15px; margin-bottom: 15px; }
@@ -44,10 +55,32 @@
     .read-more { background: var(--accent); color: #fff; border: none; padding: 10px 20px; cursor: pointer; border-radius: 4px; font-family: 'VT323', monospace; font-size: 1.2rem; margin-top: 15px; display: block; }
     
     .playlist-item { margin-bottom: 25px; text-align: center; }
+    .playlist-title { display: inline-block; margin-top: 4px; font-family: 'Poppins', sans-serif; font-size: 0.95rem; color: var(--text); }
     .cover-img { width: 100%; max-width: 220px; border-radius: 8px; display: block; margin: 0 auto 10px; transition: 0.3s; }
     .cover-img:hover { transform: scale(1.05); }
 
     .interactive-area { margin-top: 25px; padding-top: 20px; border-top: 1px solid var(--line-color); }
+
+    .site-footer { margin-top: 60px; padding: 30px 5%; border-top: 1px solid var(--line-color); background: var(--card-bg); }
+    .footer-inner { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
+    .footer-brand { font-family: 'Chewy', cursive; font-size: 1.5rem; color: #fff; }
+    .footer-social { display: flex; gap: 15px; }
+    .footer-copy { font-size: 0.85rem; opacity: 0.6; }
+
+    @media (max-width: 900px) {
+      .container { flex-direction: column; padding: 30px 5%; gap: 30px; }
+      .gif-container { flex-direction: row; flex: none; width: 100%; justify-content: center; }
+      .gif-box { flex: 0 1 180px; }
+      .sidebar { border-left: none; border-top: 2px solid var(--line-color); padding-left: 0; padding-top: 30px; }
+    }
+
+    @media (max-width: 640px) {
+      .nav-brand { font-size: 2.3rem; }
+      .menu-row { flex-direction: column; align-items: flex-start; }
+      .post-title { font-size: 1.6rem; }
+      .blog-post { padding: 20px; }
+      .footer-inner { flex-direction: column; text-align: center; }
+    }
   </style>
 </head>
 <body>
@@ -68,8 +101,8 @@
 
   <div class="container">
     <div class="gif-container">
-        <div class="gif-box" id="gif1" style="background-image: url('images/GermanyGerGIF.gif');" onclick="toggleGif('gif1', 'images/GermanyGerGIF.gif', 'images/image.png')"></div>
-        <div class="gif-box" id="gif2" style="background-image: url('images/July Gif.gif');" onclick="toggleGif('gif2', 'images/July Gif.gif', 'images/Bild_2026-07-06_210330659.png')"></div>
+        <div class="gif-box" id="gif1" role="button" tabindex="0" aria-label="Animation 1 an- oder ausschalten" style="background-image: url('images/GermanyGerGIF.gif');" onclick="toggleGif('gif1', 'images/GermanyGerGIF.gif', 'images/image.png')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleGif('gif1', 'images/GermanyGerGIF.gif', 'images/image.png')}"></div>
+        <div class="gif-box" id="gif2" role="button" tabindex="0" aria-label="Animation 2 an- oder ausschalten" style="background-image: url('images/July Gif.gif');" onclick="toggleGif('gif2', 'images/July Gif.gif', 'images/Bild_2026-07-06_210330659.png')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleGif('gif2', 'images/July Gif.gif', 'images/Bild_2026-07-06_210330659.png')}"></div>
     </div>
 
     <main class="blog-section">
@@ -99,10 +132,21 @@
     </main>
 
     <aside class="sidebar">
-      <h2 style="margin-bottom: 25px; font-family: 'VT323'; font-size: 2rem; color: var(--accent-alt);">Meine Playlists</h2>
+      <h2 class="sidebar-title">Meine Playlists</h2>
       <div id="playlist-container"></div>
     </aside>
   </div>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span class="footer-brand">Schrottkiste</span>
+      <div class="footer-social">
+        <a href="https://www.twitch.tv/schrottkiste_luka" target="_blank" class="social-btn twitch" aria-label="Twitch"><i class="fa-brands fa-twitch"></i></a>
+        <a href="https://www.youtube.com/@schrottkiste" target="_blank" class="social-btn youtube" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+      </div>
+      <span class="footer-copy">© 2026 Schrottkiste</span>
+    </div>
+  </footer>
 
   <script>
     (function(d,e,s){if(d.getElementById("likebtn_wjs"))return;a=d.createElement(e);m=d.getElementsByTagName(e)[0];a.async=1;a.id="likebtn_wjs";a.src=s;m.parentNode.insertBefore(a, m)})(document,"script","//w.likebtn.com/js/w/widget.js");
@@ -131,9 +175,9 @@
         container.innerHTML += `
             <div class="playlist-item">
                 <a href="https://music.youtube.com/playlist?list=${pl.id}" target="_blank">
-                    <img src="${pl.img}" class="cover-img" alt="${pl.title}">
+                    <img src="${pl.img}" class="cover-img" alt="${pl.title}" loading="lazy">
                 </a>
-                <span style="font-family: 'VT323'; font-size: 1.4rem;">${pl.title}</span>
+                <span class="playlist-title">${pl.title}</span>
             </div>
         `;
     });
