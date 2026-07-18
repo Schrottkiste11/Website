@@ -237,14 +237,15 @@
 <a href="index.html" class="logo-link">Schrottkiste</a>
 
 <div id="navbar">
-  <div class="nav-item active" data-cat="all">🌐 Alle</div>
-  <div class="nav-item" data-cat="minecraft">🎮 Minecraft</div>
-  <div class="nav-item" data-cat="animal">🌿 Animal Crossing</div>
-  <div class="nav-item" data-cat="series">📺 Serien & Intros</div>
-  <div class="nav-item" data-cat="littlebigplanet">🧵 LittleBigPlanet</div>
-  <div class="nav-item" data-cat="speedy">🐣 Speedy Eggbert</div>
-  <div class="nav-item" data-cat="lifeisstrange">🦋 Life is Strange</div>
-  <div class="nav-item" data-cat="other">🎵 Sonstiges</div>
+  <a href="ideen.html" class="nav-item">Content-Plan</a>
+  <a class="nav-item active" data-cat="all">🌐 Alle</a>
+  <a class="nav-item" data-cat="minecraft">🎮 Minecraft</a>
+  <a class="nav-item" data-cat="animal">🌿 Animal Crossing</a>
+  <a class="nav-item" data-cat="series">📺 Serien & Intros</a>
+  <a class="nav-item" data-cat="littlebigplanet">🧵 LittleBigPlanet</a>
+  <a class="nav-item" data-cat="speedy">🐣 Speedy Eggbert</a>
+  <a class="nav-item" data-cat="lifeisstrange">🦋 Life is Strange</a>
+  <a class="nav-item" data-cat="other">🎵 Sonstiges</a>
 </div>
 
 <h1 style="margin-top: 60px;">Nostalgie Soundboard ⚡</h1>
@@ -301,7 +302,8 @@ async function loadSounds() {
 }
 
 function renderList() {
-  const activeCat = document.querySelector(".nav-item.active").dataset.cat;
+  const activeNavItem = document.querySelector(".nav-item.active");
+  const activeCat = activeNavItem ? activeNavItem.dataset.cat : "all";
   const searchTerm = searchBox.value.toLowerCase();
 
   let songs = (activeCat === "all") ? allSongs : allSongs.filter(s => categoryMap[activeCat].some(k => s.name.toLowerCase().includes(k.toLowerCase())));
