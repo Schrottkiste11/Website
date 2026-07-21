@@ -406,6 +406,18 @@
     padding: 0 20px;
   }
   .footer-controls { display: flex; align-items: center; gap: 20px; }
+  
+  .footer-ctrl-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+  .footer-ctrl-btn:hover { color: #fff; transform: scale(1.1); }
+  .footer-ctrl-btn.active { color: var(--accent); text-shadow: 0 0 10px var(--accent); }
+
   .footer-play-btn {
     background: #fff;
     color: #000;
@@ -676,7 +688,10 @@
 
   <div class="footer-center">
     <div class="footer-controls">
+      <button id="footerShuffleBtn" class="footer-ctrl-btn" title="Shuffle an/aus">🔀</button>
+      <button id="footerPrevBtn" class="footer-ctrl-btn" title="Vorheriger Song (Redo)">⏮</button>
       <button id="footerPlayBtn" class="footer-play-btn">▶</button>
+      <button id="footerNextBtn" class="footer-ctrl-btn" title="Nächster Song (Skip)">⏭</button>
     </div>
     <div class="footer-progress-wrapper">
       <span id="footerCurrentTime" class="time-info">0:00</span>
@@ -742,14 +757,20 @@ const modalCancelBtn = document.getElementById("modalCancelBtn");
 const recommendationSection = document.getElementById("recommendationSection");
 const recommendationList = document.getElementById("recommendationList");
 
+const footerShuffleBtn = document.getElementById("footerShuffleBtn");
+const footerPrevBtn = document.getElementById("footerPrevBtn");
+const footerNextBtn = document.getElementById("footerNextBtn");
+
 let globalVolume = parseFloat(localStorage.getItem("soundVolume")) || 0.5;
 let currentAudio = null;
 let currentSongName = null;
 let activePlayBtnElement = null;
+let isShuffle = false;
+let currentCategory = "all";
+let searchQuery = "";
 
 let soundboardPlaylists = JSON.parse(localStorage.getItem("soundboardPlaylists")) || { "Favoriten": [] };
 let activePlaylistName = localStorage.getItem("soundboardActivePlaylist") || "Favoriten";
-
 let hasUserSelectedPlaylist = false;
 
 if (!soundboardPlaylists[activePlaylistName]) {
@@ -896,7 +917,41 @@ function formatTime(seconds) {
   return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
 }
 
-// Zentrale Abspielfunktion, damit egal von wo Songs gestartet werden können
+function getCurrentListForPlayback() {
+  if (currentCategory === "playlist") {
+    const activePlSongs = soundboardPlaylists[activePlaylistName] || [];
+    const filtered = allSongs.filter(s => activePlSongs.includes(s.name));
+    return filtered.length > 0 ? filtered : allSongs;
+  }
+  return allSongs;
+}
+
+function playNextSong() {
+  const list = getCurrentListForPlayback();
+  if (list.length === 0) return;
+
+  let nextSong;
+  if (isShuffle) {
+    let pool = list.filter(s => s.name !== currentSongName);
+    if (pool.length === 0) pool = list;
+    nextSong = pool[Math.floor(Math.random() * pool.length)];
+  } else {
+    const currentIndex = list.findIndex(s => s.name === currentSongName);
+    const nextIndex = (currentIndex + 1) % list.length;
+    nextSong = list[nextIndex];
+  }
+  playSong(nextSong, null);
+}
+
+function playPrevSong() {
+  const list = getCurrentListForPlayback();
+  if (list.length === 0) return;
+
+  const currentIndex = list.findIndex(s => s.name === currentSongName);
+  const prevIndex = (currentIndex - 1 + list.length) % list.length;
+  playSong(list[prevIndex], null);
+}
+
 function playSong(song, btnElement) {
   if (currentSongName === song.name && currentAudio) {
     if (currentAudio.paused) {
@@ -937,7 +992,7 @@ function playSong(song, btnElement) {
   audio.play();
   updateRecommendations(song.name);
   updateExpandedViews(song.name);
-  renderList(); // UI aktualisieren, falls der Song in der Hauptliste sichtbar ist
+  renderList();
 
   audio.ontimeupdate = () => {
     if (audio.duration) {
@@ -957,13 +1012,13 @@ function playSong(song, btnElement) {
     footerSeekBar.value = 0;
     footerCurrentTime.textContent = "0:00";
     footerTotalTime.textContent = "0:00";
-    footerSongTitle.textContent = "Kein Titel ausgewählt";
     renderList();
+    // Automatischer nächster Song (Zufällig oder fortlaufend)
+    playNextSong();
   };
 }
 
 function updateExpandedViews(songName) {
-  // Nächster Titel Tab
   tabContentNext.innerHTML = "";
   const currentList = soundboardPlaylists[activePlaylistName] || allSongs;
   const targetSongs = currentList.length > 0 ? allSongs.filter(s => currentList.includes(s.name)) : allSongs;
@@ -989,7 +1044,6 @@ function updateExpandedViews(songName) {
     tabContentNext.appendChild(item);
   });
 
-  // Ähnliche Titel Tab (jetzt vollständig abspielbar!)
   tabContentSimilar.innerHTML = "";
   const shuffled = allSongs.filter(s => s.name !== songName).sort(() => 0.5 - Math.random()).slice(0, 5);
   shuffled.forEach(s => {
@@ -1038,6 +1092,7 @@ function updateRecommendations(currentSongName) {
   const shuffled = pool.sort(() => 0.5 - Math.random());
   const recommendations = shuffled.slice(0, 3);
 
+  recommendationSection.style.display = "block";
   recommendationList.innerHTML = "";
   recommendations.forEach(recSong => {
     const currentList = soundboardPlaylists[activePlaylistName] || [];
@@ -1057,126 +1112,186 @@ function updateRecommendations(currentSongName) {
     `;
 
     const playBtn = card.querySelector(".play-btn");
-    playBtn.onclick = () => {
-      playSong(recSong, playBtn);
-    };
+    playBtn.onclick = () => playSong(recSong, playBtn);
 
     const addBtn = card.querySelector(".rec-add-btn");
     addBtn.onclick = () => {
-      let list = soundboardPlaylists[activePlaylistName];
-      if (list.includes(recSong.name)) {
-        soundboardPlaylists[activePlaylistName] = list.filter(n => n !== recSong.name);
-        addBtn.classList.remove("added");
+      const list = soundboardPlaylists[activePlaylistName];
+      const idx = list.indexOf(recSong.name);
+      if (idx > -1) {
+        list.splice(idx, 1);
         addBtn.textContent = "+ Playlist";
+        addBtn.classList.remove("added");
       } else {
         list.push(recSong.name);
-        addBtn.classList.add("added");
         addBtn.textContent = "✓ In Playlist";
+        addBtn.classList.add("added");
       }
+      savePlaylists();
       updatePlaylistCount();
-      const activeNavItem = document.querySelector(".nav-item.active");
-      if (activeNavItem && activeNavItem.dataset.cat === "playlist") renderList();
+      renderList();
     };
 
     recommendationList.appendChild(card);
   });
-
-  recommendationSection.style.display = "block";
 }
 
-function renderList() {
-  const activeNavItem = document.querySelector(".nav-item.active");
-  const activeCat = activeNavItem ? activeNavItem.dataset.cat : "all";
-  const searchTerm = searchBox.value.toLowerCase();
-  const currentList = soundboardPlaylists[activePlaylistName] || [];
+searchBox.oninput = (e) => {
+  searchQuery = e.target.value.toLowerCase();
+  renderList();
+};
 
-  let songs = [];
-  if (activeCat === "playlist") {
-    songs = allSongs.filter(s => currentList.includes(s.name));
-  } else if (activeCat === "all") {
-    songs = allSongs;
-  } else {
-    songs = allSongs.filter(s => categoryMap[activeCat].some(k => s.name.toLowerCase().includes(k.toLowerCase())));
+document.querySelectorAll(".nav-item").forEach(item => {
+  item.onclick = () => {
+    document.querySelectorAll(".nav-item").forEach(n => n.classList.remove("active"));
+    item.classList.add("active");
+    currentCategory = item.dataset.cat;
+    if (currentCategory === "playlist") {
+      hasUserSelectedPlaylist = true;
+      updateSidebarPlaylists();
+    }
+    renderList();
+  };
+});
+
+function renderList() {
+  soundContainer.innerHTML = "";
+  let listToRender = allSongs;
+
+  if (currentCategory === "playlist") {
+    const activePlSongs = soundboardPlaylists[activePlaylistName] || [];
+    listToRender = allSongs.filter(s => activePlSongs.includes(s.name));
+  } else if (currentCategory !== "all") {
+    const keywords = categoryMap[currentCategory] || [];
+    listToRender = allSongs.filter(s => keywords.some(k => s.name.toLowerCase().includes(k.toLowerCase())));
   }
 
-  if (searchTerm) songs = songs.filter(s => s.name.toLowerCase().includes(searchTerm));
+  if (searchQuery) {
+    listToRender = listToRender.filter(s => s.name.toLowerCase().includes(searchQuery));
+  }
 
-  soundContainer.innerHTML = "";
-  
-  if (songs.length === 0) {
-    soundContainer.innerHTML = `<div style="font-family:'VT323'; font-size:1.4rem; color:var(--text-muted); text-align:center; padding:40px;">Keine Tracks gefunden 🎧</div>`;
+  if (listToRender.length === 0) {
+    soundContainer.innerHTML = `<div style="text-align: center; color: var(--text-muted); padding: 40px;">Keine Sounds gefunden 😢</div>`;
     return;
   }
 
-  songs.forEach(song => {
-    const item = document.createElement("div");
-    item.className = "sound-item";
+  listToRender.forEach(song => {
+    const soundItem = document.createElement("div");
+    soundItem.className = "sound-item";
     
-    const inAnyPlaylist = Object.values(soundboardPlaylists).some(list => list.includes(song.name));
     const isPlayingThis = (currentSongName === song.name && currentAudio && !currentAudio.paused);
+    const currentPlSongs = soundboardPlaylists[activePlaylistName] || [];
+    const isInActivePl = currentPlSongs.includes(song.name);
 
-    item.innerHTML = `
+    soundItem.innerHTML = `
       <button class="play-btn ${isPlayingThis ? 'playing' : ''}">${isPlayingThis ? '⏸' : '▶'}</button>
       <div class="sound-details">
-        <div class="sound-title">${song.name}</div>
-        <div class="sound-subtitle">Schrottkiste • Audio Track</div>
+        <div class="sound-title">🎵 ${song.name}</div>
+        <div class="sound-subtitle">Schrottkiste • Audio-Datei</div>
       </div>
       <div class="playlist-menu-wrapper">
-        <button class="playlist-menu-btn ${inAnyPlaylist ? 'has-playlist' : ''}" title="Zu Playlist hinzufügen">⭐</button>
-        <div class="playlist-dropdown"></div>
+        <button class="playlist-menu-btn ${isInActivePl ? 'has-playlist' : ''}" title="Zu Playlist hinzufügen">⭐</button>
+        <div class="playlist-dropdown">
+          <div style="font-size:0.8rem; color:var(--text-muted); padding:4px 8px; border-bottom:1px solid var(--border-color); margin-bottom:4px;">Zu Playlist hinzufügen:</div>
+          ${Object.keys(soundboardPlaylists).map(plName => {
+            const inPl = (soundboardPlaylists[plName] || []).includes(song.name);
+            return `<div class="dropdown-item ${inPl ? 'in-pl' : ''}" data-pl="${plName}">
+                      <span>${plName}</span>
+                      <span>${inPl ? '✓' : '+'}</span>
+                    </div>`;
+          }).join('')}
+        </div>
       </div>
     `;
-    
-    const btn = item.querySelector(".play-btn");
-    const menuBtn = item.querySelector(".playlist-menu-btn");
-    const dropdown = item.querySelector(".playlist-dropdown");
-    
+
+    const playBtn = soundItem.querySelector(".play-btn");
+    playBtn.onclick = () => playSong(song, playBtn);
+
+    const menuBtn = soundItem.querySelector(".playlist-menu-btn");
+    const dropdown = soundItem.querySelector(".playlist-dropdown");
+
     menuBtn.onclick = (e) => {
       e.stopPropagation();
       document.querySelectorAll(".playlist-dropdown").forEach(d => {
         if (d !== dropdown) d.classList.remove("show");
       });
-
-      dropdown.innerHTML = "";
-      for (const plName of Object.keys(soundboardPlaylists)) {
-        const isInside = soundboardPlaylists[plName].includes(song.name);
-        const dropItem = document.createElement("div");
-        dropItem.className = `dropdown-item ${isInside ? 'in-pl' : ''}`;
-        dropItem.innerHTML = `<span>${plName}</span> <span>${isInside ? '✓' : '+'}</span>`;
-        
-        dropItem.onclick = (ev) => {
-          ev.stopPropagation();
-          let list = soundboardPlaylists[plName];
-          if (list.includes(song.name)) {
-            soundboardPlaylists[plName] = list.filter(n => n !== song.name);
-          } else {
-            list.push(song.name);
-          }
-          savePlaylists();
-          updatePlaylistCount();
-          
-          const anyStillIn = Object.values(soundboardPlaylists).some(l => l.includes(song.name));
-          if (anyStillIn) menuBtn.classList.add("has-playlist");
-          else menuBtn.classList.remove("has-playlist");
-
-          dropdown.classList.remove("show");
-          if (activeCat === "playlist") renderList();
-        };
-        dropdown.appendChild(dropItem);
-      }
       dropdown.classList.toggle("show");
     };
 
-    btn.onclick = () => {
-      playSong(song, btn);
-    };
+    dropdown.querySelectorAll(".dropdown-item").forEach(item => {
+      item.onclick = (e) => {
+        e.stopPropagation();
+        const plName = item.dataset.pl;
+        const index = soundboardPlaylists[plName].indexOf(song.name);
+        if (index > -1) {
+          soundboardPlaylists[plName].splice(index, 1);
+        } else {
+          soundboardPlaylists[plName].push(song.name);
+        }
+        savePlaylists();
+        updatePlaylistCount();
+        renderList();
+        dropdown.classList.remove("show");
+      };
+    });
 
-    soundContainer.appendChild(item);
+    soundContainer.appendChild(soundItem);
   });
 }
 
+window.onclick = () => {
+  document.querySelectorAll(".playlist-dropdown").forEach(d => d.classList.remove("show"));
+};
+
+volumeSlider.oninput = (e) => {
+  globalVolume = parseFloat(e.target.value);
+  localStorage.setItem("soundVolume", globalVolume);
+  if (currentAudio) currentAudio.volume = globalVolume;
+};
+volumeSlider.value = globalVolume;
+
+footerSeekBar.oninput = (e) => {
+  if (currentAudio && currentAudio.duration) {
+    const time = (e.target.value / 100) * currentAudio.duration;
+    currentAudio.currentTime = time;
+  }
+};
+
+footerPlayBtn.onclick = () => {
+  if (!currentAudio && allSongs.length > 0) {
+    playSong(allSongs[0], null);
+    return;
+  }
+  if (currentAudio) {
+    if (currentAudio.paused) {
+      currentAudio.play();
+      footerPlayBtn.textContent = "⏸";
+      if (activePlayBtnElement) {
+        activePlayBtnElement.textContent = "⏸";
+        activePlayBtnElement.classList.add("playing");
+      }
+    } else {
+      currentAudio.pause();
+      footerPlayBtn.textContent = "▶";
+      if (activePlayBtnElement) {
+        activePlayBtnElement.textContent = "▶";
+        activePlayBtnElement.classList.remove("playing");
+      }
+    }
+  }
+};
+
+footerShuffleBtn.onclick = () => {
+  isShuffle = !isShuffle;
+  footerShuffleBtn.classList.toggle("active", isShuffle);
+};
+
+footerNextBtn.onclick = () => playNextSong();
+footerPrevBtn.onclick = () => playPrevSong();
+
 footerExpandTrigger.onclick = () => {
   expandedPlayerOverlay.style.display = "flex";
+  if (currentSongName) updateExpandedViews(currentSongName);
 };
 
 expandedCloseBtn.onclick = () => {
@@ -1187,62 +1302,10 @@ document.querySelectorAll(".expanded-tab").forEach(tab => {
   tab.onclick = () => {
     document.querySelectorAll(".expanded-tab").forEach(t => t.classList.remove("active"));
     document.querySelectorAll(".expanded-tab-content").forEach(c => c.classList.remove("active"));
-    
     tab.classList.add("active");
-    const targetTab = tab.dataset.tab;
-    if (targetTab === "next") tabContentNext.classList.add("active");
-    if (targetTab === "similar") tabContentSimilar.classList.add("active");
+    const target = tab.dataset.tab === "next" ? tabContentNext : tabContentSimilar;
+    target.classList.add("active");
   };
-});
-
-footerPlayBtn.onclick = () => {
-  if (!currentAudio) {
-    const firstBtn = soundContainer.querySelector(".play-btn");
-    if (firstBtn) firstBtn.click();
-    return;
-  }
-  if (currentAudio.paused) {
-    currentAudio.play();
-    footerPlayBtn.textContent = "⏸";
-    if (activePlayBtnElement) {
-      activePlayBtnElement.textContent = "⏸";
-      activePlayBtnElement.classList.add("playing");
-    }
-  } else {
-    currentAudio.pause();
-    footerPlayBtn.textContent = "▶";
-    if (activePlayBtnElement) {
-      activePlayBtnElement.textContent = "▶";
-      activePlayBtnElement.classList.remove("playing");
-    }
-  }
-};
-
-footerSeekBar.oninput = () => {
-  if (currentAudio && currentAudio.duration) {
-    const percent = footerSeekBar.value;
-    currentAudio.currentTime = (percent / 100) * currentAudio.duration;
-  }
-};
-
-window.onclick = (e) => {
-  if (!e.target.closest('.playlist-menu-wrapper')) {
-    document.querySelectorAll(".playlist-dropdown").forEach(d => d.classList.remove("show"));
-  }
-};
-
-volumeSlider.oninput = () => {
-  globalVolume = volumeSlider.value;
-  localStorage.setItem("soundVolume", globalVolume);
-  if (currentAudio) currentAudio.volume = globalVolume;
-};
-
-searchBox.oninput = renderList;
-
-document.querySelectorAll(".nav-item").forEach(nav => nav.onclick = () => {
-  document.querySelectorAll(".nav-item").forEach(n => n.classList.remove("active"));
-  nav.classList.add("active");
-  renderList();
 });
 
 loadSounds();
