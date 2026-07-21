@@ -34,6 +34,16 @@
     overflow: hidden;
   }
 
+  /* --- MOBILE BACKDROP --- */
+  .sidebar-backdrop {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.6);
+    z-index: 990;
+  }
+  .sidebar-backdrop.show { display: block; }
+
   /* --- LINKER BEREICH: SIDEBAR --- */
   .app-sidebar {
     width: 260px;
@@ -45,6 +55,7 @@
     padding: 20px 15px;
     flex-shrink: 0;
     z-index: 1000;
+    transition: transform 0.3s ease;
   }
 
   .sidebar-logo {
@@ -171,6 +182,7 @@
   .app-topbar {
     padding: 15px 40px;
     display: flex;
+    gap: 15px;
     justify-content: space-between;
     align-items: center;
     background: rgba(15, 15, 19, 0.95);
@@ -179,6 +191,21 @@
     top: 0;
     z-index: 950;
     border-bottom: 1px solid var(--border-color);
+  }
+
+  .mobile-menu-btn {
+    display: none;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    color: #fff;
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    flex-shrink: 0;
   }
 
   #searchBox {
@@ -276,7 +303,7 @@
     padding: 10px 15px;
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 15px;
     transition: 0.2s;
     border: 1px solid transparent;
   }
@@ -299,12 +326,12 @@
   .play-btn:hover { border-color: var(--accent-alt); color: var(--accent-alt); }
   .play-btn.playing { background: var(--accent); border-color: var(--accent); color: #fff; }
 
-  .sound-details { flex: 1; display: flex; flex-direction: column; gap: 2px; text-align: left; }
-  .sound-title { font-size: 0.95rem; font-weight: 500; color: var(--text-main); }
+  .sound-details { flex: 1; display: flex; flex-direction: column; gap: 2px; text-align: left; min-width: 0; }
+  .sound-title { font-size: 0.95rem; font-weight: 500; color: var(--text-main); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .sound-subtitle { font-size: 0.8rem; color: var(--text-muted); }
 
   /* Playlist-Menü Button & Dropdown */
-  .playlist-menu-wrapper { position: relative; display: inline-block; }
+  .playlist-menu-wrapper { position: relative; display: inline-block; flex-shrink: 0; }
   .playlist-menu-btn {
     background: transparent;
     border: 1px solid var(--border-color);
@@ -367,51 +394,52 @@
     justify-content: space-between;
     padding: 0 30px;
     z-index: 1100;
+    transition: left 0.3s ease;
   }
 
   .footer-left {
     display: flex;
     align-items: center;
     gap: 15px;
-    min-width: 220px;
-    max-width: 300px;
+    min-width: 180px;
+    max-width: 250px;
     cursor: pointer;
   }
   .footer-left:hover .footer-thumb { border-color: var(--accent-alt); }
   
   .footer-thumb {
-    width: 50px;
-    height: 50px;
+    width: 45px;
+    height: 45px;
     background: var(--bg-card);
     border-radius: 6px;
     border: 1px solid var(--border-color);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     flex-shrink: 0;
     transition: 0.2s;
   }
   .footer-song-meta { display: flex; flex-direction: column; overflow: hidden; text-align: left; }
-  .footer-song-title { font-size: 0.9rem; font-weight: 600; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .footer-song-title { font-size: 0.85rem; font-weight: 600; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .footer-song-artist { font-size: 0.75rem; color: var(--text-muted); }
 
   .footer-center {
     flex: 1;
-    max-width: 600px;
+    max-width: 500px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 8px;
-    padding: 0 20px;
+    gap: 6px;
+    padding: 0 15px;
   }
-  .footer-controls { display: flex; align-items: center; gap: 20px; }
+  .footer-controls { display: flex; align-items: center; gap: 15px; }
   
   .footer-ctrl-btn {
     background: transparent;
     border: none;
     color: var(--text-muted);
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     cursor: pointer;
     transition: 0.2s;
   }
@@ -422,14 +450,14 @@
     background: #fff;
     color: #000;
     border: none;
-    width: 38px;
-    height: 38px;
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1rem;
+    font-size: 0.95rem;
     transition: 0.2s;
   }
   .footer-play-btn:hover { transform: scale(1.05); background: var(--accent-alt); }
@@ -438,13 +466,13 @@
     width: 100%;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
   }
   .time-info {
     font-family: 'VT323', monospace;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     color: var(--text-muted);
-    min-width: 35px;
+    min-width: 30px;
     text-align: center;
   }
 
@@ -459,8 +487,8 @@
   }
   .seek-slider::-webkit-slider-thumb {
     -webkit-appearance: none;
-    width: 12px;
-    height: 12px;
+    width: 10px;
+    height: 10px;
     border-radius: 50%;
     background: #fff;
     cursor: pointer;
@@ -470,12 +498,12 @@
     display: flex;
     align-items: center;
     gap: 15px;
-    min-width: 220px;
+    min-width: 180px;
     justify-content: flex-end;
   }
-  #volumeControl { display: flex; align-items: center; gap: 10px; }
-  #volumeControl span { font-size: 1.1rem; }
-  #volume { accent-color: var(--accent); cursor: pointer; width: 100px; }
+  #volumeControl { display: flex; align-items: center; gap: 8px; }
+  #volumeControl span { font-size: 1rem; }
+  #volume { accent-color: var(--accent); cursor: pointer; width: 90px; }
 
   /* --- ERWEITERTER PLAYER OVERLAY --- */
   #expandedPlayerOverlay {
@@ -485,7 +513,7 @@
     background: var(--bg-app);
     z-index: 50000;
     flex-direction: column;
-    padding: 30px 50px;
+    padding: 20px;
     animation: fadeInOverlay 0.2s ease-in-out;
   }
   @keyframes fadeInOverlay {
@@ -497,7 +525,7 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
   }
 
   .expanded-close-btn {
@@ -522,7 +550,7 @@
     justify-content: center;
     align-items: center;
     overflow: hidden;
-    padding-bottom: 30px;
+    padding-bottom: 20px;
   }
 
   .expanded-center-container {
@@ -541,13 +569,13 @@
   .expanded-tabs-header {
     display: flex;
     border-bottom: 1px solid var(--border-color);
-    padding: 0 20px;
+    padding: 0 15px;
     background: var(--bg-card);
   }
   .expanded-tab {
-    padding: 15px 25px;
+    padding: 12px 20px;
     font-family: 'VT323', monospace;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     color: var(--text-muted);
     cursor: pointer;
     border-bottom: 2px solid transparent;
@@ -561,7 +589,7 @@
   .expanded-tab-content {
     flex: 1;
     overflow-y: auto;
-    padding: 20px;
+    padding: 15px;
     display: none;
     flex-direction: column;
     gap: 8px;
@@ -575,10 +603,10 @@
     justify-content: space-between;
     align-items: center;
     background: var(--bg-card);
-    padding: 8px 15px;
+    padding: 8px 12px;
     border-radius: 8px;
     border: 1px solid var(--border-color);
-    font-size: 0.9rem;
+    font-size: 0.85rem;
   }
 
   /* --- POPUP MODAL --- */
@@ -588,17 +616,18 @@
     background: rgba(0, 0, 0, 0.8);
     z-index: 30000;
     justify-content: center; align-items: center;
+    padding: 15px;
   }
   .modal-content {
     background: var(--bg-card);
     border: 2px solid var(--accent);
     border-radius: 16px;
-    padding: 25px;
-    width: 90%; max-width: 400px;
+    padding: 20px;
+    width: 100%; max-width: 400px;
     text-align: center;
     box-shadow: 0 15px 35px rgba(0,0,0,0.6);
   }
-  .modal-content h3 { font-family: 'VT323', monospace; font-size: 1.8rem; color: var(--accent-alt); margin-top: 0; margin-bottom: 15px; }
+  .modal-content h3 { font-family: 'VT323', monospace; font-size: 1.6rem; color: var(--accent-alt); margin-top: 0; margin-bottom: 15px; }
   #newPlaylistInput {
     width: 100%;
     padding: 10px 15px;
@@ -614,10 +643,81 @@
   .modal-actions { display: flex; justify-content: center; gap: 10px; }
   .modal-btn { background: var(--accent); color: #fff; border: none; padding: 8px 18px; border-radius: 8px; font-weight: 600; cursor: pointer; }
   .modal-btn-cancel { background: var(--bg-card-hover); color: var(--text-muted); }
+
+  /* --- RESPONSIVE MEDIA QUERIES (MOBILE OPTIMIZATION) --- */
+  @media (max-width: 768px) {
+    .sidebar-backdrop { display: none; }
+    .sidebar-backdrop.show { display: block; }
+    
+    .app-sidebar {
+      position: fixed;
+      left: -260px;
+      top: 0;
+      bottom: 0;
+      box-shadow: 10px 0 30px rgba(0,0,0,0.8);
+      z-index: 2000;
+    }
+    .app-sidebar.mobile-open {
+      transform: translateX(260px);
+    }
+
+    .mobile-menu-btn {
+      display: flex;
+    }
+
+    .app-bottom-bar {
+      left: 0 !important;
+      padding: 0 12px;
+      height: 80px;
+    }
+
+    .app-topbar {
+      padding: 12px 15px;
+    }
+
+    .filter-bar {
+      padding: 10px 15px;
+      top: 65px;
+    }
+
+    #soundContainer {
+      padding: 15px;
+    }
+
+    #recommendationSection {
+      margin: 15px;
+      padding: 15px;
+    }
+
+    .footer-right {
+      display: none; /* Versteckt den Lautstärkeregler auf kleinen Smartphones zugunsten von Platz */
+    }
+
+    .footer-left {
+      min-width: unset;
+      max-width: 150px;
+    }
+
+    .footer-center {
+      max-width: unset;
+      padding: 0 5px;
+    }
+
+    .footer-controls {
+      gap: 12px;
+    }
+
+    #expandedPlayerOverlay {
+      padding: 10px;
+    }
+  }
 </style>
 </head>
 
 <body>
+
+<!-- Mobile Sidebar Backdrop -->
+<div class="sidebar-backdrop" id="sidebarBackdrop"></div>
 
 <!-- Linker App-Bereich (Sidebar) -->
 <aside class="app-sidebar">
@@ -652,6 +752,7 @@
 <main class="app-main">
   
   <div class="app-topbar">
+    <button class="mobile-menu-btn" id="mobileMenuBtn" title="Menü öffnen">☰</button>
     <input type="text" id="searchBox" placeholder="🔍 Nach Sound-Titeln suchen..." />
   </div>
 
@@ -737,6 +838,10 @@ const playlistCountSpan = document.getElementById("playlistCount");
 const sidebarPlaylistLinks = document.getElementById("sidebarPlaylistLinks");
 const sidebarNewPlaylistBtn = document.getElementById("sidebarNewPlaylistBtn");
 
+const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+const appSidebar = document.querySelector(".app-sidebar");
+const sidebarBackdrop = document.getElementById("sidebarBackdrop");
+
 const footerSongTitle = document.getElementById("footerSongTitle");
 const footerPlayBtn = document.getElementById("footerPlayBtn");
 const footerSeekBar = document.getElementById("footerSeekBar");
@@ -788,6 +893,17 @@ const categoryMap = {
 };
 
 let allSongs = [];
+
+// Mobile Menu Toggle
+mobileMenuBtn.onclick = () => {
+  appSidebar.classList.toggle("mobile-open");
+  sidebarBackdrop.classList.toggle("show");
+};
+
+sidebarBackdrop.onclick = () => {
+  appSidebar.classList.remove("mobile-open");
+  sidebarBackdrop.classList.remove("show");
+};
 
 async function loadSounds() {
   try {
@@ -861,6 +977,10 @@ function updateSidebarPlaylists() {
       updateSidebarPlaylists();
       updatePlaylistCount();
       renderList();
+
+      // Schließe Sidebar auf Mobile nach Klick
+      appSidebar.classList.remove("mobile-open");
+      sidebarBackdrop.classList.remove("show");
     };
     sidebarPlaylistLinks.appendChild(link);
   }
@@ -1013,7 +1133,6 @@ function playSong(song, btnElement) {
     footerCurrentTime.textContent = "0:00";
     footerTotalTime.textContent = "0:00";
     renderList();
-    // Automatischer nächster Song (Zufällig oder fortlaufend)
     playNextSong();
   };
 }
@@ -1029,11 +1148,11 @@ function updateExpandedViews(songName) {
     const isPlayingThis = (currentSongName === s.name && currentAudio && !currentAudio.paused);
     
     item.innerHTML = `
-      <div style="display:flex; align-items:center; gap:10px;">
+      <div style="display:flex; align-items:center; gap:10px; min-width:0; flex:1;">
         <button class="play-btn" style="width:30px; height:30px; font-size:0.8rem;">${isPlayingThis ? '⏸' : '▶'}</button>
-        <span>🎵 ${s.name}</span>
+        <span style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">🎵 ${s.name}</span>
       </div>
-      <span style="font-size:0.8rem; color:var(--text-muted);">Schrottkiste</span>
+      <span style="font-size:0.8rem; color:var(--text-muted); flex-shrink:0; margin-left:10px;">Schrottkiste</span>
     `;
     
     const playBtn = item.querySelector(".play-btn");
@@ -1052,11 +1171,11 @@ function updateExpandedViews(songName) {
     const isPlayingThis = (currentSongName === s.name && currentAudio && !currentAudio.paused);
 
     item.innerHTML = `
-      <div style="display:flex; align-items:center; gap:10px;">
+      <div style="display:flex; align-items:center; gap:10px; min-width:0; flex:1;">
         <button class="play-btn" style="width:30px; height:30px; font-size:0.8rem;">${isPlayingThis ? '⏸' : '▶'}</button>
-        <span>⚡ ${s.name}</span>
+        <span style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">⚡ ${s.name}</span>
       </div>
-      <span style="font-size:0.8rem; color:var(--accent-alt);">Empfohlen</span>
+      <span style="font-size:0.8rem; color:var(--accent-alt); flex-shrink:0; margin-left:10px;">Empfohlen</span>
     `;
 
     const playBtn = item.querySelector(".play-btn");
@@ -1102,12 +1221,12 @@ function updateRecommendations(currentSongName) {
     const card = document.createElement("div");
     card.className = "rec-card";
     card.innerHTML = `
-      <div class="rec-info-group">
+      <div class="rec-info-group" style="min-width:0; flex:1;">
         <button class="play-btn" style="width:30px; height:30px; font-size:0.8rem;">${isPlayingThis ? '⏸' : '▶'}</button>
-        <div class="rec-song-title">🎵 ${recSong.name}</div>
+        <div class="rec-song-title" style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">🎵 ${recSong.name}</div>
       </div>
       <div class="rec-actions">
-        <button class="rec-add-btn ${isAdded ? 'added' : ''}">${isAdded ? '✓ In Playlist' : '+ Playlist'}</button>
+        <button class="rec-add-btn ${isAdded ? 'added' : ''}">${isAdded ? '✓ In' : '+ Playlist'}</button>
       </div>
     `;
 
@@ -1124,7 +1243,7 @@ function updateRecommendations(currentSongName) {
         addBtn.classList.remove("added");
       } else {
         list.push(recSong.name);
-        addBtn.textContent = "✓ In Playlist";
+        addBtn.textContent = "✓ In";
         addBtn.classList.add("added");
       }
       savePlaylists();
