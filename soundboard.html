@@ -247,11 +247,14 @@
     justify-content: space-between;
     align-items: center;
     background: var(--bg-card);
-    padding: 10px 15px;
+    padding: 8px 15px;
     border-radius: 8px;
     border: 1px solid var(--border-color);
   }
+  .rec-info-group { display: flex; align-items: center; gap: 12px; }
   .rec-song-title { font-size: 0.9rem; font-weight: 500; }
+  
+  .rec-actions { display: flex; align-items: center; gap: 10px; }
   .rec-add-btn {
     background: transparent;
     border: 1px solid var(--accent-yellow);
@@ -560,7 +563,7 @@
     justify-content: space-between;
     align-items: center;
     background: var(--bg-card);
-    padding: 10px 15px;
+    padding: 8px 15px;
     border-radius: 8px;
     border: 1px solid var(--border-color);
     font-size: 0.9rem;
@@ -893,7 +896,74 @@ function formatTime(seconds) {
   return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
 }
 
+// Zentrale Abspielfunktion, damit egal von wo Songs gestartet werden können
+function playSong(song, btnElement) {
+  if (currentSongName === song.name && currentAudio) {
+    if (currentAudio.paused) {
+      currentAudio.play();
+      if (btnElement) { btnElement.textContent = "⏸"; btnElement.classList.add("playing"); }
+      footerPlayBtn.textContent = "⏸";
+    } else {
+      currentAudio.pause();
+      if (btnElement) { btnElement.textContent = "▶"; btnElement.classList.remove("playing"); }
+      footerPlayBtn.textContent = "▶";
+    }
+    return;
+  }
+
+  if (currentAudio) {
+    currentAudio.pause();
+    currentAudio.currentTime = 0;
+  }
+
+  if (activePlayBtnElement) {
+    activePlayBtnElement.textContent = "▶";
+    activePlayBtnElement.classList.remove("playing");
+  }
+
+  const audio = new Audio(song.url);
+  audio.volume = globalVolume;
+  currentAudio = audio;
+  currentSongName = song.name;
+  activePlayBtnElement = btnElement || null;
+
+  footerSongTitle.textContent = song.name;
+  footerPlayBtn.textContent = "⏸";
+  if (btnElement) {
+    btnElement.textContent = "⏸";
+    btnElement.classList.add("playing");
+  }
+
+  audio.play();
+  updateRecommendations(song.name);
+  updateExpandedViews(song.name);
+  renderList(); // UI aktualisieren, falls der Song in der Hauptliste sichtbar ist
+
+  audio.ontimeupdate = () => {
+    if (audio.duration) {
+      const percent = (audio.currentTime / audio.duration) * 100;
+      footerSeekBar.value = percent;
+      footerCurrentTime.textContent = formatTime(audio.currentTime);
+      footerTotalTime.textContent = formatTime(audio.duration);
+    }
+  };
+
+  audio.onended = () => {
+    if (btnElement) {
+      btnElement.textContent = "▶";
+      btnElement.classList.remove("playing");
+    }
+    footerPlayBtn.textContent = "▶";
+    footerSeekBar.value = 0;
+    footerCurrentTime.textContent = "0:00";
+    footerTotalTime.textContent = "0:00";
+    footerSongTitle.textContent = "Kein Titel ausgewählt";
+    renderList();
+  };
+}
+
 function updateExpandedViews(songName) {
+  // Nächster Titel Tab
   tabContentNext.innerHTML = "";
   const currentList = soundboardPlaylists[activePlaylistName] || allSongs;
   const targetSongs = currentList.length > 0 ? allSongs.filter(s => currentList.includes(s.name)) : allSongs;
@@ -901,16 +971,45 @@ function updateExpandedViews(songName) {
   targetSongs.forEach(s => {
     const item = document.createElement("div");
     item.className = "queue-item-exp";
-    item.innerHTML = `<span>🎵 ${s.name}</span> <span style="font-size:0.8rem; color:var(--text-muted);">Schrottkiste</span>`;
+    const isPlayingThis = (currentSongName === s.name && currentAudio && !currentAudio.paused);
+    
+    item.innerHTML = `
+      <div style="display:flex; align-items:center; gap:10px;">
+        <button class="play-btn" style="width:30px; height:30px; font-size:0.8rem;">${isPlayingThis ? '⏸' : '▶'}</button>
+        <span>🎵 ${s.name}</span>
+      </div>
+      <span style="font-size:0.8rem; color:var(--text-muted);">Schrottkiste</span>
+    `;
+    
+    const playBtn = item.querySelector(".play-btn");
+    playBtn.onclick = () => {
+      playSong(s, playBtn);
+      updateExpandedViews(songName);
+    };
     tabContentNext.appendChild(item);
   });
 
+  // Ähnliche Titel Tab (jetzt vollständig abspielbar!)
   tabContentSimilar.innerHTML = "";
   const shuffled = allSongs.filter(s => s.name !== songName).sort(() => 0.5 - Math.random()).slice(0, 5);
   shuffled.forEach(s => {
     const item = document.createElement("div");
     item.className = "queue-item-exp";
-    item.innerHTML = `<span>⚡ ${s.name}</span> <span style="font-size:0.8rem; color:var(--accent-alt);">Empfohlen</span>`;
+    const isPlayingThis = (currentSongName === s.name && currentAudio && !currentAudio.paused);
+
+    item.innerHTML = `
+      <div style="display:flex; align-items:center; gap:10px;">
+        <button class="play-btn" style="width:30px; height:30px; font-size:0.8rem;">${isPlayingThis ? '⏸' : '▶'}</button>
+        <span>⚡ ${s.name}</span>
+      </div>
+      <span style="font-size:0.8rem; color:var(--accent-alt);">Empfohlen</span>
+    `;
+
+    const playBtn = item.querySelector(".play-btn");
+    playBtn.onclick = () => {
+      playSong(s, playBtn);
+      updateExpandedViews(songName);
+    };
     tabContentSimilar.appendChild(item);
   });
 }
@@ -943,13 +1042,24 @@ function updateRecommendations(currentSongName) {
   recommendations.forEach(recSong => {
     const currentList = soundboardPlaylists[activePlaylistName] || [];
     const isAdded = currentList.includes(recSong.name);
+    const isPlayingThis = (currentSongName === recSong.name && currentAudio && !currentAudio.paused);
 
     const card = document.createElement("div");
     card.className = "rec-card";
     card.innerHTML = `
-      <div class="rec-song-title">🎵 ${recSong.name}</div>
-      <button class="rec-add-btn ${isAdded ? 'added' : ''}">${isAdded ? '✓ In Playlist' : '+ Playlist'}</button>
+      <div class="rec-info-group">
+        <button class="play-btn" style="width:30px; height:30px; font-size:0.8rem;">${isPlayingThis ? '⏸' : '▶'}</button>
+        <div class="rec-song-title">🎵 ${recSong.name}</div>
+      </div>
+      <div class="rec-actions">
+        <button class="rec-add-btn ${isAdded ? 'added' : ''}">${isAdded ? '✓ In Playlist' : '+ Playlist'}</button>
+      </div>
     `;
+
+    const playBtn = card.querySelector(".play-btn");
+    playBtn.onclick = () => {
+      playSong(recSong, playBtn);
+    };
 
     const addBtn = card.querySelector(".rec-add-btn");
     addBtn.onclick = () => {
@@ -1058,64 +1168,7 @@ function renderList() {
     };
 
     btn.onclick = () => {
-      if (currentSongName === song.name && currentAudio) {
-        if (currentAudio.paused) {
-          currentAudio.play();
-          btn.textContent = "⏸";
-          btn.classList.add("playing");
-          footerPlayBtn.textContent = "⏸";
-        } else {
-          currentAudio.pause();
-          btn.textContent = "▶";
-          btn.classList.remove("playing");
-          footerPlayBtn.textContent = "▶";
-        }
-        return;
-      }
-
-      if (currentAudio) {
-        currentAudio.pause();
-        currentAudio.currentTime = 0;
-      }
-
-      if (activePlayBtnElement) {
-        activePlayBtnElement.textContent = "▶";
-        activePlayBtnElement.classList.remove("playing");
-      }
-
-      const audio = new Audio(song.url);
-      audio.volume = globalVolume;
-      currentAudio = audio;
-      currentSongName = song.name;
-      activePlayBtnElement = btn;
-
-      footerSongTitle.textContent = song.name;
-      footerPlayBtn.textContent = "⏸";
-      btn.textContent = "⏸";
-      btn.classList.add("playing");
-
-      audio.play();
-      updateRecommendations(song.name);
-      updateExpandedViews(song.name);
-
-      audio.ontimeupdate = () => {
-        if (audio.duration) {
-          const percent = (audio.currentTime / audio.duration) * 100;
-          footerSeekBar.value = percent;
-          footerCurrentTime.textContent = formatTime(audio.currentTime);
-          footerTotalTime.textContent = formatTime(audio.duration);
-        }
-      };
-
-      audio.onended = () => {
-        btn.textContent = "▶";
-        btn.classList.remove("playing");
-        footerPlayBtn.textContent = "▶";
-        footerSeekBar.value = 0;
-        footerCurrentTime.textContent = "0:00";
-        footerTotalTime.textContent = "0:00";
-        footerSongTitle.textContent = "Kein Titel ausgewählt";
-      };
+      playSong(song, btn);
     };
 
     soundContainer.appendChild(item);
