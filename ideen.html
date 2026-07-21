@@ -107,7 +107,7 @@
 </head>
 <body>
 
-  <!-- Hintergrundmusik-Audio-Element (Dateiname auf lofi.mp3 vereinfacht) -->
+  <!-- Hintergrundmusik-Audio-Element -->
   <audio id="bgMusic" src="lofi.mp3" preload="auto" loop></audio>
 
   <!-- Musik Widget unten rechts -->
@@ -204,6 +204,11 @@
     const musicToggleBtn = document.getElementById("musicToggleBtn");
     bgMusic.volume = 0.35; // Angenehme Hintergrundlautstärke
 
+    // Fehler-Lauscher, falls die Datei nicht gefunden wird
+    bgMusic.onerror = function() {
+      console.error("Fehler: Die Audiodatei 'lofi.mp3' konnte nicht geladen werden. Bitte Dateinamen und Speicherort im GitHub-Repo prüfen!");
+    };
+
     // Versuche beim Laden direkt zu starten
     bgMusic.play().then(() => {
       musicToggleBtn.textContent = "⏸";
@@ -213,6 +218,8 @@
         bgMusic.play().then(() => {
           musicToggleBtn.textContent = "⏸";
           window.removeEventListener('click', startOnInteraction);
+        }).catch(err => {
+          console.log("Play-Fehler nach Klick:", err);
         });
       };
       window.addEventListener('click', startOnInteraction);
@@ -222,7 +229,7 @@
     musicToggleBtn.onclick = (e) => {
       e.stopPropagation();
       if (bgMusic.paused) {
-        bgMusic.play();
+        bgMusic.play().catch(err => console.log("Manuelles Abspielen fehlgeschlagen:", err));
         musicToggleBtn.textContent = "⏸";
       } else {
         bgMusic.pause();
