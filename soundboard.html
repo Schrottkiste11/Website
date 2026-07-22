@@ -690,7 +690,7 @@
     }
 
     .footer-right {
-      display: none; /* Versteckt den Lautstärkeregler auf kleinen Smartphones zugunsten von Platz */
+      display: none;
     }
 
     .footer-left {
@@ -790,7 +790,7 @@
   <div class="footer-center">
     <div class="footer-controls">
       <button id="footerShuffleBtn" class="footer-ctrl-btn" title="Shuffle an/aus">🔀</button>
-      <button id="footerPrevBtn" class="footer-ctrl-btn" title="Vorheriger Song (Redo)">⏮</button>
+      <button id="footerPrevBtn" class="footer-ctrl-btn" title="Vorheriger Song (Zuletzt gespielt)">⏮</button>
       <button id="footerPlayBtn" class="footer-play-btn">▶</button>
       <button id="footerNextBtn" class="footer-ctrl-btn" title="Nächster Song (Skip)">⏭</button>
     </div>
@@ -869,10 +869,15 @@ const footerNextBtn = document.getElementById("footerNextBtn");
 let globalVolume = parseFloat(localStorage.getItem("soundVolume")) || 0.5;
 let currentAudio = null;
 let currentSongName = null;
+let currentSongObj = null;
 let activePlayBtnElement = null;
 let isShuffle = false;
 let currentCategory = "all";
 let searchQuery = "";
+
+// Verlaufshistorie für Zurück- und Vorwärts-Navigation
+let songHistory = [];
+let forwardHistory = [];
 
 let soundboardPlaylists = JSON.parse(localStorage.getItem("soundboardPlaylists")) || { "Favoriten": [] };
 let activePlaylistName = localStorage.getItem("soundboardActivePlaylist") || "Favoriten";
@@ -978,7 +983,6 @@ function updateSidebarPlaylists() {
       updatePlaylistCount();
       renderList();
 
-      // Schließe Sidebar auf Mobile nach Klick
       appSidebar.classList.remove("mobile-open");
       sidebarBackdrop.classList.remove("show");
     };
@@ -1047,6 +1051,16 @@ function getCurrentListForPlayback() {
 }
 
 function playNextSong() {
+  // Wenn es einen Vorwärts-Verlauf gibt (weil man vorher zurückgeklickt hat), diesen bedienen
+  if (forwardHistory.length > 0) {
+    if (currentSongObj) {
+      songHistory.push(currentSongObj);
+    }
+    const nextSong = forwardHistory.pop();
+    playSong(nextSong, null, true);
+    return;
+  }
+
   const list = getCurrentListForPlayback();
   if (list.length === 0) return;
 
@@ -1064,16 +1078,19 @@ function playNextSong() {
 }
 
 function playPrevSong() {
-  const list = getCurrentListForPlayback();
-  if (list.length === 0) return;
+  if (songHistory.length === 0) return;
 
-  const currentIndex = list.findIndex(s => s.name === currentSongName);
-  const prevIndex = (currentIndex - 1 + list.length) % list.length;
-  playSong(list[prevIndex], null);
+  // Aktuellen Song in den Vorwärts-Verlauf schieben
+  if (currentSongObj) {
+    forwardHistory.push(currentSongObj);
+  }
+
+  const prevSong = songHistory.pop();
+  playSong(prevSong, null, true);
 }
 
-function playSong(song, btnElement) {
-  if (currentSongName === song.name && currentAudio) {
+function playSong(song, btnElement, isNavigation = false) {
+  if (currentSongName === song.name && currentAudio && !isNavigation) {
     if (currentAudio.paused) {
       currentAudio.play();
       if (btnElement) { btnElement.textContent = "⏸"; btnElement.classList.add("playing"); }
@@ -1096,10 +1113,19 @@ function playSong(song, btnElement) {
     activePlayBtnElement.classList.remove("playing");
   }
 
+  // Historie verwalten bei neuer Song-Wahl (außer bei Direkt-Navigation per Zurück/Vor)
+  if (!isNavigation) {
+    if (currentSongObj) {
+      songHistory.push(currentSongObj);
+    }
+    forwardHistory = []; // Vorwärts-Verlauf bei neuer Song-Auswahl leeren
+  }
+
   const audio = new Audio(song.url);
   audio.volume = globalVolume;
   currentAudio = audio;
   currentSongName = song.name;
+  currentSongObj = song;
   activePlayBtnElement = btnElement || null;
 
   footerSongTitle.textContent = song.name;
