@@ -19,6 +19,7 @@
     --accent-alt: #00ffff;
     --accent-green: #00ff66;
     --accent-yellow: #ffcc00;
+    --accent-red: #ff0033;
     --border-color: #2a2a38;
   }
 
@@ -46,13 +47,13 @@
 
   /* --- LINKER BEREICH: SIDEBAR --- */
   .app-sidebar {
-    width: 260px;
+    width: 280px;
     background: var(--bg-sidebar);
     border-right: 1px solid var(--border-color);
     display: flex;
     flex-direction: column;
     height: 100vh;
-    padding: 20px 15px;
+    padding: 25px 20px;
     flex-shrink: 0;
     z-index: 1000;
     transition: transform 0.3s ease;
@@ -60,32 +61,32 @@
 
   .sidebar-logo {
     font-family: 'VT323', monospace;
-    font-size: 2rem;
+    font-size: 2.2rem;
     color: var(--accent);
     text-shadow: 2px 2px 0px var(--accent-alt);
-    margin-bottom: 25px;
-    padding-left: 10px;
+    margin-bottom: 30px;
+    padding-left: 5px;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
   }
 
   .sidebar-menu {
     display: flex;
     flex-direction: column;
-    gap: 6px;
-    margin-bottom: 20px;
+    gap: 8px;
+    margin-bottom: 25px;
   }
 
   .sidebar-link {
     color: var(--text-muted);
     text-decoration: none;
-    font-size: 1.05rem;
-    padding: 10px 12px;
-    border-radius: 8px;
+    font-size: 1.1rem;
+    padding: 12px 15px;
+    border-radius: 10px;
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 14px;
     transition: 0.2s;
     font-weight: 400;
   }
@@ -98,15 +99,15 @@
   .sidebar-divider {
     height: 1px;
     background: var(--border-color);
-    margin: 10px 0;
+    margin: 15px 0;
   }
 
   .sidebar-playlists-title {
     font-family: 'VT323', monospace;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     color: var(--accent-alt);
     padding: 5px 10px;
-    margin-bottom: 5px;
+    margin-bottom: 8px;
   }
 
   .sidebar-playlists-container {
@@ -114,7 +115,7 @@
     overflow-y: auto;
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 6px;
     padding-right: 5px;
   }
 
@@ -124,9 +125,9 @@
   .sidebar-playlist-item {
     color: var(--text-muted);
     text-decoration: none;
-    font-size: 0.95rem;
-    padding: 8px 12px;
-    border-radius: 6px;
+    font-size: 1rem;
+    padding: 10px 14px;
+    border-radius: 8px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -157,12 +158,12 @@
     background: transparent;
     border: 2px dashed var(--accent);
     color: var(--accent);
-    padding: 10px;
-    border-radius: 8px;
+    padding: 12px;
+    border-radius: 10px;
     font-family: 'VT323', monospace;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     cursor: pointer;
-    margin-top: 10px;
+    margin-top: 15px;
     transition: 0.2s;
     text-align: center;
   }
@@ -176,13 +177,13 @@
     height: 100vh;
     overflow-y: auto;
     position: relative;
-    padding-bottom: 120px;
+    padding-bottom: 130px;
   }
 
   .app-topbar {
-    padding: 15px 40px;
+    padding: 20px 45px;
     display: flex;
-    gap: 15px;
+    gap: 20px;
     justify-content: space-between;
     align-items: center;
     background: rgba(15, 15, 19, 0.95);
@@ -198,25 +199,25 @@
     background: var(--bg-card);
     border: 1px solid var(--border-color);
     color: #fff;
-    width: 40px;
-    height: 40px;
-    border-radius: 8px;
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
     cursor: pointer;
     align-items: center;
     justify-content: center;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     flex-shrink: 0;
   }
 
   #searchBox {
     width: 100%;
-    max-width: 450px;
-    padding: 10px 20px;
-    border-radius: 20px;
+    max-width: 500px;
+    padding: 12px 22px;
+    border-radius: 24px;
     border: 1px solid var(--border-color);
     background: var(--bg-card);
     color: white;
-    font-size: 0.95rem;
+    font-size: 1rem;
     outline: none;
     transition: 0.2s;
   }
@@ -224,14 +225,14 @@
 
   .filter-bar {
     display: flex;
-    gap: 8px;
-    padding: 12px 40px;
+    gap: 10px;
+    padding: 15px 45px;
     overflow-x: auto;
     flex-shrink: 0;
     background: rgba(15, 15, 19, 0.95);
     backdrop-filter: blur(10px);
     position: sticky;
-    top: 69px; 
+    top: 85px; 
     z-index: 900;
     border-bottom: 1px solid var(--border-color);
   }
@@ -241,9 +242,9 @@
   .nav-item {
     color: var(--text-muted);
     font-family: 'VT323', monospace;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     cursor: pointer;
-    padding: 4px 14px;
+    padding: 6px 18px;
     border: 1px solid var(--border-color);
     border-radius: 20px;
     background: var(--bg-card);
@@ -260,50 +261,50 @@
   /* --- EMPFEHLUNGEN --- */
   #recommendationSection {
     display: none;
-    margin: 25px 40px 10px 40px;
+    margin: 30px 45px 15px 45px;
     background: rgba(0, 255, 255, 0.03);
     border: 1px dashed var(--accent-alt);
-    border-radius: 12px;
-    padding: 20px;
+    border-radius: 14px;
+    padding: 22px;
     text-align: left;
   }
-  .rec-header { font-family: 'VT323', monospace; font-size: 1.3rem; color: var(--accent-alt); margin-bottom: 12px; }
-  .rec-list { display: flex; flex-direction: column; gap: 8px; }
+  .rec-header { font-family: 'VT323', monospace; font-size: 1.4rem; color: var(--accent-alt); margin-bottom: 14px; }
+  .rec-list { display: flex; flex-direction: column; gap: 10px; }
   .rec-card {
     display: flex;
     justify-content: space-between;
     align-items: center;
     background: var(--bg-card);
-    padding: 8px 15px;
-    border-radius: 8px;
+    padding: 10px 18px;
+    border-radius: 10px;
     border: 1px solid var(--border-color);
   }
-  .rec-info-group { display: flex; align-items: center; gap: 12px; }
-  .rec-song-title { font-size: 0.9rem; font-weight: 500; }
+  .rec-info-group { display: flex; align-items: center; gap: 14px; }
+  .rec-song-title { font-size: 0.95rem; font-weight: 500; }
   
-  .rec-actions { display: flex; align-items: center; gap: 10px; }
+  .rec-actions { display: flex; align-items: center; gap: 12px; }
   .rec-add-btn {
     background: transparent;
     border: 1px solid var(--accent-yellow);
     color: var(--accent-yellow);
-    padding: 4px 12px;
-    border-radius: 15px;
+    padding: 6px 14px;
+    border-radius: 18px;
     cursor: pointer;
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     font-weight: 600;
   }
   .rec-add-btn.added { background: var(--accent-yellow); color: #000; }
 
   /* --- SONG LISTE --- */
-  #soundContainer { padding: 20px 40px; display: flex; flex-direction: column; gap: 6px; }
+  #soundContainer { padding: 25px 45px; display: flex; flex-direction: column; gap: 8px; }
 
   .sound-item {
     background: transparent;
-    border-radius: 8px;
-    padding: 10px 15px;
+    border-radius: 10px;
+    padding: 12px 18px;
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 18px;
     transition: 0.2s;
     border: 1px solid transparent;
   }
@@ -313,8 +314,8 @@
     background: var(--bg-card);
     border: 1px solid var(--border-color);
     color: #fff;
-    width: 36px;
-    height: 36px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     cursor: pointer;
     display: flex;
@@ -322,13 +323,14 @@
     justify-content: center;
     flex-shrink: 0;
     transition: 0.2s;
+    font-size: 1rem;
   }
   .play-btn:hover { border-color: var(--accent-alt); color: var(--accent-alt); }
   .play-btn.playing { background: var(--accent); border-color: var(--accent); color: #fff; }
 
-  .sound-details { flex: 1; display: flex; flex-direction: column; gap: 2px; text-align: left; min-width: 0; }
-  .sound-title { font-size: 0.95rem; font-weight: 500; color: var(--text-main); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .sound-subtitle { font-size: 0.8rem; color: var(--text-muted); }
+  .sound-details { flex: 1; display: flex; flex-direction: column; gap: 3px; text-align: left; min-width: 0; }
+  .sound-title { font-size: 1.05rem; font-weight: 500; color: var(--text-main); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .sound-subtitle { font-size: 0.85rem; color: var(--text-muted); }
 
   /* Playlist-Menü Button & Dropdown */
   .playlist-menu-wrapper { position: relative; display: inline-block; flex-shrink: 0; }
@@ -336,8 +338,8 @@
     background: transparent;
     border: 1px solid var(--border-color);
     color: var(--text-muted);
-    width: 32px;
-    height: 32px;
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
     cursor: pointer;
     display: flex;
@@ -356,23 +358,23 @@
     display: none;
     position: absolute;
     right: 0;
-    bottom: 40px;
+    bottom: 45px;
     background: var(--bg-card);
     border: 1px solid var(--border-color);
-    border-radius: 8px;
-    padding: 6px;
+    border-radius: 10px;
+    padding: 8px;
     z-index: 5000;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-    min-width: 180px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+    min-width: 200px;
     text-align: left;
   }
   .playlist-dropdown.show { display: block; }
   .dropdown-item {
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     color: var(--text-main);
-    padding: 8px 12px;
+    padding: 10px 14px;
     cursor: pointer;
-    border-radius: 4px;
+    border-radius: 6px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -384,15 +386,15 @@
   .app-bottom-bar {
     position: fixed;
     bottom: 0;
-    left: 260px;
+    left: 280px;
     right: 0;
-    height: 90px;
+    height: 100px;
     background: var(--bg-sidebar);
     border-top: 1px solid var(--border-color);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 30px;
+    padding: 0 35px;
     z-index: 1100;
     transition: left 0.3s ease;
   }
@@ -400,46 +402,46 @@
   .footer-left {
     display: flex;
     align-items: center;
-    gap: 15px;
-    min-width: 180px;
-    max-width: 250px;
+    gap: 18px;
+    min-width: 200px;
+    max-width: 280px;
     cursor: pointer;
   }
   .footer-left:hover .footer-thumb { border-color: var(--accent-alt); }
   
   .footer-thumb {
-    width: 45px;
-    height: 45px;
+    width: 52px;
+    height: 52px;
     background: var(--bg-card);
-    border-radius: 6px;
+    border-radius: 8px;
     border: 1px solid var(--border-color);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     flex-shrink: 0;
     transition: 0.2s;
   }
   .footer-song-meta { display: flex; flex-direction: column; overflow: hidden; text-align: left; }
-  .footer-song-title { font-size: 0.85rem; font-weight: 600; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .footer-song-artist { font-size: 0.75rem; color: var(--text-muted); }
+  .footer-song-title { font-size: 0.95rem; font-weight: 600; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .footer-song-artist { font-size: 0.82rem; color: var(--text-muted); }
 
   .footer-center {
     flex: 1;
-    max-width: 500px;
+    max-width: 550px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 6px;
-    padding: 0 15px;
+    gap: 8px;
+    padding: 0 20px;
   }
-  .footer-controls { display: flex; align-items: center; gap: 15px; }
+  .footer-controls { display: flex; align-items: center; gap: 18px; }
   
   .footer-ctrl-btn {
     background: transparent;
     border: none;
     color: var(--text-muted);
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     cursor: pointer;
     transition: 0.2s;
   }
@@ -450,14 +452,14 @@
     background: #fff;
     color: #000;
     border: none;
-    width: 36px;
-    height: 36px;
+    width: 42px;
+    height: 42px;
     border-radius: 50%;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.95rem;
+    font-size: 1.1rem;
     transition: 0.2s;
   }
   .footer-play-btn:hover { transform: scale(1.05); background: var(--accent-alt); }
@@ -466,44 +468,86 @@
     width: 100%;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
   }
   .time-info {
     font-family: 'VT323', monospace;
-    font-size: 0.85rem;
+    font-size: 0.95rem;
     color: var(--text-muted);
-    min-width: 30px;
+    min-width: 35px;
     text-align: center;
   }
 
+  /* --- VERBESSERTER PLAYER BALKEN (MIT ROTEM STRICH / FILL) --- */
   .seek-slider {
     -webkit-appearance: none;
     flex: 1;
-    height: 5px;
+    height: 6px;
     border-radius: 3px;
     background: var(--border-color);
     outline: none;
     cursor: pointer;
+    transition: background 0.1s;
   }
   .seek-slider::-webkit-slider-thumb {
     -webkit-appearance: none;
-    width: 10px;
-    height: 10px;
+    width: 14px;
+    height: 14px;
     border-radius: 50%;
     background: #fff;
     cursor: pointer;
+    box-shadow: 0 0 8px rgba(255, 0, 51, 0.8);
+    transition: transform 0.2s;
+  }
+  .seek-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.25);
+    background: var(--accent-red);
   }
 
   .footer-right {
     display: flex;
     align-items: center;
     gap: 15px;
-    min-width: 180px;
+    min-width: 200px;
     justify-content: flex-end;
   }
-  #volumeControl { display: flex; align-items: center; gap: 8px; }
-  #volumeControl span { font-size: 1rem; }
-  #volume { accent-color: var(--accent); cursor: pointer; width: 90px; }
+
+  /* --- VERNÜNFTIG DESIGNTER LAUTSTÄRKE-REGLER --- */
+  #volumeControl {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    padding: 8px 14px;
+    border-radius: 20px;
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.3);
+  }
+  #volumeControl span { font-size: 1.1rem; }
+  
+  #volume {
+    -webkit-appearance: none;
+    width: 100px;
+    height: 6px;
+    border-radius: 3px;
+    background: var(--border-color);
+    outline: none;
+    cursor: pointer;
+  }
+  #volume::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--accent-alt);
+    cursor: pointer;
+    box-shadow: 0 0 6px rgba(0, 255, 255, 0.6);
+    transition: transform 0.2s, background 0.2s;
+  }
+  #volume::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+    background: #fff;
+  }
 
   /* --- ERWEITERTER PLAYER OVERLAY --- */
   #expandedPlayerOverlay {
@@ -513,7 +557,7 @@
     background: var(--bg-app);
     z-index: 50000;
     flex-direction: column;
-    padding: 20px;
+    padding: 25px;
     animation: fadeInOverlay 0.2s ease-in-out;
   }
   @keyframes fadeInOverlay {
@@ -525,21 +569,21 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
   }
 
   .expanded-close-btn {
     background: var(--bg-card);
     border: 1px solid var(--border-color);
     color: #fff;
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     transition: 0.2s;
   }
   .expanded-close-btn:hover { background: var(--accent); border-color: var(--accent); }
@@ -550,17 +594,17 @@
     justify-content: center;
     align-items: center;
     overflow: hidden;
-    padding-bottom: 20px;
+    padding-bottom: 25px;
   }
 
   .expanded-center-container {
     width: 100%;
-    max-width: 700px;
-    background: rgba(24, 24, 32, 0.5);
+    max-width: 750px;
+    background: rgba(24, 24, 32, 0.6);
     border: 1px solid var(--border-color);
-    border-radius: 16px;
+    border-radius: 18px;
     height: 100%;
-    max-height: 550px;
+    max-height: 600px;
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -569,13 +613,13 @@
   .expanded-tabs-header {
     display: flex;
     border-bottom: 1px solid var(--border-color);
-    padding: 0 15px;
+    padding: 0 20px;
     background: var(--bg-card);
   }
   .expanded-tab {
-    padding: 12px 20px;
+    padding: 15px 25px;
     font-family: 'VT323', monospace;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     color: var(--text-muted);
     cursor: pointer;
     border-bottom: 2px solid transparent;
@@ -589,10 +633,10 @@
   .expanded-tab-content {
     flex: 1;
     overflow-y: auto;
-    padding: 15px;
+    padding: 20px;
     display: none;
     flex-direction: column;
-    gap: 8px;
+    gap: 10px;
   }
   .expanded-tab-content.active { display: flex; }
   .expanded-tab-content::-webkit-scrollbar { width: 5px; }
@@ -603,10 +647,10 @@
     justify-content: space-between;
     align-items: center;
     background: var(--bg-card);
-    padding: 8px 12px;
-    border-radius: 8px;
+    padding: 10px 15px;
+    border-radius: 10px;
     border: 1px solid var(--border-color);
-    font-size: 0.85rem;
+    font-size: 0.9rem;
   }
 
   /* --- POPUP MODAL --- */
@@ -616,32 +660,32 @@
     background: rgba(0, 0, 0, 0.8);
     z-index: 30000;
     justify-content: center; align-items: center;
-    padding: 15px;
+    padding: 20px;
   }
   .modal-content {
     background: var(--bg-card);
     border: 2px solid var(--accent);
-    border-radius: 16px;
-    padding: 20px;
-    width: 100%; max-width: 400px;
+    border-radius: 18px;
+    padding: 25px;
+    width: 100%; max-width: 420px;
     text-align: center;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.7);
   }
-  .modal-content h3 { font-family: 'VT323', monospace; font-size: 1.6rem; color: var(--accent-alt); margin-top: 0; margin-bottom: 15px; }
+  .modal-content h3 { font-family: 'VT323', monospace; font-size: 1.8rem; color: var(--accent-alt); margin-top: 0; margin-bottom: 18px; }
   #newPlaylistInput {
     width: 100%;
-    padding: 10px 15px;
+    padding: 12px 18px;
     background: var(--bg-app);
     border: 1px solid var(--border-color);
-    border-radius: 8px;
+    border-radius: 10px;
     color: white;
-    font-size: 1rem;
-    margin-bottom: 20px;
+    font-size: 1.05rem;
+    margin-bottom: 22px;
     outline: none;
   }
   #newPlaylistInput:focus { border-color: var(--accent); }
-  .modal-actions { display: flex; justify-content: center; gap: 10px; }
-  .modal-btn { background: var(--accent); color: #fff; border: none; padding: 8px 18px; border-radius: 8px; font-weight: 600; cursor: pointer; }
+  .modal-actions { display: flex; justify-content: center; gap: 12px; }
+  .modal-btn { background: var(--accent); color: #fff; border: none; padding: 10px 22px; border-radius: 10px; font-weight: 600; cursor: pointer; }
   .modal-btn-cancel { background: var(--bg-card-hover); color: var(--text-muted); }
 
   /* --- RESPONSIVE MEDIA QUERIES (MOBILE OPTIMIZATION) --- */
@@ -651,14 +695,14 @@
     
     .app-sidebar {
       position: fixed;
-      left: -260px;
+      left: -280px;
       top: 0;
       bottom: 0;
       box-shadow: 10px 0 30px rgba(0,0,0,0.8);
       z-index: 2000;
     }
     .app-sidebar.mobile-open {
-      transform: translateX(260px);
+      transform: translateX(280px);
     }
 
     .mobile-menu-btn {
@@ -667,26 +711,26 @@
 
     .app-bottom-bar {
       left: 0 !important;
-      padding: 0 12px;
-      height: 80px;
+      padding: 0 15px;
+      height: 85px;
     }
 
     .app-topbar {
-      padding: 12px 15px;
+      padding: 15px 18px;
     }
 
     .filter-bar {
-      padding: 10px 15px;
-      top: 65px;
+      padding: 12px 18px;
+      top: 74px;
     }
 
     #soundContainer {
-      padding: 15px;
+      padding: 18px;
     }
 
     #recommendationSection {
-      margin: 15px;
-      padding: 15px;
+      margin: 18px;
+      padding: 18px;
     }
 
     .footer-right {
@@ -695,20 +739,20 @@
 
     .footer-left {
       min-width: unset;
-      max-width: 150px;
+      max-width: 160px;
     }
 
     .footer-center {
       max-width: unset;
-      padding: 0 5px;
+      padding: 0 8px;
     }
 
     .footer-controls {
-      gap: 12px;
+      gap: 14px;
     }
 
     #expandedPlayerOverlay {
-      padding: 10px;
+      padding: 12px;
     }
   }
 </style>
@@ -899,6 +943,15 @@ const categoryMap = {
 
 let allSongs = [];
 
+// Hilfsfunktion zum Aktualisieren des roten Fortschritts-Strichs im Slider
+function updateSeekBackground(slider) {
+  const min = slider.min || 0;
+  const max = slider.max || 100;
+  const value = slider.value;
+  const percentage = ((value - min) / (max - min)) * 100;
+  slider.style.background = `linear-gradient(to right, var(--accent-red) ${percentage}%, var(--border-color) ${percentage}%)`;
+}
+
 // Mobile Menu Toggle
 mobileMenuBtn.onclick = () => {
   appSidebar.classList.toggle("mobile-open");
@@ -943,8 +996,8 @@ function updateSidebarPlaylists() {
     link.innerHTML = `
       <span>🎵 ${plName}</span> 
       <div style="display:flex; align-items:center; gap:8px;">
-        <span style="font-size:0.8rem; opacity:0.7;">(${soundboardPlaylists[plName].length})</span>
-        <span class="sidebar-del-btn" title="Playlist löschen" style="font-size:0.8rem;">🗑️</span>
+        <span style="font-size:0.85rem; opacity:0.7;">(${soundboardPlaylists[plName].length})</span>
+        <span class="sidebar-del-btn" title="Playlist löschen" style="font-size:0.85rem;">🗑️</span>
       </div>
     `;
     
@@ -1051,7 +1104,6 @@ function getCurrentListForPlayback() {
 }
 
 function playNextSong() {
-  // Wenn es einen Vorwärts-Verlauf gibt (weil man vorher zurückgeklickt hat), diesen bedienen
   if (forwardHistory.length > 0) {
     if (currentSongObj) {
       songHistory.push(currentSongObj);
@@ -1080,7 +1132,6 @@ function playNextSong() {
 function playPrevSong() {
   if (songHistory.length === 0) return;
 
-  // Aktuellen Song in den Vorwärts-Verlauf schieben
   if (currentSongObj) {
     forwardHistory.push(currentSongObj);
   }
@@ -1113,12 +1164,11 @@ function playSong(song, btnElement, isNavigation = false) {
     activePlayBtnElement.classList.remove("playing");
   }
 
-  // Historie verwalten bei neuer Song-Wahl (außer bei Direkt-Navigation per Zurück/Vor)
   if (!isNavigation) {
     if (currentSongObj) {
       songHistory.push(currentSongObj);
     }
-    forwardHistory = []; // Vorwärts-Verlauf bei neuer Song-Auswahl leeren
+    forwardHistory = [];
   }
 
   const audio = new Audio(song.url);
@@ -1144,6 +1194,7 @@ function playSong(song, btnElement, isNavigation = false) {
     if (audio.duration) {
       const percent = (audio.currentTime / audio.duration) * 100;
       footerSeekBar.value = percent;
+      updateSeekBackground(footerSeekBar);
       footerCurrentTime.textContent = formatTime(audio.currentTime);
       footerTotalTime.textContent = formatTime(audio.duration);
     }
@@ -1156,6 +1207,7 @@ function playSong(song, btnElement, isNavigation = false) {
     }
     footerPlayBtn.textContent = "▶";
     footerSeekBar.value = 0;
+    updateSeekBackground(footerSeekBar);
     footerCurrentTime.textContent = "0:00";
     footerTotalTime.textContent = "0:00";
     renderList();
@@ -1175,10 +1227,10 @@ function updateExpandedViews(songName) {
     
     item.innerHTML = `
       <div style="display:flex; align-items:center; gap:10px; min-width:0; flex:1;">
-        <button class="play-btn" style="width:30px; height:30px; font-size:0.8rem;">${isPlayingThis ? '⏸' : '▶'}</button>
+        <button class="play-btn" style="width:32px; height:32px; font-size:0.85rem;">${isPlayingThis ? '⏸' : '▶'}</button>
         <span style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">🎵 ${s.name}</span>
       </div>
-      <span style="font-size:0.8rem; color:var(--text-muted); flex-shrink:0; margin-left:10px;">Schrottkiste</span>
+      <span style="font-size:0.85rem; color:var(--text-muted); flex-shrink:0; margin-left:10px;">Schrottkiste</span>
     `;
     
     const playBtn = item.querySelector(".play-btn");
@@ -1198,10 +1250,10 @@ function updateExpandedViews(songName) {
 
     item.innerHTML = `
       <div style="display:flex; align-items:center; gap:10px; min-width:0; flex:1;">
-        <button class="play-btn" style="width:30px; height:30px; font-size:0.8rem;">${isPlayingThis ? '⏸' : '▶'}</button>
+        <button class="play-btn" style="width:32px; height:32px; font-size:0.85rem;">${isPlayingThis ? '⏸' : '▶'}</button>
         <span style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">⚡ ${s.name}</span>
       </div>
-      <span style="font-size:0.8rem; color:var(--accent-alt); flex-shrink:0; margin-left:10px;">Empfohlen</span>
+      <span style="font-size:0.85rem; color:var(--accent-alt); flex-shrink:0; margin-left:10px;">Empfohlen</span>
     `;
 
     const playBtn = item.querySelector(".play-btn");
@@ -1248,7 +1300,7 @@ function updateRecommendations(currentSongName) {
     card.className = "rec-card";
     card.innerHTML = `
       <div class="rec-info-group" style="min-width:0; flex:1;">
-        <button class="play-btn" style="width:30px; height:30px; font-size:0.8rem;">${isPlayingThis ? '⏸' : '▶'}</button>
+        <button class="play-btn" style="width:32px; height:32px; font-size:0.85rem;">${isPlayingThis ? '⏸' : '▶'}</button>
         <div class="rec-song-title" style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">🎵 ${recSong.name}</div>
       </div>
       <div class="rec-actions">
@@ -1337,7 +1389,7 @@ function renderList() {
       <div class="playlist-menu-wrapper">
         <button class="playlist-menu-btn ${isInActivePl ? 'has-playlist' : ''}" title="Zu Playlist hinzufügen">⭐</button>
         <div class="playlist-dropdown">
-          <div style="font-size:0.8rem; color:var(--text-muted); padding:4px 8px; border-bottom:1px solid var(--border-color); margin-bottom:4px;">Zu Playlist hinzufügen:</div>
+          <div style="font-size:0.85rem; color:var(--text-muted); padding:4px 8px; border-bottom:1px solid var(--border-color); margin-bottom:4px;">Zu Playlist hinzufügen:</div>
           ${Object.keys(soundboardPlaylists).map(plName => {
             const inPl = (soundboardPlaylists[plName] || []).includes(song.name);
             return `<div class="dropdown-item ${inPl ? 'in-pl' : ''}" data-pl="${plName}">
@@ -1400,6 +1452,7 @@ footerSeekBar.oninput = (e) => {
     const time = (e.target.value / 100) * currentAudio.duration;
     currentAudio.currentTime = time;
   }
+  updateSeekBackground(footerSeekBar);
 };
 
 footerPlayBtn.onclick = () => {
@@ -1452,6 +1505,9 @@ document.querySelectorAll(".expanded-tab").forEach(tab => {
     target.classList.add("active");
   };
 });
+
+// Initialen Background für den Seek-Slider setzen
+updateSeekBackground(footerSeekBar);
 
 loadSounds();
 </script>
