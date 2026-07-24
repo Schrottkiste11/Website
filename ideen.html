@@ -108,7 +108,7 @@
 <body>
 
   <!-- Hintergrundmusik-Audio-Element -->
-  <audio id="bgMusic" src="lofi.mp3" preload="auto" loop></audio>
+  <audio id="bgMusic" src="Chill Lofi Beats Mix [chill lo-fi hip hop beatsStudy  Relax Music] Vol (mp3cut.net).mp3" preload="none" loop></audio>
 
   <!-- Musik Widget unten rechts -->
   <div class="music-widget">
@@ -202,35 +202,22 @@
   <script>
     const bgMusic = document.getElementById("bgMusic");
     const musicToggleBtn = document.getElementById("musicToggleBtn");
-    bgMusic.volume = 0.35; // Angenehme Hintergrundlautstärke
+    bgMusic.volume = 0.08; // Auf sanfte 8% reduziert (ideal für sehr laute MP3s)
 
-    // Fehler-Lauscher, falls die Datei nicht gefunden wird
     bgMusic.onerror = function() {
-      console.error("Fehler: Die Audiodatei 'lofi.mp3' konnte nicht geladen werden. Bitte Dateinamen und Speicherort im GitHub-Repo prüfen!");
+      console.error("Fehler: Die Audiodatei konnte nicht geladen werden. Bitte Dateinamen und Speicherort im GitHub-Repo prüfen.");
+      musicToggleBtn.textContent = "❌";
+      musicToggleBtn.title = "Audio-Datei nicht gefunden";
     };
 
-    // Versuche beim Laden direkt zu starten
-    bgMusic.play().then(() => {
-      musicToggleBtn.textContent = "⏸";
-    }).catch(() => {
-      // Falls der Browser Autoplay blockiert, starte beim ersten Klick irgendwo auf der Seite
-      const startOnInteraction = () => {
-        bgMusic.play().then(() => {
-          musicToggleBtn.textContent = "⏸";
-          window.removeEventListener('click', startOnInteraction);
-        }).catch(err => {
-          console.log("Play-Fehler nach Klick:", err);
-        });
-      };
-      window.addEventListener('click', startOnInteraction);
-    });
-
-    // Manueller Button-Toggle
     musicToggleBtn.onclick = (e) => {
       e.stopPropagation();
       if (bgMusic.paused) {
-        bgMusic.play().catch(err => console.log("Manuelles Abspielen fehlgeschlagen:", err));
-        musicToggleBtn.textContent = "⏸";
+        bgMusic.play().then(() => {
+          musicToggleBtn.textContent = "⏸";
+        }).catch(err => {
+          console.log("Wiedergabe fehlgeschlagen:", err);
+        });
       } else {
         bgMusic.pause();
         musicToggleBtn.textContent = "▶";
