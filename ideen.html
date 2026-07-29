@@ -89,6 +89,8 @@
     .project-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 10px; list-style: none; }
     .project-list li { font-family: 'VT323', monospace; font-size: 1.4rem; color: var(--muted); display: flex; align-items: center; }
     .project-list li::before { content: ">"; color: var(--accent); margin-right: 10px; }
+    .project-list li.done { color: #666; text-decoration: line-through; }
+    .project-list li.done::before { content: "✓"; color: #00ff66; }
 
     /* --- BACKGROUND MUSIC WIDGET (UNTEN RECHTS) --- */
     .music-widget {
@@ -144,18 +146,7 @@
           <li>Pragmata im Oktober</li>
           <li>Genshin Impact</li>
           <li>Life is Strange Marathon</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="content-box" onclick="this.classList.toggle('active')">
-      <div class="box-trigger">
-        <h3>🎮 Gaming</h3>
-        <span class="arrow">▼</span>
-      </div>
-      <div class="box-content">
-        <ul class="project-list">
-          <li>ETS 2 NRW 1:1 Map</li>
+          <li>ETS 2 NRW 1:1 Map (ab August)</li>
         </ul>
       </div>
     </div>
@@ -168,18 +159,8 @@
       <div class="box-content">
         <ul class="project-list">
           <li>Nintendo Switch 2 unboxing</li>
+          <li class="done">Wincent Weiss Konzert 2026 Halle Westfalen (Bereits online! 🚀)</li>
           <li>Mein neues Leben im Job</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="content-box" onclick="this.classList.toggle('active')">
-      <div class="box-trigger">
-        <h3>📍 Solo IRL</h3>
-        <span class="arrow">▼</span>
-      </div>
-      <div class="box-content">
-        <ul class="project-list">
           <li>Reise nach Bremen</li>
           <li>Riesiger Lost Place in Paderborn</li>
         </ul>
