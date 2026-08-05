@@ -432,12 +432,27 @@
       line-height: 1.2;
     }
     
+    /* SANFTE BLOG-ANIMATION */
     .post-text {
       line-height: 1.8;
       font-size: 1.1rem;
       color: var(--text);
       margin-bottom: 20px;
       max-width: 65ch;
+      max-height: none;
+      overflow: visible;
+      transition: max-height 0.6s cubic-bezier(0.4, 0, 0.2, 1), 
+                  mask-image 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+                  -webkit-mask-image 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      mask-image: none;
+      -webkit-mask-image: none;
+    }
+    
+    .post-text.collapsed {
+      max-height: 8.5em;
+      overflow: hidden;
+      mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
     }
     
     .post-text p {
@@ -451,24 +466,6 @@
     
     .post-text li {
       margin-bottom: 0.8em;
-    }
-    
-    .collapsed {
-      display: -webkit-box;
-      -webkit-line-clamp: 4;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-      position: relative;
-    }
-    
-    .collapsed::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 60px;
-      background: linear-gradient(transparent, var(--card-bg));
     }
     
     .read-more {
@@ -1036,18 +1033,34 @@
       });
     });
     
-    // Text Toggle Function
+    // SANFTE TEXT-TOGGLE FUNKTION
     function toggleText(id, btn) {
       const el = document.getElementById(id);
       const isCollapsed = el.classList.contains('collapsed');
       
-      el.classList.toggle('collapsed');
-      
       if (isCollapsed) {
+        // Aufklappen
+        el.classList.remove('collapsed');
+        el.style.maxHeight = el.scrollHeight + 'px';
+        
         btn.innerHTML = '<span>Einklappen</span> <i class="fas fa-chevron-up"></i>';
         btn.classList.add('expanded');
         btn.setAttribute('aria-expanded', 'true');
+        
+        // Nach der Transition maxHeight zurücksetzen für Responsivität
+        setTimeout(() => {
+          el.style.maxHeight = 'none';
+        }, 600);
       } else {
+        // Einklappen
+        el.style.maxHeight = el.scrollHeight + 'px';
+        
+        // Kurzer Delay für smoothness
+        requestAnimationFrame(() => {
+          el.classList.add('collapsed');
+          el.style.maxHeight = '8.5em';
+        });
+        
         btn.innerHTML = '<span>Weiterlesen</span> <i class="fas fa-chevron-down"></i>';
         btn.classList.remove('expanded');
         btn.setAttribute('aria-expanded', 'false');
@@ -1139,25 +1152,12 @@
     const style = document.createElement('style');
     style.textContent = `
       @keyframes slideIn {
-        from {
-          transform: translateX(100%);
-          opacity: 0;
-        }
-        to {
-          transform: translateX(0);
-          opacity: 1;
-        }
+        from { transform: translateX(100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
       }
-      
       @keyframes slideOut {
-        from {
-          transform: translateX(0);
-          opacity: 1;
-        }
-        to {
-          transform: translateX(100%);
-          opacity: 0;
-        }
+        from { transform: translateX(0); opacity: 1; }
+        to { transform: translateX(100%); opacity: 0; }
       }
     `;
     document.head.appendChild(style);
@@ -1219,8 +1219,7 @@
     // Initialize scroll button state
     toggleScrollButton();
     
-    console.log('🚀 Schrottkiste 2.0 geladen!');
-    console.log('✨ Neue Features: Audio-Visualizer, Share-Buttons, Scroll-To-Top, verbesserte Animationen');
+    console.log('🚀 Schrottkiste geladen!');
   </script>
 </body>
 </html>
