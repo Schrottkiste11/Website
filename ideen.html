@@ -6,7 +6,15 @@
   <link rel="shortcut icon" href="channels4_profile Schrottkiste.jpg" type="image/jpeg">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Content-Plan 2026 🎮 – Schrottkiste</title>
-  <link href="https://fonts.googleapis.com/css2?family=Chewy&family=Poppins:wght@300;400;600&family=VT323&display=swap" rel="stylesheet">
+  <meta name="description" content="Schrottkiste Content-Plan 2026 – Alle Gaming-Projekte, IRL-Content und Kollaborationen auf einen Blick">
+  
+  <!-- Performance Optimierung -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Chewy&family=Poppins:wght@300;400;600;700&family=VT323&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
   <style>
     /* --- CORE DESIGN --- */
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -18,12 +26,15 @@
       --text: #f3f1ff;
       --muted: #c0c4e8;
       --border-soft: rgba(255, 255, 255, 0.12);
+      --success: #00ff66;
+      --warning: #ffaa00;
     }
 
     body {
       background: #050415;
-      background-image: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), 
-                        radial-gradient(circle at top, #151435 0%, #050415 70%, #020109 100%);
+      background-image: 
+        linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), 
+        radial-gradient(circle at top, #151435 0%, #050415 70%, #020109 100%);
       background-size: 100% 4px, 100% 100%;
       font-family: 'Poppins', sans-serif;
       color: var(--text);
@@ -31,204 +42,694 @@
       overflow-x: hidden;
     }
 
+    /* Scrollbar Styling */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 4px; }
+
     /* --- SIDEBAR --- */
     #menuToggle { display: none; }
+    
     .hamburger-btn {
-      position: fixed; top: 20px; left: 20px; z-index: 20000;
-      background: var(--accent); border: 2px solid #fff;
-      border-radius: 4px; color: #fff; font-size: 24px;
-      padding: 8px 14px; cursor: pointer;
+      position: fixed; 
+      top: 20px; 
+      left: 20px; 
+      z-index: 20000;
+      background: var(--accent); 
+      border: 2px solid #fff;
+      border-radius: 8px; 
+      color: #fff; 
+      font-size: 24px;
+      padding: 10px 16px; 
+      cursor: pointer;
       box-shadow: 6px 6px 0px var(--accent-alt);
       font-family: 'VT323', monospace;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .hamburger-btn:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 8px 8px 0px var(--accent-alt);
+    }
+    
+    .hamburger-btn:active {
+      transform: translate(2px, 2px);
+      box-shadow: 2px 2px 0px var(--accent-alt);
     }
 
     .custom-sidebar {
-      position: fixed; top: 0; left: 0; width: 280px; height: 100vh;
-      background: #111; border-right: 4px solid var(--accent);
-      transform: translateX(-100%); transition: 0.4s steps(4);
-      padding-top: 100px; z-index: 9000;
+      position: fixed; 
+      top: 0; 
+      left: 0; 
+      width: 300px; 
+      height: 100vh;
+      background: linear-gradient(135deg, #0a0a1a 0%, #111133 100%);
+      border-right: 4px solid var(--accent);
+      transform: translateX(-100%); 
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      padding-top: 120px; 
+      z-index: 9000;
+      box-shadow: 5px 0 30px rgba(0,0,0,0.5);
     }
-    #menuToggle:checked ~ .custom-sidebar { transform: translateX(0); }
+    
+    #menuToggle:checked ~ .custom-sidebar { 
+      transform: translateX(0); 
+    }
+    
+    /* Overlay wenn Sidebar offen */
+    .sidebar-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 8999;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+    
+    #menuToggle:checked ~ .sidebar-overlay {
+      opacity: 1;
+      pointer-events: all;
+    }
 
-    .custom-sidebar nav { display: flex; flex-direction: column; gap: 15px; padding: 0 25px; }
-    .custom-sidebar nav a {
-      color: #fff; text-decoration: none; font-size: 1.8rem; font-family: 'VT323', monospace;
-      padding: 10px; border: 1px solid #333; transition: 0.1s;
+    .custom-sidebar nav { 
+      display: flex; 
+      flex-direction: column; 
+      gap: 15px; 
+      padding: 0 25px; 
     }
-    .custom-sidebar nav a:hover { background: var(--accent-alt); color: #000; transform: translateX(10px); }
+    
+    .custom-sidebar nav a {
+      color: #fff; 
+      text-decoration: none; 
+      font-size: 1.8rem; 
+      font-family: 'VT323', monospace;
+      padding: 15px 20px; 
+      border: 2px solid #333; 
+      border-radius: 8px;
+      transition: all 0.2s ease;
+      background: rgba(255,255,255,0.05);
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    
+    .custom-sidebar nav a:hover { 
+      background: var(--accent-alt); 
+      color: #000; 
+      transform: translateX(10px);
+      border-color: var(--accent-alt);
+      box-shadow: 5px 5px 0px var(--accent);
+    }
+    
+    .custom-sidebar nav a i {
+      font-size: 1.5rem;
+      width: 30px;
+      text-align: center;
+    }
+
+    /* Sidebar Branding */
+    .sidebar-brand {
+      position: absolute;
+      top: 30px;
+      left: 25px;
+      font-family: 'Chewy', cursive;
+      font-size: 2rem;
+      color: var(--accent);
+      text-shadow: 2px 2px 0px var(--accent-alt);
+    }
 
     /* --- MAIN CONTENT --- */
-    main { max-width: 900px; margin: 0 auto; padding: 100px 20px 80px; }
+    main { 
+      max-width: 1000px; 
+      margin: 0 auto; 
+      padding: 100px 20px 80px; 
+    }
 
-    .hero { text-align: center; margin-bottom: 50px; }
+    .hero { 
+      text-align: center; 
+      margin-bottom: 60px; 
+      position: relative;
+    }
+    
     .hero-title {
-      font-family: 'Chewy', cursive; font-size: clamp(3rem, 8vw, 4.5rem);
-      color: #fff; text-shadow: 4px 4px 0px var(--accent);
+      font-family: 'Chewy', cursive; 
+      font-size: clamp(3rem, 8vw, 5rem);
+      color: #fff; 
+      text-shadow: 6px 6px 0px var(--accent);
+      margin-bottom: 15px;
+      animation: titleGlow 2s ease-in-out infinite alternate;
+    }
+    
+    @keyframes titleGlow {
+      from { text-shadow: 6px 6px 0px var(--accent); }
+      to { text-shadow: 6px 6px 20px var(--accent), 0 0 40px var(--accent-alt); }
+    }
+    
+    .hero-subtitle {
+      color: var(--accent-alt); 
+      font-family: 'VT323'; 
+      font-size: 1.8rem;
+      opacity: 0.9;
+    }
+
+    /* --- STATS BAR --- */
+    .stats-bar {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin-bottom: 50px;
+      flex-wrap: wrap;
+    }
+    
+    .stat-item {
+      background: var(--card);
+      border: 2px solid var(--border-soft);
+      border-radius: 12px;
+      padding: 20px 30px;
+      text-align: center;
+      font-family: 'VT323', monospace;
+      transition: all 0.3s ease;
+    }
+    
+    .stat-item:hover {
+      border-color: var(--accent);
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(255,0,153,0.2);
+    }
+    
+    .stat-number {
+      font-size: 3rem;
+      color: var(--accent-alt);
+      font-weight: bold;
+    }
+    
+    .stat-label {
+      font-size: 1.2rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
     }
 
     /* --- ACCORDION KACHELN --- */
     .content-box {
-      background: var(--card); border: 2px solid var(--border-soft);
-      border-radius: 4px; margin-bottom: 20px; overflow: hidden; cursor: pointer;
-      transition: 0.2s;
+      background: var(--card); 
+      border: 2px solid var(--border-soft);
+      border-radius: 12px; 
+      margin-bottom: 20px; 
+      overflow: hidden; 
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
     }
-    .content-box:hover { border-color: var(--accent-alt); }
+    
+    .content-box::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--accent);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .content-box:hover {
+      border-color: var(--accent-alt);
+      transform: translateX(5px);
+      box-shadow: 0 5px 30px rgba(0,255,255,0.1);
+    }
+    
+    .content-box:hover::before {
+      opacity: 1;
+    }
+    
+    .content-box.active {
+      border-color: var(--accent);
+      box-shadow: 0 5px 30px rgba(255,0,153,0.15);
+    }
+    
+    .content-box.active::before {
+      opacity: 1;
+    }
 
-    .box-trigger { padding: 20px 30px; display: flex; justify-content: space-between; align-items: center; }
-    .box-trigger h3 { font-family: 'VT323', monospace; font-size: 2rem; color: var(--accent-alt); }
-    .arrow { color: var(--accent); transition: transform 0.5s; font-size: 1.5rem; }
+    .box-trigger { 
+      padding: 25px 30px; 
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center;
+      user-select: none;
+    }
+    
+    .box-trigger h3 { 
+      font-family: 'VT323', monospace; 
+      font-size: 2.2rem; 
+      color: var(--accent-alt);
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    
+    .box-trigger .icon {
+      font-size: 2rem;
+      width: 40px;
+      text-align: center;
+    }
+    
+    .arrow { 
+      color: var(--accent); 
+      transition: transform 0.3s ease; 
+      font-size: 1.5rem;
+      background: rgba(255,255,255,0.1);
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+    }
 
     .box-content {
-      max-height: 0; opacity: 0; overflow: hidden;
-      transition: max-height 0.8s ease, opacity 0.5s;
+      max-height: 0; 
+      opacity: 0; 
+      overflow: hidden;
+      transition: max-height 0.6s ease, opacity 0.4s ease, padding 0.4s ease;
       background: rgba(0, 0, 0, 0.3);
     }
-    .content-box.active .box-content { max-height: 1500px; opacity: 1; padding: 20px 30px 40px; }
-    .content-box.active .arrow { transform: rotate(180deg); }
-
-    .project-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 10px; list-style: none; }
-    .project-list li { font-family: 'VT323', monospace; font-size: 1.4rem; color: var(--muted); display: flex; align-items: center; }
-    .project-list li::before { content: ">"; color: var(--accent); margin-right: 10px; }
-    .project-list li.done { color: #666; text-decoration: line-through; }
-    .project-list li.done::before { content: "✓"; color: #00ff66; }
-
-    /* --- BACKGROUND MUSIC WIDGET (UNTEN RECHTS) --- */
-    .music-widget {
-      position: fixed; bottom: 20px; right: 20px; z-index: 25000;
-      background: var(--card); border: 2px solid var(--accent-alt);
-      border-radius: 30px; padding: 8px 16px; display: flex; align-items: center; gap: 10px;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.5); font-family: 'VT323', monospace; font-size: 1.1rem;
+    
+    .content-box.active .box-content { 
+      max-height: 2000px; 
+      opacity: 1; 
+      padding: 0 30px 40px; 
     }
-    .music-toggle-btn {
-      background: var(--accent); border: none; color: #fff; width: 30px; height: 30px;
-      border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center;
-      font-size: 0.9rem; transition: 0.2s;
+    
+    .content-box.active .arrow { 
+      transform: rotate(180deg);
+      background: var(--accent);
+      color: white;
     }
-    .music-toggle-btn:hover { transform: scale(1.1); background: var(--accent-alt); color: #000; }
+
+    /* --- PROJECT LIST --- */
+    .project-list { 
+      display: grid; 
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+      gap: 12px; 
+      list-style: none; 
+    }
+    
+    .project-list li { 
+      font-family: 'VT323', monospace; 
+      font-size: 1.4rem; 
+      color: var(--muted); 
+      display: flex; 
+      align-items: center;
+      padding: 12px 15px;
+      background: rgba(255,255,255,0.03);
+      border-radius: 8px;
+      border: 1px solid transparent;
+      transition: all 0.2s ease;
+    }
+    
+    .project-list li:hover {
+      background: rgba(255,255,255,0.08);
+      border-color: var(--accent);
+      transform: translateX(5px);
+    }
+    
+    .project-list li::before { 
+      content: "▸"; 
+      color: var(--accent); 
+      margin-right: 15px;
+      font-size: 1.2rem;
+    }
+    
+    .project-list li.done { 
+      color: #666; 
+      text-decoration: line-through;
+      opacity: 0.7;
+    }
+    
+    .project-list li.done:hover {
+      background: rgba(0,255,102,0.05);
+      border-color: var(--success);
+    }
+    
+    .project-list li.done::before { 
+      content: "✓"; 
+      color: var(--success);
+      font-weight: bold;
+    }
+    
+    /* Priority Badge */
+    .priority-badge {
+      font-size: 0.9rem;
+      padding: 3px 10px;
+      border-radius: 12px;
+      margin-left: auto;
+      font-family: 'Poppins', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    
+    .priority-high {
+      background: rgba(255,0,153,0.2);
+      color: var(--accent);
+      border: 1px solid var(--accent);
+    }
+    
+    .priority-medium {
+      background: rgba(255,170,0,0.2);
+      color: var(--warning);
+      border: 1px solid var(--warning);
+    }
+    
+    .priority-winter {
+      background: rgba(0,255,255,0.2);
+      color: var(--accent-alt);
+      border: 1px solid var(--accent-alt);
+    }
+    
+    .priority-2027 {
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.3);
+    }
+
+    /* --- PROGRESS BAR --- */
+    .progress-container {
+      margin-top: 20px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 20px;
+      padding: 15px 20px;
+    }
+    
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      font-family: 'VT323', monospace;
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+      color: var(--muted);
+    }
+    
+    .progress-bar {
+      height: 8px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), var(--accent-alt));
+      border-radius: 4px;
+      transition: width 1s ease;
+      position: relative;
+    }
+    
+    .progress-fill::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      animation: shimmer 2s infinite;
+    }
+    
+    @keyframes shimmer {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+
+    /* Footer */
+    .footer-tag {
+      text-align: center; 
+      color: #444; 
+      font-family: 'VT323'; 
+      margin-bottom: 40px;
+      font-size: 1.2rem;
+      transition: color 0.3s ease;
+    }
+    
+    .footer-tag:hover {
+      color: var(--accent);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .stats-bar {
+        gap: 15px;
+      }
+      
+      .stat-item {
+        padding: 15px 20px;
+      }
+      
+      .stat-number {
+        font-size: 2.5rem;
+      }
+      
+      .box-trigger h3 {
+        font-size: 1.8rem;
+      }
+      
+      .project-list {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
 <body>
 
-  <!-- Hintergrundmusik-Audio-Element -->
-  <audio id="bgMusic" src="Chill Lofi Beats Mix [chill lo-fi hip hop beatsStudy  Relax Music] Vol (mp3cut.net).mp3" preload="none" loop></audio>
-
-  <!-- Musik Widget unten rechts -->
-  <div class="music-widget">
-    <span style="color: var(--accent-alt);">☕ Lofi Chill</span>
-    <button id="musicToggleBtn" class="music-toggle-btn" title="Musik an/aus">▶</button>
-  </div>
-
+  <!-- Sidebar Toggle -->
   <input type="checkbox" id="menuToggle" hidden>
-  <label for="menuToggle" class="hamburger-btn">☰ Menü</label>
+  <label for="menuToggle" class="hamburger-btn">
+    <i class="fas fa-bars"></i> Menü
+  </label>
+  
+  <!-- Overlay für Sidebar -->
+  <label for="menuToggle" class="sidebar-overlay"></label>
 
+  <!-- Sidebar -->
   <aside class="custom-sidebar">
+    <div class="sidebar-brand">Schrottkiste</div>
     <nav>
-      <a href="index.html">Startseite</a>
-      <a href="soundboard.html">Soundboard</a>
+      <a href="index.html"><i class="fas fa-home"></i> Startseite</a>
+      <a href="soundboard.html"><i class="fas fa-music"></i> Soundboard</a>
+      <a href="#"><i class="fas fa-video"></i> YouTube</a>
+      <a href="#"><i class="fab fa-twitch"></i> Twitch</a>
     </nav>
   </aside>
 
   <main>
     <div class="hero">
       <h1 class="hero-title">Content-Plan 2026</h1>
-      <p style="color: var(--accent-alt); font-family: 'VT323'; font-size: 1.5rem;">Roadmap & Projekte</p>
+      <p class="hero-subtitle">🎯 Roadmap & Projekte</p>
     </div>
 
-    <div class="content-box" onclick="this.classList.toggle('active')">
-      <div class="box-trigger">
-        <h3>🎮 Solo Gaming</h3>
+    <!-- Stats Bar -->
+    <div class="stats-bar">
+      <div class="stat-item">
+        <div class="stat-number" id="totalProjects">0</div>
+        <div class="stat-label">Projekte 2026</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number" id="completedProjects">0</div>
+        <div class="stat-label">Erledigt</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number" id="progressPercent">0%</div>
+        <div class="stat-label">Fortschritt</div>
+      </div>
+    </div>
+
+    <!-- Solo Gaming -->
+    <div class="content-box">
+      <div class="box-trigger" onclick="toggleAccordion(this)">
+        <h3><span class="icon">🎮</span> Solo Gaming</h3>
         <span class="arrow">▼</span>
       </div>
       <div class="box-content">
         <ul class="project-list">
-          <li>VR Gameplay</li>
           <li>The Forest</li>
-          <li>Pragmata im Oktober</li>
+          <li>Pragmata im Oktober <span class="priority-badge priority-medium">Okt</span></li>
           <li>Genshin Impact</li>
           <li>Life is Strange Marathon</li>
-          <li>ETS 2 NRW 1:1 Map (ab August)</li>
+          <li>VR Gameplay <span class="priority-badge priority-winter">❄️ Winter</span></li>
+          <li>ETS 2 NRW 1:1 Map <span class="priority-badge priority-winter">❄️ Winter</span></li>
         </ul>
+        <div class="progress-container">
+          <div class="progress-label">
+            <span>Fortschritt</span>
+            <span>0/6 Projekte</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 0%"></div>
+          </div>
+        </div>
       </div>
     </div>
 
-    <div class="content-box" onclick="this.classList.toggle('active')">
-      <div class="box-trigger">
-        <h3>👤 Solo IRL</h3>
+    <!-- Solo IRL -->
+    <div class="content-box">
+      <div class="box-trigger" onclick="toggleAccordion(this)">
+        <h3><span class="icon">👤</span> Solo IRL</h3>
         <span class="arrow">▼</span>
       </div>
       <div class="box-content">
         <ul class="project-list">
-          <li>Nintendo Switch 2 unboxing</li>
+          <li>Nintendo Switch 2 unboxing <span class="priority-badge priority-high">HOT</span></li>
           <li class="done">Wincent Weiss Konzert 2026 Halle Westfalen (Bereits online! 🚀)</li>
           <li>Mein neues Leben im Job</li>
           <li>Reise nach Bremen</li>
           <li>Riesiger Lost Place in Paderborn</li>
         </ul>
+        <div class="progress-container">
+          <div class="progress-label">
+            <span>Fortschritt</span>
+            <span>1/5 Projekte</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 20%"></div>
+          </div>
+        </div>
       </div>
     </div>
 
-    <div class="content-box" onclick="this.classList.toggle('active')">
-      <div class="box-trigger">
-        <h3>🔥 Große Live-Events</h3>
+    <!-- Große Live-Events -->
+    <div class="content-box">
+      <div class="box-trigger" onclick="toggleAccordion(this)">
+        <h3><span class="icon">🔥</span> Große Live-Events</h3>
         <span class="arrow">▼</span>
       </div>
       <div class="box-content">
         <ul class="project-list">
-          <li>Silvester Countdown 24h vorher</li>
-          <li>GTA 6 Release Gameplay</li>
+          <li>Silvester Countdown 24h vorher <span class="priority-badge priority-high">HOT</span></li>
+          <li>GTA 6 Release Gameplay <span class="priority-badge priority-high">HYPE</span></li>
         </ul>
+        <div class="progress-container">
+          <div class="progress-label">
+            <span>Fortschritt</span>
+            <span>0/2 Projekte</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 0%"></div>
+          </div>
+        </div>
       </div>
     </div>
 
-    <div class="content-box" onclick="this.classList.toggle('active')">
-      <div class="box-trigger">
-        <h3>🤝 Mit Diana</h3>
+    <!-- Mit Diana (2027) -->
+    <div class="content-box">
+      <div class="box-trigger" onclick="toggleAccordion(this)">
+        <h3><span class="icon">🤝</span> Mit Diana <span style="font-size: 1.2rem; color: var(--muted); margin-left: 10px;">[2027]</span></h3>
         <span class="arrow">▼</span>
       </div>
       <div class="box-content">
         <ul class="project-list">
-          <li>Tower of Fantasy</li>
-          <li>Escape the Backrooms</li>
-          <li>Animal Crossing Wild World</li>
-          <li>Animal Crossing New Leaf</li>
-          <li>Animal Crossing Lets go to the City</li>
-          <li>HypeHype Spiel bauen</li>
-          <li>Eigene Website basteln</li>
+          <li>Tower of Fantasy <span class="priority-badge priority-2027">2027</span></li>
+          <li>Escape the Backrooms <span class="priority-badge priority-2027">2027</span></li>
+          <li>Animal Crossing Wild World <span class="priority-badge priority-2027">2027</span></li>
+          <li>Animal Crossing New Leaf <span class="priority-badge priority-2027">2027</span></li>
+          <li>Animal Crossing Lets go to the City <span class="priority-badge priority-2027">2027</span></li>
+          <li>HypeHype Spiel bauen <span class="priority-badge priority-2027">2027</span></li>
+          <li>Eigene Website basteln <span class="priority-badge priority-2027">2027</span></li>
         </ul>
+        <div class="progress-container">
+          <div class="progress-label">
+            <span>Geplant für 2027</span>
+            <span>0/7 Projekte</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 0%; background: linear-gradient(90deg, #666, #999);"></div>
+          </div>
+        </div>
       </div>
     </div>
 
   </main>
 
-  <div style="text-align: center; color: #444; font-family: 'VT323'; margin-bottom: 40px;">
-    #SCHROTTKISTE2026 🤘
-  </div>
+  <div class="footer-tag">#SCHROTTKISTE2026 🤘</div>
 
   <script>
-    const bgMusic = document.getElementById("bgMusic");
-    const musicToggleBtn = document.getElementById("musicToggleBtn");
-    bgMusic.volume = 0.08; // Auf sanfte 8% reduziert (ideal für sehr laute MP3s)
-
-    bgMusic.onerror = function() {
-      console.error("Fehler: Die Audiodatei konnte nicht geladen werden. Bitte Dateinamen und Speicherort im GitHub-Repo prüfen.");
-      musicToggleBtn.textContent = "❌";
-      musicToggleBtn.title = "Audio-Datei nicht gefunden";
-    };
-
-    musicToggleBtn.onclick = (e) => {
-      e.stopPropagation();
-      if (bgMusic.paused) {
-        bgMusic.play().then(() => {
-          musicToggleBtn.textContent = "⏸";
-        }).catch(err => {
-          console.log("Wiedergabe fehlgeschlagen:", err);
-        });
-      } else {
-        bgMusic.pause();
-        musicToggleBtn.textContent = "▶";
+    // --- ACCORDION LOGIC ---
+    function toggleAccordion(trigger) {
+      const box = trigger.parentElement;
+      const isActive = box.classList.contains('active');
+      
+      box.classList.toggle('active');
+      
+      if (!isActive) {
+        setTimeout(() => {
+          box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }, 100);
       }
-    };
-  </script>
+    }
+    
+    // Keyboard Support
+    document.querySelectorAll('.box-trigger').forEach(trigger => {
+      trigger.setAttribute('tabindex', '0');
+      trigger.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          toggleAccordion(trigger);
+        }
+      });
+    });
 
+    // --- STATS CALCULATION (nur 2026 Projekte) ---
+    function updateStats() {
+      const allProjects = document.querySelectorAll('.project-list li:not([class*="priority-2027"])');
+      const doneProjects = document.querySelectorAll('.project-list li.done');
+      
+      const total = allProjects.length;
+      const completed = doneProjects.length;
+      const progress = total > 0 ? Math.round((completed / total) * 100) : 0;
+      
+      animateValue('totalProjects', 0, total, 1000);
+      animateValue('completedProjects', 0, completed, 1000);
+      
+      document.getElementById('progressPercent').textContent = progress + '%';
+    }
+    
+    function animateValue(id, start, end, duration) {
+      const obj = document.getElementById(id);
+      const range = end - start;
+      const startTime = new Date().getTime();
+      const endTime = startTime + duration;
+      
+      function run() {
+        const now = new Date().getTime();
+        const remaining = Math.max((endTime - now) / duration, 0);
+        const value = Math.round(end - (remaining * range));
+        obj.textContent = value;
+        if (value < end) {
+          requestAnimationFrame(run);
+        }
+      }
+      
+      requestAnimationFrame(run);
+    }
+    
+    updateStats();
+    
+    // Schließe Sidebar bei Klick auf Link (Mobile)
+    document.querySelectorAll('.custom-sidebar nav a').forEach(link => {
+      link.addEventListener('click', () => {
+        document.getElementById('menuToggle').checked = false;
+      });
+    });
+    
+    console.log('🚀 Content-Plan 2026 geladen!');
+  </script>
 </body>
 </html>
