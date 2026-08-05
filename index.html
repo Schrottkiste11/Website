@@ -10,175 +10,888 @@
   <meta property="og:description" content="Twitch- und YouTube-Content von Luka. Streams, Blog-Updates und Playlists.">
   <meta property="og:image" content="images/image.png">
   <meta name="theme-color" content="#1a1a24">
+  
+  <!-- Performance Optimierung -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+  
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%231a1a24'/%3E%3Ctext x='50' y='70' font-family='Arial,sans-serif' font-weight='900' font-size='58' fill='%23ff0099' text-anchor='middle'%3ES%3C/text%3E%3C/svg%3E">
-  <link href="https://fonts.googleapis.com/css2?family=Chewy&family=Poppins:wght@300;400;600&family=VT323&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Chewy&family=Poppins:wght@300;400;600;700&family=VT323&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
   <style>
-    :root { --accent: #ff0099; --accent-alt: #00ffff; --bg: #1a1a24; --card-bg: #242430; --text: #f3f1ff; --line-color: #444; }
-    * { box-sizing: border-box; }
-    body { background: var(--bg); font-family: 'Poppins', sans-serif; color: var(--text); margin: 0; overflow-wrap: break-word; }
-
-    a:focus-visible, button:focus-visible, .gif-box:focus-visible { outline: 2px solid var(--accent-alt); outline-offset: 3px; }
-    
-    .nav-header { background: var(--card-bg); padding: 15px 5%; border-bottom: 1px solid var(--line-color); }
-    .brand-row { display: flex; justify-content: center; margin-bottom: 15px; }
-    .nav-brand { font-family: 'Chewy', cursive; font-size: 3.5rem; color: #fff; text-decoration: none; }
-    .menu-row { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--line-color); padding-top: 10px; flex-wrap: wrap; gap: 15px; }
-    
-    .nav-links { display: flex; gap: 25px; list-style: none; font-family: 'Poppins', sans-serif; flex-wrap: wrap; padding-left: 0; margin: 0; }
-    .nav-links a { text-decoration: none; color: #fff; font-size: 0.95rem; font-weight: 600; letter-spacing: 0.05em; transition: 0.3s; }
-    .nav-links a:hover { color: var(--accent); }
-    
-    /* --- Mini Player Styles --- */
-    .mini-player { background: #1a1a24; padding: 10px; border-radius: 8px; display: flex; align-items: center; gap: 10px; border: 1px solid var(--line-color); }
-    .player-label { font-size: 0.75rem; color: var(--accent); font-weight: 600; text-transform: uppercase; margin-right: 5px; }
-    .player-controls button { background: var(--accent); color: white; border: none; border-radius: 50%; width: 40px; height: 40px; cursor: pointer; transition: 0.2s; }
-    .player-controls button:hover { transform: scale(1.05); }
-    .track-info-mini { font-size: 0.75rem; max-width: 120px; }
-    #song-title { color: var(--accent-alt); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-weight: bold; }
-    #artist-name { color: #aaa; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-
-    .social-btns { display: flex; gap: 20px; }
-    .social-btn { color: #fff; font-size: 1.8rem; transition: 0.3s; }
-    .twitch:hover { color: #9146FF; }
-    .youtube:hover { color: #FF0000; }
-    
-    .container { display: flex; padding: 40px 5%; gap: 40px; max-width: 1400px; margin: 0 auto; align-items: flex-start; }
-    
-    .gif-container { flex: 0 0 200px; display: flex; flex-direction: column; gap: 20px; }
-    .gif-box { width: 100%; aspect-ratio: 1/1; cursor: pointer; border-radius: 12px; background-size: cover; background-position: center; transition: transform 0.2s; border: 2px solid transparent; }
-    .gif-box:hover { transform: scale(1.02); border-color: var(--accent); }
-    
-    .blog-section { flex: 2; display: flex; flex-direction: column; gap: 30px; min-width: 0; }
-    .sidebar { flex: 1; border-left: 2px solid var(--line-color); padding-left: 40px; min-width: 0; }
-    .sidebar-title { margin: 0 0 25px; font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 1.3rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--accent-alt); }
-    
-    .blog-post { background: var(--card-bg); padding: 30px; border-radius: 12px; border-left: 6px solid var(--accent); }
-    .post-meta { display: flex; gap: 15px; margin-bottom: 15px; }
-    .post-time { font-family: 'VT323', monospace; opacity: 0.8; font-size: 1.3rem; }
-    .post-title { font-size: 2.2rem; margin-bottom: 20px; color: var(--accent-alt); }
-    .post-text { line-height: 1.8; font-size: 1.2rem; transition: 0.3s; }
-    .post-text p { margin-bottom: 1em; }
-    
-    .collapsed { display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
-    .read-more { background: var(--accent); color: #fff; border: none; padding: 10px 20px; cursor: pointer; border-radius: 4px; font-family: 'VT323', monospace; font-size: 1.2rem; margin-top: 15px; display: block; }
-    
-    .playlist-item { margin-bottom: 25px; text-align: center; }
-    .playlist-title { display: inline-block; margin-top: 4px; font-family: 'Poppins', sans-serif; font-size: 0.95rem; color: var(--text); }
-    .cover-img { width: 100%; max-width: 220px; border-radius: 8px; display: block; margin: 0 auto 10px; transition: 0.3s; }
-    .cover-img:hover { transform: scale(1.05); }
-
-    .interactive-area { margin-top: 25px; padding-top: 20px; border-top: 1px solid var(--line-color); }
-
-    .site-footer { margin-top: 60px; padding: 30px 5%; border-top: 1px solid var(--line-color); background: var(--card-bg); }
-    .footer-inner { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
-    .footer-brand { font-family: 'Chewy', cursive; font-size: 1.5rem; color: #fff; }
-    .footer-social { display: flex; gap: 15px; }
-    .footer-copy { font-size: 0.85rem; opacity: 0.6; }
-
-    @media (max-width: 900px) {
-      .container { flex-direction: column; padding: 30px 5%; gap: 30px; }
-      .gif-container { flex-direction: row; flex: none; width: 100%; justify-content: center; }
-      .gif-box { flex: 0 1 180px; }
-      .sidebar { border-left: none; border-top: 2px solid var(--line-color); padding-left: 0; padding-top: 30px; }
+    :root {
+      --accent: #ff0099;
+      --accent-alt: #00ffff;
+      --bg: #1a1a24;
+      --card-bg: #242430;
+      --text: #f3f1ff;
+      --text-secondary: #b0b0c0;
+      --line-color: #3a3a4a;
+      --shadow: 0 4px 20px rgba(0,0,0,0.3);
+      --radius: 12px;
+      --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
-
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      background: var(--bg);
+      font-family: 'Poppins', sans-serif;
+      color: var(--text);
+      overflow-wrap: break-word;
+      line-height: 1.6;
+    }
+    
+    /* Fokus-Stile für Accessibility */
+    :focus-visible {
+      outline: 3px solid var(--accent-alt);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+    
+    /* Scrollbar Styling */
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--bg);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--accent);
+      border-radius: 5px;
+    }
+    
+    /* Navigation */
+    .nav-header {
+      background: var(--card-bg);
+      padding: 20px 5%;
+      border-bottom: 1px solid var(--line-color);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 2px 20px rgba(0,0,0,0.2);
+    }
+    
+    .brand-row {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 15px;
+    }
+    
+    .nav-brand {
+      font-family: 'Chewy', cursive;
+      font-size: 3.5rem;
+      color: #fff;
+      text-decoration: none;
+      transition: var(--transition);
+      text-shadow: 0 0 20px rgba(255,0,153,0.3);
+    }
+    
+    .nav-brand:hover {
+      transform: scale(1.05);
+      text-shadow: 0 0 30px rgba(255,0,153,0.5);
+    }
+    
+    .menu-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--line-color);
+      padding-top: 15px;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 30px;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .nav-links a {
+      text-decoration: none;
+      color: #fff;
+      font-size: 0.95rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      transition: var(--transition);
+      position: relative;
+      padding: 5px 0;
+    }
+    
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      transition: var(--transition);
+    }
+    
+    .nav-links a:hover::after,
+    .nav-links a.active::after {
+      width: 100%;
+    }
+    
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--accent);
+    }
+    
+    /* Mini Player Upgrade */
+    .mini-player {
+      background: linear-gradient(135deg, #1a1a24 0%, #242430 100%);
+      padding: 12px 20px;
+      border-radius: 30px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border: 1px solid var(--line-color);
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+    }
+    
+    .mini-player:hover {
+      border-color: var(--accent);
+      box-shadow: 0 6px 25px rgba(255,0,153,0.2);
+    }
+    
+    .player-label {
+      font-size: 0.7rem;
+      color: var(--accent);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    
+    .player-controls {
+      display: flex;
+      gap: 8px;
+    }
+    
+    .player-controls button {
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      cursor: pointer;
+      transition: var(--transition);
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .player-controls button:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 20px rgba(255,0,153,0.5);
+    }
+    
+    .track-info-mini {
+      min-width: 120px;
+      max-width: 150px;
+    }
+    
+    #song-title {
+      color: var(--accent-alt);
+      font-weight: 700;
+      font-size: 0.8rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    
+    #artist-name {
+      color: var(--text-secondary);
+      font-size: 0.7rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    
+    /* Visualizer */
+    .visualizer {
+      display: flex;
+      gap: 2px;
+      align-items: flex-end;
+      height: 20px;
+    }
+    
+    .visualizer-bar {
+      width: 3px;
+      background: var(--accent);
+      border-radius: 2px;
+      animation: visualize 1s ease-in-out infinite;
+    }
+    
+    .visualizer-bar:nth-child(2) { animation-delay: 0.1s; }
+    .visualizer-bar:nth-child(3) { animation-delay: 0.2s; }
+    .visualizer-bar:nth-child(4) { animation-delay: 0.3s; }
+    .visualizer-bar:nth-child(5) { animation-delay: 0.4s; }
+    
+    @keyframes visualize {
+      0%, 100% { height: 8px; }
+      50% { height: 20px; }
+    }
+    
+    .social-btns {
+      display: flex;
+      gap: 20px;
+    }
+    
+    .social-btn {
+      color: #fff;
+      font-size: 1.8rem;
+      transition: var(--transition);
+      position: relative;
+    }
+    
+    .social-btn:hover {
+      transform: translateY(-3px);
+    }
+    
+    .twitch:hover {
+      color: #9146FF;
+      text-shadow: 0 0 20px rgba(145,70,255,0.5);
+    }
+    
+    .youtube:hover {
+      color: #FF0000;
+      text-shadow: 0 0 20px rgba(255,0,0,0.5);
+    }
+    
+    /* Main Container */
+    .container {
+      display: flex;
+      padding: 60px 5%;
+      gap: 40px;
+      max-width: 1400px;
+      margin: 0 auto;
+      align-items: flex-start;
+    }
+    
+    /* GIF Container Upgrade */
+    .gif-container {
+      flex: 0 0 200px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      position: sticky;
+      top: 120px;
+    }
+    
+    .gif-box {
+      width: 100%;
+      aspect-ratio: 1/1;
+      cursor: pointer;
+      border-radius: var(--radius);
+      background-size: cover;
+      background-position: center;
+      transition: var(--transition);
+      border: 2px solid transparent;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .gif-box::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(255,0,153,0.2), transparent);
+      opacity: 0;
+      transition: var(--transition);
+    }
+    
+    .gif-box:hover {
+      transform: translateY(-5px);
+      border-color: var(--accent);
+      box-shadow: 0 8px 30px rgba(255,0,153,0.3);
+    }
+    
+    .gif-box:hover::before {
+      opacity: 1;
+    }
+    
+    .gif-box:active {
+      transform: scale(0.98);
+    }
+    
+    /* Status-Indikator */
+    .gif-status {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      border: 2px solid white;
+      z-index: 2;
+      transition: var(--transition);
+    }
+    
+    .gif-status.playing {
+      background: #00ff00;
+      box-shadow: 0 0 10px rgba(0,255,0,0.5);
+    }
+    
+    .gif-status.paused {
+      background: #ff0000;
+      box-shadow: 0 0 10px rgba(255,0,0,0.5);
+    }
+    
+    /* Blog Section */
+    .blog-section {
+      flex: 2;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      min-width: 0;
+    }
+    
+    .blog-post {
+      background: var(--card-bg);
+      padding: 35px;
+      border-radius: var(--radius);
+      border-left: 4px solid var(--accent);
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .blog-post::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: linear-gradient(to bottom, var(--accent), var(--accent-alt));
+      opacity: 0;
+      transition: var(--transition);
+    }
+    
+    .blog-post:hover {
+      transform: translateX(5px);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+    }
+    
+    .blog-post:hover::before {
+      opacity: 1;
+    }
+    
+    .post-meta {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 15px;
+      flex-wrap: wrap;
+    }
+    
+    .post-time {
+      font-family: 'VT323', monospace;
+      font-size: 1.3rem;
+      background: var(--bg);
+      padding: 5px 15px;
+      border-radius: 20px;
+      color: var(--accent-alt);
+    }
+    
+    .reading-time {
+      font-family: 'VT323', monospace;
+      font-size: 1.3rem;
+      background: var(--bg);
+      padding: 5px 15px;
+      border-radius: 20px;
+      color: var(--accent);
+      margin-left: auto;
+    }
+    
+    .post-title {
+      font-size: 2.2rem;
+      margin-bottom: 20px;
+      color: var(--accent-alt);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
+    
+    .post-text {
+      line-height: 1.8;
+      font-size: 1.1rem;
+      color: var(--text);
+      margin-bottom: 20px;
+      max-width: 65ch;
+    }
+    
+    .post-text p {
+      margin-bottom: 1.2em;
+    }
+    
+    .post-text ul {
+      padding-left: 25px;
+      margin-bottom: 1.2em;
+    }
+    
+    .post-text li {
+      margin-bottom: 0.8em;
+    }
+    
+    .collapsed {
+      display: -webkit-box;
+      -webkit-line-clamp: 4;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      position: relative;
+    }
+    
+    .collapsed::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background: linear-gradient(transparent, var(--card-bg));
+    }
+    
+    .read-more {
+      background: linear-gradient(135deg, var(--accent), #cc0077);
+      color: #fff;
+      border: none;
+      padding: 12px 30px;
+      cursor: pointer;
+      border-radius: 25px;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 15px rgba(255,0,153,0.3);
+    }
+    
+    .read-more:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255,0,153,0.5);
+      background: linear-gradient(135deg, #ff1a9e, #dd0088);
+    }
+    
+    .read-more:active {
+      transform: translateY(0);
+    }
+    
+    .read-more i {
+      transition: var(--transition);
+    }
+    
+    .read-more.expanded i {
+      transform: rotate(180deg);
+    }
+    
+    /* Interactive Area */
+    .interactive-area {
+      margin-top: 25px;
+      padding-top: 25px;
+      border-top: 1px solid var(--line-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+    
+    .share-buttons {
+      display: flex;
+      gap: 10px;
+    }
+    
+    .share-btn {
+      background: var(--bg);
+      color: var(--text);
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+    }
+    
+    .share-btn:hover {
+      background: var(--accent);
+      color: white;
+      transform: translateY(-3px);
+    }
+    
+    /* Sidebar */
+    .sidebar {
+      flex: 0 0 300px;
+      border-left: 2px solid var(--line-color);
+      padding-left: 40px;
+      position: sticky;
+      top: 120px;
+    }
+    
+    .sidebar-title {
+      margin: 0 0 30px;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      font-size: 1.3rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--accent-alt);
+      position: relative;
+      padding-bottom: 15px;
+    }
+    
+    .sidebar-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 50px;
+      height: 3px;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+    
+    .playlist-item {
+      margin-bottom: 30px;
+      text-align: center;
+      transition: var(--transition);
+    }
+    
+    .playlist-item:hover {
+      transform: translateY(-5px);
+    }
+    
+    .playlist-title {
+      display: block;
+      margin-top: 12px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text);
+      transition: var(--transition);
+    }
+    
+    .playlist-item:hover .playlist-title {
+      color: var(--accent);
+    }
+    
+    .cover-img {
+      width: 100%;
+      max-width: 240px;
+      border-radius: var(--radius);
+      display: block;
+      margin: 0 auto;
+      transition: var(--transition);
+      box-shadow: var(--shadow);
+    }
+    
+    .playlist-item:hover .cover-img {
+      box-shadow: 0 10px 30px rgba(0,255,255,0.3);
+      transform: scale(1.05);
+    }
+    
+    /* Footer */
+    .site-footer {
+      margin-top: 80px;
+      padding: 30px 5%;
+      border-top: 1px solid var(--line-color);
+      background: var(--card-bg);
+      box-shadow: 0 -2px 20px rgba(0,0,0,0.2);
+    }
+    
+    .footer-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    
+    .footer-brand {
+      font-family: 'Chewy', cursive;
+      font-size: 1.5rem;
+      color: #fff;
+    }
+    
+    .footer-social {
+      display: flex;
+      gap: 20px;
+    }
+    
+    .footer-copy {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+    
+    /* Scroll to Top Button */
+    .scroll-to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: var(--accent);
+      color: white;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      box-shadow: 0 4px 15px rgba(255,0,153,0.3);
+      transition: var(--transition);
+      z-index: 1000;
+    }
+    
+    .scroll-to-top.visible {
+      display: flex;
+    }
+    
+    .scroll-to-top:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 20px rgba(255,0,153,0.5);
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+      .container {
+        flex-direction: column;
+        padding: 40px 5%;
+        gap: 40px;
+      }
+      
+      .gif-container {
+        flex-direction: row;
+        flex: none;
+        width: 100%;
+        justify-content: center;
+        position: static;
+      }
+      
+      .gif-box {
+        flex: 0 1 180px;
+      }
+      
+      .sidebar {
+        flex: none;
+        width: 100%;
+        border-left: none;
+        border-top: 2px solid var(--line-color);
+        padding-left: 0;
+        padding-top: 30px;
+        position: static;
+      }
+      
+      .playlist-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+      }
+      
+      .menu-row {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+      
+      .nav-links {
+        justify-content: center;
+      }
+    }
+    
     @media (max-width: 640px) {
-      .nav-brand { font-size: 2.3rem; }
-      .menu-row { flex-direction: column; align-items: center; }
-      .post-title { font-size: 1.6rem; }
-      .blog-post { padding: 20px; }
-      .footer-inner { flex-direction: column; text-align: center; }
+      .nav-brand {
+        font-size: 2.5rem;
+      }
+      
+      .post-title {
+        font-size: 1.8rem;
+      }
+      
+      .blog-post {
+        padding: 25px;
+      }
+      
+      .mini-player {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+      }
+      
+      .footer-inner {
+        flex-direction: column;
+        text-align: center;
+      }
+      
+      .scroll-to-top {
+        bottom: 20px;
+        right: 20px;
+        width: 45px;
+        height: 45px;
+      }
     }
   </style>
 </head>
 <body>
 
   <header class="nav-header">
-    <div class="brand-row"><a href="index.html" class="nav-brand">Schrottkiste</a></div>
+    <div class="brand-row">
+      <a href="index.html" class="nav-brand">Schrottkiste</a>
+    </div>
     <div class="menu-row">
       <ul class="nav-links">
-          <li><a href="index.html">START</a></li>
-          <li><a href="ideen.html">CONTENT-PLAN</a></li>
-          <li><a href="soundboard.html">SOUNDBOARD</a></li>
+        <li><a href="index.html" class="active">START</a></li>
+        <li><a href="ideen.html">CONTENT-PLAN</a></li>
+        <li><a href="soundboard.html">SOUNDBOARD</a></li>
       </ul>
       
       <div class="mini-player">
-        <span class="player-label">In mein Radio reinhören!</span>
+        <span class="player-label">🎵 Live Radio</span>
         <audio id="audio-player" src="https://stream.laut.fm/treasure_radio"></audio>
         <div class="player-controls">
-            <button id="play-pause-btn">▶</button>
+          <button id="play-pause-btn" aria-label="Play/Pause">▶</button>
         </div>
         <div class="track-info-mini">
-            <div id="song-title">Lade...</div>
-            <div id="artist-name">Treasure Radio</div>
+          <div id="song-title">Lade...</div>
+          <div id="artist-name">Treasure Radio</div>
+        </div>
+        <div class="visualizer" id="visualizer">
+          <div class="visualizer-bar"></div>
+          <div class="visualizer-bar"></div>
+          <div class="visualizer-bar"></div>
+          <div class="visualizer-bar"></div>
+          <div class="visualizer-bar"></div>
         </div>
       </div>
 
       <div class="social-btns">
-        <a href="https://www.twitch.tv/schrottkiste_luka" target="_blank" class="social-btn twitch"><i class="fa-brands fa-twitch"></i></a>
-        <a href="https://www.youtube.com/@schrottkiste" target="_blank" class="social-btn youtube"><i class="fa-brands fa-youtube"></i></a>
+        <a href="https://www.twitch.tv/schrottkiste_luka" target="_blank" rel="noopener" class="social-btn twitch" aria-label="Twitch"><i class="fa-brands fa-twitch"></i></a>
+        <a href="https://www.youtube.com/@schrottkiste" target="_blank" rel="noopener" class="social-btn youtube" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
       </div>
     </div>
   </header>
 
   <div class="container">
-    <div class="gif-container">
-        <div class="gif-box" id="gif1" role="button" tabindex="0" aria-label="Animation 1 an- oder ausschalten" style="background-image: url('images/GermanyGerGIF.gif');" onclick="toggleGif('gif1', 'images/GermanyGerGIF.gif', 'images/image.png')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleGif('gif1', 'images/GermanyGerGIF.gif', 'images/image.png')}"></div>
-        <div class="gif-box" id="gif2" role="button" tabindex="0" aria-label="Animation 2 an- oder ausschalten" style="background-image: url('images/July Gif.gif');" onclick="toggleGif('gif2', 'images/July Gif.gif', 'images/Bild_2026-07-06_210330659.png')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleGif('gif2', 'images/July Gif.gif', 'images/Bild_2026-07-06_210330659.png')}"></div>
-    </div>
+    <aside class="gif-container">
+      <div class="gif-box" id="gif1" role="button" tabindex="0" aria-label="Deutschland GIF - Klicken zum Anhalten/Abspielen" style="background-image: url('images/GermanyGerGIF.gif');">
+        <div class="gif-status playing" id="status1"></div>
+      </div>
+      <div class="gif-box" id="gif2" role="button" tabindex="0" aria-label="Juli GIF - Klicken zum Anhalten/Abspielen" style="background-image: url('images/July Gif.gif');">
+        <div class="gif-status playing" id="status2"></div>
+      </div>
+    </aside>
 
     <main class="blog-section">
-      <article class="blog-post">
-        <div class="post-meta"><span class="post-time">13.07.2026</span><span class="post-time">13:00 Uhr</span></div>
-        <h2 class="post-title">Fun Facts über mich</h2>
-        <div class="post-text collapsed" id="text-4">
-            <ul>
-                <li>Seitdem ich Minecraft zocke, baue ich immer nur Städte</li>
-                <li>Ich hatte als Kind mal Angst vor Sirenen Geheule</li>
-                <li>Ich habe mal gedacht, dass Toilettenrohr verschwindet einfach in der Wand und geht dann auf die Straße einfach</li>
-                <li>Ich habe als Kind gedacht ältere Menschen sind andere Lebewesen wie junge Menschen (außerdem dachte ich man wird einfach irgendwann von jetzt auf gleich so schrumpelig)</li>
-                <li>Ich habe darüber nachgedacht ob meine Eltern Geheimagenten sind wenn ich nicht hingucke</li>
-                <li>Frauen waren für mich bis zu meinem 16. Lebensjahr einfach zickige Gestalten, denen man nicht über den Weg laufen wollte haha</li>
-                <li>Ich habe herausgefunden dass ich es schwer in der Schule hatte, da ich schon mein ganzes Leben lang auf einen unkonventionellen Lebensweg gesetzt hatte</li>
-                <li>Als ich noch ganz jung war wollte ich immer ne eigene Eisdiele aufmachen</li>
-                <li>Ich habe immer gedacht erwachsen sein muss einfach cool sein. Die Realität ist eher eine Mischung aus Verantwortung nach der ich nicht fragte und neuen Möglichkeiten</li>
-            </ul>
+      <article class="blog-post" itemscope itemtype="https://schema.org/BlogPosting">
+        <div class="post-meta">
+          <span class="post-time">📅 13.07.2026</span>
+          <span class="post-time">🕐 13:00 Uhr</span>
+          <span class="reading-time">⏱ 2 Min. Lesezeit</span>
         </div>
-        <button class="read-more" onclick="toggleText('text-4', this)">Weiterlesen</button>
+        <h2 class="post-title" itemprop="headline">Fun Facts über mich</h2>
+        <div class="post-text collapsed" id="text-4" itemprop="articleBody">
+          <ul>
+            <li>Seitdem ich Minecraft zocke, baue ich immer nur Städte</li>
+            <li>Ich hatte als Kind mal Angst vor Sirenen Geheule</li>
+            <li>Ich habe mal gedacht, dass Toilettenrohr verschwindet einfach in der Wand und geht dann auf die Straße einfach</li>
+            <li>Ich habe als Kind gedacht ältere Menschen sind andere Lebewesen wie junge Menschen (außerdem dachte ich man wird einfach irgendwann von jetzt auf gleich so schrumpelig)</li>
+            <li>Ich habe darüber nachgedacht ob meine Eltern Geheimagenten sind wenn ich nicht hingucke</li>
+            <li>Frauen waren für mich bis zu meinem 16. Lebensjahr einfach zickige Gestalten, denen man nicht über den Weg laufen wollte haha</li>
+            <li>Ich habe herausgefunden dass ich es schwer in der Schule hatte, da ich schon mein ganzes Leben lang auf einen unkonventionellen Lebensweg gesetzt hatte</li>
+            <li>Als ich noch ganz jung war wollte ich immer ne eigene Eisdiele aufmachen</li>
+            <li>Ich habe immer gedacht erwachsen sein muss einfach cool sein. Die Realität ist eher eine Mischung aus Verantwortung nach der ich nicht fragte und neuen Möglichkeiten</li>
+          </ul>
+        </div>
+        <button class="read-more" onclick="toggleText('text-4', this)" aria-expanded="false">
+          <span>Weiterlesen</span> <i class="fas fa-chevron-down"></i>
+        </button>
         <div class="interactive-area">
-            <span class="likebtn-wrapper" data-theme="heart" data-identifier="post_3" data-counter_count="true"></span>
+          <span class="likebtn-wrapper" data-theme="heart" data-identifier="post_3" data-counter_count="true"></span>
+          <div class="share-buttons">
+            <button class="share-btn" onclick="sharePost('Fun Facts über mich')" aria-label="Teilen"><i class="fas fa-share-alt"></i></button>
+            <button class="share-btn" onclick="copyLink()" aria-label="Link kopieren"><i class="fas fa-link"></i></button>
+          </div>
         </div>
       </article>
 
-      <article class="blog-post">
-        <div class="post-meta"><span class="post-time">07.07.2026</span><span class="post-time">11:00 Uhr</span></div>
-        <h2 class="post-title">Social Media: Realität oder Fake?</h2>
-        <div class="post-text collapsed" id="text-3">
+      <article class="blog-post" itemscope itemtype="https://schema.org/BlogPosting">
+        <div class="post-meta">
+          <span class="post-time">📅 07.07.2026</span>
+          <span class="post-time">🕐 11:00 Uhr</span>
+          <span class="reading-time">⏱ 1 Min. Lesezeit</span>
+        </div>
+        <h2 class="post-title" itemprop="headline">Social Media: Realität oder Fake?</h2>
+        <div class="post-text collapsed" id="text-3" itemprop="articleBody">
           <p>Ich selbst habe die Erfahrung gemacht, dass Social Media einer Person eine Version von sich selbst aufdrücken möchte, die man vielleicht gar nicht ist.</p>
           <p>Man sieht Schönheitsideale, nach denen man sich richten soll. Dabei sind diese Schönheitsideale total fake und unschön inszeniert. Wenn man im Internet einen Creator verfolgt, sieht man meistens nur eine Seite von der Person. Ihr wahres Gesicht kennen nur wenige. Sie inszenieren das perfekte Leben, das keiner hat.</p>
           <p>Dadurch passieren ein paar Dinge, die nicht passieren sollten: Menschen verlieren sich in Fake-Versionen einer Person ohne zu erkennen: aha, das ist gar nicht echt. Ich bin mehr wert als diese Influencer. Aber das checken viele nicht und werden depressiv, weil sie denken, all the Creator da draußen hätten immer ein perfektes Leben. Dabei ist das gar nicht wahr.</p>
         </div>
-        <button class="read-more" onclick="toggleText('text-3', this)">Weiterlesen</button>
+        <button class="read-more" onclick="toggleText('text-3', this)" aria-expanded="false">
+          <span>Weiterlesen</span> <i class="fas fa-chevron-down"></i>
+        </button>
         <div class="interactive-area">
-            <span class="likebtn-wrapper" data-theme="heart" data-identifier="post_1" data-counter_count="true"></span>
+          <span class="likebtn-wrapper" data-theme="heart" data-identifier="post_1" data-counter_count="true"></span>
+          <div class="share-buttons">
+            <button class="share-btn" onclick="sharePost('Social Media: Realität oder Fake?')" aria-label="Teilen"><i class="fas fa-share-alt"></i></button>
+            <button class="share-btn" onclick="copyLink()" aria-label="Link kopieren"><i class="fas fa-link"></i></button>
+          </div>
         </div>
       </article>
 
-      <article class="blog-post">
-        <div class="post-meta"><span class="post-time">06.07.2026</span><span class="post-time">20:45 Uhr</span></div>
-        <h2 class="post-title">Mein Sommerurlaub 2026</h2>
-        <div class="post-text collapsed" id="text-2">Ich nehme mir einen kleinen Sommerurlaub vom 20.07. bis zum 24.07. – haltet die Augen auf nach neuem Content! Wie immer werde ich den Urlaub unter anderem dazu nutzen, um Streams und Videos zu machen. Aber auch, um Freunde zu treffen und die Sonne zu genießen. Wobei man ja bei mir nicht wirklich von Sonne sprechen kann, wenn der Wettertrend so bleibt. 😉</div>
-        <button class="read-more" onclick="toggleText('text-2', this)">Weiterlesen</button>
+      <article class="blog-post" itemscope itemtype="https://schema.org/BlogPosting">
+        <div class="post-meta">
+          <span class="post-time">📅 06.07.2026</span>
+          <span class="post-time">🕐 20:45 Uhr</span>
+          <span class="reading-time">⏱ 1 Min. Lesezeit</span>
+        </div>
+        <h2 class="post-title" itemprop="headline">Mein Sommerurlaub 2026</h2>
+        <div class="post-text collapsed" id="text-2" itemprop="articleBody">
+          <p>Ich nehme mir einen kleinen Sommerurlaub vom 20.07. bis zum 24.07. – haltet die Augen auf nach neuem Content! Wie immer werde ich den Urlaub unter anderem dazu nutzen, um Streams und Videos zu machen. Aber auch, um Freunde zu treffen und die Sonne zu genießen. Wobei man ja bei mir nicht wirklich von Sonne sprechen kann, wenn der Wettertrend so bleibt. 😉</p>
+        </div>
+        <button class="read-more" onclick="toggleText('text-2', this)" aria-expanded="false">
+          <span>Weiterlesen</span> <i class="fas fa-chevron-down"></i>
+        </button>
         <div class="interactive-area">
-            <span class="likebtn-wrapper" data-theme="heart" data-identifier="post_2" data-counter_count="true"></span>
+          <span class="likebtn-wrapper" data-theme="heart" data-identifier="post_2" data-counter_count="true"></span>
+          <div class="share-buttons">
+            <button class="share-btn" onclick="sharePost('Mein Sommerurlaub 2026')" aria-label="Teilen"><i class="fas fa-share-alt"></i></button>
+            <button class="share-btn" onclick="copyLink()" aria-label="Link kopieren"><i class="fas fa-link"></i></button>
+          </div>
         </div>
       </article>
     </main>
 
     <aside class="sidebar">
       <h2 class="sidebar-title">Meine Playlists</h2>
-      <div id="playlist-container"></div>
+      <div class="playlist-container" id="playlist-container"></div>
     </aside>
   </div>
 
@@ -186,74 +899,328 @@
     <div class="footer-inner">
       <span class="footer-brand">Schrottkiste</span>
       <div class="footer-social">
-        <a href="https://www.twitch.tv/schrottkiste_luka" target="_blank" class="social-btn twitch" aria-label="Twitch"><i class="fa-brands fa-twitch"></i></a>
-        <a href="https://www.youtube.com/@schrottkiste" target="_blank" class="social-btn youtube" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+        <a href="https://www.twitch.tv/schrottkiste_luka" target="_blank" rel="noopener" class="social-btn twitch" aria-label="Twitch"><i class="fa-brands fa-twitch"></i></a>
+        <a href="https://www.youtube.com/@schrottkiste" target="_blank" rel="noopener" class="social-btn youtube" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
       </div>
-      <span class="footer-copy">© 2026 Schrottkiste</span>
+      <span class="footer-copy">© 2026 Schrottkiste – Made with ❤️</span>
     </div>
   </footer>
 
+  <!-- Scroll to Top Button -->
+  <button class="scroll-to-top" id="scrollToTop" aria-label="Nach oben scrollen">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
   <script>
-    // Radio-Logik
+    // DOM Elements
     const audio = document.getElementById('audio-player');
     const playPauseBtn = document.getElementById('play-pause-btn');
     const songTitleEl = document.getElementById('song-title');
     const artistNameEl = document.getElementById('artist-name');
-
-    playPauseBtn.addEventListener('click', () => {
-        if (audio.paused) {
-            audio.play();
-            playPauseBtn.textContent = '⏸';
-        } else {
-            audio.pause();
-            playPauseBtn.textContent = '▶';
-        }
-    });
-
+    const visualizer = document.getElementById('visualizer');
+    const scrollToTopBtn = document.getElementById('scrollToTop');
+    
+    // State
+    let isPlaying = false;
+    
+    // Radio Player Logic
+    playPauseBtn.addEventListener('click', togglePlay);
+    
+    function togglePlay() {
+      if (isPlaying) {
+        audio.pause();
+        playPauseBtn.textContent = '▶';
+        playPauseBtn.setAttribute('aria-label', 'Play');
+        visualizer.style.opacity = '0.3';
+      } else {
+        audio.play().catch(e => {
+          console.log('Autoplay prevented:', e);
+          showNotification('Klicke erneut zum Abspielen');
+        });
+        playPauseBtn.textContent = '⏸';
+        playPauseBtn.setAttribute('aria-label', 'Pause');
+        visualizer.style.opacity = '1';
+      }
+      isPlaying = !isPlaying;
+    }
+    
+    // Track Info Fetcher
     async function fetchTrackInfo() {
-        try {
-            const response = await fetch('https://api.laut.fm/station/treasure_radio/current_song');
-            const data = await response.json();
-            songTitleEl.textContent = data.title || 'Treasure Radio';
-            artistNameEl.textContent = (data.artist && data.artist.name) ? data.artist.name : 'Live Stream';
-        } catch (e) { console.error(e); }
+      try {
+        const response = await fetch('https://api.laut.fm/station/treasure_radio/current_song');
+        if (!response.ok) throw new Error('Network response was not ok');
+        
+        const data = await response.json();
+        
+        if (data.title) {
+          songTitleEl.textContent = data.title;
+          artistNameEl.textContent = (data.artist && data.artist.name) ? data.artist.name : 'Treasure Radio';
+        } else {
+          songTitleEl.textContent = 'Treasure Radio';
+          artistNameEl.textContent = 'Live Stream';
+        }
+        
+        // Update document title
+        if (isPlaying && data.title) {
+          document.title = `🔊 ${data.title} - Schrottkiste`;
+        }
+      } catch (error) {
+        console.error('Error fetching track info:', error);
+        songTitleEl.textContent = 'Nicht verfügbar';
+        artistNameEl.textContent = 'Verbindungsfehler';
+        
+        // Retry after 30 seconds on error
+        setTimeout(fetchTrackInfo, 30000);
+      }
     }
-    fetchTrackInfo();
-    setInterval(fetchTrackInfo, 10000);
-
-    // Bestehende Funktionen
-    (function(d,e,s){if(d.getElementById("likebtn_wjs"))return;a=d.createElement(e);m=d.getElementsByTagName(e)[0];a.async=1;a.id="likebtn_wjs";a.src=s;m.parentNode.insertBefore(a, m)})(document,"script","//w.likebtn.com/js/w/widget.js");
-
-    function toggleGif(id, gifSrc, stillSrc) {
-        const el = document.getElementById(id);
-        const current = el.style.backgroundImage;
-        el.style.backgroundImage = current.includes('.gif') ? `url('${stillSrc}')` : `url('${gifSrc}')`;
-    }
-
-    function toggleText(id, btn) {
-        const el = document.getElementById(id);
-        el.classList.toggle('collapsed');
-        btn.innerText = el.classList.contains('collapsed') ? 'Weiterlesen' : 'Einklappen';
-    }
-
-    const playlists = [
-        { id: 'PLQLA52U7_qBOkmumSrvGZbE3CPPGqoLQX', title: 'Top 2026 Songs', img: 'https://yt3.googleusercontent.com/0at97SvH71PXtFz8le5gciUThF1dv9XsQ4rMv31yV4Nx62FqpsRWbLTV5wGXrBSkCGNGk4ZauA=s1200' },
-        { id: 'PLQLA52U7_qBPJNw536VhdzwEmSeVHGCqx', title: 'Besties 2025', img: 'https://yt3.googleusercontent.com/Vs7i88V-4wi7LJPwtYV9TPABM_wYeLdMxpVms3sE9GuJZEspkjitm8_DyvXIpqqlt6oaVoJ7QOs=s1200' },
-        { id: 'PLQLA52U7_qBN4VcQskCzUQoONu-RMwgwP', title: 'Top 2024 Songs', img: 'https://yt3.googleusercontent.com/67bJsnCGY4g2qY-zQfl_hH6Ob4TPXCFg3w7wcXuS2UM71boD8rLHLztq2oV6qSG1SfatjnE5_Lo=s1200' },
-        { id: 'PLQLA52U7_qBPqddrF9dAD9pR5HOhI-zpq', title: '2023 Songs', img: 'https://yt3.googleusercontent.com/NhSgqBhtHOHQCY5CoxCh7oMxAbzd9Eme4Floq_rQy69dxQK3Wz2Ftt1pOkA3U6A-_BAcQ5BOXgM=s1200' },
-        { id: 'PLQLA52U7_qBNL4S4PhAzWYsu15Ta2q80B', title: 'Top 100 2022', img: 'https://yt3.googleusercontent.com/Mz1LKO_hkuQYZwtH2x-zEHY8ZaM7zKuK_PEvRtb8Q9fLOTIBbfLXvZFIwpPic1QrvY9mHnuEMnD6=s1200' }
-    ];
-    const container = document.getElementById('playlist-container');
-    playlists.forEach(pl => {
-        container.innerHTML += `
-            <div class="playlist-item">
-                <a href="https://music.youtube.com/playlist?list=${pl.id}" target="_blank">
-                    <img src="${pl.img}" class="cover-img" alt="${pl.title}" loading="lazy">
-                </a>
-                <span class="playlist-title">${pl.title}</span>
-            </div>
-        `;
+    
+    // Audio Event Listeners
+    audio.addEventListener('play', () => {
+      isPlaying = true;
+      playPauseBtn.textContent = '⏸';
+      visualizer.style.opacity = '1';
     });
+    
+    audio.addEventListener('pause', () => {
+      isPlaying = false;
+      playPauseBtn.textContent = '▶';
+      visualizer.style.opacity = '0.3';
+    });
+    
+    audio.addEventListener('error', () => {
+      showNotification('Radio-Stream nicht verfügbar', 'error');
+      songTitleEl.textContent = 'Offline';
+      artistNameEl.textContent = 'Stream nicht erreichbar';
+    });
+    
+    // Initialize
+    fetchTrackInfo();
+    setInterval(fetchTrackInfo, 15000); // Update every 15 seconds
+    
+    // GIF Toggle Function with Status Indicator
+    function toggleGif(id, gifSrc, stillSrc) {
+      const el = document.getElementById(id);
+      const statusEl = document.getElementById('status' + id.slice(-1));
+      const currentBg = el.style.backgroundImage;
+      const isGif = currentBg.includes('.gif');
+      
+      if (isGif) {
+        el.style.backgroundImage = `url('${stillSrc}')`;
+        statusEl.classList.remove('playing');
+        statusEl.classList.add('paused');
+        el.setAttribute('aria-label', el.getAttribute('aria-label').replace('Anhalten', 'Abspielen'));
+      } else {
+        el.style.backgroundImage = `url('${gifSrc}')`;
+        statusEl.classList.remove('paused');
+        statusEl.classList.add('playing');
+        el.setAttribute('aria-label', el.getAttribute('aria-label').replace('Abspielen', 'Anhalten'));
+      }
+    }
+    
+    // GIF Click Handlers
+    document.getElementById('gif1').addEventListener('click', () => {
+      toggleGif('gif1', 'images/GermanyGerGIF.gif', 'images/image.png');
+    });
+    
+    document.getElementById('gif2').addEventListener('click', () => {
+      toggleGif('gif2', 'images/July Gif.gif', 'images/Bild_2026-07-06_210330659.png');
+    });
+    
+    // Keyboard Support für GIFs
+    document.querySelectorAll('.gif-box').forEach(box => {
+      box.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          box.click();
+        }
+      });
+    });
+    
+    // Text Toggle Function
+    function toggleText(id, btn) {
+      const el = document.getElementById(id);
+      const isCollapsed = el.classList.contains('collapsed');
+      
+      el.classList.toggle('collapsed');
+      
+      if (isCollapsed) {
+        btn.innerHTML = '<span>Einklappen</span> <i class="fas fa-chevron-up"></i>';
+        btn.classList.add('expanded');
+        btn.setAttribute('aria-expanded', 'true');
+      } else {
+        btn.innerHTML = '<span>Weiterlesen</span> <i class="fas fa-chevron-down"></i>';
+        btn.classList.remove('expanded');
+        btn.setAttribute('aria-expanded', 'false');
+      }
+    }
+    
+    // Share Functions
+    function sharePost(title) {
+      if (navigator.share) {
+        navigator.share({
+          title: title,
+          url: window.location.href
+        }).catch(console.error);
+      } else {
+        copyLink();
+      }
+    }
+    
+    function copyLink() {
+      navigator.clipboard.writeText(window.location.href).then(() => {
+        showNotification('Link kopiert! 📋');
+      }).catch(() => {
+        // Fallback
+        const textArea = document.createElement('textarea');
+        textArea.value = window.location.href;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+        showNotification('Link kopiert! 📋');
+      });
+    }
+    
+    // Notification System
+    function showNotification(message, type = 'success') {
+      const notification = document.createElement('div');
+      notification.style.cssText = `
+        position: fixed;
+        bottom: 100px;
+        right: 30px;
+        background: ${type === 'error' ? '#ff4444' : 'var(--accent)'};
+        color: white;
+        padding: 15px 25px;
+        border-radius: 25px;
+        font-family: 'Poppins', sans-serif;
+        font-weight: 600;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        z-index: 10000;
+        animation: slideIn 0.3s ease;
+        backdrop-filter: blur(10px);
+      `;
+      notification.textContent = message;
+      document.body.appendChild(notification);
+      
+      setTimeout(() => {
+        notification.style.animation = 'slideOut 0.3s ease';
+        setTimeout(() => notification.remove(), 300);
+      }, 3000);
+    }
+    
+    // Scroll to Top Button
+    function toggleScrollButton() {
+      if (window.pageYOffset > 300) {
+        scrollToTopBtn.classList.add('visible');
+      } else {
+        scrollToTopBtn.classList.remove('visible');
+      }
+    }
+    
+    scrollToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+    
+    // Throttle scroll event
+    let scrollTimeout;
+    window.addEventListener('scroll', () => {
+      if (!scrollTimeout) {
+        scrollTimeout = setTimeout(() => {
+          toggleScrollButton();
+          scrollTimeout = null;
+        }, 100);
+      }
+    });
+    
+    // Add animation styles
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes slideIn {
+        from {
+          transform: translateX(100%);
+          opacity: 0;
+        }
+        to {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+      
+      @keyframes slideOut {
+        from {
+          transform: translateX(0);
+          opacity: 1;
+        }
+        to {
+          transform: translateX(100%);
+          opacity: 0;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+    
+    // Like Button Integration
+    (function(d,e,s){
+      if(d.getElementById("likebtn_wjs")) return;
+      const a = d.createElement(e);
+      const m = d.getElementsByTagName(e)[0];
+      a.async = 1;
+      a.id = "likebtn_wjs";
+      a.src = s;
+      m.parentNode.insertBefore(a, m);
+    })(document, "script", "//w.likebtn.com/js/w/widget.js");
+    
+    // Playlist Data
+    const playlists = [
+      { 
+        id: 'PLQLA52U7_qBOkmumSrvGZbE3CPPGqoLQX', 
+        title: 'Top 2026 Songs', 
+        img: 'https://yt3.googleusercontent.com/0at97SvH71PXtFz8le5gciUThF1dv9XsQ4rMv31yV4Nx62FqpsRWbLTV5wGXrBSkCGNGk4ZauA=s1200' 
+      },
+      { 
+        id: 'PLQLA52U7_qBPJNw536VhdzwEmSeVHGCqx', 
+        title: 'Besties 2025', 
+        img: 'https://yt3.googleusercontent.com/Vs7i88V-4wi7LJPwtYV9TPABM_wYeLdMxpVms3sE9GuJZEspkjitm8_DyvXIpqqlt6oaVoJ7QOs=s1200' 
+      },
+      { 
+        id: 'PLQLA52U7_qBN4VcQskCzUQoONu-RMwgwP', 
+        title: 'Top 2024 Songs', 
+        img: 'https://yt3.googleusercontent.com/67bJsnCGY4g2qY-zQfl_hH6Ob4TPXCFg3w7wcXuS2UM71boD8rLHLztq2oV6qSG1SfatjnE5_Lo=s1200' 
+      },
+      { 
+        id: 'PLQLA52U7_qBPqddrF9dAD9pR5HOhI-zpq', 
+        title: '2023 Songs', 
+        img: 'https://yt3.googleusercontent.com/NhSgqBhtHOHQCY5CoxCh7oMxAbzd9Eme4Floq_rQy69dxQK3Wz2Ftt1pOkA3U6A-_BAcQ5BOXgM=s1200' 
+      },
+      { 
+        id: 'PLQLA52U7_qBNL4S4PhAzWYsu15Ta2q80B', 
+        title: 'Top 100 2022', 
+        img: 'https://yt3.googleusercontent.com/Mz1LKO_hkuQYZwtH2x-zEHY8ZaM7zKuK_PEvRtb8Q9fLOTIBbfLXvZFIwpPic1QrvY9mHnuEMnD6=s1200' 
+      }
+    ];
+    
+    // Render Playlists
+    const playlistContainer = document.getElementById('playlist-container');
+    playlists.forEach(pl => {
+      const playlistItem = document.createElement('div');
+      playlistItem.className = 'playlist-item';
+      playlistItem.innerHTML = `
+        <a href="https://music.youtube.com/playlist?list=${pl.id}" target="_blank" rel="noopener" aria-label="Playlist ${pl.title} auf YouTube Music öffnen">
+          <img src="${pl.img}" class="cover-img" alt="${pl.title}" loading="lazy" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22200%22%3E%3Crect fill=%22%23242430%22 width=%22200%22 height=%22200%22/%3E%3Ctext fill=%22%23ff0099%22 x=%22100%22 y=%22110%22 text-anchor=%22middle%22 font-size=%2216%22%3E${pl.title}%3C/text%3E%3C/svg%3E'">
+        </a>
+        <span class="playlist-title">${pl.title}</span>
+      `;
+      playlistContainer.appendChild(playlistItem);
+    });
+    
+    // Initialize scroll button state
+    toggleScrollButton();
+    
+    console.log('🚀 Schrottkiste 2.0 geladen!');
+    console.log('✨ Neue Features: Audio-Visualizer, Share-Buttons, Scroll-To-Top, verbesserte Animationen');
   </script>
 </body>
 </html>
