@@ -166,7 +166,7 @@
   }
   
   .sidebar-playlist-item.active-pl {
-    background: rgba(255, 0, 153, 0.1);
+    background: rgba(255, 0, 153, 0.12);
     color: var(--accent);
     border-color: var(--accent);
     font-weight: 600;
@@ -262,7 +262,7 @@
   }
   #searchBox:focus { 
     border-color: var(--accent-alt); 
-    box-shadow: 0 0 15px rgba(0,255,255,0.1);
+    box-shadow: 0 0 15px rgba(0,255,255,0.15);
   }
   #searchBox::placeholder { color: var(--text-muted); }
 
@@ -311,7 +311,7 @@
     padding: 20px 30px; 
     display: flex; 
     flex-direction: column; 
-    gap: 4px; 
+    gap: 6px; 
   }
 
   .sound-item {
@@ -330,12 +330,18 @@
     box-shadow: var(--shadow);
   }
 
+  .sound-item.playing-row {
+    background: rgba(255, 0, 153, 0.08);
+    border-color: rgba(255, 0, 153, 0.4);
+    box-shadow: 0 0 15px rgba(255, 0, 153, 0.15);
+  }
+
   .play-btn {
     background: var(--bg-card);
     border: 1px solid var(--border-color);
     color: #fff;
-    width: 38px;
-    height: 38px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     cursor: pointer;
     display: flex;
@@ -343,12 +349,12 @@
     justify-content: center;
     flex-shrink: 0;
     transition: var(--transition);
-    font-size: 0.9rem;
+    font-size: 0.95rem;
   }
   .play-btn:hover { 
     border-color: var(--accent-alt); 
     color: var(--accent-alt);
-    transform: scale(1.05);
+    transform: scale(1.08);
   }
   .play-btn.playing { 
     background: var(--accent); 
@@ -372,6 +378,10 @@
     white-space: nowrap; 
     overflow: hidden; 
     text-overflow: ellipsis; 
+  }
+  .sound-item.playing-row .sound-title {
+    color: #fff;
+    font-weight: 600;
   }
   .sound-subtitle { 
     font-size: 0.8rem; 
@@ -455,7 +465,7 @@
     padding: 0 30px;
     z-index: 1100;
     transition: left 0.3s ease;
-    box-shadow: 0 -4px 20px rgba(0,0,0,0.3);
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.4);
   }
 
   .footer-left {
@@ -467,7 +477,7 @@
     cursor: pointer;
     transition: var(--transition);
   }
-  .footer-left:hover { opacity: 0.8; }
+  .footer-left:hover { opacity: 0.85; }
   
   .footer-thumb {
     width: 48px;
@@ -561,7 +571,7 @@
   }
   .time-info {
     font-family: 'VT323', monospace;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     color: var(--text-muted);
     min-width: 35px;
     text-align: center;
@@ -607,7 +617,17 @@
     padding: 8px 14px;
     border-radius: 20px;
   }
-  #volumeControl span { font-size: 1rem; }
+  #muteToggleBtn {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: var(--transition);
+  }
+  #muteToggleBtn:hover {
+    transform: scale(1.2);
+  }
   
   #volume {
     -webkit-appearance: none;
@@ -704,6 +724,29 @@
     color: #fff; 
   }
 
+  /* --- TOAST BENACHRICHTIGUNG --- */
+  #toastNotification {
+    position: fixed;
+    bottom: 105px;
+    right: 30px;
+    background: var(--bg-card);
+    border: 1px solid var(--accent);
+    color: var(--text-main);
+    padding: 12px 20px;
+    border-radius: 25px;
+    font-size: 0.9rem;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+    z-index: 10000;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+    pointer-events: none;
+  }
+  #toastNotification.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
   /* --- RESPONSIVE --- */
   @media (max-width: 768px) {
     .app-sidebar {
@@ -755,6 +798,11 @@
       max-width: unset;
       padding: 0 8px;
     }
+
+    #toastNotification {
+      right: 15px;
+      bottom: 95px;
+    }
   }
 </style>
 </head>
@@ -793,6 +841,9 @@
   </div>
 </div>
 
+<!-- Toast Feedback -->
+<div id="toastNotification"></div>
+
 <!-- Hauptbereich -->
 <main class="app-main">
   
@@ -830,10 +881,10 @@
 
   <div class="footer-center">
     <div class="footer-controls">
-      <button id="footerShuffleBtn" class="footer-ctrl-btn" title="Shuffle">🔀</button>
-      <button id="footerPrevBtn" class="footer-ctrl-btn" title="Vorheriger">⏮</button>
-      <button id="footerPlayBtn" class="footer-play-btn">▶</button>
-      <button id="footerNextBtn" class="footer-ctrl-btn" title="Nächster">⏭</button>
+      <button id="footerShuffleBtn" class="footer-ctrl-btn" title="Shuffle (Strg+S)">🔀</button>
+      <button id="footerPrevBtn" class="footer-ctrl-btn" title="Vorheriger (Strg+◄)">⏮</button>
+      <button id="footerPlayBtn" class="footer-play-btn" title="Play/Pause (Leertaste)">▶</button>
+      <button id="footerNextBtn" class="footer-ctrl-btn" title="Nächster (Strg+►)">⏭</button>
     </div>
     <div class="footer-progress-wrapper">
       <span id="footerCurrentTime" class="time-info">0:00</span>
@@ -844,7 +895,7 @@
 
   <div class="footer-right">
     <div id="volumeControl">
-      <span>🔊</span>
+      <button id="muteToggleBtn" title="Stummschalten (M)">🔊</button>
       <input type="range" id="volume" min="0" max="1" step="0.01" value="0.5">
     </div>
   </div>
@@ -858,6 +909,7 @@ const repo = "e";
 // --- DOM ELEMENTE ---
 const soundContainer = document.getElementById("soundContainer");
 const volumeSlider = document.getElementById("volume");
+const muteToggleBtn = document.getElementById("muteToggleBtn");
 const searchBox = document.getElementById("searchBox");
 const playlistCountSpan = document.getElementById("playlistCount");
 const sidebarPlaylistLinks = document.getElementById("sidebarPlaylistLinks");
@@ -877,13 +929,14 @@ const playlistModalOverlay = document.getElementById("playlistModalOverlay");
 const newPlaylistInput = document.getElementById("newPlaylistInput");
 const modalCreateBtn = document.getElementById("modalCreateBtn");
 const modalCancelBtn = document.getElementById("modalCancelBtn");
+const toastNotification = document.getElementById("toastNotification");
 
 // --- STATE ---
 let globalVolume = parseFloat(localStorage.getItem("soundVolume")) || 0.5;
+let previousVolume = globalVolume || 0.5;
 let currentAudio = null;
 let currentSongName = null;
 let currentSongObj = null;
-let activePlayBtnElement = null;
 let isShuffle = false;
 let currentCategory = "all";
 let searchQuery = "";
@@ -894,6 +947,7 @@ let soundboardPlaylists = JSON.parse(localStorage.getItem("soundboardPlaylists")
 let activePlaylistName = localStorage.getItem("soundboardActivePlaylist") || "Favoriten";
 let hasUserSelectedPlaylist = false;
 let allSongs = [];
+let toastTimeout = null;
 
 // Sicherstellen, dass die aktive Playlist existiert
 if (!soundboardPlaylists[activePlaylistName]) {
@@ -914,6 +968,15 @@ const categoryMap = {
 };
 
 // --- HILFSFUNKTIONEN ---
+function showToast(message) {
+  if (toastTimeout) clearTimeout(toastTimeout);
+  toastNotification.textContent = message;
+  toastNotification.classList.add("show");
+  toastTimeout = setTimeout(() => {
+    toastNotification.classList.remove("show");
+  }, 2500);
+}
+
 function updateSeekBackground(slider) {
   const value = slider.value;
   const percentage = (value / 100) * 100;
@@ -1011,7 +1074,6 @@ function updateSidebarPlaylists() {
       updatePlaylistCount();
       renderList();
       
-      // Mobile Sidebar schließen
       appSidebar.classList.remove("mobile-open");
       sidebarBackdrop.classList.remove("show");
     };
@@ -1021,7 +1083,7 @@ function updateSidebarPlaylists() {
       ev.stopPropagation();
       const keys = Object.keys(soundboardPlaylists);
       if (keys.length <= 1) {
-        alert("Mindestens eine Playlist muss bleiben! 🛑");
+        showToast("Mindestens eine Playlist muss bleiben! 🛑");
         return;
       }
       if (confirm(`Playlist "${plName}" wirklich löschen?`)) {
@@ -1034,6 +1096,7 @@ function updateSidebarPlaylists() {
         updateSidebarPlaylists();
         updatePlaylistCount();
         renderList();
+        showToast(`Playlist "${plName}" gelöscht! 🗑️`);
       }
     };
     
@@ -1080,6 +1143,7 @@ modalCreateBtn.onclick = () => {
   updatePlaylistCount();
   renderList();
   playlistModalOverlay.style.display = "none";
+  showToast(`Playlist "${name}" erstellt! ✨`);
 };
 
 newPlaylistInput.onkeydown = (e) => {
@@ -1087,7 +1151,6 @@ newPlaylistInput.onkeydown = (e) => {
   if (e.key === "Escape") modalCancelBtn.click();
 };
 
-// Modal schließen bei Klick außerhalb
 playlistModalOverlay.onclick = (e) => {
   if (e.target === playlistModalOverlay) {
     playlistModalOverlay.style.display = "none";
@@ -1095,15 +1158,15 @@ playlistModalOverlay.onclick = (e) => {
 };
 
 // --- AUDIO PLAYER ---
-function playSong(song, btnElement, isNavigation = false) {
+function playSong(song, isNavigation = false) {
   // Gleicher Song = Pause/Play toggle
   if (currentSongName === song.name && currentAudio && !isNavigation) {
     if (currentAudio.paused) {
       currentAudio.play();
-      updatePlayState(true, btnElement);
+      updatePlayState(true);
     } else {
       currentAudio.pause();
-      updatePlayState(false, btnElement);
+      updatePlayState(false);
     }
     return;
   }
@@ -1113,12 +1176,6 @@ function playSong(song, btnElement, isNavigation = false) {
     currentAudio.pause();
     currentAudio.currentTime = 0;
     currentAudio = null;
-  }
-
-  // Play-Button zurücksetzen
-  if (activePlayBtnElement) {
-    activePlayBtnElement.textContent = "▶";
-    activePlayBtnElement.classList.remove("playing");
   }
 
   // History verwalten
@@ -1133,14 +1190,13 @@ function playSong(song, btnElement, isNavigation = false) {
   currentAudio = audio;
   currentSongName = song.name;
   currentSongObj = song;
-  activePlayBtnElement = btnElement || null;
 
   footerSongTitle.textContent = song.name;
-  updatePlayState(true, btnElement);
+  updatePlayState(true);
 
   audio.play().catch(err => {
     console.log("Autoplay blockiert:", err);
-    updatePlayState(false, btnElement);
+    updatePlayState(false);
   });
   
   renderList();
@@ -1158,7 +1214,7 @@ function playSong(song, btnElement, isNavigation = false) {
 
   // Song beendet
   audio.onended = () => {
-    updatePlayState(false, btnElement);
+    updatePlayState(false);
     footerSeekBar.value = 0;
     updateSeekBackground(footerSeekBar);
     footerCurrentTime.textContent = "0:00";
@@ -1170,38 +1226,52 @@ function playSong(song, btnElement, isNavigation = false) {
   // Error handling
   audio.onerror = () => {
     console.error("Audio konnte nicht geladen werden:", song.url);
-    updatePlayState(false, btnElement);
+    updatePlayState(false);
     currentAudio = null;
     currentSongName = null;
     currentSongObj = null;
+    showToast("Fehler beim Abspielen des Sounds! ⚠️");
   };
 }
 
-function updatePlayState(playing, btnElement) {
-  if (btnElement) {
-    btnElement.textContent = playing ? "⏸" : "▶";
-    btnElement.classList.toggle("playing", playing);
-  }
+function updatePlayState(playing) {
   footerPlayBtn.textContent = playing ? "⏸" : "▶";
+  
+  // Alle Play-Buttons & Zeilen in der Liste aktualisieren
+  document.querySelectorAll(".sound-item").forEach(item => {
+    const isThisSong = item.dataset.songName === currentSongName;
+    const btn = item.querySelector(".play-btn");
+    
+    if (isThisSong) {
+      item.classList.toggle("playing-row", true);
+      if (btn) {
+        btn.textContent = playing ? "⏸" : "▶";
+        btn.classList.toggle("playing", playing);
+      }
+    } else {
+      item.classList.toggle("playing-row", false);
+      if (btn) {
+        btn.textContent = "▶";
+        btn.classList.remove("playing");
+      }
+    }
+  });
 }
 
 function playNextSong() {
-  // Aus Forward-History
   if (forwardHistory.length > 0) {
     if (currentSongObj) songHistory.push(currentSongObj);
-    playSong(forwardHistory.pop(), null, true);
+    playSong(forwardHistory.pop(), true);
     return;
   }
 
-  // Aus Queue
   if (songQueue.length > 0) {
     if (currentSongObj) songHistory.push(currentSongObj);
-    playSong(songQueue.shift(), null, true);
+    playSong(songQueue.shift(), true);
     saveQueue();
     return;
   }
 
-  // Normaler nächster Song
   const list = getCurrentListForPlayback();
   if (list.length === 0) return;
 
@@ -1216,14 +1286,14 @@ function playNextSong() {
     nextSong = list[(currentIndex + 1) % list.length];
   }
   
-  playSong(nextSong, null);
+  playSong(nextSong);
 }
 
 function playPrevSong() {
   if (songHistory.length === 0) return;
   
   if (currentSongObj) forwardHistory.push(currentSongObj);
-  playSong(songHistory.pop(), null, true);
+  playSong(songHistory.pop(), true);
 }
 
 function getCurrentListForPlayback() {
@@ -1260,7 +1330,6 @@ function renderList() {
   
   let listToRender = [...allSongs];
 
-  // Kategorie-Filter
   if (currentCategory === "playlist") {
     const activePlSongs = soundboardPlaylists[activePlaylistName] || [];
     listToRender = listToRender.filter(s => activePlSongs.includes(s.name));
@@ -1271,7 +1340,6 @@ function renderList() {
     );
   }
 
-  // Suchfilter
   if (searchQuery) {
     listToRender = listToRender.filter(s => s.name.toLowerCase().includes(searchQuery));
   }
@@ -1290,10 +1358,11 @@ function renderList() {
   listToRender.forEach(song => {
     const isPlayingThis = (currentSongName === song.name && currentAudio && !currentAudio.paused);
     const currentPlSongs = soundboardPlaylists[activePlaylistName] || [];
-    const isInActivePl = currentPlSongs.includes(song.name);
 
     const soundItem = document.createElement("div");
-    soundItem.className = "sound-item";
+    soundItem.className = `sound-item ${currentSongName === song.name ? 'playing-row' : ''}`;
+    soundItem.dataset.songName = song.name;
+    
     soundItem.innerHTML = `
       <button class="play-btn ${isPlayingThis ? 'playing' : ''}">${isPlayingThis ? '⏸' : '▶'}</button>
       <div class="sound-details">
@@ -1321,23 +1390,22 @@ function renderList() {
       </div>
     `;
 
-    // Play-Button
-    soundItem.querySelector(".play-btn").onclick = () => playSong(song, soundItem.querySelector(".play-btn"));
+    // Play-Button Event
+    soundItem.querySelector(".play-btn").onclick = () => playSong(song);
 
-    // Dropdown
+    // Dropdown Event
     const menuBtn = soundItem.querySelector(".playlist-menu-btn");
     const dropdown = soundItem.querySelector(".playlist-dropdown");
 
     menuBtn.onclick = (e) => {
       e.stopPropagation();
-      // Alle anderen Dropdowns schließen
       document.querySelectorAll(".playlist-dropdown.show").forEach(d => {
         if (d !== dropdown) d.classList.remove("show");
       });
       dropdown.classList.toggle("show");
     };
 
-    // Dropdown-Items
+    // Dropdown-Items Action
     dropdown.querySelectorAll(".dropdown-item").forEach(item => {
       item.onclick = (e) => {
         e.stopPropagation();
@@ -1346,10 +1414,12 @@ function renderList() {
           songQueue.unshift(song);
           saveQueue();
           dropdown.classList.remove("show");
+          showToast(`"${song.name}" als nächstes! ⏭️`);
         } else if (item.dataset.action === "queue") {
           songQueue.push(song);
           saveQueue();
           dropdown.classList.remove("show");
+          showToast(`"${song.name}" zur Warteschlange hinzugefügt ➕`);
         } else if (item.dataset.pl) {
           const plName = item.dataset.pl;
           const list = soundboardPlaylists[plName];
@@ -1357,8 +1427,10 @@ function renderList() {
           
           if (index > -1) {
             list.splice(index, 1);
+            showToast(`Aus "${plName}" entfernt 🗑️`);
           } else {
             list.push(song.name);
+            showToast(`Zu "${plName}" hinzugefügt ⭐`);
           }
           
           savePlaylists();
@@ -1369,11 +1441,10 @@ function renderList() {
       };
     });
 
-    soundContainer.appendChild(songItem);
+    soundContainer.appendChild(soundItem);
   });
 }
 
-// Dropdowns schließen bei Klick außerhalb
 document.addEventListener("click", (e) => {
   if (!e.target.closest(".playlist-menu-wrapper")) {
     document.querySelectorAll(".playlist-dropdown.show").forEach(d => d.classList.remove("show"));
@@ -1381,12 +1452,24 @@ document.addEventListener("click", (e) => {
 });
 
 // --- PLAYER CONTROLS ---
-volumeSlider.oninput = (e) => {
-  globalVolume = parseFloat(e.target.value);
+function setVolume(val) {
+  globalVolume = parseFloat(val);
+  volumeSlider.value = globalVolume;
   localStorage.setItem("soundVolume", globalVolume);
   if (currentAudio) currentAudio.volume = globalVolume;
+  muteToggleBtn.textContent = globalVolume === 0 ? "🔇" : "🔊";
+}
+
+volumeSlider.oninput = (e) => setVolume(e.target.value);
+
+muteToggleBtn.onclick = () => {
+  if (globalVolume > 0) {
+    previousVolume = globalVolume;
+    setVolume(0);
+  } else {
+    setVolume(previousVolume || 0.5);
+  }
 };
-volumeSlider.value = globalVolume;
 
 footerSeekBar.oninput = (e) => {
   if (currentAudio && currentAudio.duration && isFinite(currentAudio.duration)) {
@@ -1398,16 +1481,16 @@ footerSeekBar.oninput = (e) => {
 
 footerPlayBtn.onclick = () => {
   if (!currentAudio && allSongs.length > 0) {
-    playSong(allSongs[0], null);
+    playSong(allSongs[0]);
     return;
   }
   if (currentAudio) {
     if (currentAudio.paused) {
       currentAudio.play();
-      updatePlayState(true, activePlayBtnElement);
+      updatePlayState(true);
     } else {
       currentAudio.pause();
-      updatePlayState(false, activePlayBtnElement);
+      updatePlayState(false);
     }
   }
 };
@@ -1415,12 +1498,14 @@ footerPlayBtn.onclick = () => {
 footerShuffleBtn.onclick = () => {
   isShuffle = !isShuffle;
   footerShuffleBtn.classList.toggle("active", isShuffle);
+  showToast(isShuffle ? "Shuffle aktiviert 🔀" : "Shuffle deaktiviert ➡️");
 };
 
 footerNextBtn.onclick = () => playNextSong();
 footerPrevBtn.onclick = () => playPrevSong();
 
-// Initiale Seekbar
+// Startup Init
+setVolume(globalVolume);
 updateSeekBackground(footerSeekBar);
 
 // Keyboard Shortcuts
@@ -1433,16 +1518,27 @@ document.addEventListener("keydown", (e) => {
       footerPlayBtn.click();
       break;
     case "ArrowRight":
-      if (e.ctrlKey) footerNextBtn.click();
+      if (e.ctrlKey) {
+        e.preventDefault();
+        footerNextBtn.click();
+      }
       break;
     case "ArrowLeft":
-      if (e.ctrlKey) footerPrevBtn.click();
+      if (e.ctrlKey) {
+        e.preventDefault();
+        footerPrevBtn.click();
+      }
       break;
     case "s":
+    case "S":
       if (e.ctrlKey) {
         e.preventDefault();
         footerShuffleBtn.click();
       }
+      break;
+    case "m":
+    case "M":
+      muteToggleBtn.click();
       break;
   }
 });
