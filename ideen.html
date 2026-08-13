@@ -44,6 +44,7 @@
             color: var(--text);
             min-height: 100vh;
             overflow-x: hidden;
+            touch-action: pan-y; /* Erlaubt vertikales Scrollen auf Mobilgeräten */
         }
 
         /* Scrollbar Styling */
@@ -768,6 +769,57 @@
                 document.getElementById('menuToggle').checked = false;
             });
         });
+
+        /* ========================================================
+           MOBILE SWIPE GESTURE SYSTEM FOR NAVIGATION
+           ======================================================== */
+        const pageOrder = ['index.html', 'ideen.html', 'soundboard.html'];
+        
+        let touchStartX = 0;
+        let touchEndX = 0;
+        let touchStartY = 0;
+        let touchEndY = 0;
+
+        document.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+            touchStartY = e.changedTouches[0].screenY;
+        }, { passive: true });
+
+        document.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            touchEndY = e.changedTouches[0].screenY;
+            handleSwipeGesture();
+        }, { passive: true });
+
+        function handleSwipeGesture() {
+            const deltaX = touchEndX - touchStartX;
+            const deltaY = touchEndY - touchStartY;
+            const minSwipeDistance = 60; // Mindestabstand in Pixeln
+
+            // Prüfen, ob die Wischgeste überwiegend waagerecht war
+            if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > minSwipeDistance) {
+                let currentPath = window.location.pathname.split('/').pop();
+                if (currentPath === '' || currentPath === '/') {
+                    currentPath = 'index.html';
+                }
+
+                const currentIndex = pageOrder.indexOf(currentPath);
+
+                if (currentIndex !== -1) {
+                    if (deltaX < 0) {
+                        // Nach links gewischt -> Nächste Seite (z.B. SOUNDBOARD)
+                        if (currentIndex < pageOrder.length - 1) {
+                            window.location.href = pageOrder[currentIndex + 1];
+                        }
+                    } else {
+                        // Nach rechts gewischt -> Vorherige Seite (z.B. STARTSEITE)
+                        if (currentIndex > 0) {
+                            window.location.href = pageOrder[currentIndex - 1];
+                        }
+                    }
+                }
+            }
+        }
 
         console.log('🚀 Content-Plan 2026 geladen!');
     </script>
