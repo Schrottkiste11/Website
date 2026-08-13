@@ -1,926 +1,775 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Schrottkiste – Content-Plan</title>
-  <meta name="description" content="Schrottkiste – Twitch- und YouTube-Content von Luka. Streams, Blog-Updates und Playlists.">
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="Schrottkiste">
-  <meta property="og:description" content="Twitch- und YouTube-Content von Luka. Streams, Blog-Updates und Playlists.">
-  <meta property="og:image" content="images/image.png">
-  <meta name="theme-color" content="#1a1a24">
-  
-  <!-- Performance Optimierung -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
-  
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%231a1a24'/%3E%3Ctext x='50' y='70' font-family='Arial,sans-serif' font-weight='900' font-size='58' fill='%23ff0099' text-anchor='middle'%3ES%3C/text%3E%3C/svg%3E">
-  <link href="https://fonts.googleapis.com/css2?family=Chewy&family=Poppins:wght@300;400;600;700&family=VT323&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
-  <style>
-    :root {
-      --accent: #ff0099;
-      --accent-alt: #00ffff;
-      --bg: #1a1a24;
-      --card-bg: #242430;
-      --text: #f3f1ff;
-      --text-secondary: #b0b0c0;
-      --line-color: #3a3a4a;
-      --shadow: 0 4px 20px rgba(0,0,0,0.3);
-      --radius: 12px;
-      --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-    
-    body {
-      background: var(--bg);
-      font-family: 'Poppins', sans-serif;
-      color: var(--text);
-      overflow-wrap: break-word;
-      line-height: 1.6;
-      touch-action: pan-y;
-    }
-    
-    :focus-visible {
-      outline: 3px solid var(--accent-alt);
-      outline-offset: 3px;
-      border-radius: 4px;
-    }
-    
-    ::-webkit-scrollbar {
-      width: 10px;
-    }
-    ::-webkit-scrollbar-track {
-      background: var(--bg);
-    }
-    ::-webkit-scrollbar-thumb {
-      background: var(--accent);
-      border-radius: 5px;
-    }
-    
-    /* Navigation */
-    .nav-header {
-      background: var(--card-bg);
-      padding: 20px 5%;
-      border-bottom: 1px solid var(--line-color);
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      backdrop-filter: blur(10px);
-      box-shadow: 0 2px 20px rgba(0,0,0,0.2);
-    }
-    
-    .brand-row {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 15px;
-    }
-    
-    .nav-brand {
-      font-family: 'Chewy', cursive;
-      font-size: 3.5rem;
-      color: #fff;
-      text-decoration: none;
-      transition: var(--transition);
-      text-shadow: 0 0 20px rgba(255,0,153,0.3);
-    }
-    
-    .nav-brand:hover {
-      transform: scale(1.05);
-      text-shadow: 0 0 30px rgba(255,0,153,0.5);
-    }
-    
-    .menu-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-top: 1px solid var(--line-color);
-      padding-top: 15px;
-      flex-wrap: wrap;
-      gap: 20px;
-    }
-    
-    .nav-links {
-      display: flex;
-      gap: 30px;
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-    
-    .nav-links a {
-      text-decoration: none;
-      color: #fff;
-      font-size: 0.95rem;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      transition: var(--transition);
-      position: relative;
-      padding: 5px 0;
-    }
-    
-    .nav-links a::after {
-      content: '';
-      position: absolute;
-      bottom: -2px;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background: var(--accent);
-      transition: var(--transition);
-    }
-    
-    .nav-links a:hover::after,
-    .nav-links a.active::after {
-      width: 100%;
-    }
-    
-    .nav-links a:hover,
-    .nav-links a.active {
-      color: var(--accent);
-    }
-    
-    /* Mini Player */
-    .mini-player {
-      background: linear-gradient(135deg, #1a1a24 0%, #242430 100%);
-      padding: 12px 20px;
-      border-radius: 30px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      border: 1px solid var(--line-color);
-      box-shadow: var(--shadow);
-      transition: var(--transition);
-    }
-    
-    .mini-player:hover {
-      border-color: var(--accent);
-      box-shadow: 0 6px 25px rgba(255,0,153,0.2);
-    }
-    
-    .player-label {
-      font-size: 0.7rem;
-      color: var(--accent);
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-    }
-    
-    .player-controls {
-      display: flex;
-      gap: 8px;
-    }
-    
-    .player-controls button {
-      background: var(--accent);
-      color: white;
-      border: none;
-      border-radius: 50%;
-      width: 36px;
-      height: 36px;
-      cursor: pointer;
-      transition: var(--transition);
-      font-size: 1rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    
-    .player-controls button:hover {
-      transform: scale(1.1);
-      box-shadow: 0 0 20px rgba(255,0,153,0.5);
-    }
-    
-    .track-info-mini {
-      min-width: 120px;
-      max-width: 150px;
-    }
-    
-    #song-title {
-      color: var(--accent-alt);
-      font-weight: 700;
-      font-size: 0.8rem;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    
-    #artist-name {
-      color: var(--text-secondary);
-      font-size: 0.7rem;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    
-    /* Visualizer */
-    .visualizer {
-      display: flex;
-      gap: 2px;
-      align-items: flex-end;
-      height: 20px;
-    }
-    
-    .visualizer-bar {
-      width: 3px;
-      background: var(--accent);
-      border-radius: 2px;
-      animation: visualize 1s ease-in-out infinite;
-    }
-    
-    .visualizer-bar:nth-child(2) { animation-delay: 0.1s; }
-    .visualizer-bar:nth-child(3) { animation-delay: 0.2s; }
-    .visualizer-bar:nth-child(4) { animation-delay: 0.3s; }
-    .visualizer-bar:nth-child(5) { animation-delay: 0.4s; }
-    
-    @keyframes visualize {
-      0%, 100% { height: 8px; }
-      50% { height: 20px; }
-    }
-    
-    .social-btns {
-      display: flex;
-      gap: 20px;
-    }
-    
-    .social-btn {
-      color: #fff;
-      font-size: 1.8rem;
-      transition: var(--transition);
-      position: relative;
-    }
-    
-    .social-btn:hover {
-      transform: translateY(-3px);
-    }
-    
-    .twitch:hover {
-      color: #9146FF;
-      text-shadow: 0 0 20px rgba(145,70,255,0.5);
-    }
-    
-    .youtube:hover {
-      color: #FF0000;
-      text-shadow: 0 0 20px rgba(255,0,0,0.5);
-    }
-    
-    /* Main Container */
-    .container {
-      display: flex;
-      padding: 60px 5%;
-      gap: 40px;
-      max-width: 1400px;
-      margin: 0 auto;
-      align-items: flex-start;
-    }
-    
-    .gif-container {
-      flex: 0 0 200px;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      position: sticky;
-      top: 120px;
-    }
-    
-    .gif-box {
-      width: 100%;
-      aspect-ratio: 1/1;
-      cursor: pointer;
-      border-radius: var(--radius);
-      background-size: cover;
-      background-position: center;
-      transition: var(--transition);
-      border: 2px solid transparent;
-      box-shadow: var(--shadow);
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .gif-box::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: linear-gradient(135deg, rgba(255,0,153,0.2), transparent);
-      opacity: 0;
-      transition: var(--transition);
-    }
-    
-    .gif-box:hover {
-      transform: translateY(-5px);
-      border-color: var(--accent);
-      box-shadow: 0 8px 30px rgba(255,0,153,0.3);
-    }
-    
-    .gif-box:hover::before {
-      opacity: 1;
-    }
-    
-    .gif-box:active {
-      transform: scale(0.98);
-    }
-    
-    .gif-status {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      border: 2px solid white;
-      z-index: 2;
-      transition: var(--transition);
-    }
-    
-    .gif-status.playing {
-      background: #00ff00;
-      box-shadow: 0 0 10px rgba(0,255,0,0.5);
-    }
-    
-    .gif-status.paused {
-      background: #ff0000;
-      box-shadow: 0 0 10px rgba(255,0,0,0.5);
-    }
-    
-    /* Main Content Area */
-    .blog-section {
-      flex: 2;
-      display: flex;
-      flex-direction: column;
-      gap: 30px;
-      min-width: 0;
-    }
-    
-    .blog-post {
-      background: var(--card-bg);
-      padding: 35px;
-      border-radius: var(--radius);
-      border-left: 4px solid var(--accent);
-      box-shadow: var(--shadow);
-      transition: var(--transition);
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .post-title {
-      font-size: 2.2rem;
-      margin-bottom: 20px;
-      color: var(--accent-alt);
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      line-height: 1.2;
-    }
-    
-    .post-text {
-      line-height: 1.8;
-      font-size: 1.1rem;
-      color: var(--text);
-    }
+    <meta charset="UTF-8">
+    <link rel="icon" href="channels4_profile Schrottkiste.jpg" type="image/jpeg">
+    <link rel="shortcut icon" href="channels4_profile Schrottkiste.jpg" type="image/jpeg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Content-Plan 2026 🎮 – Schrottkiste</title>
+    <meta name="description" content="Schrottkiste Content-Plan 2026 – Alle Gaming-Projekte, IRL-Content und Kollaborationen auf einen Blick">
 
-    /* Sidebar */
-    .sidebar {
-      flex: 0 0 300px;
-      border-left: 2px solid var(--line-color);
-      padding-left: 40px;
-      position: sticky;
-      top: 120px;
-    }
-    
-    .sidebar-title {
-      margin: 0 0 30px;
-      font-family: 'Poppins', sans-serif;
-      font-weight: 700;
-      font-size: 1.3rem;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      color: var(--accent-alt);
-      position: relative;
-      padding-bottom: 15px;
-    }
-    
-    .sidebar-title::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 50px;
-      height: 3px;
-      background: var(--accent);
-      border-radius: 2px;
-    }
-    
-    .playlist-item {
-      margin-bottom: 30px;
-      text-align: center;
-      transition: var(--transition);
-    }
-    
-    .playlist-item:hover {
-      transform: translateY(-5px);
-    }
-    
-    .playlist-title {
-      display: block;
-      margin-top: 12px;
-      font-family: 'Poppins', sans-serif;
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: var(--text);
-      transition: var(--transition);
-    }
-    
-    .playlist-item:hover .playlist-title {
-      color: var(--accent);
-    }
-    
-    .cover-img {
-      width: 100%;
-      max-width: 240px;
-      border-radius: var(--radius);
-      display: block;
-      margin: 0 auto;
-      transition: var(--transition);
-      box-shadow: var(--shadow);
-    }
-    
-    .playlist-item:hover .cover-img {
-      box-shadow: 0 10px 30px rgba(0,255,255,0.3);
-      transform: scale(1.05);
-    }
-    
-    /* Footer */
-    .site-footer {
-      margin-top: 80px;
-      padding: 30px 5%;
-      border-top: 1px solid var(--line-color);
-      background: var(--card-bg);
-      box-shadow: 0 -2px 20px rgba(0,0,0,0.2);
-    }
-    
-    .footer-inner {
-      max-width: 1400px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 20px;
-    }
-    
-    .footer-brand {
-      font-family: 'Chewy', cursive;
-      font-size: 1.5rem;
-      color: #fff;
-    }
-    
-    .footer-social {
-      display: flex;
-      gap: 20px;
-    }
-    
-    .footer-copy {
-      font-size: 0.85rem;
-      color: var(--text-secondary);
-    }
-    
-    /* Scroll to Top Button */
-    .scroll-to-top {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      background: var(--accent);
-      color: white;
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      border: none;
-      cursor: pointer;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.5rem;
-      box-shadow: 0 4px 15px rgba(255,0,153,0.3);
-      transition: var(--transition);
-      z-index: 1000;
-    }
-    
-    .scroll-to-top.visible {
-      display: flex;
-    }
-    
-    .scroll-to-top:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 6px 20px rgba(255,0,153,0.5);
-    }
+    <!-- Performance Optimierung -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    /* SWIPE INDICATOR */
-    .swipe-hint {
-      position: fixed;
-      right: 0;
-      top: 50%;
-      transform: translateY(-50%);
-      background: linear-gradient(135deg, rgba(255, 0, 153, 0.9), rgba(36, 36, 48, 0.95));
-      border: 1px solid var(--accent-alt);
-      border-right: none;
-      border-radius: 20px 0 0 20px;
-      padding: 12px 10px 12px 14px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      z-index: 9999;
-      box-shadow: -4px 0 20px rgba(0, 0, 0, 0.5);
-      backdrop-filter: blur(8px);
-      transition: opacity 0.5s ease, transform 0.5s ease;
-      cursor: pointer;
-      user-select: none;
-      display: none;
-    }
+    <link href="https://fonts.googleapis.com/css2?family=Chewy&family=Poppins:wght@300;400;600;700&family=VT323&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    .swipe-hint.hidden {
-      opacity: 0;
-      transform: translate(100%, -50%);
-      pointer-events: none;
-    }
+    <style>
+        /* --- CORE DESIGN --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        :root {
+            --bg: #050415;
+            --card: rgba(18, 14, 40, 0.96);
+            --accent: #ff0099;
+            --accent-alt: #00ffff;
+            --text: #f3f1ff;
+            --muted: #c0c4e8;
+            --border-soft: rgba(255, 255, 255, 0.12);
+            --success: #00ff66;
+            --warning: #ffaa00;
+        }
 
-    .swipe-hint-content {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      line-height: 1.1;
-    }
+        body {
+            background: #050415;
+            background-image:
+                linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%),
+                radial-gradient(circle at top, #151435 0%, #050415 70%, #020109 100%);
+            background-size: 100% 4px, 100% 100%;
+            font-family: 'Poppins', sans-serif;
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
 
-    .swipe-hint-text {
-      font-size: 0.7rem;
-      font-weight: 700;
-      color: #fff;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent);
+            border-radius: 4px;
+        }
 
-    .swipe-hint-sub {
-      font-size: 0.65rem;
-      color: var(--accent-alt);
-      font-weight: 600;
-    }
+        /* --- SIDEBAR --- */
+        #menuToggle {
+            display: none;
+        }
 
-    .swipe-hint-icon {
-      font-size: 1.2rem;
-      color: var(--accent-alt);
-      animation: swipeBounce 1.5s infinite ease-in-out;
-    }
+        .hamburger-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 20000;
+            background: var(--accent);
+            border: 2px solid #fff;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 24px;
+            padding: 10px 16px;
+            cursor: pointer;
+            box-shadow: 6px 6px 0px var(--accent-alt);
+            font-family: 'VT323', monospace;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
 
-    @keyframes swipeBounce {
-      0%, 100% { transform: translateX(0); }
-      50% { transform: translateX(-6px); }
-    }
+        .hamburger-btn:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 8px 8px 0px var(--accent-alt);
+        }
 
-    @media (hover: none) and (pointer: coarse) {
-      .swipe-hint {
-        display: flex;
-      }
-    }
-    
-    @media (max-width: 1024px) {
-      .container {
-        flex-direction: column;
-        padding: 40px 5%;
-        gap: 40px;
-      }
-      
-      .gif-container {
-        flex-direction: row;
-        flex: none;
-        width: 100%;
-        justify-content: center;
-        position: static;
-      }
-      
-      .gif-box {
-        flex: 0 1 180px;
-      }
-      
-      .sidebar {
-        flex: none;
-        width: 100%;
-        border-left: none;
-        border-top: 2px solid var(--line-color);
-        padding-left: 0;
-        padding-top: 30px;
-        position: static;
-      }
-      
-      .playlist-container {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 20px;
-      }
-      
-      .menu-row {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-      }
-      
-      .nav-links {
-        justify-content: center;
-      }
-    }
-    
-    @media (max-width: 640px) {
-      .nav-brand {
-        font-size: 2.5rem;
-      }
-      
-      .post-title {
-        font-size: 1.8rem;
-      }
-      
-      .blog-post {
-        padding: 25px;
-      }
-      
-      .mini-player {
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-      }
-      
-      .footer-inner {
-        flex-direction: column;
-        text-align: center;
-      }
-      
-      .scroll-to-top {
-        bottom: 20px;
-        right: 20px;
-        width: 45px;
-        height: 45px;
-      }
-    }
-  </style>
+        .hamburger-btn:active {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0px var(--accent-alt);
+        }
+
+        .custom-sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 300px;
+            height: 100vh;
+            background: linear-gradient(135deg, #0a0a1a 0%, #111133 100%);
+            border-right: 4px solid var(--accent);
+            transform: translateX(-100%);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            padding-top: 120px;
+            z-index: 9000;
+            box-shadow: 5px 0 30px rgba(0, 0, 0, 0.5);
+        }
+
+        #menuToggle:checked~.custom-sidebar {
+            transform: translateX(0);
+        }
+
+        /* Overlay wenn Sidebar offen */
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 8999;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+
+        #menuToggle:checked~.sidebar-overlay {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .custom-sidebar nav {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            padding: 0 25px;
+        }
+
+        .custom-sidebar nav a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.8rem;
+            font-family: 'VT323', monospace;
+            padding: 15px 20px;
+            border: 2px solid #333;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            background: rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .custom-sidebar nav a:hover {
+            background: var(--accent-alt);
+            color: #000;
+            transform: translateX(10px);
+            border-color: var(--accent-alt);
+            box-shadow: 5px 5px 0px var(--accent);
+        }
+
+        .custom-sidebar nav a i {
+            font-size: 1.5rem;
+            width: 30px;
+            text-align: center;
+        }
+
+        /* Sidebar Branding */
+        .sidebar-brand {
+            position: absolute;
+            top: 30px;
+            left: 25px;
+            font-family: 'Chewy', cursive;
+            font-size: 2rem;
+            color: var(--accent);
+            text-shadow: 2px 2px 0px var(--accent-alt);
+        }
+
+        /* --- MAIN CONTENT --- */
+        main {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 100px 20px 80px;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .hero-title {
+            font-family: 'Chewy', cursive;
+            font-size: clamp(3rem, 8vw, 5rem);
+            color: #fff;
+            text-shadow: 6px 6px 0px var(--accent);
+            margin-bottom: 15px;
+            animation: titleGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes titleGlow {
+            from {
+                text-shadow: 6px 6px 0px var(--accent);
+            }
+            to {
+                text-shadow: 6px 6px 20px var(--accent), 0 0 40px var(--accent-alt);
+            }
+        }
+
+        .hero-subtitle {
+            color: var(--accent-alt);
+            font-family: 'VT323';
+            font-size: 1.8rem;
+            opacity: 0.9;
+        }
+
+        /* --- STATS BAR --- */
+        .stats-bar {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            background: var(--card);
+            border: 2px solid var(--border-soft);
+            border-radius: 12px;
+            padding: 20px 30px;
+            text-align: center;
+            font-family: 'VT323', monospace;
+            transition: all 0.3s ease;
+        }
+
+        .stat-item:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 0, 153, 0.2);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            color: var(--accent-alt);
+            font-weight: bold;
+        }
+
+        .stat-label {
+            font-size: 1.2rem;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* --- ACCORDION KACHELN --- */
+        .content-box {
+            background: var(--card);
+            border: 2px solid var(--border-soft);
+            border-radius: 12px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .content-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--accent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .content-box:hover {
+            border-color: var(--accent-alt);
+            transform: translateX(5px);
+            box-shadow: 0 5px 30px rgba(0, 255, 255, 0.1);
+        }
+
+        .content-box:hover::before {
+            opacity: 1;
+        }
+
+        .content-box.active {
+            border-color: var(--accent);
+            box-shadow: 0 5px 30px rgba(255, 0, 153, 0.15);
+        }
+
+        .content-box.active::before {
+            opacity: 1;
+        }
+
+        .box-trigger {
+            padding: 25px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+        }
+
+        .box-trigger h3 {
+            font-family: 'VT323', monospace;
+            font-size: 2.2rem;
+            color: var(--accent-alt);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .box-trigger .icon {
+            font-size: 2rem;
+            width: 40px;
+            text-align: center;
+        }
+
+        .arrow {
+            color: var(--accent);
+            transition: transform 0.3s ease;
+            font-size: 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .box-content {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: max-height 0.6s ease, opacity 0.4s ease, padding 0.4s ease;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .content-box.active .box-content {
+            max-height: 2000px;
+            opacity: 1;
+            padding: 0 30px 40px;
+        }
+
+        .content-box.active .arrow {
+            transform: rotate(180deg);
+            background: var(--accent);
+            color: white;
+        }
+
+        /* --- PROJECT LIST --- */
+        .project-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 12px;
+            list-style: none;
+        }
+
+        .project-list li {
+            font-family: 'VT323', monospace;
+            font-size: 1.4rem;
+            color: var(--muted);
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
+            border: 1px solid transparent;
+            transition: all 0.2s ease;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .project-list li:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--accent);
+            transform: translateX(5px);
+        }
+
+        .project-list li::before {
+            content: "▸";
+            color: var(--accent);
+            margin-right: 15px;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .project-list li.done {
+            color: #666;
+            text-decoration: line-through;
+            opacity: 0.7;
+        }
+
+        .project-list li.done:hover {
+            background: rgba(0, 255, 102, 0.05);
+            border-color: var(--success);
+        }
+
+        .project-list li.done::before {
+            content: "✓";
+            color: var(--success);
+            font-weight: bold;
+        }
+
+        /* Priority Badge */
+        .priority-badge {
+            font-size: 0.9rem;
+            padding: 3px 10px;
+            border-radius: 12px;
+            margin-left: auto;
+            font-family: 'Poppins', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .priority-high {
+            background: rgba(255, 0, 153, 0.2);
+            color: var(--accent);
+            border: 1px solid var(--accent);
+        }
+
+        .priority-medium {
+            background: rgba(255, 170, 0, 0.2);
+            color: var(--warning);
+            border: 1px solid var(--warning);
+        }
+
+        .priority-winter {
+            background: rgba(0, 255, 255, 0.2);
+            color: var(--accent-alt);
+            border: 1px solid var(--accent-alt);
+        }
+
+        .priority-2027 {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .priority-minecraft {
+            background: rgba(0, 200, 80, 0.25);
+            color: #5f9;
+            border: 1px solid #5f9;
+            box-shadow: 0 0 12px rgba(0, 255, 150, 0.15);
+        }
+
+        /* --- PROGRESS BAR --- */
+        .progress-container {
+            margin-top: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 15px 20px;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            font-family: 'VT323', monospace;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--muted);
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent), var(--accent-alt));
+            border-radius: 4px;
+            transition: width 1s ease;
+            position: relative;
+        }
+
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% {
+                transform: translateX(-100%);
+            }
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        /* Footer */
+        .footer-tag {
+            text-align: center;
+            color: #444;
+            font-family: 'VT323';
+            margin-bottom: 40px;
+            font-size: 1.2rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-tag:hover {
+            color: var(--accent);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .stats-bar {
+                gap: 15px;
+            }
+
+            .stat-item {
+                padding: 15px 20px;
+            }
+
+            .stat-number {
+                font-size: 2.5rem;
+            }
+
+            .box-trigger h3 {
+                font-size: 1.8rem;
+            }
+
+            .project-list {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
 
-  <!-- Swipe-Einblendung rechts -->
-  <div class="swipe-hint" id="swipeHint" aria-hidden="true" onclick="dismissSwipeHint()">
-    <div class="swipe-hint-content">
-      <span class="swipe-hint-text">Swipen</span>
-      <span class="swipe-hint-sub">Navigation <i class="fa-solid fa-hand-pointer"></i></span>
-    </div>
-    <div class="swipe-hint-icon">
-      <i class="fas fa-chevron-left"></i>
-    </div>
-  </div>
+    <!-- Sidebar Toggle -->
+    <input type="checkbox" id="menuToggle" hidden>
+    <label for="menuToggle" class="hamburger-btn">
+        <i class="fas fa-bars"></i> Menü
+    </label>
 
-  <header class="nav-header">
-    <div class="brand-row">
-      <a href="index.html" class="nav-brand">Schrottkiste</a>
-    </div>
-    <div class="menu-row">
-      <ul class="nav-links">
-        <li><a href="index.html">START</a></li>
-        <li><a href="ideen.html" class="active">CONTENT-PLAN</a></li>
-        <li><a href="soundboard.html">SOUNDBOARD</a></li>
-      </ul>
-      
-      <div class="mini-player">
-        <span class="player-label">🎵 Live Radio</span>
-        <audio id="audio-player" src="https://stream.laut.fm/treasure_radio"></audio>
-        <div class="player-controls">
-          <button id="play-pause-btn" aria-label="Play/Pause">▶</button>
-        </div>
-        <div class="track-info-mini">
-          <div id="song-title">Lade...</div>
-          <div id="artist-name">Treasure Radio</div>
-        </div>
-        <div class="visualizer" id="visualizer">
-          <div class="visualizer-bar"></div>
-          <div class="visualizer-bar"></div>
-          <div class="visualizer-bar"></div>
-          <div class="visualizer-bar"></div>
-          <div class="visualizer-bar"></div>
-        </div>
-      </div>
+    <!-- Overlay für Sidebar -->
+    <label for="menuToggle" class="sidebar-overlay"></label>
 
-      <div class="social-btns">
-        <a href="https://www.twitch.tv/schrottkiste_luka" target="_blank" rel="noopener" class="social-btn twitch" aria-label="Twitch"><i class="fa-brands fa-twitch"></i></a>
-        <a href="https://www.youtube.com/@schrottkiste" target="_blank" rel="noopener" class="social-btn youtube" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
-      </div>
-    </div>
-  </header>
-
-  <div class="container">
-    <aside class="gif-container">
-      <div class="gif-box" id="gif1" role="button" tabindex="0" aria-label="Deutschland GIF - Klicken zum Anhalten/Abspielen" style="background-image: url('images/GermanyGerGIF.gif');">
-        <div class="gif-status playing" id="status1"></div>
-      </div>
-      <div class="gif-box" id="gif2" role="button" tabindex="0" aria-label="Juli GIF - Klicken zum Anhalten/Abspielen" style="background-image: url('images/July Gif.gif');">
-        <div class="gif-status playing" id="status2"></div>
-      </div>
+    <!-- Sidebar -->
+    <aside class="custom-sidebar">
+        <div class="sidebar-brand">Schrottkiste</div>
+        <nav>
+            <a href="index.html"><i class="fas fa-home"></i> Startseite</a>
+            <a href="soundboard.html"><i class="fas fa-music"></i> Soundboard</a>
+            <a href="#"><i class="fas fa-video"></i> YouTube</a>
+            <a href="#"><i class="fab fa-twitch"></i> Twitch</a>
+        </nav>
     </aside>
 
-    <main class="blog-section">
-      <article class="blog-post">
-        <h2 class="post-title">Content-Plan</h2>
-        <div class="post-text">
-          <p>Hier steht der geplante Content für die nächsten Streams und Videos...</p>
+    <main>
+        <div class="hero">
+            <h1 class="hero-title">Content-Plan 2026</h1>
+            <p class="hero-subtitle">🎯 Roadmap & Projekte</p>
         </div>
-      </article>
+
+        <!-- Stats Bar -->
+        <div class="stats-bar">
+            <div class="stat-item">
+                <div class="stat-number" id="totalProjects">0</div>
+                <div class="stat-label">Projekte 2026</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="completedProjects">0</div>
+                <div class="stat-label">Erledigt</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="progressPercent">0%</div>
+                <div class="stat-label">Fortschritt</div>
+            </div>
+        </div>
+
+        <!-- Solo Gaming -->
+        <div class="content-box">
+            <div class="box-trigger" onclick="toggleAccordion(this)">
+                <h3><span class="icon">🎮</span> Solo Gaming</h3>
+                <span class="arrow">▼</span>
+            </div>
+            <div class="box-content">
+                <ul class="project-list">
+                    <li>The Forest</li>
+                    <li>Pragmata im Oktober <span class="priority-badge priority-medium">Okt</span></li>
+                    <li>Genshin Impact</li>
+                    <li>Life is Strange Marathon</li>
+                    <li>VR Gameplay <span class="priority-badge priority-winter">❄️ Winter</span></li>
+                    <li>ETS 2 NRW 1:1 Map <span class="priority-badge priority-winter">❄️ Winter</span></li>
+                </ul>
+                <div class="progress-container">
+                    <div class="progress-label">
+                        <span>Fortschritt</span>
+                        <span>0/6 Projekte</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Solo IRL -->
+        <div class="content-box">
+            <div class="box-trigger" onclick="toggleAccordion(this)">
+                <h3><span class="icon">👤</span> Solo IRL</h3>
+                <span class="arrow">▼</span>
+            </div>
+            <div class="box-content">
+                <ul class="project-list">
+                    <li>Nintendo Switch 2 unboxing <span class="priority-badge priority-high">HOT</span></li>
+                    <li class="done">Wincent Weiss Konzert 2025 Halle Westfalen (Bereits online! 🚀)</li>
+                    <li>Mein neues Leben im Job</li>
+                    <li>Reise nach Bremen</li>
+                    <li>Riesiger Lost Place in Paderborn</li>
+                </ul>
+                <div class="progress-container">
+                    <div class="progress-label">
+                        <span>Fortschritt</span>
+                        <span>1/5 Projekte</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 20%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Große Live-Events -->
+        <div class="content-box">
+            <div class="box-trigger" onclick="toggleAccordion(this)">
+                <h3><span class="icon">🔥</span> Große Live-Events</h3>
+                <span class="arrow">▼</span>
+            </div>
+            <div class="box-content">
+                <ul class="project-list">
+                    <li>Silvester Countdown 24h vorher <span class="priority-badge priority-high">HOT</span></li>
+                    <li>GTA 6 Release Gameplay <span class="priority-badge priority-high">HYPE</span></li>
+                </ul>
+                <div class="progress-container">
+                    <div class="progress-label">
+                        <span>Fortschritt</span>
+                        <span>0/2 Projekte</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mit Diana (2027) -->
+        <div class="content-box">
+            <div class="box-trigger" onclick="toggleAccordion(this)">
+                <h3><span class="icon">🤝</span> Mit Diana <span style="font-size: 1.2rem; color: var(--muted); margin-left: 10px;">[2027]</span></h3>
+                <span class="arrow">▼</span>
+            </div>
+            <div class="box-content">
+                <ul class="project-list">
+                    <li>
+                        Minecraft Alaskan Wilderness Mod pack
+                        <span class="priority-badge priority-minecraft">⛏️ 2027</span>
+                    </li>
+                    <li>Tower of Fantasy <span class="priority-badge priority-2027">2027</span></li>
+                    <li>Escape the Backrooms <span class="priority-badge priority-2027">2027</span></li>
+                    <li>Animal Crossing Wild World <span class="priority-badge priority-2027">2027</span></li>
+                    <li>Animal Crossing New Leaf <span class="priority-badge priority-2027">2027</span></li>
+                    <li>Animal Crossing Lets go to the City <span class="priority-badge priority-2027">2027</span></li>
+                    <!-- Neue Einträge -->
+                    <li>Animal Crossing New Horizons <span class="priority-badge priority-2027">2027</span></li>
+                    <li>Enchanted Kingdom and the School Wizardy <span class="priority-badge priority-2027">2027</span></li>
+                    <li>HypeHype Spiel bauen <span class="priority-badge priority-2027">2027</span></li>
+                    <li>Eigene Website basteln <span class="priority-badge priority-2027">2027</span></li>
+                </ul>
+                <div class="progress-container">
+                    <div class="progress-label">
+                        <span>Geplant für 2027</span>
+                        <span>0/10 Projekte</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 0%; background: linear-gradient(90deg, #666, #999);"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </main>
 
-    <aside class="sidebar">
-      <h2 class="sidebar-title">Meine Playlists</h2>
-      <div class="playlist-container" id="playlist-container"></div>
-    </aside>
-  </div>
+    <div class="footer-tag">#SCHROTTKISTE2026 🤘</div>
 
-  <footer class="site-footer">
-    <div class="footer-inner">
-      <span class="footer-brand">Schrottkiste</span>
-      <div class="footer-social">
-        <a href="https://www.twitch.tv/schrottkiste_luka" target="_blank" rel="noopener" class="social-btn twitch" aria-label="Twitch"><i class="fa-brands fa-twitch"></i></a>
-        <a href="https://www.youtube.com/@schrottkiste" target="_blank" rel="noopener" class="social-btn youtube" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
-      </div>
-      <span class="footer-copy">© 2026 Schrottkiste – Made with ❤️</span>
-    </div>
-  </footer>
+    <script>
+        // --- ACCORDION LOGIC ---
+        function toggleAccordion(trigger) {
+            const box = trigger.parentElement;
+            const isActive = box.classList.contains('active');
 
-  <button class="scroll-to-top" id="scrollToTop" aria-label="Nach oben scrollen">
-    <i class="fas fa-arrow-up"></i>
-  </button>
+            box.classList.toggle('active');
 
-  <script>
-    // DOM Elements
-    const audio = document.getElementById('audio-player');
-    const playPauseBtn = document.getElementById('play-pause-btn');
-    const songTitleEl = document.getElementById('song-title');
-    const artistNameEl = document.getElementById('artist-name');
-    const visualizer = document.getElementById('visualizer');
-    const scrollToTopBtn = document.getElementById('scrollToTop');
-    
-    let isPlaying = false;
-    
-    playPauseBtn.addEventListener('click', togglePlay);
-    
-    function togglePlay() {
-      if (isPlaying) {
-        audio.pause();
-        playPauseBtn.textContent = '▶';
-        playPauseBtn.setAttribute('aria-label', 'Play');
-        visualizer.style.opacity = '0.3';
-      } else {
-        audio.play().catch(e => {
-          console.log('Autoplay prevented:', e);
+            if (!isActive) {
+                setTimeout(() => {
+                    box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }, 100);
+            }
+        }
+
+        // Keyboard Support
+        document.querySelectorAll('.box-trigger').forEach(trigger => {
+            trigger.setAttribute('tabindex', '0');
+            trigger.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    toggleAccordion(trigger);
+                }
+            });
         });
-        playPauseBtn.textContent = '⏸';
-        playPauseBtn.setAttribute('aria-label', 'Pause');
-        visualizer.style.opacity = '1';
-      }
-      isPlaying = !isPlaying;
-    }
-    
-    async function fetchTrackInfo() {
-      try {
-        const response = await fetch('https://api.laut.fm/station/treasure_radio/current_song');
-        if (!response.ok) throw new Error('Network response was not ok');
-        
-        const data = await response.json();
-        
-        if (data.title) {
-          songTitleEl.textContent = data.title;
-          artistNameEl.textContent = (data.artist && data.artist.name) ? data.artist.name : 'Treasure Radio';
-        } else {
-          songTitleEl.textContent = 'Treasure Radio';
-          artistNameEl.textContent = 'Live Stream';
+
+        // --- STATS CALCULATION (nur 2026 Projekte) ---
+        function updateStats() {
+            const allProjects = document.querySelectorAll('.project-list li:not([class*="priority-2027"])');
+            const doneProjects = document.querySelectorAll('.project-list li.done');
+
+            const total = allProjects.length;
+            const completed = doneProjects.length;
+            const progress = total > 0 ? Math.round((completed / total) * 100) : 0;
+
+            animateValue('totalProjects', 0, total, 1000);
+            animateValue('completedProjects', 0, completed, 1000);
+
+            document.getElementById('progressPercent').textContent = progress + '%';
         }
-      } catch (error) {
-        songTitleEl.textContent = 'Nicht verfügbar';
-        artistNameEl.textContent = 'Verbindungsfehler';
-      }
-    }
-    
-    fetchTrackInfo();
-    setInterval(fetchTrackInfo, 15000);
-    
-    // GIF Toggle Function
-    function toggleGif(id, gifSrc, stillSrc) {
-      const el = document.getElementById(id);
-      const statusEl = document.getElementById('status' + id.slice(-1));
-      const currentBg = el.style.backgroundImage;
-      const isGif = currentBg.includes('.gif');
-      
-      if (isGif) {
-        el.style.backgroundImage = `url('${stillSrc}')`;
-        statusEl.classList.remove('playing');
-        statusEl.classList.add('paused');
-      } else {
-        el.style.backgroundImage = `url('${gifSrc}')`;
-        statusEl.classList.remove('paused');
-        statusEl.classList.add('playing');
-      }
-    }
-    
-    document.getElementById('gif1').addEventListener('click', () => {
-      toggleGif('gif1', 'images/GermanyGerGIF.gif', 'images/image.png');
-    });
-    
-    document.getElementById('gif2').addEventListener('click', () => {
-      toggleGif('gif2', 'images/July Gif.gif', 'images/Bild_2026-07-06_210330659.png');
-    });
-    
-    // Scroll to Top
-    window.addEventListener('scroll', () => {
-      if (window.pageYOffset > 300) {
-        scrollToTopBtn.classList.add('visible');
-      } else {
-        scrollToTopBtn.classList.remove('visible');
-      }
-    });
-    
-    scrollToTopBtn.addEventListener('click', () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
 
-    // Playlists
-    const playlists = [
-      { id: 'PLQLA52U7_qBOkmumSrvGZbE3CPPGqoLQX', title: 'Top 2026 Songs', img: 'https://yt3.googleusercontent.com/0at97SvH71PXtFz8le5gciUThF1dv9XsQ4rMv31yV4Nx62FqpsRWbLTV5wGXrBSkCGNGk4ZauA=s1200' },
-      { id: 'PLQLA52U7_qBPJNw536VhdzwEmSeVHGCqx', title: 'Besties 2025', img: 'https://yt3.googleusercontent.com/Vs7i88V-4wi7LJPwtYV9TPABM_wYeLdMxpVms3sE9GuJZEspkjitm8_DyvXIpqqlt6oaVoJ7QOs=s1200' },
-      { id: 'PLQLA52U7_qBN4VcQskCzUQoONu-RMwgwP', title: 'Top 2024 Songs', img: 'https://yt3.googleusercontent.com/67bJsnCGY4g2qY-zQfl_hH6Ob4TPXCFg3w7wcXuS2UM71boD8rLHLztq2oV6qSG1SfatjnE5_Lo=s1200' },
-      { id: 'PLQLA52U7_qBPqddrF9dAD9pR5HOhI-zpq', title: '2023 Songs', img: 'https://yt3.googleusercontent.com/NhSgqBhtHOHQCY5CoxCh7oMxAbzd9Eme4Floq_rQy69dxQK3Wz2Ftt1pOkA3U6A-_BAcQ5BOXgM=s1200' },
-      { id: 'PLQLA52U7_qBNL4S4PhAzWYsu15Ta2q80B', title: 'Top 100 2022', img: 'https://yt3.googleusercontent.com/Mz1LKO_hkuQYZwtH2x-zEHY8ZaM7zKuK_PEvRtb8Q9fLOTIBbfLXvZFIwpPic1QrvY9mHnuEMnD6=s1200' }
-    ];
-    
-    const playlistContainer = document.getElementById('playlist-container');
-    playlists.forEach(pl => {
-      const playlistItem = document.createElement('div');
-      playlistItem.className = 'playlist-item';
-      playlistItem.innerHTML = `
-        <a href="https://music.youtube.com/playlist?list=${pl.id}" target="_blank" rel="noopener">
-          <img src="${pl.img}" class="cover-img" alt="${pl.title}" loading="lazy">
-        </a>
-        <span class="playlist-title">${pl.title}</span>
-      `;
-      playlistContainer.appendChild(playlistItem);
-    });
+        function animateValue(id, start, end, duration) {
+            const obj = document.getElementById(id);
+            const range = end - start;
+            const startTime = new Date().getTime();
+            const endTime = startTime + duration;
 
-    /* ========================================================
-       MOBILE SWIPE GESTURE SYSTEM (AN Deinen Wunsch angepasst)
-       ======================================================== */
-    let touchStartX = 0;
-    let touchEndX = 0;
-    let touchStartY = 0;
-    let touchEndY = 0;
+            function run() {
+                const now = new Date().getTime();
+                const remaining = Math.max((endTime - now) / duration, 0);
+                const value = Math.round(end - (remaining * range));
+                obj.textContent = value;
+                if (value < end) {
+                    requestAnimationFrame(run);
+                }
+            }
 
-    const swipeHint = document.getElementById('swipeHint');
-
-    function dismissSwipeHint() {
-      if (swipeHint) {
-        swipeHint.classList.add('hidden');
-      }
-    }
-
-    setTimeout(dismissSwipeHint, 6000);
-
-    document.addEventListener('touchstart', (e) => {
-      touchStartX = e.changedTouches[0].screenX;
-      touchStartY = e.changedTouches[0].screenY;
-    }, { passive: true });
-
-    document.addEventListener('touchend', (e) => {
-      touchEndX = e.changedTouches[0].screenX;
-      touchEndY = e.changedTouches[0].screenY;
-      handleSwipeGesture();
-    }, { passive: true });
-
-    function handleSwipeGesture() {
-      const deltaX = touchEndX - touchStartX;
-      const deltaY = touchEndY - touchStartY;
-      const minSwipeDistance = 60;
-
-      dismissSwipeHint();
-
-      // Nur reagieren, wenn horizontal gewischt wurde
-      if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > minSwipeDistance) {
-        if (deltaX < 0) {
-          // Finger bewegt sich von RECHTS nach LINKS -> Zur Startseite (index.html)
-          window.location.href = 'index.html';
-        } else {
-          // Finger bewegt sich von LINKS nach RECHTS -> Zum Soundboard (soundboard.html)
-          window.location.href = 'soundboard.html';
+            requestAnimationFrame(run);
         }
-      }
-    }
-  </script>
+
+        updateStats();
+
+        // Schließe Sidebar bei Klick auf Link (Mobile)
+        document.querySelectorAll('.custom-sidebar nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('menuToggle').checked = false;
+            });
+        });
+
+        console.log('🚀 Content-Plan 2026 geladen!');
+    </script>
 </body>
 </html>
