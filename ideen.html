@@ -407,6 +407,17 @@
             font-weight: bold;
         }
 
+        .project-list li.cancelled {
+            color: #ff4444;
+            opacity: 0.6;
+        }
+
+        .project-list li.cancelled::before {
+            content: "✗";
+            color: #ff4444;
+            font-weight: bold;
+        }
+
         /* Priority Badge */
         .priority-badge {
             font-size: 0.9rem;
@@ -466,6 +477,12 @@
             font-size: 1.2rem;
             margin-bottom: 10px;
             color: var(--muted);
+        }
+
+        .progress-label .cancelled-info {
+            color: #ff4444;
+            font-size: 0.9rem;
+            margin-left: 8px;
         }
 
         .progress-bar {
@@ -598,11 +615,11 @@
                     <li>Genshin Impact</li>
                     <li>Life is Strange Marathon</li>
                     <li>VR Gameplay <span class="priority-badge priority-winter">❄️ Winter</span></li>
-                    <li>ETS 2 NRW 1:1 Map <span class="priority-badge priority-winter">❄️ Winter</span></li>
+                    <li class="cancelled">ETS 2 NRW 1:1 Map <span class="priority-badge priority-winter" style="background: rgba(255,50,50,0.2); color: #ff6666; border-color: #ff4444;">❌ Rotz – Map kaputt</span></li>
                 </ul>
                 <div class="progress-container">
                     <div class="progress-label">
-                        <span>Fortschritt</span>
+                        <span>Fortschritt <span class="cancelled-info">✗ 1 ausgefallen</span></span>
                         <span>0/6 Projekte</span>
                     </div>
                     <div class="progress-bar">
@@ -726,10 +743,15 @@
             });
         });
 
-        // --- STATS CALCULATION (nur 2026 Projekte) ---
+        // --- STATS CALCULATION (nur 2026 Projekte, cancelled werden nicht gezählt) ---
         function updateStats() {
-            const allProjects = document.querySelectorAll('.project-list li:not([class*="priority-2027"])');
+            // Alle 2026 Projekte (ohne 2027) aber cancelled werden nicht gezählt
+            const allProjects = document.querySelectorAll('.project-list li:not([class*="priority-2027"]):not(.cancelled)');
             const doneProjects = document.querySelectorAll('.project-list li.done');
+            
+            // Für die Anzeige der Gesamtanzahl inklusive cancelled
+            const allProjectsWithCancelled = document.querySelectorAll('.project-list li:not([class*="priority-2027"])');
+            const cancelledProjects = document.querySelectorAll('.project-list li.cancelled');
 
             const total = allProjects.length;
             const completed = doneProjects.length;
