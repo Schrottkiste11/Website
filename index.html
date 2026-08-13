@@ -677,6 +677,76 @@
       transform: translateY(-5px);
       box-shadow: 0 6px 20px rgba(255,0,153,0.5);
     }
+
+    /* ========================================================
+       SWIPE INDICATOR (EINBLENDUNG RECHTS)
+       ======================================================== */
+    .swipe-hint {
+      position: fixed;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      background: linear-gradient(135deg, rgba(255, 0, 153, 0.9), rgba(36, 36, 48, 0.95));
+      border: 1px solid var(--accent-alt);
+      border-right: none;
+      border-radius: 20px 0 0 20px;
+      padding: 12px 10px 12px 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      z-index: 9999;
+      box-shadow: -4px 0 20px rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(8px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+      cursor: pointer;
+      user-select: none;
+      display: none; /* Standardmäßig aus, wird per CSS/JS auf Touch-Geräten getriggert */
+    }
+
+    .swipe-hint.hidden {
+      opacity: 0;
+      transform: translate(100%, -50%);
+      pointer-events: none;
+    }
+
+    .swipe-hint-content {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      line-height: 1.1;
+    }
+
+    .swipe-hint-text {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .swipe-hint-sub {
+      font-size: 0.65rem;
+      color: var(--accent-alt);
+      font-weight: 600;
+    }
+
+    .swipe-hint-icon {
+      font-size: 1.2rem;
+      color: var(--accent-alt);
+      animation: swipeBounce 1.5s infinite ease-in-out;
+    }
+
+    @keyframes swipeBounce {
+      0%, 100% { transform: translateX(0); }
+      50% { transform: translateX(-6px); }
+    }
+
+    /* Anzeige nur auf Touchscreens aktivieren */
+    @media (hover: none) and (pointer: coarse) {
+      .swipe-hint {
+        display: flex;
+      }
+    }
     
     /* Responsive Design */
     @media (max-width: 1024px) {
@@ -759,6 +829,17 @@
   </style>
 </head>
 <body>
+
+  <!-- Swipe-Einblendung rechts -->
+  <div class="swipe-hint" id="swipeHint" aria-hidden="true" onclick="dismissSwipeHint()">
+    <div class="swipe-hint-content">
+      <span class="swipe-hint-text">Swipen</span>
+      <span class="swipe-hint-sub">Navigation <i class="fa-solid fa-hand-pointer"></i></span>
+    </div>
+    <div class="swipe-hint-icon">
+      <i class="fas fa-chevron-left"></i>
+    </div>
+  </div>
 
   <header class="nav-header">
     <div class="brand-row">
@@ -1230,6 +1311,17 @@
     let touchStartY = 0;
     let touchEndY = 0;
 
+    const swipeHint = document.getElementById('swipeHint');
+
+    function dismissSwipeHint() {
+      if (swipeHint) {
+        swipeHint.classList.add('hidden');
+      }
+    }
+
+    // Nach 6 Sekunden automatisch ausblenden, falls der User nicht wischt
+    setTimeout(dismissSwipeHint, 6000);
+
     document.addEventListener('touchstart', (e) => {
       touchStartX = e.changedTouches[0].screenX;
       touchStartY = e.changedTouches[0].screenY;
@@ -1245,6 +1337,9 @@
       const deltaX = touchEndX - touchStartX;
       const deltaY = touchEndY - touchStartY;
       const minSwipeDistance = 60; // Mindestabstand in Pixeln
+
+      // Swipe-Hinweis ausblenden, sobald der User gewischt hat
+      dismissSwipeHint();
 
       // Prüfen, ob die Wischgeste überwiegend waagerecht war
       if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > minSwipeDistance) {
