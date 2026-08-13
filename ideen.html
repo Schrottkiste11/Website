@@ -1,22 +1,19 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <link rel="icon" href="channels4_profile Schrottkiste.jpg" type="image/jpeg">
-    <link rel="shortcut icon" href="channels4_profile Schrottkiste.jpg" type="image/jpeg">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>Content-Plan 2026 🎮 – Schrottkiste</title>
-    <meta name="description" content="Schrottkiste Content-Plan 2026 – Alle Gaming-Projekte, IRL-Content und Kollaborationen auf einen Blick">
+    <link rel="icon" href="channels4_profile Schrottkiste.jpg" type="image/jpeg" />
+    <link rel="shortcut icon" href="channels4_profile Schrottkiste.jpg" type="image/jpeg" />
+    <meta name="description" content="Schrottkiste Content-Plan 2026 – Alle Gaming-Projekte, IRL-Content und Kollaborationen auf einen Blick" />
 
-    <!-- Performance Optimierung -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <link href="https://fonts.googleapis.com/css2?family=Chewy&family=Poppins:wght@300;400;600;700&family=VT323&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Chewy&family=Poppins:wght@300;400;600;700&family=VT323&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
     <style>
-        /* --- CORE DESIGN --- */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -36,17 +33,16 @@
 
         body {
             background: #050415;
-            background-image:
-                linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%),
+            background-image: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%),
                 radial-gradient(circle at top, #151435 0%, #050415 70%, #020109 100%);
             background-size: 100% 4px, 100% 100%;
             font-family: 'Poppins', sans-serif;
             color: var(--text);
             min-height: 100vh;
             overflow-x: hidden;
+            touch-action: pan-y;
         }
 
-        /* Scrollbar Styling */
         ::-webkit-scrollbar {
             width: 8px;
         }
@@ -58,12 +54,10 @@
             border-radius: 4px;
         }
 
-        /* --- SIDEBAR --- */
+        /* --- SIDEBAR (unchanged) --- */
         #menuToggle {
             display: none;
         }
-
-        /* Hamburger Button mit Animation */
         .hamburger-btn {
             position: fixed;
             top: 20px;
@@ -80,24 +74,19 @@
             border: none;
             padding: 5px;
         }
-
         .hamburger-btn:hover {
             color: var(--accent-alt);
             transform: scale(1.1);
         }
-
         .hamburger-btn:active {
             transform: scale(0.9);
         }
-
-        /* Hamburger klappt nach links weg */
-        #menuToggle:checked ~ .hamburger-btn {
+        #menuToggle:checked~.hamburger-btn {
             transform: translateX(-80px) scale(0.3) rotate(-90deg);
             opacity: 0;
             pointer-events: none;
         }
 
-        /* Close-Button (X) mit Animation */
         .close-btn {
             position: fixed;
             top: 20px;
@@ -117,18 +106,14 @@
             pointer-events: none;
             transform: translateX(-60px) rotate(-180deg) scale(0.3);
         }
-
         .close-btn:hover {
             color: var(--accent);
             transform: rotate(90deg) scale(1.2);
         }
-
         .close-btn:active {
             transform: rotate(90deg) scale(0.8);
         }
-
-        /* X kommt hereingedreht wenn Sidebar offen */
-        #menuToggle:checked ~ .close-btn {
+        #menuToggle:checked~.close-btn {
             opacity: 1;
             pointer-events: all;
             transform: translateX(0) rotate(0deg) scale(1);
@@ -149,13 +134,11 @@
             box-shadow: 5px 0 30px rgba(0, 0, 0, 0.5);
             pointer-events: none;
         }
-
         #menuToggle:checked~.custom-sidebar {
             transform: translateX(0);
             pointer-events: all;
         }
 
-        /* Overlay wenn Sidebar offen */
         .sidebar-overlay {
             position: fixed;
             top: 0;
@@ -168,7 +151,6 @@
             pointer-events: none;
             transition: opacity 0.4s ease;
         }
-
         #menuToggle:checked~.sidebar-overlay {
             opacity: 1;
             pointer-events: all;
@@ -180,7 +162,6 @@
             gap: 15px;
             padding: 0 25px;
         }
-
         .custom-sidebar nav a {
             color: #fff;
             text-decoration: none;
@@ -198,7 +179,6 @@
             z-index: 10001;
             pointer-events: auto;
         }
-
         .custom-sidebar nav a:hover {
             background: var(--accent-alt);
             color: #000;
@@ -206,14 +186,12 @@
             border-color: var(--accent-alt);
             box-shadow: 5px 5px 0px var(--accent);
         }
-
         .custom-sidebar nav a i {
             font-size: 1.5rem;
             width: 30px;
             text-align: center;
         }
 
-        /* Sidebar Branding */
         .sidebar-brand {
             position: absolute;
             top: 30px;
@@ -234,14 +212,73 @@
             max-width: 1000px;
             margin: 0 auto;
             padding: 100px 20px 80px;
+            transition: transform 0.2s ease;
         }
 
+        /* ✨ SWIPE INDICATOR – rechts unten */
+        .swipe-hint {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(6px);
+            border: 2px solid var(--accent-alt);
+            border-radius: 60px;
+            padding: 12px 24px 12px 20px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            z-index: 5000;
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.2);
+            font-family: 'VT323', monospace;
+            color: #fff;
+            font-size: 1.2rem;
+            letter-spacing: 0.04em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            animation: pulseGlow 2.4s ease-in-out infinite;
+            pointer-events: auto;
+            user-select: none;
+        }
+        .swipe-hint i {
+            font-size: 1.8rem;
+            color: var(--accent-alt);
+            animation: slideArrow 1.2s ease-in-out infinite;
+        }
+        .swipe-hint:hover {
+            transform: scale(1.05);
+            border-color: var(--accent);
+            box-shadow: 0 0 50px rgba(255, 0, 153, 0.3);
+        }
+        .swipe-hint:active {
+            transform: scale(0.92);
+        }
+
+        @keyframes pulseGlow {
+            0%,
+            100% {
+                box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
+            }
+            50% {
+                box-shadow: 0 0 40px rgba(0, 255, 255, 0.3), 0 0 80px rgba(255, 0, 153, 0.15);
+            }
+        }
+        @keyframes slideArrow {
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+            50% {
+                transform: translateX(8px);
+            }
+        }
+
+        /* Hero etc. – wie gehabt */
         .hero {
             text-align: center;
             margin-bottom: 60px;
             position: relative;
         }
-
         .hero-title {
             font-family: 'Chewy', cursive;
             font-size: clamp(3rem, 8vw, 5rem);
@@ -250,7 +287,6 @@
             margin-bottom: 15px;
             animation: titleGlow 2s ease-in-out infinite alternate;
         }
-
         @keyframes titleGlow {
             from {
                 text-shadow: 6px 6px 0px var(--accent);
@@ -259,7 +295,6 @@
                 text-shadow: 6px 6px 20px var(--accent), 0 0 40px var(--accent-alt);
             }
         }
-
         .hero-subtitle {
             color: var(--accent-alt);
             font-family: 'VT323';
@@ -267,7 +302,6 @@
             opacity: 0.9;
         }
 
-        /* --- STATS BAR --- */
         .stats-bar {
             display: flex;
             justify-content: center;
@@ -275,7 +309,6 @@
             margin-bottom: 50px;
             flex-wrap: wrap;
         }
-
         .stat-item {
             background: var(--card);
             border: 2px solid var(--border-soft);
@@ -285,19 +318,16 @@
             font-family: 'VT323', monospace;
             transition: all 0.3s ease;
         }
-
         .stat-item:hover {
             border-color: var(--accent);
             transform: translateY(-5px);
             box-shadow: 0 10px 30px rgba(255, 0, 153, 0.2);
         }
-
         .stat-number {
             font-size: 3rem;
             color: var(--accent-alt);
             font-weight: bold;
         }
-
         .stat-label {
             font-size: 1.2rem;
             color: var(--muted);
@@ -305,7 +335,7 @@
             letter-spacing: 0.1em;
         }
 
-        /* --- ACCORDION KACHELN --- */
+        /* Accordion */
         .content-box {
             background: var(--card);
             border: 2px solid var(--border-soft);
@@ -316,7 +346,6 @@
             transition: all 0.3s ease;
             position: relative;
         }
-
         .content-box::before {
             content: '';
             position: absolute;
@@ -328,22 +357,18 @@
             opacity: 0;
             transition: opacity 0.3s ease;
         }
-
         .content-box:hover {
             border-color: var(--accent-alt);
             transform: translateX(5px);
             box-shadow: 0 5px 30px rgba(0, 255, 255, 0.1);
         }
-
         .content-box:hover::before {
             opacity: 1;
         }
-
         .content-box.active {
             border-color: var(--accent);
             box-shadow: 0 5px 30px rgba(255, 0, 153, 0.15);
         }
-
         .content-box.active::before {
             opacity: 1;
         }
@@ -355,7 +380,6 @@
             align-items: center;
             user-select: none;
         }
-
         .box-trigger h3 {
             font-family: 'VT323', monospace;
             font-size: 2.2rem;
@@ -364,13 +388,11 @@
             align-items: center;
             gap: 15px;
         }
-
         .box-trigger .icon {
             font-size: 2rem;
             width: 40px;
             text-align: center;
         }
-
         .arrow {
             color: var(--accent);
             transition: transform 0.3s ease;
@@ -383,7 +405,6 @@
             justify-content: center;
             border-radius: 50%;
         }
-
         .box-content {
             max-height: 0;
             opacity: 0;
@@ -391,27 +412,23 @@
             transition: max-height 0.6s ease, opacity 0.4s ease, padding 0.4s ease;
             background: rgba(0, 0, 0, 0.3);
         }
-
         .content-box.active .box-content {
             max-height: 2000px;
             opacity: 1;
             padding: 0 30px 40px;
         }
-
         .content-box.active .arrow {
             transform: rotate(180deg);
             background: var(--accent);
             color: white;
         }
 
-        /* --- PROJECT LIST --- */
         .project-list {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 12px;
             list-style: none;
         }
-
         .project-list li {
             font-family: 'VT323', monospace;
             font-size: 1.4rem;
@@ -426,13 +443,11 @@
             flex-wrap: wrap;
             gap: 8px;
         }
-
         .project-list li:hover {
             background: rgba(255, 255, 255, 0.08);
             border-color: var(--accent);
             transform: translateX(5px);
         }
-
         .project-list li::before {
             content: "▸";
             color: var(--accent);
@@ -440,36 +455,26 @@
             font-size: 1.2rem;
             flex-shrink: 0;
         }
-
         .project-list li.done {
             color: #666;
             text-decoration: line-through;
             opacity: 0.7;
         }
-
-        .project-list li.done:hover {
-            background: rgba(0, 255, 102, 0.05);
-            border-color: var(--success);
-        }
-
         .project-list li.done::before {
             content: "✓";
             color: var(--success);
             font-weight: bold;
         }
-
         .project-list li.cancelled {
             color: #ff4444;
             opacity: 0.6;
         }
-
         .project-list li.cancelled::before {
             content: "✗";
             color: #ff4444;
             font-weight: bold;
         }
 
-        /* Priority Badge */
         .priority-badge {
             font-size: 0.9rem;
             padding: 3px 10px;
@@ -481,31 +486,26 @@
             white-space: nowrap;
             flex-shrink: 0;
         }
-
         .priority-high {
             background: rgba(255, 0, 153, 0.2);
             color: var(--accent);
             border: 1px solid var(--accent);
         }
-
         .priority-medium {
             background: rgba(255, 170, 0, 0.2);
             color: var(--warning);
             border: 1px solid var(--warning);
         }
-
         .priority-winter {
             background: rgba(0, 255, 255, 0.2);
             color: var(--accent-alt);
             border: 1px solid var(--accent-alt);
         }
-
         .priority-2027 {
             background: rgba(255, 255, 255, 0.1);
             color: #fff;
             border: 1px solid rgba(255, 255, 255, 0.3);
         }
-
         .priority-minecraft {
             background: rgba(0, 200, 80, 0.25);
             color: #5f9;
@@ -513,14 +513,12 @@
             box-shadow: 0 0 12px rgba(0, 255, 150, 0.15);
         }
 
-        /* --- PROGRESS BAR --- */
         .progress-container {
             margin-top: 20px;
             background: rgba(255, 255, 255, 0.05);
             border-radius: 20px;
             padding: 15px 20px;
         }
-
         .progress-label {
             display: flex;
             justify-content: space-between;
@@ -529,20 +527,17 @@
             margin-bottom: 10px;
             color: var(--muted);
         }
-
         .progress-label .cancelled-info {
             color: #ff4444;
             font-size: 0.9rem;
             margin-left: 8px;
         }
-
         .progress-bar {
             height: 8px;
             background: rgba(255, 255, 255, 0.1);
             border-radius: 4px;
             overflow: hidden;
         }
-
         .progress-fill {
             height: 100%;
             background: linear-gradient(90deg, var(--accent), var(--accent-alt));
@@ -550,7 +545,6 @@
             transition: width 1s ease;
             position: relative;
         }
-
         .progress-fill::after {
             content: '';
             position: absolute;
@@ -561,7 +555,6 @@
             background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
             animation: shimmer 2s infinite;
         }
-
         @keyframes shimmer {
             0% {
                 transform: translateX(-100%);
@@ -571,7 +564,6 @@
             }
         }
 
-        /* Footer */
         .footer-tag {
             text-align: center;
             color: #444;
@@ -580,31 +572,35 @@
             font-size: 1.2rem;
             transition: color 0.3s ease;
         }
-
         .footer-tag:hover {
             color: var(--accent);
         }
 
-        /* Responsive */
         @media (max-width: 768px) {
             .stats-bar {
                 gap: 15px;
             }
-
             .stat-item {
                 padding: 15px 20px;
             }
-
             .stat-number {
                 font-size: 2.5rem;
             }
-
             .box-trigger h3 {
                 font-size: 1.8rem;
             }
-
             .project-list {
                 grid-template-columns: 1fr;
+            }
+            .swipe-hint {
+                bottom: 20px;
+                right: 20px;
+                padding: 10px 18px 10px 14px;
+                font-size: 1rem;
+                gap: 10px;
+            }
+            .swipe-hint i {
+                font-size: 1.4rem;
             }
         }
     </style>
@@ -613,21 +609,10 @@
 
     <!-- Sidebar Toggle -->
     <input type="checkbox" id="menuToggle" hidden>
-
-    <!-- Hamburger Button -->
-    <label for="menuToggle" class="hamburger-btn">
-        <i class="fas fa-bars"></i>
-    </label>
-
-    <!-- Close Button (X) -->
-    <label for="menuToggle" class="close-btn">
-        <i class="fas fa-times"></i>
-    </label>
-
-    <!-- Overlay für Sidebar -->
+    <label for="menuToggle" class="hamburger-btn"><i class="fas fa-bars"></i></label>
+    <label for="menuToggle" class="close-btn"><i class="fas fa-times"></i></label>
     <label for="menuToggle" class="sidebar-overlay"></label>
 
-    <!-- Sidebar -->
     <aside class="custom-sidebar">
         <div class="sidebar-brand">Schrottkiste</div>
         <nav>
@@ -644,7 +629,6 @@
             <p class="hero-subtitle">🎯 Roadmap & Projekte</p>
         </div>
 
-        <!-- Stats Bar -->
         <div class="stats-bar">
             <div class="stat-item">
                 <div class="stat-number" id="totalProjects">0</div>
@@ -673,16 +657,11 @@
                     <li>Genshin Impact</li>
                     <li>Life is Strange Marathon</li>
                     <li>VR Gameplay <span class="priority-badge priority-winter">❄️ Winter</span></li>
-                    <li class="cancelled">ETS 2 NRW 1:1 Map <span class="priority-badge priority-winter" style="background: rgba(255,50,50,0.2); color: #ff6666; border-color: #ff4444;">❌ Rotz – Map kaputt</span></li>
+                    <li class="cancelled">ETS 2 NRW 1:1 Map <span class="priority-badge priority-winter" style="background:rgba(255,50,50,0.2); color:#ff6666; border-color:#ff4444;">❌ Rotz – Map kaputt</span></li>
                 </ul>
                 <div class="progress-container">
-                    <div class="progress-label">
-                        <span>Fortschritt <span class="cancelled-info">✗ 1 ausgefallen</span></span>
-                        <span>0/6 Projekte</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 0%"></div>
-                    </div>
+                    <div class="progress-label"><span>Fortschritt <span class="cancelled-info">✗ 1 ausgefallen</span></span><span>0/6 Projekte</span></div>
+                    <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
                 </div>
             </div>
         </div>
@@ -702,13 +681,8 @@
                     <li>Riesiger Lost Place in Paderborn</li>
                 </ul>
                 <div class="progress-container">
-                    <div class="progress-label">
-                        <span>Fortschritt</span>
-                        <span>1/5 Projekte</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 20%"></div>
-                    </div>
+                    <div class="progress-label"><span>Fortschritt</span><span>1/5 Projekte</span></div>
+                    <div class="progress-bar"><div class="progress-fill" style="width:20%"></div></div>
                 </div>
             </div>
         </div>
@@ -725,13 +699,8 @@
                     <li>GTA 6 Release Gameplay <span class="priority-badge priority-high">HYPE</span></li>
                 </ul>
                 <div class="progress-container">
-                    <div class="progress-label">
-                        <span>Fortschritt</span>
-                        <span>0/2 Projekte</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 0%"></div>
-                    </div>
+                    <div class="progress-label"><span>Fortschritt</span><span>0/2 Projekte</span></div>
+                    <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
                 </div>
             </div>
         </div>
@@ -739,50 +708,44 @@
         <!-- Mit Diana (2027) -->
         <div class="content-box">
             <div class="box-trigger" onclick="toggleAccordion(this)">
-                <h3><span class="icon">🤝</span> Mit Diana <span style="font-size: 1.2rem; color: var(--muted); margin-left: 10px;">[2027]</span></h3>
+                <h3><span class="icon">🤝</span> Mit Diana <span style="font-size:1.2rem; color:var(--muted); margin-left:10px;">[2027]</span></h3>
                 <span class="arrow">▼</span>
             </div>
             <div class="box-content">
                 <ul class="project-list">
-                    <li>
-                        Minecraft Alaskan Wilderness Mod pack
-                        <span class="priority-badge priority-minecraft">⛏️ 2027</span>
-                    </li>
+                    <li>Minecraft Alaskan Wilderness Mod pack <span class="priority-badge priority-minecraft">⛏️ 2027</span></li>
                     <li>Tower of Fantasy <span class="priority-badge priority-2027">2027</span></li>
                     <li>Escape the Backrooms <span class="priority-badge priority-2027">2027</span></li>
                     <li>Animal Crossing Wild World <span class="priority-badge priority-2027">2027</span></li>
                     <li>Animal Crossing New Leaf <span class="priority-badge priority-2027">2027</span></li>
                     <li>Animal Crossing Lets go to the City <span class="priority-badge priority-2027">2027</span></li>
-                    <!-- Neue Einträge -->
                     <li>Animal Crossing New Horizons <span class="priority-badge priority-2027">2027</span></li>
                     <li>Enchanted Kingdom and the School Wizardy <span class="priority-badge priority-2027">2027</span></li>
                     <li>HypeHype Spiel bauen <span class="priority-badge priority-2027">2027</span></li>
                     <li>Eigene Website basteln <span class="priority-badge priority-2027">2027</span></li>
                 </ul>
                 <div class="progress-container">
-                    <div class="progress-label">
-                        <span>Geplant für 2027</span>
-                        <span>0/10 Projekte</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 0%; background: linear-gradient(90deg, #666, #999);"></div>
-                    </div>
+                    <div class="progress-label"><span>Geplant für 2027</span><span>0/10 Projekte</span></div>
+                    <div class="progress-bar"><div class="progress-fill" style="width:0%; background:linear-gradient(90deg,#666,#999);"></div></div>
                 </div>
             </div>
         </div>
-
     </main>
 
     <div class="footer-tag">#SCHROTTKISTE2026 🤘</div>
+
+    <!-- SWIPE HINT – nach rechts zum Soundboard -->
+    <div class="swipe-hint" id="swipeHint">
+        <i class="fas fa-arrow-right"></i>
+        <span>Soundboard</span>
+    </div>
 
     <script>
         // --- ACCORDION LOGIC ---
         function toggleAccordion(trigger) {
             const box = trigger.parentElement;
             const isActive = box.classList.contains('active');
-
             box.classList.toggle('active');
-
             if (!isActive) {
                 setTimeout(() => {
                     box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -790,7 +753,6 @@
             }
         }
 
-        // Keyboard Support
         document.querySelectorAll('.box-trigger').forEach(trigger => {
             trigger.setAttribute('tabindex', '0');
             trigger.addEventListener('keydown', (e) => {
@@ -801,23 +763,16 @@
             });
         });
 
-        // --- STATS CALCULATION (nur 2026 Projekte, cancelled werden nicht gezählt) ---
+        // --- STATS ---
         function updateStats() {
-            // Alle 2026 Projekte (ohne 2027) aber cancelled werden nicht gezählt
             const allProjects = document.querySelectorAll('.project-list li:not([class*="priority-2027"]):not(.cancelled)');
             const doneProjects = document.querySelectorAll('.project-list li.done');
-            
-            // Für die Anzeige der Gesamtanzahl inklusive cancelled
-            const allProjectsWithCancelled = document.querySelectorAll('.project-list li:not([class*="priority-2027"])');
-            const cancelledProjects = document.querySelectorAll('.project-list li.cancelled');
-
             const total = allProjects.length;
             const completed = doneProjects.length;
             const progress = total > 0 ? Math.round((completed / total) * 100) : 0;
 
             animateValue('totalProjects', 0, total, 1000);
             animateValue('completedProjects', 0, completed, 1000);
-
             document.getElementById('progressPercent').textContent = progress + '%';
         }
 
@@ -832,24 +787,62 @@
                 const remaining = Math.max((endTime - now) / duration, 0);
                 const value = Math.round(end - (remaining * range));
                 obj.textContent = value;
-                if (value < end) {
-                    requestAnimationFrame(run);
-                }
+                if (value < end) requestAnimationFrame(run);
             }
-
             requestAnimationFrame(run);
         }
-
         updateStats();
 
-        // Schließe Sidebar bei Klick auf Link (Mobile)
+        // Sidebar schließen bei Link-Klick
         document.querySelectorAll('.custom-sidebar nav a').forEach(link => {
             link.addEventListener('click', () => {
                 document.getElementById('menuToggle').checked = false;
             });
         });
 
-        console.log('🚀 Content-Plan 2026 geladen!');
+        // --- SWIPE GESTE: nach rechts → soundboard.html ---
+        let touchStartX = 0;
+        let touchEndX = 0;
+        let isSwiping = false;
+        const swipeThreshold = 70; // Mindest-Pixel für Wisch
+
+        document.addEventListener('touchstart', (e) => {
+            // Ignoriere wenn Sidebar offen oder wenn wir auf dem Swipe-Hint tippen
+            if (document.getElementById('menuToggle').checked) return;
+            if (e.target.closest('.swipe-hint')) return;
+            touchStartX = e.changedTouches[0].screenX;
+            isSwiping = true;
+        }, { passive: true });
+
+        document.addEventListener('touchmove', (e) => {
+            if (!isSwiping) return;
+            // Nur horizontale Bewegung tracken
+            const deltaX = e.changedTouches[0].screenX - touchStartX;
+            // Wenn zu viel vertikale Bewegung, abbrechen
+            const deltaY = e.changedTouches[0].screenY - touchStartY;
+            if (Math.abs(deltaY) > 60) {
+                isSwiping = false;
+                return;
+            }
+            // Wenn weit genug nach rechts gewischt -> navigieren
+            if (deltaX > swipeThreshold) {
+                isSwiping = false;
+                window.location.href = 'soundboard.html';
+            }
+        }, { passive: true });
+
+        let touchStartY = 0;
+        document.addEventListener('touchstart', (e) => {
+            touchStartY = e.changedTouches[0].screenY;
+        }, { passive: true });
+
+        // fallback: Klick auf Swipe-Hint
+        document.getElementById('swipeHint').addEventListener('click', () => {
+            window.location.href = 'soundboard.html';
+        });
+
+        console.log('🚀 Content-Plan 2026 – Swipe nach rechts zum Soundboard');
     </script>
+
 </body>
 </html>
