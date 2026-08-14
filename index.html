@@ -801,8 +801,8 @@
       <div class="gif-box" id="gif1" role="button" tabindex="0" aria-label="Deutschland GIF - Klicken zum Anhalten/Abspielen" style="background-image: url('images/GermanyGerGIF.gif');">
         <div class="gif-status playing" id="status1"></div>
       </div>
-      <!-- AUGUST GIF ersetzt das July GIF -->
-      <div class="gif-box" id="gif2" role="button" tabindex="0" aria-label="August GIF - Klicken zum Anhalten/Abspielen" style="background-image: url('https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbnB5bXgxN3FyN2s5dmZxN2x6Z3c2aHp2bGQ1c2V4dHp6cXMwZ2JxdiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3o6Zt5Vr1Xb5w7f8f8/giphy.gif');">
+      <!-- AUGUST GIF: Now using local files exactly as requested -->
+      <div class="gif-box" id="gif2" role="button" tabindex="0" aria-label="August GIF - Klicken zum Anhalten/Abspielen" style="background-image: url('images/August.gif');">
         <div class="gif-status playing" id="status2"></div>
       </div>
     </aside>
@@ -1021,8 +1021,8 @@
     });
 
     document.getElementById('gif2').addEventListener('click', () => {
-      // Für August GIF: verwende das GIPHY-URL und ein lokales Still-Bild (Platzhalter)
-      toggleGif('gif2', 'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbnB5bXgxN3FyN2s5dmZxN2x6Z3c2aHp2bGQ1c2V4dHp6cXMwZ2JxdiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3o6Zt5Vr1Xb5w7f8f8/giphy.gif', 'images/Bild_2026-07-06_210330659.png');
+      // Updated to use your local files exactly as requested
+      toggleGif('gif2', 'images/August.gif', 'images/August.png');
     });
 
     // Keyboard Support für GIFs
