@@ -333,7 +333,20 @@
       transform: scale(0.98);
     }
 
-    /* Status-Indikator */
+    /* Statisches Bild – kein Klick-Interaktion */
+    .gif-box.static {
+      cursor: default;
+    }
+    .gif-box.static::before {
+      display: none;
+    }
+    .gif-box.static:hover {
+      transform: none;
+      border-color: transparent;
+      box-shadow: var(--shadow);
+    }
+
+    /* Status-Indikator (nur für animierte GIFs) */
     .gif-status {
       position: absolute;
       top: 10px;
@@ -691,6 +704,7 @@
         width: 100%;
         justify-content: center;
         position: static;
+        flex-wrap: wrap;
       }
 
       .gif-box {
@@ -798,12 +812,14 @@
 
   <div class="container">
     <aside class="gif-container">
+      <!-- GIF 1: animiert, klickbar -->
       <div class="gif-box" id="gif1" role="button" tabindex="0" aria-label="Deutschland GIF - Klicken zum Anhalten/Abspielen" style="background-image: url('images/GermanyGerGIF.gif');">
         <div class="gif-status playing" id="status1"></div>
       </div>
-      <!-- AUGUST GIF: Now using local files exactly as requested -->
-      <div class="gif-box" id="gif2" role="button" tabindex="0" aria-label="August GIF - Klicken zum Anhalten/Abspielen" style="background-image: url('images/August.gif');">
-        <div class="gif-status playing" id="status2"></div>
+
+      <!-- STATISCHES BILD: Ersetzt das zweite GIF (August) -->
+      <div class="gif-box static" id="gif2" style="background-image: url('images/Dein Abschnittstext (1).png');" aria-label="Statisches Bild">
+        <!-- Kein Status-Indikator, da kein GIF -->
       </div>
     </aside>
 
@@ -1046,7 +1062,7 @@
     fetchTrackInfo();
     setInterval(fetchTrackInfo, 15000); // Update every 15 seconds
 
-    // GIF Toggle Function with Status Indicator
+    // GIF Toggle Function (nur für gif1)
     function toggleGif(id, gifSrc, stillSrc) {
       const el = document.getElementById(id);
       const statusEl = document.getElementById('status' + id.slice(-1));
@@ -1066,24 +1082,19 @@
       }
     }
 
-    // GIF Click Handlers
+    // Nur für gif1 (das animierte GIF)
     document.getElementById('gif1').addEventListener('click', () => {
       toggleGif('gif1', 'images/GermanyGerGIF.gif', 'images/image.png');
     });
 
-    document.getElementById('gif2').addEventListener('click', () => {
-      // Updated to use your local files exactly as requested
-      toggleGif('gif2', 'images/August.gif', 'images/August.png');
-    });
+    // Für das statische Bild (gif2) gibt es keinen Klick-Handler
 
-    // Keyboard Support für GIFs
-    document.querySelectorAll('.gif-box').forEach(box => {
-      box.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          box.click();
-        }
-      });
+    // Keyboard Support für gif1 (nur das interaktive Element)
+    document.getElementById('gif1').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        document.getElementById('gif1').click();
+      }
     });
 
     // SANFTE TEXT-TOGGLE FUNKTION
