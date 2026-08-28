@@ -333,17 +333,20 @@
       transform: scale(0.98);
     }
 
-    /* Statisches Bild – kein Klick-Interaktion */
-    .gif-box.static {
-      cursor: default;
+    /* Statisches Bild – jetzt klickbar als Link */
+    .gif-box.static-link {
+      cursor: pointer;
     }
-    .gif-box.static::before {
+    .gif-box.static-link::before {
       display: none;
     }
-    .gif-box.static:hover {
-      transform: none;
-      border-color: transparent;
-      box-shadow: var(--shadow);
+    .gif-box.static-link:hover {
+      transform: translateY(-5px);
+      border-color: var(--accent-alt);
+      box-shadow: 0 8px 30px rgba(0,255,255,0.3);
+    }
+    .gif-box.static-link:active {
+      transform: scale(0.97);
     }
 
     /* Status-Indikator (nur für animierte GIFs) */
@@ -597,10 +600,9 @@
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 20px;
       align-content: start;
-      padding-right: 8px; /* Platz für Scrollbar */
+      padding-right: 8px;
     }
 
-    /* Scrollbar für Playlist-Container */
     .playlist-container::-webkit-scrollbar {
       width: 6px;
     }
@@ -746,7 +748,7 @@
         padding-left: 0;
         padding-top: 30px;
         position: static;
-        max-height: 400px; /* feste Höhe für mobil */
+        max-height: 400px;
       }
 
       .playlist-container {
@@ -844,14 +846,14 @@
         <div class="gif-status playing" id="status1"></div>
       </div>
 
-      <!-- STATISCHES BILD: Ersetzt das zweite GIF (August) -->
-      <div class="gif-box static" id="gif2" style="background-image: url('images/Dein Abschnittstext (1).png');" aria-label="Statisches Bild">
-        <!-- Kein Status-Indikator, da kein GIF -->
+      <!-- STATISCHES BILD: jetzt klickbar und leitet zu FlippleArcade weiter -->
+      <div class="gif-box static-link" id="gif2" role="link" tabindex="0" aria-label="Zu FlippleArcade wechseln" style="background-image: url('images/Dein Abschnittstext (1).png');" onclick="window.open('https://flipplearcade.com/u/FQDMRO3LTKRKf07lbBseyLhAjgH3', '_blank');">
+        <!-- kein Status-Indikator -->
       </div>
     </aside>
 
     <main class="blog-section">
-      <!-- NEUESTER BEITRAG: Schrottkiste ist Back! -->
+      <!-- Blog-Beiträge (unverändert) -->
       <article class="blog-post" itemscope itemtype="https://schema.org/BlogPosting">
         <div class="post-meta">
           <span class="post-time">📅 23.08.2026</span>
@@ -878,7 +880,6 @@
         </div>
       </article>
 
-      <!-- OP Überstanden -->
       <article class="blog-post" itemscope itemtype="https://schema.org/BlogPosting">
         <div class="post-meta">
           <span class="post-time">📅 21.08.2026</span>
@@ -1004,6 +1005,7 @@
   </button>
 
   <script>
+    // (Script unverändert bis auf den neuen Klick-Handler für gif2 – siehe unten)
     // DOM Elements
     const audio = document.getElementById('audio-player');
     const playPauseBtn = document.getElementById('play-pause-btn');
@@ -1052,7 +1054,6 @@
           artistNameEl.textContent = 'Live Stream';
         }
 
-        // Update document title
         if (isPlaying && data.title) {
           document.title = `🔊 ${data.title} - Schrottkiste`;
         }
@@ -1060,13 +1061,10 @@
         console.error('Error fetching track info:', error);
         songTitleEl.textContent = 'Nicht verfügbar';
         artistNameEl.textContent = 'Verbindungsfehler';
-
-        // Retry after 30 seconds on error
         setTimeout(fetchTrackInfo, 30000);
       }
     }
 
-    // Audio Event Listeners
     audio.addEventListener('play', () => {
       isPlaying = true;
       playPauseBtn.textContent = '⏸';
@@ -1085,11 +1083,10 @@
       artistNameEl.textContent = 'Stream nicht erreichbar';
     });
 
-    // Initialize
     fetchTrackInfo();
-    setInterval(fetchTrackInfo, 15000); // Update every 15 seconds
+    setInterval(fetchTrackInfo, 15000);
 
-    // GIF Toggle Function (nur für gif1)
+    // GIF Toggle (nur für gif1)
     function toggleGif(id, gifSrc, stillSrc) {
       const el = document.getElementById(id);
       const statusEl = document.getElementById('status' + id.slice(-1));
@@ -1109,62 +1106,49 @@
       }
     }
 
-    // Nur für gif1 (das animierte GIF)
     document.getElementById('gif1').addEventListener('click', () => {
       toggleGif('gif1', 'images/GermanyGerGIF.gif', 'images/image.png');
     });
 
-    // Für das statische Bild (gif2) gibt es keinen Klick-Handler
-
-    // Keyboard Support für gif1 (nur das interaktive Element)
-    document.getElementById('gif1').addEventListener('keydown', (e) => {
+    // Für gif2 (statisches Bild) ist bereits onclick im HTML gesetzt – kein weiterer Listener nötig
+    // Tastaturunterstützung für gif2
+    document.getElementById('gif2').addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
-        document.getElementById('gif1').click();
+        window.open('https://flipplearcade.com/u/FQDMRO3LTKRKf07lbBseyLhAjgH3', '_blank');
       }
     });
 
-    // SANFTE TEXT-TOGGLE FUNKTION
+    // Text-Toggle
     function toggleText(id, btn) {
       const el = document.getElementById(id);
       const isCollapsed = el.classList.contains('collapsed');
 
       if (isCollapsed) {
-        // Aufklappen
         el.classList.remove('collapsed');
         el.style.maxHeight = el.scrollHeight + 'px';
-
         btn.innerHTML = '<span>Einklappen</span> <i class="fas fa-chevron-up"></i>';
         btn.classList.add('expanded');
         btn.setAttribute('aria-expanded', 'true');
-
-        // Nach der Transition maxHeight zurücksetzen für Responsivität
         setTimeout(() => {
           el.style.maxHeight = 'none';
         }, 600);
       } else {
-        // Einklappen
         el.style.maxHeight = el.scrollHeight + 'px';
-
-        // Kurzer Delay für smoothness
         requestAnimationFrame(() => {
           el.classList.add('collapsed');
           el.style.maxHeight = '8.5em';
         });
-
         btn.innerHTML = '<span>Weiterlesen</span> <i class="fas fa-chevron-down"></i>';
         btn.classList.remove('expanded');
         btn.setAttribute('aria-expanded', 'false');
       }
     }
 
-    // Share Functions
+    // Share
     function sharePost(title) {
       if (navigator.share) {
-        navigator.share({
-          title: title,
-          url: window.location.href
-        }).catch(console.error);
+        navigator.share({ title, url: window.location.href }).catch(console.error);
       } else {
         copyLink();
       }
@@ -1174,7 +1158,6 @@
       navigator.clipboard.writeText(window.location.href).then(() => {
         showNotification('Link kopiert! 📋');
       }).catch(() => {
-        // Fallback
         const textArea = document.createElement('textarea');
         textArea.value = window.location.href;
         document.body.appendChild(textArea);
@@ -1185,7 +1168,6 @@
       });
     }
 
-    // Notification System
     function showNotification(message, type = 'success') {
       const notification = document.createElement('div');
       notification.style.cssText = `
@@ -1205,14 +1187,12 @@
       `;
       notification.textContent = message;
       document.body.appendChild(notification);
-
       setTimeout(() => {
         notification.style.animation = 'slideOut 0.3s ease';
         setTimeout(() => notification.remove(), 300);
       }, 3000);
     }
 
-    // Scroll to Top Button
     function toggleScrollButton() {
       if (window.pageYOffset > 300) {
         scrollToTopBtn.classList.add('visible');
@@ -1222,13 +1202,9 @@
     }
 
     scrollToTopBtn.addEventListener('click', () => {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
-    // Throttle scroll event
     let scrollTimeout;
     window.addEventListener('scroll', () => {
       if (!scrollTimeout) {
@@ -1239,7 +1215,6 @@
       }
     });
 
-    // Add animation styles
     const style = document.createElement('style');
     style.textContent = `
       @keyframes slideIn {
@@ -1253,7 +1228,6 @@
     `;
     document.head.appendChild(style);
 
-    // Like Button Integration
     (function(d,e,s){
       if(d.getElementById("likebtn_wjs")) return;
       const a = d.createElement(e);
@@ -1264,7 +1238,6 @@
       m.parentNode.insertBefore(a, m);
     })(document, "script", "//w.likebtn.com/js/w/widget.js");
 
-    // Playlist Data
     const playlists = [
       {
         id: 'PLQLA52U7_qBOkmumSrvGZbE3CPPGqoLQX',
@@ -1293,7 +1266,6 @@
       }
     ];
 
-    // Render Playlists
     const playlistContainer = document.getElementById('playlist-container');
     playlists.forEach(pl => {
       const playlistItem = document.createElement('div');
@@ -1307,9 +1279,7 @@
       playlistContainer.appendChild(playlistItem);
     });
 
-    // Initialize scroll button state
     toggleScrollButton();
-
     console.log('🚀 Schrottkiste geladen!');
   </script>
 </body>
