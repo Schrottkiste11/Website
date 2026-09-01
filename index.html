@@ -2,23 +2,25 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Schrottkiste – Home</title>
-  <meta name="description" content="Schrottkiste – Twitch- und YouTube-Content von Luka. Streams, Blog-Updates und Playlists.">
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="Schrottkiste">
-  <meta property="og:description" content="Twitch- und YouTube-Content von Luka. Streams, Blog-Updates und Playlists.">
-  <meta property="og:image" content="images/image.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Schrottkiste | Twitch- und YouTube-Content von Luka</title>
+  <meta name="description" content="Schrottkiste, Twitch- und YouTube-Content von Luka, Streams, Blog-Updates und Playlists.">
   <meta name="theme-color" content="#1a1a24">
+  <meta name="color-scheme" content="dark">
+  <link rel="canonical" href="./">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="./">
+  <meta property="og:title" content="Schrottkiste">
+  <meta property="og:description" content="Twitch- und YouTube-Content von Luka, Streams, Blog-Updates und Playlists.">
+  <meta property="og:image" content="images/image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Schrottkiste">
+  <meta name="twitter:description" content="Twitch- und YouTube-Content von Luka, Streams, Blog-Updates und Playlists.">
+  <meta name="twitter:image" content="images/image.png">
 
-  <!-- Performance Optimierung -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
-
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%231a1a24'/%3E%3Ctext x='50' y='70' font-family='Arial,sans-serif' font-weight='900' font-size='58' fill='%23ff0099' text-anchor='middle'%3ES%3C/text%3E%3C/svg%3E">
-  <link href="https://fonts.googleapis.com/css2?family=Chewy&family=Poppins:wght@300;400;600;700&family=VT323&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Chewy&family=Poppins:wght@400;600;700&family=VT323&display=swap" rel="stylesheet">
 
   <style>
     :root {
@@ -29,264 +31,182 @@
       --text: #f3f1ff;
       --text-secondary: #b0b0c0;
       --line-color: #3a3a4a;
-      --shadow: 0 4px 20px rgba(0,0,0,0.3);
+      --shadow: 0 4px 20px rgba(0, 0, 0, .3);
       --radius: 12px;
-      --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      --transition: .3s cubic-bezier(.4, 0, .2, 1);
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
 
     body {
+      margin: 0;
       background: var(--bg);
-      font-family: 'Poppins', sans-serif;
       color: var(--text);
-      overflow-wrap: break-word;
+      font-family: Poppins, sans-serif;
       line-height: 1.6;
+      overflow-wrap: break-word;
     }
 
-    /* Fokus-Stile für Accessibility */
+    button, a { font: inherit; }
+
     :focus-visible {
       outline: 3px solid var(--accent-alt);
       outline-offset: 3px;
       border-radius: 4px;
     }
 
-    /* Scrollbar Styling */
-    ::-webkit-scrollbar {
-      width: 10px;
-    }
-    ::-webkit-scrollbar-track {
-      background: var(--bg);
-    }
-    ::-webkit-scrollbar-thumb {
-      background: var(--accent);
-      border-radius: 5px;
+    ::-webkit-scrollbar { width: 10px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 5px; }
+
+    .icon {
+      width: 1.1em;
+      height: 1.1em;
+      fill: currentColor;
+      vertical-align: -.15em;
     }
 
-    /* Navigation */
     .nav-header {
-      background: var(--card-bg);
-      padding: 20px 5%;
-      border-bottom: 1px solid var(--line-color);
       position: sticky;
       top: 0;
       z-index: 1000;
+      padding: 20px 5%;
+      background: color-mix(in srgb, var(--card-bg) 90%, transparent);
+      border-bottom: 1px solid var(--line-color);
+      box-shadow: 0 2px 20px rgba(0, 0, 0, .2);
       backdrop-filter: blur(10px);
-      box-shadow: 0 2px 20px rgba(0,0,0,0.2);
     }
 
-    .brand-row {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 15px;
-    }
+    .brand-row { display: flex; justify-content: center; margin-bottom: 15px; }
 
     .nav-brand {
-      font-family: 'Chewy', cursive;
-      font-size: 3.5rem;
       color: #fff;
+      font-family: Chewy, cursive;
+      font-size: 3.5rem;
+      line-height: 1;
       text-decoration: none;
+      text-shadow: 0 0 20px rgba(255, 0, 153, .3);
       transition: var(--transition);
-      text-shadow: 0 0 20px rgba(255,0,153,0.3);
     }
 
-    .nav-brand:hover {
-      transform: scale(1.05);
-      text-shadow: 0 0 30px rgba(255,0,153,0.5);
-    }
+    .nav-brand:hover { transform: scale(1.05); text-shadow: 0 0 30px rgba(255, 0, 153, .5); }
 
     .menu-row {
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      border-top: 1px solid var(--line-color);
-      padding-top: 15px;
-      flex-wrap: wrap;
+      justify-content: space-between;
       gap: 20px;
+      flex-wrap: wrap;
+      padding-top: 15px;
+      border-top: 1px solid var(--line-color);
     }
 
     .nav-links {
       display: flex;
       gap: 30px;
-      list-style: none;
-      padding: 0;
       margin: 0;
+      padding: 0;
+      list-style: none;
     }
 
     .nav-links a {
-      text-decoration: none;
-      color: #fff;
-      font-size: 0.95rem;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      transition: var(--transition);
       position: relative;
+      display: inline-block;
       padding: 5px 0;
+      color: #fff;
+      font-size: .95rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-decoration: none;
+      transition: var(--transition);
     }
 
     .nav-links a::after {
-      content: '';
       position: absolute;
+      right: 0;
       bottom: -2px;
       left: 0;
-      width: 0;
       height: 2px;
       background: var(--accent);
-      transition: var(--transition);
+      content: "";
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform var(--transition);
     }
 
-    .nav-links a:hover::after,
-    .nav-links a.active::after {
-      width: 100%;
-    }
+    .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+    .nav-links a:hover::after, .nav-links a.active::after { transform: scaleX(1); }
 
-    .nav-links a:hover,
-    .nav-links a.active {
-      color: var(--accent);
-    }
-
-    /* Mini Player Upgrade */
     .mini-player {
-      background: linear-gradient(135deg, #1a1a24 0%, #242430 100%);
-      padding: 12px 20px;
-      border-radius: 30px;
       display: flex;
       align-items: center;
       gap: 12px;
+      min-width: 0;
+      padding: 12px 20px;
+      background: linear-gradient(135deg, #1a1a24, #242430);
       border: 1px solid var(--line-color);
+      border-radius: 30px;
       box-shadow: var(--shadow);
       transition: var(--transition);
     }
 
-    .mini-player:hover {
-      border-color: var(--accent);
-      box-shadow: 0 6px 25px rgba(255,0,153,0.2);
-    }
+    .mini-player:hover { border-color: var(--accent); box-shadow: 0 6px 25px rgba(255, 0, 153, .2); }
+    .player-label { color: var(--accent); font-size: .7rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
 
-    .player-label {
-      font-size: 0.7rem;
-      color: var(--accent);
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-    }
-
-    .player-controls {
-      display: flex;
-      gap: 8px;
-    }
+    .player-controls { display: flex; gap: 8px; }
 
     .player-controls button {
-      background: var(--accent);
-      color: white;
-      border: none;
-      border-radius: 50%;
+      display: grid;
       width: 36px;
       height: 36px;
+      padding: 0;
+      place-items: center;
+      color: #fff;
+      background: var(--accent);
+      border: 0;
+      border-radius: 50%;
       cursor: pointer;
       transition: var(--transition);
-      font-size: 1rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
 
-    .player-controls button:hover {
-      transform: scale(1.1);
-      box-shadow: 0 0 20px rgba(255,0,153,0.5);
-    }
+    .player-controls button:hover { transform: scale(1.1); box-shadow: 0 0 20px rgba(255, 0, 153, .5); }
+    .track-info-mini { min-width: 120px; max-width: 150px; }
+    #song-title, #artist-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    #song-title { color: var(--accent-alt); font-size: .8rem; font-weight: 700; }
+    #artist-name { color: var(--text-secondary); font-size: .7rem; }
 
-    .track-info-mini {
-      min-width: 120px;
-      max-width: 150px;
-    }
+    .visualizer { display: flex; align-items: flex-end; gap: 2px; height: 20px; opacity: .3; transition: opacity var(--transition); }
+    .visualizer.is-playing { opacity: 1; }
+    .visualizer-bar { width: 3px; height: 8px; background: var(--accent); border-radius: 2px; animation: visualize 1s ease-in-out infinite; animation-play-state: paused; }
+    .visualizer.is-playing .visualizer-bar { animation-play-state: running; }
+    .visualizer-bar:nth-child(2) { animation-delay: .1s; }
+    .visualizer-bar:nth-child(3) { animation-delay: .2s; }
+    .visualizer-bar:nth-child(4) { animation-delay: .3s; }
+    .visualizer-bar:nth-child(5) { animation-delay: .4s; }
 
-    #song-title {
-      color: var(--accent-alt);
-      font-weight: 700;
-      font-size: 0.8rem;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
+    @keyframes visualize { 0%, 100% { height: 8px; } 50% { height: 20px; } }
 
-    #artist-name {
-      color: var(--text-secondary);
-      font-size: 0.7rem;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
+    .social-btns, .footer-social { display: flex; gap: 20px; }
+    .social-btn { color: #fff; text-decoration: none; transition: var(--transition); }
+    .social-btn:hover { transform: translateY(-3px); }
+    .social-btn.twitch:hover { color: #9146ff; filter: drop-shadow(0 0 10px rgba(145, 70, 255, .5)); }
+    .social-btn.youtube:hover { color: #f00; filter: drop-shadow(0 0 10px rgba(255, 0, 0, .5)); }
+    .social-btn .icon { width: 1.8rem; height: 1.8rem; }
 
-    /* Visualizer */
-    .visualizer {
-      display: flex;
-      gap: 2px;
-      align-items: flex-end;
-      height: 20px;
-    }
-
-    .visualizer-bar {
-      width: 3px;
-      background: var(--accent);
-      border-radius: 2px;
-      animation: visualize 1s ease-in-out infinite;
-    }
-
-    .visualizer-bar:nth-child(2) { animation-delay: 0.1s; }
-    .visualizer-bar:nth-child(3) { animation-delay: 0.2s; }
-    .visualizer-bar:nth-child(4) { animation-delay: 0.3s; }
-    .visualizer-bar:nth-child(5) { animation-delay: 0.4s; }
-
-    @keyframes visualize {
-      0%, 100% { height: 8px; }
-      50% { height: 20px; }
-    }
-
-    .social-btns {
-      display: flex;
-      gap: 20px;
-    }
-
-    .social-btn {
-      color: #fff;
-      font-size: 1.8rem;
-      transition: var(--transition);
-      position: relative;
-    }
-
-    .social-btn:hover {
-      transform: translateY(-3px);
-    }
-
-    .twitch:hover {
-      color: #9146FF;
-      text-shadow: 0 0 20px rgba(145,70,255,0.5);
-    }
-
-    .youtube:hover {
-      color: #FF0000;
-      text-shadow: 0 0 20px rgba(255,0,0,0.5);
-    }
-
-    /* Main Container */
     .container {
       display: flex;
-      padding: 60px 5%;
+      align-items: flex-start;
       gap: 40px;
       max-width: 1400px;
       margin: 0 auto;
-      align-items: flex-start;
+      padding: 60px 5%;
     }
 
-    /* GIF Container Upgrade */
     .gif-container {
-      flex: 0 0 200px;
       display: flex;
+      flex: 0 0 200px;
       flex-direction: column;
       gap: 20px;
       position: sticky;
@@ -294,696 +214,324 @@
     }
 
     .gif-box {
-      width: 100%;
-      aspect-ratio: 1/1;
-      cursor: pointer;
-      border-radius: var(--radius);
-      background-size: cover;
-      background-position: center;
-      transition: var(--transition);
-      border: 2px solid transparent;
-      box-shadow: var(--shadow);
       position: relative;
+      display: block;
+      width: 100%;
+      aspect-ratio: 1;
+      padding: 0;
       overflow: hidden;
-    }
-
-    .gif-box::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: linear-gradient(135deg, rgba(255,0,153,0.2), transparent);
-      opacity: 0;
-      transition: var(--transition);
-    }
-
-    .gif-box:hover {
-      transform: translateY(-5px);
-      border-color: var(--accent);
-      box-shadow: 0 8px 30px rgba(255,0,153,0.3);
-    }
-
-    .gif-box:hover::before {
-      opacity: 1;
-    }
-
-    .gif-box:active {
-      transform: scale(0.98);
-    }
-
-    /* Statisches Bild – jetzt klickbar als Link */
-    .gif-box.static-link {
+      background: var(--card-bg);
+      border: 2px solid transparent;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
       cursor: pointer;
-    }
-    .gif-box.static-link::before {
-      display: none;
-    }
-    .gif-box.static-link:hover {
-      transform: translateY(-5px);
-      border-color: var(--accent-alt);
-      box-shadow: 0 8px 30px rgba(0,255,255,0.3);
-    }
-    .gif-box.static-link:active {
-      transform: scale(0.97);
-    }
-
-    /* Status-Indikator (nur für animierte GIFs) */
-    .gif-status {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      border: 2px solid white;
-      z-index: 2;
+      isolation: isolate;
       transition: var(--transition);
     }
 
-    .gif-status.playing {
-      background: #00ff00;
-      box-shadow: 0 0 10px rgba(0,255,0,0.5);
-    }
+    .gif-box:hover { transform: translateY(-5px); border-color: var(--accent); box-shadow: 0 8px 30px rgba(255, 0, 153, .3); }
+    .gif-box.static-link:hover { border-color: var(--accent-alt); box-shadow: 0 8px 30px rgba(0, 255, 255, .3); }
+    .gif-box:active { transform: scale(.98); }
 
-    .gif-status.paused {
-      background: #ff0000;
-      box-shadow: 0 0 10px rgba(255,0,0,0.5);
-    }
+    .gif-image { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity var(--transition); }
+    .gif-image--still { opacity: 0; }
+    .gif-box.is-paused .gif-image--animated { opacity: 0; }
+    .gif-box.is-paused .gif-image--still { opacity: 1; }
+    .gif-box::after { position: absolute; inset: 0; z-index: 1; background: linear-gradient(135deg, rgba(255, 0, 153, .2), transparent); content: ""; opacity: 0; transition: opacity var(--transition); }
+    .gif-box:hover::after { opacity: 1; }
 
-    /* Blog Section */
-    .blog-section {
-      flex: 2;
-      display: flex;
-      flex-direction: column;
-      gap: 30px;
-      min-width: 0;
-    }
+    .gif-status { position: absolute; top: 10px; right: 10px; z-index: 2; width: 12px; height: 12px; border: 2px solid #fff; border-radius: 50%; }
+    .gif-status.playing { background: #0f0; box-shadow: 0 0 10px rgba(0, 255, 0, .5); }
+    .gif-status.paused { background: #f00; box-shadow: 0 0 10px rgba(255, 0, 0, .5); }
+
+    .blog-section { display: flex; flex: 2; flex-direction: column; gap: 30px; min-width: 0; }
 
     .blog-post {
-      background: var(--card-bg);
-      padding: 35px;
-      border-radius: var(--radius);
-      border-left: 4px solid var(--accent);
-      box-shadow: var(--shadow);
-      transition: var(--transition);
       position: relative;
       overflow: hidden;
-    }
-
-    .blog-post::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 4px;
-      height: 100%;
-      background: linear-gradient(to bottom, var(--accent), var(--accent-alt));
-      opacity: 0;
+      padding: 35px;
+      background: var(--card-bg);
+      border-left: 4px solid var(--accent);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
       transition: var(--transition);
     }
 
-    .blog-post:hover {
-      transform: translateX(5px);
-      box-shadow: 0 8px 30px rgba(0,0,0,0.4);
-    }
+    .blog-post::before { position: absolute; inset: 0 auto 0 0; width: 4px; background: linear-gradient(to bottom, var(--accent), var(--accent-alt)); content: ""; opacity: 0; transition: opacity var(--transition); }
+    .blog-post:hover { transform: translateX(5px); box-shadow: 0 8px 30px rgba(0, 0, 0, .4); }
+    .blog-post:hover::before { opacity: 1; }
 
-    .blog-post:hover::before {
-      opacity: 1;
-    }
+    .post-meta { display: flex; flex-wrap: wrap; gap: 15px; margin-bottom: 15px; }
+    .post-time, .reading-time { padding: 5px 15px; background: var(--bg); border-radius: 20px; font-family: VT323, monospace; font-size: 1.3rem; }
+    .post-time { color: var(--accent-alt); }
+    .reading-time { margin-left: auto; color: var(--accent); }
+    .post-title { margin: 0 0 20px; color: var(--accent-alt); font-size: 2.2rem; font-weight: 700; letter-spacing: -.02em; line-height: 1.2; }
 
-    .post-meta {
-      display: flex;
-      gap: 15px;
-      margin-bottom: 15px;
-      flex-wrap: wrap;
-    }
-
-    .post-time {
-      font-family: 'VT323', monospace;
-      font-size: 1.3rem;
-      background: var(--bg);
-      padding: 5px 15px;
-      border-radius: 20px;
-      color: var(--accent-alt);
-    }
-
-    .reading-time {
-      font-family: 'VT323', monospace;
-      font-size: 1.3rem;
-      background: var(--bg);
-      padding: 5px 15px;
-      border-radius: 20px;
-      color: var(--accent);
-      margin-left: auto;
-    }
-
-    .post-title {
-      font-size: 2.2rem;
-      margin-bottom: 20px;
-      color: var(--accent-alt);
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      line-height: 1.2;
-    }
-
-    /* SANFTE BLOG-ANIMATION */
-    .post-text {
-      line-height: 1.8;
-      font-size: 1.1rem;
-      color: var(--text);
-      margin-bottom: 20px;
-      max-width: 65ch;
-      max-height: none;
-      overflow: visible;
-      transition: max-height 0.6s cubic-bezier(0.4, 0, 0.2, 1),
-                  mask-image 0.6s cubic-bezier(0.4, 0, 0.2, 1),
-                  -webkit-mask-image 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-      mask-image: none;
-      -webkit-mask-image: none;
-    }
-
-    .post-text.collapsed {
-      max-height: 8.5em;
-      overflow: hidden;
-      mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
-      -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
-    }
-
-    .post-text p {
-      margin-bottom: 1.2em;
-    }
-
-    .post-text ul {
-      padding-left: 25px;
-      margin-bottom: 1.2em;
-    }
-
-    .post-text li {
-      margin-bottom: 0.8em;
-    }
+    .post-text { max-width: 65ch; margin-bottom: 20px; color: var(--text); font-size: 1.1rem; line-height: 1.8; overflow: hidden; transition: max-height .6s cubic-bezier(.4, 0, .2, 1), mask-image .6s cubic-bezier(.4, 0, .2, 1); }
+    .post-text p { margin: 0 0 1.2em; }
+    .post-text ul { margin: 0 0 1.2em; padding-left: 25px; }
+    .post-text li { margin-bottom: .8em; }
+    .post-text.collapsed { max-height: 8.5em; mask-image: linear-gradient(to bottom, #000 60%, transparent 100%); }
+    .post-text:not(.collapsed) { mask-image: none; }
 
     .read-more {
-      background: linear-gradient(135deg, var(--accent), #cc0077);
-      color: #fff;
-      border: none;
-      padding: 12px 30px;
-      cursor: pointer;
-      border-radius: 25px;
-      font-family: 'Poppins', sans-serif;
-      font-weight: 600;
-      font-size: 0.95rem;
-      transition: var(--transition);
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      box-shadow: 0 4px 15px rgba(255,0,153,0.3);
-    }
-
-    .read-more:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(255,0,153,0.5);
-      background: linear-gradient(135deg, #ff1a9e, #dd0088);
-    }
-
-    .read-more:active {
-      transform: translateY(0);
-    }
-
-    .read-more i {
-      transition: var(--transition);
-    }
-
-    .read-more.expanded i {
-      transform: rotate(180deg);
-    }
-
-    /* Interactive Area */
-    .interactive-area {
-      margin-top: 25px;
-      padding-top: 25px;
-      border-top: 1px solid var(--line-color);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 15px;
-    }
-
-    .share-buttons {
-      display: flex;
-      gap: 10px;
-    }
-
-    .share-btn {
-      background: var(--bg);
-      color: var(--text);
-      border: none;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      cursor: pointer;
-      transition: var(--transition);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.1rem;
-    }
-
-    .share-btn:hover {
-      background: var(--accent);
-      color: white;
-      transform: translateY(-3px);
-    }
-
-    /* Sidebar – jetzt mit scrollbarem Playlist-Container */
-    .sidebar {
-      flex: 0 0 300px;
-      border-left: 2px solid var(--line-color);
-      padding-left: 40px;
-      position: sticky;
-      top: 120px;
-      max-height: calc(100vh - 160px);
-      display: flex;
-      flex-direction: column;
-    }
-
-    .sidebar-title {
-      margin: 0 0 20px;
-      font-family: 'Poppins', sans-serif;
-      font-weight: 700;
-      font-size: 1.3rem;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      color: var(--accent-alt);
-      position: relative;
-      padding-bottom: 15px;
-      flex-shrink: 0;
-    }
-
-    .sidebar-title::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 50px;
-      height: 3px;
-      background: var(--accent);
-      border-radius: 2px;
-    }
-
-    .playlist-container {
-      flex: 1;
-      overflow-y: auto;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 20px;
-      align-content: start;
-      padding-right: 8px;
-    }
-
-    .playlist-container::-webkit-scrollbar {
-      width: 6px;
-    }
-    .playlist-container::-webkit-scrollbar-track {
-      background: var(--bg);
-      border-radius: 3px;
-    }
-    .playlist-container::-webkit-scrollbar-thumb {
-      background: var(--accent);
-      border-radius: 3px;
-    }
-
-    .playlist-item {
-      margin-bottom: 10px;
-      text-align: center;
-      transition: var(--transition);
-    }
-
-    .playlist-item:hover {
-      transform: translateY(-5px);
-    }
-
-    .playlist-title {
-      display: block;
-      margin-top: 8px;
-      font-family: 'Poppins', sans-serif;
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: var(--text);
-      transition: var(--transition);
-    }
-
-    .playlist-item:hover .playlist-title {
-      color: var(--accent);
-    }
-
-    .cover-img {
-      width: 100%;
-      max-width: 200px;
-      border-radius: var(--radius);
-      display: block;
-      margin: 0 auto;
-      transition: var(--transition);
-      box-shadow: var(--shadow);
-    }
-
-    .playlist-item:hover .cover-img {
-      box-shadow: 0 10px 30px rgba(0,255,255,0.3);
-      transform: scale(1.05);
-    }
-
-    /* Footer */
-    .site-footer {
-      margin-top: 80px;
-      padding: 30px 5%;
-      border-top: 1px solid var(--line-color);
-      background: var(--card-bg);
-      box-shadow: 0 -2px 20px rgba(0,0,0,0.2);
-    }
-
-    .footer-inner {
-      max-width: 1400px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 20px;
-    }
-
-    .footer-brand {
-      font-family: 'Chewy', cursive;
-      font-size: 1.5rem;
+      padding: 12px 30px;
       color: #fff;
-    }
-
-    .footer-social {
-      display: flex;
-      gap: 20px;
-    }
-
-    .footer-copy {
-      font-size: 0.85rem;
-      color: var(--text-secondary);
-    }
-
-    /* Scroll to Top Button */
-    .scroll-to-top {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      background: var(--accent);
-      color: white;
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      border: none;
+      background: linear-gradient(135deg, var(--accent), #cc0077);
+      border: 0;
+      border-radius: 25px;
+      box-shadow: 0 4px 15px rgba(255, 0, 153, .3);
       cursor: pointer;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.5rem;
-      box-shadow: 0 4px 15px rgba(255,0,153,0.3);
+      font-size: .95rem;
+      font-weight: 600;
       transition: var(--transition);
-      z-index: 1000;
     }
 
-    .scroll-to-top.visible {
-      display: flex;
-    }
+    .read-more:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255, 0, 153, .5); }
+    .read-more:active { transform: translateY(0); }
+    .read-more .icon { transition: transform var(--transition); }
+    .read-more.expanded .icon { transform: rotate(180deg); }
 
-    .scroll-to-top:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 6px 20px rgba(255,0,153,0.5);
-    }
+    .interactive-area { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 15px; margin-top: 25px; padding-top: 25px; border-top: 1px solid var(--line-color); }
+    .share-buttons { display: flex; gap: 10px; }
+    .share-btn { display: grid; width: 40px; height: 40px; padding: 0; place-items: center; color: var(--text); background: var(--bg); border: 0; border-radius: 50%; cursor: pointer; transition: var(--transition); }
+    .share-btn:hover { color: #fff; background: var(--accent); transform: translateY(-3px); }
 
-    /* Responsive Design */
+    .sidebar { display: flex; flex: 0 0 300px; flex-direction: column; position: sticky; top: 120px; max-height: calc(100vh - 160px); padding-left: 40px; border-left: 2px solid var(--line-color); }
+    .sidebar-title { position: relative; flex-shrink: 0; margin: 0 0 20px; padding-bottom: 15px; color: var(--accent-alt); font-size: 1.3rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; }
+    .sidebar-title::after { position: absolute; bottom: 0; left: 0; width: 50px; height: 3px; background: var(--accent); border-radius: 2px; content: ""; }
+    .playlist-container { display: grid; flex: 1; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); align-content: start; gap: 20px; overflow-y: auto; padding-right: 8px; }
+    .playlist-container::-webkit-scrollbar { width: 6px; }
+    .playlist-container::-webkit-scrollbar-track { background: var(--bg); border-radius: 3px; }
+    .playlist-container::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
+    .playlist-item { margin-bottom: 10px; text-align: center; transition: var(--transition); }
+    .playlist-item:hover { transform: translateY(-5px); }
+    .playlist-item a { display: block; color: inherit; text-decoration: none; }
+    .playlist-title { display: block; margin-top: 8px; color: var(--text); font-size: .85rem; font-weight: 600; transition: var(--transition); }
+    .playlist-item:hover .playlist-title { color: var(--accent); }
+    .cover-img { display: block; width: 100%; max-width: 200px; margin: 0 auto; border-radius: var(--radius); box-shadow: var(--shadow); transition: var(--transition); }
+    .playlist-item:hover .cover-img { transform: scale(1.05); box-shadow: 0 10px 30px rgba(0, 255, 255, .3); }
+
+    .site-footer { margin-top: 80px; padding: 30px 5%; background: var(--card-bg); border-top: 1px solid var(--line-color); box-shadow: 0 -2px 20px rgba(0, 0, 0, .2); }
+    .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; max-width: 1400px; margin: 0 auto; flex-wrap: wrap; }
+    .footer-brand { color: #fff; font-family: Chewy, cursive; font-size: 1.5rem; }
+    .footer-copy { color: var(--text-secondary); font-size: .85rem; }
+
+    .scroll-to-top { display: none; position: fixed; right: 30px; bottom: 30px; z-index: 1000; width: 50px; height: 50px; padding: 0; place-items: center; color: #fff; background: var(--accent); border: 0; border-radius: 50%; box-shadow: 0 4px 15px rgba(255, 0, 153, .3); cursor: pointer; transition: var(--transition); }
+    .scroll-to-top.visible { display: grid; }
+    .scroll-to-top:hover { transform: translateY(-5px); box-shadow: 0 6px 20px rgba(255, 0, 153, .5); }
+
+    .notification { position: fixed; right: 30px; bottom: 100px; z-index: 10000; max-width: min(90vw, 360px); padding: 15px 25px; color: #fff; background: var(--accent); border-radius: 25px; box-shadow: 0 4px 15px rgba(0, 0, 0, .3); font-weight: 600; animation: slideIn .3s ease; }
+    .notification.error { background: #d33; }
+    .notification.is-leaving { animation: slideOut .3s ease forwards; }
+
+    @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+    @keyframes slideOut { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
+
     @media (max-width: 1024px) {
-      .container {
-        flex-direction: column;
-        padding: 40px 5%;
-        gap: 40px;
-      }
-
-      .gif-container {
-        flex-direction: row;
-        flex: none;
-        width: 100%;
-        justify-content: center;
-        position: static;
-        flex-wrap: wrap;
-      }
-
-      .gif-box {
-        flex: 0 1 180px;
-      }
-
-      .sidebar {
-        flex: none;
-        width: 100%;
-        border-left: none;
-        border-top: 2px solid var(--line-color);
-        padding-left: 0;
-        padding-top: 30px;
-        position: static;
-        max-height: 400px;
-      }
-
-      .playlist-container {
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-        gap: 15px;
-      }
-
-      .menu-row {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-      }
-
-      .nav-links {
-        justify-content: center;
-      }
+      .container { flex-direction: column; gap: 40px; padding: 40px 5%; }
+      .gif-container { position: static; flex: none; flex-direction: row; justify-content: center; width: 100%; flex-wrap: wrap; }
+      .gif-box { flex: 0 1 180px; }
+      .sidebar { position: static; flex: none; width: 100%; max-height: 400px; padding: 30px 0 0; border-top: 2px solid var(--line-color); border-left: 0; }
+      .playlist-container { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; }
+      .menu-row { flex-direction: column; align-items: center; text-align: center; }
+      .nav-links { justify-content: center; }
     }
 
     @media (max-width: 640px) {
-      .nav-brand {
-        font-size: 2.5rem;
-      }
+      .nav-brand { font-size: 2.5rem; }
+      .post-title { font-size: 1.8rem; }
+      .blog-post { padding: 25px; }
+      .mini-player { width: 100%; }
+      .footer-inner { flex-direction: column; text-align: center; }
+      .scroll-to-top { right: 20px; bottom: 20px; width: 45px; height: 45px; }
+    }
 
-      .post-title {
-        font-size: 1.8rem;
-      }
-
-      .blog-post {
-        padding: 25px;
-      }
-
-      .mini-player {
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-      }
-
-      .footer-inner {
-        flex-direction: column;
-        text-align: center;
-      }
-
-      .scroll-to-top {
-        bottom: 20px;
-        right: 20px;
-        width: 45px;
-        height: 45px;
-      }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+      .gif-box:not(.is-playing) .gif-image--animated { opacity: 0; }
     }
   </style>
 </head>
 <body>
+  <svg aria-hidden="true" width="0" height="0" style="position:absolute">
+    <symbol id="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></symbol>
+    <symbol id="icon-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zm8 0h4v14h-4z"/></symbol>
+    <symbol id="icon-chevron" viewBox="0 0 24 24"><path d="m7 9 5 5 5-5 1.4 1.4-6.4 6.4-6.4-6.4z"/></symbol>
+    <symbol id="icon-share" viewBox="0 0 24 24"><path d="M18 16a3 3 0 0 0-2.2 1l-6.1-3.5a3.2 3.2 0 0 0 0-3l6.1-3.5A3 3 0 1 0 15 5c0 .3 0 .6.1.9L9 9.4a3 3 0 1 0 0 5.2l6.1 3.5A3 3 0 1 0 18 16z"/></symbol>
+    <symbol id="icon-link" viewBox="0 0 24 24"><path d="M10.6 13.4a1.9 1.9 0 0 0 2.8 0l2.4-2.4a1.9 1.9 0 1 0-2.7-2.7l-1.4 1.4-1.4-1.4 1.4-1.4a3.9 3.9 0 0 1 5.5 5.5l-2.4 2.4a3.9 3.9 0 0 1-5.5 0zm2.8-2.8a1.9 1.9 0 0 0-2.8 0l-2.4 2.4a1.9 1.9 0 1 0 2.7 2.7l1.4-1.4 1.4 1.4-1.4 1.4a3.9 3.9 0 0 1-5.5-5.5l2.4-2.4a3.9 3.9 0 0 1 5.5 0z"/></symbol>
+    <symbol id="icon-arrow-up" viewBox="0 0 24 24"><path d="m12 5-7 7 1.4 1.4L11 8.8V20h2V8.8l4.6 4.6L19 12z"/></symbol>
+    <symbol id="icon-twitch" viewBox="0 0 24 24"><path d="M4 2h18v13l-5 5h-4l-3 3v-3H4zm2 2v12h5v2.2l2.2-2.2H16l4-4V4zm3 3h2v5H9zm5 0h2v5h-2z"/></symbol>
+    <symbol id="icon-youtube" viewBox="0 0 24 24"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8M9.6 15.5v-7l6.2 3.5z"/></symbol>
+  </svg>
 
   <header class="nav-header">
-    <div class="brand-row">
-      <a href="index.html" class="nav-brand">Schrottkiste</a>
-    </div>
+    <div class="brand-row"><a class="nav-brand" href="index.html">Schrottkiste</a></div>
     <div class="menu-row">
-      <ul class="nav-links">
-        <li><a href="index.html" class="active">START</a></li>
-        <li><a href="ideen.html">CONTENT-PLAN</a></li>
-        <li><a href="soundboard.html">SOUNDBOARD</a></li>
-      </ul>
+      <nav aria-label="Hauptnavigation">
+        <ul class="nav-links">
+          <li><a class="active" href="index.html" aria-current="page">START</a></li>
+          <li><a href="ideen.html">CONTENT-PLAN</a></li>
+          <li><a href="soundboard.html">SOUNDBOARD</a></li>
+        </ul>
+      </nav>
 
-      <div class="mini-player">
-        <span class="player-label">🎵 Live Radio</span>
-        <audio id="audio-player" src="https://stream.laut.fm/treasure_radio"></audio>
+      <div class="mini-player" aria-label="Live-Radio-Player">
+        <span class="player-label">Live Radio</span>
+        <audio id="audio-player" preload="none" src="https://stream.laut.fm/treasure_radio"></audio>
         <div class="player-controls">
-          <button id="play-pause-btn" aria-label="Play/Pause">▶</button>
+          <button id="play-pause-btn" type="button" aria-label="Radio abspielen" aria-pressed="false">
+            <svg class="icon" aria-hidden="true"><use href="#icon-play"></use></svg>
+          </button>
         </div>
-        <div class="track-info-mini">
+        <div class="track-info-mini" aria-live="polite">
           <div id="song-title">Lade...</div>
           <div id="artist-name">Treasure Radio</div>
         </div>
-        <div class="visualizer" id="visualizer">
-          <div class="visualizer-bar"></div>
-          <div class="visualizer-bar"></div>
-          <div class="visualizer-bar"></div>
-          <div class="visualizer-bar"></div>
-          <div class="visualizer-bar"></div>
+        <div class="visualizer" id="visualizer" aria-hidden="true">
+          <span class="visualizer-bar"></span><span class="visualizer-bar"></span><span class="visualizer-bar"></span><span class="visualizer-bar"></span><span class="visualizer-bar"></span>
         </div>
       </div>
 
-      <div class="social-btns">
-        <a href="https://www.twitch.tv/schrottkiste_luka" target="_blank" rel="noopener" class="social-btn twitch" aria-label="Twitch"><i class="fa-brands fa-twitch"></i></a>
-        <a href="https://www.youtube.com/@schrottkiste" target="_blank" rel="noopener" class="social-btn youtube" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+      <div class="social-btns" aria-label="Social Media">
+        <a class="social-btn twitch" href="https://www.twitch.tv/schrottkiste_luka" target="_blank" rel="noopener noreferrer" aria-label="Twitch öffnen"><svg class="icon" aria-hidden="true"><use href="#icon-twitch"></use></svg></a>
+        <a class="social-btn youtube" href="https://www.youtube.com/@schrottkiste" target="_blank" rel="noopener noreferrer" aria-label="YouTube öffnen"><svg class="icon" aria-hidden="true"><use href="#icon-youtube"></use></svg></a>
       </div>
     </div>
   </header>
 
   <div class="container">
-    <aside class="gif-container">
-      <!-- GIF 1: animiert, klickbar -->
-      <div class="gif-box" id="gif1" role="button" tabindex="0" aria-label="Deutschland GIF - Klicken zum Anhalten/Abspielen" style="background-image: url('images/GermanyGerGIF.gif');">
-        <div class="gif-status playing" id="status1"></div>
-      </div>
+    <aside class="gif-container" aria-label="Interaktive Bilder">
+      <button class="gif-box is-playing" id="gif1" type="button" aria-pressed="true" aria-label="Deutschland-GIF anhalten">
+        <img class="gif-image gif-image--animated" src="images/GermanyGerGIF.gif" alt="Deutschland-GIF" width="200" height="200" decoding="async">
+        <img class="gif-image gif-image--still" src="images/image.png" alt="Deutschland-Bild, statische Ansicht" width="200" height="200" decoding="async">
+        <span class="gif-status playing" id="status1" aria-hidden="true"></span>
+      </button>
 
-      <!-- STATISCHES BILD: jetzt klickbar und leitet zu FlippleArcade weiter -->
-      <div class="gif-box static-link" id="gif2" role="link" tabindex="0" aria-label="Zu FlippleArcade wechseln" style="background-image: url('images/Dein Abschnittstext (1).png');" onclick="window.open('https://flipplearcade.com/u/FQDMRO3LTKRKf07lbBseyLhAjgH3', '_blank');">
-        <!-- kein Status-Indikator -->
-      </div>
+      <a class="gif-box static-link" id="gif2" href="https://flipplearcade.com/u/FQDMRO3LTKRKf07lbBseyLhAjgH3" target="_blank" rel="noopener noreferrer" aria-label="FlippleArcade öffnen">
+        <img class="gif-image" src="images/Dein Abschnittstext (1).png" alt="FlippleArcade öffnen" width="200" height="200" loading="lazy" decoding="async">
+      </a>
     </aside>
 
     <main class="blog-section">
-      <!-- Blog-Beiträge (unverändert) -->
       <article class="blog-post" itemscope itemtype="https://schema.org/BlogPosting">
         <div class="post-meta">
-          <span class="post-time">📅 23.08.2026</span>
-          <span class="post-time">🕐 15:42 Uhr</span>
-          <span class="reading-time">⏱ 1 Min. Lesezeit</span>
+          <time class="post-time" datetime="2026-08-23T15:42:00+02:00" itemprop="datePublished">23.08.2026, 15:42 Uhr</time>
+          <span class="reading-time">1 Min. Lesezeit</span>
         </div>
-        <h2 class="post-title" itemprop="headline">Schrottkiste ist Back!</h2>
+        <h1 class="post-title" itemprop="headline">Schrottkiste ist Back!</h1>
         <div class="post-text collapsed" id="text-6" itemprop="articleBody">
-          <p>Es ist nun etwa genau 73h her, dass ich operiert wurde.</p>
-          <p>Während ich diesen Beitrag verfasse sitze ich bereits wieder vorm PC ohne Schmerzmittel und im Hintergrund läuft Whatever von Cro.</p>
-          <p>Es ist ein so tolles Gefühl, wieder hier zu sitzen und euch das hier mitteilen zu können.</p>
-          <p>Und abgesehen davon, dass jede Bewegung derzeit noch mit Vorsicht ausgeführt werden muss, weil es teils noch zieht in der Leiste, geht es mir wieder gut.</p>
-          <p>Auf ein neues Kapitel im Staat Schrott (kp was ich mir dabei gedacht habe, ich freue mich bloß so sehr, dass es mir wieder möglich ist, meinen kreativen Alltag zu verfolgen.)</p>
+          <p>Es ist nun etwa 73 Stunden her, dass ich operiert wurde.</p>
+          <p>Während ich diesen Beitrag verfasse, sitze ich bereits wieder vor dem PC, ohne Schmerzmittel, und im Hintergrund läuft Musik.</p>
+          <p>Es ist ein so tolles Gefühl, wieder hier zu sitzen und euch das mitteilen zu können.</p>
+          <p>Abgesehen davon, dass jede Bewegung derzeit noch mit Vorsicht ausgeführt werden muss, weil es teils noch in der Leiste zieht, geht es mir wieder gut.</p>
+          <p>Auf ein neues Kapitel im Staat Schrott. Ich freue mich sehr, dass es mir wieder möglich ist, meinen kreativen Alltag zu verfolgen.</p>
         </div>
-        <button class="read-more" onclick="toggleText('text-6', this)" aria-expanded="false">
-          <span>Weiterlesen</span> <i class="fas fa-chevron-down"></i>
-        </button>
+        <button class="read-more" type="button" data-toggle-text="text-6" aria-expanded="false"><span>Weiterlesen</span><svg class="icon" aria-hidden="true"><use href="#icon-chevron"></use></svg></button>
         <div class="interactive-area">
           <span class="likebtn-wrapper" data-theme="heart" data-identifier="post_6" data-counter_count="true"></span>
           <div class="share-buttons">
-            <button class="share-btn" onclick="sharePost('Schrottkiste ist Back!')" aria-label="Teilen"><i class="fas fa-share-alt"></i></button>
-            <button class="share-btn" onclick="copyLink()" aria-label="Link kopieren"><i class="fas fa-link"></i></button>
+            <button class="share-btn" type="button" data-share-title="Schrottkiste ist Back!" aria-label="Beitrag teilen"><svg class="icon" aria-hidden="true"><use href="#icon-share"></use></svg></button>
+            <button class="share-btn" type="button" data-copy-link aria-label="Link kopieren"><svg class="icon" aria-hidden="true"><use href="#icon-link"></use></svg></button>
           </div>
         </div>
       </article>
 
       <article class="blog-post" itemscope itemtype="https://schema.org/BlogPosting">
         <div class="post-meta">
-          <span class="post-time">📅 21.08.2026</span>
-          <span class="post-time">🕐 13:28 Uhr</span>
-          <span class="reading-time">⏱ 1 Min. Lesezeit</span>
+          <time class="post-time" datetime="2026-08-21T13:28:00+02:00" itemprop="datePublished">21.08.2026, 13:28 Uhr</time>
+          <span class="reading-time">1 Min. Lesezeit</span>
         </div>
-        <h2 class="post-title" itemprop="headline">OP Überstanden</h2>
+        <h2 class="post-title" itemprop="headline">OP überstanden</h2>
         <div class="post-text collapsed" id="text-5" itemprop="articleBody">
-          <p>Ich bin gestern operiert worden und liege nun zuhause auf dem Sofa. Hab es gut überstanden.</p>
-          <p>Ich muss mich noch viel schonen aber wird schon wieder. 😊</p>
+          <p>Ich bin gestern operiert worden und liege nun zu Hause auf dem Sofa. Ich habe es gut überstanden.</p>
+          <p>Ich muss mich noch viel schonen, aber das wird schon wieder.</p>
         </div>
-        <button class="read-more" onclick="toggleText('text-5', this)" aria-expanded="false">
-          <span>Weiterlesen</span> <i class="fas fa-chevron-down"></i>
-        </button>
+        <button class="read-more" type="button" data-toggle-text="text-5" aria-expanded="false"><span>Weiterlesen</span><svg class="icon" aria-hidden="true"><use href="#icon-chevron"></use></svg></button>
         <div class="interactive-area">
           <span class="likebtn-wrapper" data-theme="heart" data-identifier="post_5" data-counter_count="true"></span>
           <div class="share-buttons">
-            <button class="share-btn" onclick="sharePost('OP Überstanden')" aria-label="Teilen"><i class="fas fa-share-alt"></i></button>
-            <button class="share-btn" onclick="copyLink()" aria-label="Link kopieren"><i class="fas fa-link"></i></button>
+            <button class="share-btn" type="button" data-share-title="OP überstanden" aria-label="Beitrag teilen"><svg class="icon" aria-hidden="true"><use href="#icon-share"></use></svg></button>
+            <button class="share-btn" type="button" data-copy-link aria-label="Link kopieren"><svg class="icon" aria-hidden="true"><use href="#icon-link"></use></svg></button>
           </div>
         </div>
       </article>
 
       <article class="blog-post" itemscope itemtype="https://schema.org/BlogPosting">
         <div class="post-meta">
-          <span class="post-time">📅 13.07.2026</span>
-          <span class="post-time">🕐 13:00 Uhr</span>
-          <span class="reading-time">⏱ 2 Min. Lesezeit</span>
+          <time class="post-time" datetime="2026-07-13T13:00:00+02:00" itemprop="datePublished">13.07.2026, 13:00 Uhr</time>
+          <span class="reading-time">2 Min. Lesezeit</span>
         </div>
         <h2 class="post-title" itemprop="headline">Fun Facts über mich</h2>
         <div class="post-text collapsed" id="text-4" itemprop="articleBody">
           <ul>
-            <li>Seitdem ich Minecraft zocke, baue ich immer nur Städte</li>
-            <li>Ich hatte als Kind mal Angst vor Sirenen Geheule</li>
-            <li>Ich habe mal gedacht, dass Toilettenrohr verschwindet einfach in der Wand und geht dann auf die Straße einfach</li>
-            <li>Ich habe als Kind gedacht ältere Menschen sind andere Lebewesen wie junge Menschen (außerdem dachte ich man wird einfach irgendwann von jetzt auf gleich so schrumpelig)</li>
-            <li>Ich habe darüber nachgedacht ob meine Eltern Geheimagenten sind wenn ich nicht hingucke</li>
-            <li>Frauen waren für mich bis zu meinem 16. Lebensjahr einfach zickige Gestalten, denen man nicht über den Weg laufen wollte haha</li>
-            <li>Ich habe herausgefunden dass ich es schwer in der Schule hatte, da ich schon mein ganzes Leben lang auf einen unkonventionellen Lebensweg gesetzt hatte</li>
-            <li>Als ich noch ganz jung war wollte ich immer ne eigene Eisdiele aufmachen</li>
-            <li>Ich habe immer gedacht erwachsen sein muss einfach cool sein. Die Realität ist eher eine Mischung aus Verantwortung nach der ich nicht fragte und neuen Möglichkeiten</li>
+            <li>Seitdem ich Minecraft zocke, baue ich immer nur Städte.</li>
+            <li>Ich hatte als Kind einmal Angst vor Sirenengeheul.</li>
+            <li>Ich dachte, das Toilettenrohr verschwinde einfach in der Wand und gehe dann auf die Straße.</li>
+            <li>Ich dachte als Kind, ältere Menschen seien andere Lebewesen als junge Menschen.</li>
+            <li>Ich habe darüber nachgedacht, ob meine Eltern Geheimagenten sind, wenn ich nicht hingucke.</li>
+            <li>Bis zu meinem 16. Lebensjahr waren Frauen für mich einfach zickige Gestalten, denen man nicht über den Weg laufen wollte.</li>
+            <li>Ich habe herausgefunden, dass ich es in der Schule schwer hatte, weil ich schon mein ganzes Leben auf einen unkonventionellen Lebensweg gesetzt hatte.</li>
+            <li>Als ich noch ganz jung war, wollte ich immer eine eigene Eisdiele aufmachen.</li>
+            <li>Ich dachte immer, Erwachsensein müsse einfach cool sein. Die Realität ist eher eine Mischung aus Verantwortung und neuen Möglichkeiten.</li>
           </ul>
         </div>
-        <button class="read-more" onclick="toggleText('text-4', this)" aria-expanded="false">
-          <span>Weiterlesen</span> <i class="fas fa-chevron-down"></i>
-        </button>
+        <button class="read-more" type="button" data-toggle-text="text-4" aria-expanded="false"><span>Weiterlesen</span><svg class="icon" aria-hidden="true"><use href="#icon-chevron"></use></svg></button>
         <div class="interactive-area">
           <span class="likebtn-wrapper" data-theme="heart" data-identifier="post_3" data-counter_count="true"></span>
           <div class="share-buttons">
-            <button class="share-btn" onclick="sharePost('Fun Facts über mich')" aria-label="Teilen"><i class="fas fa-share-alt"></i></button>
-            <button class="share-btn" onclick="copyLink()" aria-label="Link kopieren"><i class="fas fa-link"></i></button>
+            <button class="share-btn" type="button" data-share-title="Fun Facts über mich" aria-label="Beitrag teilen"><svg class="icon" aria-hidden="true"><use href="#icon-share"></use></svg></button>
+            <button class="share-btn" type="button" data-copy-link aria-label="Link kopieren"><svg class="icon" aria-hidden="true"><use href="#icon-link"></use></svg></button>
           </div>
         </div>
       </article>
 
       <article class="blog-post" itemscope itemtype="https://schema.org/BlogPosting">
         <div class="post-meta">
-          <span class="post-time">📅 07.07.2026</span>
-          <span class="post-time">🕐 11:00 Uhr</span>
-          <span class="reading-time">⏱ 1 Min. Lesezeit</span>
+          <time class="post-time" datetime="2026-07-07T11:00:00+02:00" itemprop="datePublished">07.07.2026, 11:00 Uhr</time>
+          <span class="reading-time">1 Min. Lesezeit</span>
         </div>
         <h2 class="post-title" itemprop="headline">Social Media: Realität oder Fake?</h2>
         <div class="post-text collapsed" id="text-3" itemprop="articleBody">
           <p>Ich selbst habe die Erfahrung gemacht, dass Social Media einer Person eine Version von sich selbst aufdrücken möchte, die man vielleicht gar nicht ist.</p>
-          <p>Man sieht Schönheitsideale, nach denen man sich richten soll. Dabei sind diese Schönheitsideale total fake und unschön inszeniert. Wenn man im Internet einen Creator verfolgt, sieht man meistens nur eine Seite von der Person. Ihr wahres Gesicht kennen nur wenige. Sie inszenieren das perfekte Leben, das keiner hat.</p>
-          <p>Dadurch passieren ein paar Dinge, die nicht passieren sollten: Menschen verlieren sich in Fake-Versionen einer Person ohne zu erkennen: aha, das ist gar nicht echt. Ich bin mehr wert als diese Influencer. Aber das checken viele nicht und werden depressiv, weil sie denken, all the Creator da draußen hätten immer ein perfektes Leben. Dabei ist das gar nicht wahr.</p>
+          <p>Man sieht Schönheitsideale, nach denen man sich richten soll. Dabei sind diese Schönheitsideale oft inszeniert. Wenn man im Internet einem Creator folgt, sieht man meistens nur eine Seite der Person. Das perfekte Leben, das viele zeigen, hat niemand dauerhaft.</p>
+          <p>Dadurch verlieren sich Menschen in künstlichen Versionen anderer Personen, ohne zu erkennen, dass diese Darstellung nicht vollständig echt ist. Viele werden dadurch unglücklich, weil sie denken, alle Creator hätten immer ein perfektes Leben.</p>
         </div>
-        <button class="read-more" onclick="toggleText('text-3', this)" aria-expanded="false">
-          <span>Weiterlesen</span> <i class="fas fa-chevron-down"></i>
-        </button>
+        <button class="read-more" type="button" data-toggle-text="text-3" aria-expanded="false"><span>Weiterlesen</span><svg class="icon" aria-hidden="true"><use href="#icon-chevron"></use></svg></button>
         <div class="interactive-area">
           <span class="likebtn-wrapper" data-theme="heart" data-identifier="post_1" data-counter_count="true"></span>
           <div class="share-buttons">
-            <button class="share-btn" onclick="sharePost('Social Media: Realität oder Fake?')" aria-label="Teilen"><i class="fas fa-share-alt"></i></button>
-            <button class="share-btn" onclick="copyLink()" aria-label="Link kopieren"><i class="fas fa-link"></i></button>
+            <button class="share-btn" type="button" data-share-title="Social Media: Realität oder Fake?" aria-label="Beitrag teilen"><svg class="icon" aria-hidden="true"><use href="#icon-share"></use></svg></button>
+            <button class="share-btn" type="button" data-copy-link aria-label="Link kopieren"><svg class="icon" aria-hidden="true"><use href="#icon-link"></use></svg></button>
           </div>
         </div>
       </article>
 
       <article class="blog-post" itemscope itemtype="https://schema.org/BlogPosting">
         <div class="post-meta">
-          <span class="post-time">📅 06.07.2026</span>
-          <span class="post-time">🕐 20:45 Uhr</span>
-          <span class="reading-time">⏱ 1 Min. Lesezeit</span>
+          <time class="post-time" datetime="2026-07-06T20:45:00+02:00" itemprop="datePublished">06.07.2026, 20:45 Uhr</time>
+          <span class="reading-time">1 Min. Lesezeit</span>
         </div>
         <h2 class="post-title" itemprop="headline">Mein Sommerurlaub 2026</h2>
         <div class="post-text collapsed" id="text-2" itemprop="articleBody">
-          <p>Ich nehme mir einen kleinen Sommerurlaub vom 20.07. bis zum 24.07. – haltet die Augen auf nach neuem Content! Wie immer werde ich den Urlaub unter anderem dazu nutzen, um Streams und Videos zu machen. Aber auch, um Freunde zu treffen und die Sonne zu genießen. Wobei man ja bei mir nicht wirklich von Sonne sprechen kann, wenn der Wettertrend so bleibt. 😉</p>
+          <p>Ich nehme mir vom 20.07. bis zum 24.07. einen kleinen Sommerurlaub. Haltet die Augen nach neuem Content auf. Wie immer werde ich die Zeit unter anderem dazu nutzen, Streams und Videos zu machen, Freunde zu treffen und die Sonne zu genießen.</p>
         </div>
-        <button class="read-more" onclick="toggleText('text-2', this)" aria-expanded="false">
-          <span>Weiterlesen</span> <i class="fas fa-chevron-down"></i>
-        </button>
+        <button class="read-more" type="button" data-toggle-text="text-2" aria-expanded="false"><span>Weiterlesen</span><svg class="icon" aria-hidden="true"><use href="#icon-chevron"></use></svg></button>
         <div class="interactive-area">
           <span class="likebtn-wrapper" data-theme="heart" data-identifier="post_2" data-counter_count="true"></span>
           <div class="share-buttons">
-            <button class="share-btn" onclick="sharePost('Mein Sommerurlaub 2026')" aria-label="Teilen"><i class="fas fa-share-alt"></i></button>
-            <button class="share-btn" onclick="copyLink()" aria-label="Link kopieren"><i class="fas fa-link"></i></button>
+            <button class="share-btn" type="button" data-share-title="Mein Sommerurlaub 2026" aria-label="Beitrag teilen"><svg class="icon" aria-hidden="true"><use href="#icon-share"></use></svg></button>
+            <button class="share-btn" type="button" data-copy-link aria-label="Link kopieren"><svg class="icon" aria-hidden="true"><use href="#icon-link"></use></svg></button>
           </div>
         </div>
       </article>
     </main>
 
-    <aside class="sidebar">
-      <h2 class="sidebar-title">Meine Playlists</h2>
+    <aside class="sidebar" aria-labelledby="playlist-heading">
+      <h2 class="sidebar-title" id="playlist-heading">Meine Playlists</h2>
       <div class="playlist-container" id="playlist-container"></div>
     </aside>
   </div>
@@ -991,294 +539,253 @@
   <footer class="site-footer">
     <div class="footer-inner">
       <span class="footer-brand">Schrottkiste</span>
-      <div class="footer-social">
-        <a href="https://www.twitch.tv/schrottkiste_luka" target="_blank" rel="noopener" class="social-btn twitch" aria-label="Twitch"><i class="fa-brands fa-twitch"></i></a>
-        <a href="https://www.youtube.com/@schrottkiste" target="_blank" rel="noopener" class="social-btn youtube" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+      <div class="footer-social" aria-label="Social Media">
+        <a class="social-btn twitch" href="https://www.twitch.tv/schrottkiste_luka" target="_blank" rel="noopener noreferrer" aria-label="Twitch öffnen"><svg class="icon" aria-hidden="true"><use href="#icon-twitch"></use></svg></a>
+        <a class="social-btn youtube" href="https://www.youtube.com/@schrottkiste" target="_blank" rel="noopener noreferrer" aria-label="YouTube öffnen"><svg class="icon" aria-hidden="true"><use href="#icon-youtube"></use></svg></a>
       </div>
-      <span class="footer-copy">© 2026 Schrottkiste – Made with ❤️</span>
+      <span class="footer-copy">© 2026 Schrottkiste, Made with Herz</span>
     </div>
   </footer>
 
-  <!-- Scroll to Top Button -->
-  <button class="scroll-to-top" id="scrollToTop" aria-label="Nach oben scrollen">
-    <i class="fas fa-arrow-up"></i>
+  <button class="scroll-to-top" id="scrollToTop" type="button" aria-label="Nach oben scrollen">
+    <svg class="icon" aria-hidden="true"><use href="#icon-arrow-up"></use></svg>
   </button>
+  <div id="notification-region" aria-live="polite" aria-atomic="true"></div>
 
   <script>
-    // DOM Elements
-    const audio = document.getElementById('audio-player');
-    const playPauseBtn = document.getElementById('play-pause-btn');
-    const songTitleEl = document.getElementById('song-title');
-    const artistNameEl = document.getElementById('artist-name');
-    const visualizer = document.getElementById('visualizer');
-    const scrollToTopBtn = document.getElementById('scrollToTop');
+    (() => {
+      'use strict';
 
-    // State
-    let isPlaying = false;
+      const audio = document.getElementById('audio-player');
+      const playPauseBtn = document.getElementById('play-pause-btn');
+      const visualizer = document.getElementById('visualizer');
+      const songTitleEl = document.getElementById('song-title');
+      const artistNameEl = document.getElementById('artist-name');
+      const scrollToTopBtn = document.getElementById('scrollToTop');
+      const notificationRegion = document.getElementById('notification-region');
+      const playIcon = '<svg class="icon" aria-hidden="true"><use href="#icon-play"></use></svg>';
+      const pauseIcon = '<svg class="icon" aria-hidden="true"><use href="#icon-pause"></use></svg>';
 
-    // Radio Player Logic
-    playPauseBtn.addEventListener('click', togglePlay);
-
-    function togglePlay() {
-      if (isPlaying) {
-        audio.pause();
-        playPauseBtn.textContent = '▶';
-        playPauseBtn.setAttribute('aria-label', 'Play');
-        visualizer.style.opacity = '0.3';
-      } else {
-        audio.play().catch(e => {
-          console.log('Autoplay prevented:', e);
-          showNotification('Klicke erneut zum Abspielen');
-        });
-        playPauseBtn.textContent = '⏸';
-        playPauseBtn.setAttribute('aria-label', 'Pause');
-        visualizer.style.opacity = '1';
+      function syncPlayerUi() {
+        const playing = !audio.paused;
+        playPauseBtn.innerHTML = playing ? pauseIcon : playIcon;
+        playPauseBtn.setAttribute('aria-label', playing ? 'Radio pausieren' : 'Radio abspielen');
+        playPauseBtn.setAttribute('aria-pressed', String(playing));
+        visualizer.classList.toggle('is-playing', playing);
       }
-      isPlaying = !isPlaying;
-    }
 
-    // Track Info Fetcher
-    async function fetchTrackInfo() {
-      try {
-        const response = await fetch('https://api.laut.fm/station/treasure_radio/current_song');
-        if (!response.ok) throw new Error('Network response was not ok');
-
-        const data = await response.json();
-
-        if (data.title) {
-          songTitleEl.textContent = data.title;
-          artistNameEl.textContent = (data.artist && data.artist.name) ? data.artist.name : 'Treasure Radio';
-        } else {
-          songTitleEl.textContent = 'Treasure Radio';
-          artistNameEl.textContent = 'Live Stream';
+      async function togglePlay() {
+        try {
+          if (audio.paused) {
+            await audio.play();
+          } else {
+            audio.pause();
+          }
+        } catch (error) {
+          syncPlayerUi();
+          showNotification('Klicke erneut zum Abspielen.', 'error');
         }
-
-        if (isPlaying && data.title) {
-          document.title = `🔊 ${data.title} - Schrottkiste`;
-        }
-      } catch (error) {
-        console.error('Error fetching track info:', error);
-        songTitleEl.textContent = 'Nicht verfügbar';
-        artistNameEl.textContent = 'Verbindungsfehler';
-        setTimeout(fetchTrackInfo, 30000);
       }
-    }
 
-    audio.addEventListener('play', () => {
-      isPlaying = true;
-      playPauseBtn.textContent = '⏸';
-      visualizer.style.opacity = '1';
-    });
-
-    audio.addEventListener('pause', () => {
-      isPlaying = false;
-      playPauseBtn.textContent = '▶';
-      visualizer.style.opacity = '0.3';
-    });
-
-    audio.addEventListener('error', () => {
-      showNotification('Radio-Stream nicht verfügbar', 'error');
-      songTitleEl.textContent = 'Offline';
-      artistNameEl.textContent = 'Stream nicht erreichbar';
-    });
-
-    fetchTrackInfo();
-    setInterval(fetchTrackInfo, 15000);
-
-    // GIF Toggle (nur für gif1)
-    function toggleGif(id, gifSrc, stillSrc) {
-      const el = document.getElementById(id);
-      const statusEl = document.getElementById('status' + id.slice(-1));
-      const currentBg = el.style.backgroundImage;
-      const isGif = currentBg.includes('.gif');
-
-      if (isGif) {
-        el.style.backgroundImage = `url('${stillSrc}')`;
-        statusEl.classList.remove('playing');
-        statusEl.classList.add('paused');
-        el.setAttribute('aria-label', el.getAttribute('aria-label').replace('Anhalten', 'Abspielen'));
-      } else {
-        el.style.backgroundImage = `url('${gifSrc}')`;
-        statusEl.classList.remove('paused');
-        statusEl.classList.add('playing');
-        el.setAttribute('aria-label', el.getAttribute('aria-label').replace('Abspielen', 'Anhalten'));
-      }
-    }
-
-    document.getElementById('gif1').addEventListener('click', () => {
-      toggleGif('gif1', 'images/GermanyGerGIF.gif', 'images/image.png');
-    });
-
-    // Tastaturunterstützung für gif2
-    document.getElementById('gif2').addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        window.open('https://flipplearcade.com/u/FQDMRO3LTKRKf07lbBseyLhAjgH3', '_blank');
-      }
-    });
-
-    // Text-Toggle
-    function toggleText(id, btn) {
-      const el = document.getElementById(id);
-      const isCollapsed = el.classList.contains('collapsed');
-
-      if (isCollapsed) {
-        el.classList.remove('collapsed');
-        el.style.maxHeight = el.scrollHeight + 'px';
-        btn.innerHTML = '<span>Einklappen</span> <i class="fas fa-chevron-up"></i>';
-        btn.classList.add('expanded');
-        btn.setAttribute('aria-expanded', 'true');
-        setTimeout(() => {
-          el.style.maxHeight = 'none';
-        }, 600);
-      } else {
-        el.style.maxHeight = el.scrollHeight + 'px';
-        requestAnimationFrame(() => {
-          el.classList.add('collapsed');
-          el.style.maxHeight = '8.5em';
-        });
-        btn.innerHTML = '<span>Weiterlesen</span> <i class="fas fa-chevron-down"></i>';
-        btn.classList.remove('expanded');
-        btn.setAttribute('aria-expanded', 'false');
-      }
-    }
-
-    // Share
-    function sharePost(title) {
-      if (navigator.share) {
-        navigator.share({ title, url: window.location.href }).catch(console.error);
-      } else {
-        copyLink();
-      }
-    }
-
-    function copyLink() {
-      navigator.clipboard.writeText(window.location.href).then(() => {
-        showNotification('Link kopiert! 📋');
-      }).catch(() => {
-        const textArea = document.createElement('textarea');
-        textArea.value = window.location.href;
-        document.body.appendChild(textArea);
-        textArea.select();
-        document.execCommand('copy');
-        document.body.removeChild(textArea);
-        showNotification('Link kopiert! 📋');
+      playPauseBtn.addEventListener('click', togglePlay);
+      audio.addEventListener('play', syncPlayerUi);
+      audio.addEventListener('pause', syncPlayerUi);
+      audio.addEventListener('ended', syncPlayerUi);
+      audio.addEventListener('error', () => {
+        syncPlayerUi();
+        songTitleEl.textContent = 'Offline';
+        artistNameEl.textContent = 'Stream nicht erreichbar';
+        showNotification('Radio-Stream nicht verfügbar.', 'error');
       });
-    }
 
-    function showNotification(message, type = 'success') {
-      const notification = document.createElement('div');
-      notification.style.cssText = `
-        position: fixed;
-        bottom: 100px;
-        right: 30px;
-        background: ${type === 'error' ? '#ff4444' : 'var(--accent)'};
-        color: white;
-        padding: 15px 25px;
-        border-radius: 25px;
-        font-family: 'Poppins', sans-serif;
-        font-weight: 600;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-        z-index: 10000;
-        animation: slideIn 0.3s ease;
-        backdrop-filter: blur(10px);
-      `;
-      notification.textContent = message;
-      document.body.appendChild(notification);
-      setTimeout(() => {
-        notification.style.animation = 'slideOut 0.3s ease';
-        setTimeout(() => notification.remove(), 300);
-      }, 3000);
-    }
+      let trackInfoTimer = null;
+      let trackInfoRequestActive = false;
+      const trackInfoInterval = 15000;
 
-    function toggleScrollButton() {
-      if (window.pageYOffset > 300) {
-        scrollToTopBtn.classList.add('visible');
+      async function fetchTrackInfo() {
+        if (document.hidden || trackInfoRequestActive) return;
+        trackInfoRequestActive = true;
+        try {
+          const response = await fetch('https://api.laut.fm/station/treasure_radio/current_song', { headers: { Accept: 'application/json' } });
+          if (!response.ok) throw new Error('Track-Info konnte nicht geladen werden.');
+          const data = await response.json();
+          songTitleEl.textContent = data.title || 'Treasure Radio';
+          artistNameEl.textContent = data.artist && data.artist.name ? data.artist.name : 'Live Stream';
+        } catch (error) {
+          songTitleEl.textContent = 'Nicht verfügbar';
+          artistNameEl.textContent = 'Verbindungsfehler';
+        } finally {
+          trackInfoRequestActive = false;
+        }
+      }
+
+      function scheduleTrackInfo() {
+        clearTimeout(trackInfoTimer);
+        if (document.hidden) return;
+        fetchTrackInfo();
+        trackInfoTimer = window.setTimeout(scheduleTrackInfo, trackInfoInterval);
+      }
+
+      document.addEventListener('visibilitychange', scheduleTrackInfo);
+      scheduleTrackInfo();
+
+      const gif1 = document.getElementById('gif1');
+      const status1 = document.getElementById('status1');
+      gif1.addEventListener('click', () => {
+        const paused = gif1.classList.toggle('is-paused');
+        gif1.classList.toggle('is-playing', !paused);
+        gif1.setAttribute('aria-pressed', String(!paused));
+        gif1.setAttribute('aria-label', paused ? 'Deutschland-GIF abspielen' : 'Deutschland-GIF anhalten');
+        status1.classList.toggle('playing', !paused);
+        status1.classList.toggle('paused', paused);
+      });
+
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) gif1.click();
+
+      document.querySelectorAll('[data-toggle-text]').forEach((button) => {
+        button.addEventListener('click', () => {
+          const text = document.getElementById(button.dataset.toggleText);
+          const isCollapsed = text.classList.contains('collapsed');
+          if (isCollapsed) {
+            text.classList.remove('collapsed');
+            text.style.maxHeight = text.scrollHeight + 'px';
+            button.querySelector('span').textContent = 'Einklappen';
+            button.classList.add('expanded');
+            button.setAttribute('aria-expanded', 'true');
+            window.setTimeout(() => { text.style.maxHeight = 'none'; }, 600);
+          } else {
+            text.style.maxHeight = text.scrollHeight + 'px';
+            requestAnimationFrame(() => {
+              text.classList.add('collapsed');
+              text.style.maxHeight = '8.5em';
+            });
+            button.querySelector('span').textContent = 'Weiterlesen';
+            button.classList.remove('expanded');
+            button.setAttribute('aria-expanded', 'false');
+          }
+        });
+      });
+
+      async function copyLink() {
+        const url = window.location.href;
+        try {
+          if (navigator.clipboard && window.isSecureContext) {
+            await navigator.clipboard.writeText(url);
+          } else {
+            const textArea = document.createElement('textarea');
+            textArea.value = url;
+            textArea.setAttribute('readonly', '');
+            textArea.style.position = 'fixed';
+            textArea.style.opacity = '0';
+            document.body.appendChild(textArea);
+            textArea.select();
+            const copied = document.execCommand('copy');
+            textArea.remove();
+            if (!copied) throw new Error('Kopieren nicht möglich.');
+          }
+          showNotification('Link kopiert.');
+        } catch (error) {
+          showNotification('Der Link konnte nicht kopiert werden.', 'error');
+        }
+      }
+
+      document.querySelectorAll('[data-copy-link]').forEach((button) => button.addEventListener('click', copyLink));
+      document.querySelectorAll('[data-share-title]').forEach((button) => {
+        button.addEventListener('click', async () => {
+          const title = button.dataset.shareTitle;
+          if (navigator.share) {
+            try {
+              await navigator.share({ title, url: window.location.href });
+              return;
+            } catch (error) {
+              if (error.name === 'AbortError') return;
+            }
+          }
+          await copyLink();
+        });
+      });
+
+      function showNotification(message, type) {
+        notificationRegion.replaceChildren();
+        const notification = document.createElement('div');
+        notification.className = type === 'error' ? 'notification error' : 'notification';
+        notification.setAttribute('role', 'status');
+        notification.textContent = message;
+        notificationRegion.appendChild(notification);
+        window.setTimeout(() => {
+          notification.classList.add('is-leaving');
+          window.setTimeout(() => notification.remove(), 300);
+        }, 3000);
+      }
+
+      function updateScrollButton() { scrollToTopBtn.classList.toggle('visible', window.scrollY > 300); }
+      let scrollTicking = false;
+      window.addEventListener('scroll', () => {
+        if (scrollTicking) return;
+        scrollTicking = true;
+        requestAnimationFrame(() => { updateScrollButton(); scrollTicking = false; });
+      }, { passive: true });
+      scrollToTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+      updateScrollButton();
+
+      const playlists = [
+        { id: 'PLQLA52U7_qBOkmumSrvGZbE3CPPGqoLQX', title: 'Top 2026 Songs', img: 'images/Top 2026 Songs.jpg' },
+        { id: 'PLQLA52U7_qBPJNw536VhdzwEmSeVHGCqx', title: 'Besties 2025', img: 'https://yt3.googleusercontent.com/mIfMI24dPL3domSKuXB1kp0UK3vGbGGz-AIigfL7TVYX-44Aa5qCIAe_M2SZkfcUrxK5tRRmaV5S=s1200' },
+        { id: 'PLQLA52U7_qBPqddrF9dAD9pR5HOhI-zpq', title: 'Top 2024 Songs', img: 'https://yt3.googleusercontent.com/bwvqY8YfSHryodS5-vnmiZBk8CGAHkUP1VUgEGQCjW_dup4NEwuo44utrnEqfOPGHfygWRigMl5e=s1200' },
+        { id: 'PLQLA52U7_qBN4VcQskCzUQoONu-RMwgwP', title: '2023 Songs', img: 'https://yt3.googleusercontent.com/7tVbVfKecy9cOesRKiIeRJqSGUew64w1v_zxwt4m1BfrzCnqTQyOxI9PcDzvQB6mAv3WsTBWvJI=s1200' },
+        { id: 'PLQLA52U7_qBNL4S4PhAzWYsu15Ta2q80B', title: 'Top 100 2022', img: 'https://yt3.googleusercontent.com/Ov8Nj8xO6PX5aqvqhmbZrfxbH0h67eytCk6loJNC864Hmo-WtNHwi0_DWB_FdJseo8G0xA2iL_Y=s1200' }
+      ];
+
+      const playlistContainer = document.getElementById('playlist-container');
+      const fallbackImage = (title) => 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200"><rect width="200" height="200" fill="#242430"/><text x="100" y="110" fill="#ff0099" text-anchor="middle" font-size="16">' + title + '</text></svg>');
+      playlists.forEach((playlist) => {
+        const item = document.createElement('div');
+        item.className = 'playlist-item';
+        const link = document.createElement('a');
+        link.href = 'https://music.youtube.com/playlist?list=' + encodeURIComponent(playlist.id);
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        link.setAttribute('aria-label', 'Playlist ' + playlist.title + ' auf YouTube Music öffnen');
+        const image = document.createElement('img');
+        image.className = 'cover-img';
+        image.src = playlist.img;
+        image.alt = playlist.title;
+        image.width = 200;
+        image.height = 200;
+        image.loading = 'lazy';
+        image.decoding = 'async';
+        image.addEventListener('error', () => { image.src = fallbackImage(playlist.title); }, { once: true });
+        const title = document.createElement('span');
+        title.className = 'playlist-title';
+        title.textContent = playlist.title;
+        link.appendChild(image);
+        item.append(link, title);
+        playlistContainer.appendChild(item);
+      });
+
+      let likebtnLoaded = false;
+      function loadLikebtn() {
+        if (likebtnLoaded || document.getElementById('likebtn_wjs')) return;
+        likebtnLoaded = true;
+        const script = document.createElement('script');
+        script.id = 'likebtn_wjs';
+        script.src = 'https://w.likebtn.com/js/w/widget.js';
+        script.async = true;
+        document.head.appendChild(script);
+      }
+      const likeTargets = document.querySelectorAll('.likebtn-wrapper');
+      if ('IntersectionObserver' in window) {
+        const likeObserver = new IntersectionObserver((entries, observer) => {
+          if (entries.some((entry) => entry.isIntersecting)) {
+            loadLikebtn();
+            observer.disconnect();
+          }
+        }, { rootMargin: '300px' });
+        likeTargets.forEach((target) => likeObserver.observe(target));
       } else {
-        scrollToTopBtn.classList.remove('visible');
+        loadLikebtn();
       }
-    }
-
-    scrollToTopBtn.addEventListener('click', () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-
-    let scrollTimeout;
-    window.addEventListener('scroll', () => {
-      if (!scrollTimeout) {
-        scrollTimeout = setTimeout(() => {
-          toggleScrollButton();
-          scrollTimeout = null;
-        }, 100);
-      }
-    });
-
-    const style = document.createElement('style');
-    style.textContent = `
-      @keyframes slideIn {
-        from { transform: translateX(100%); opacity: 0; }
-        to { transform: translateX(0); opacity: 1; }
-      }
-      @keyframes slideOut {
-        from { transform: translateX(0); opacity: 1; }
-        to { transform: translateX(100%); opacity: 0; }
-      }
-    `;
-    document.head.appendChild(style);
-
-    (function(d,e,s){
-      if(d.getElementById("likebtn_wjs")) return;
-      const a = d.createElement(e);
-      const m = d.getElementsByTagName(e)[0];
-      a.async = 1;
-      a.id = "likebtn_wjs";
-      a.src = s;
-      m.parentNode.insertBefore(a, m);
-    })(document, "script", "//w.likebtn.com/js/w/widget.js");
-
-    const playlists = [
-      {
-        id: 'PLQLA52U7_qBOkmumSrvGZbE3CPPGqoLQX',
-        title: 'Top 2026 Songs',
-        img: 'images/Top 2026 Songs.jpg'
-      },
-      {
-        id: 'PLQLA52U7_qBPJNw536VhdzwEmSeVHGCqx',
-        title: 'Besties 2025',
-        img: 'https://yt3.googleusercontent.com/mIfMI24dPL3domSKuXB1kp0UK3vGbGGz-AIigfL7TVYX-44Aa5qCIAe_M2SZkfcUrxK5tRRmaV5S=s1200'
-      },
-      {
-        id: 'PLQLA52U7_qBPqddrF9dAD9pR5HOhI-zpq',
-        title: 'Top 2024 Songs',
-        img: 'https://yt3.googleusercontent.com/bwvqY8YfSHryodS5-vnmiZBk8CGAHkUP1VUgEGQCjW_dup4NEwuo44utrnEqfOPGHfygWRigMl5e=s1200'
-      },
-      {
-        id: 'PLQLA52U7_qBN4VcQskCzUQoONu-RMwgwP',
-        title: '2023 Songs',
-        img: 'https://yt3.googleusercontent.com/7tVbVfKecy9cOesRKiIeRJqSGUew64w1v_zxwt4m1BfrzCnqTQyOxI9PcDzvQB6mAv3WsTBWvJI=s1200'
-      },
-      {
-        id: 'PLQLA52U7_qBNL4S4PhAzWYsu15Ta2q80B',
-        title: 'Top 100 2022',
-        img: 'https://yt3.googleusercontent.com/Ov8Nj8xO6PX5aqvqhmbZrfxbH0h67eytCk6loJNC864Hmo-WtNHwi0_DWB_FdJseo8G0xA2iL_Y=s1200'
-      }
-    ];
-
-    const playlistContainer = document.getElementById('playlist-container');
-    playlists.forEach(pl => {
-      const playlistItem = document.createElement('div');
-      playlistItem.className = 'playlist-item';
-      playlistItem.innerHTML = `
-        <a href="https://music.youtube.com/playlist?list=${pl.id}" target="_blank" rel="noopener" aria-label="Playlist ${pl.title} auf YouTube Music öffnen">
-          <img src="${pl.img}" class="cover-img" alt="${pl.title}" loading="lazy" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22200%22%3E%3Crect fill=%22%23242430%22 width=%22200%22 height=%22200%22/%3E%3Ctext fill=%22%23ff0099%22 x=%22100%22 y=%22110%22 text-anchor=%22middle%22 font-size=%2216%22%3E${pl.title}%3C/text%3E%3C/svg%3E'">
-        </a>
-        <span class="playlist-title">${pl.title}</span>
-      `;
-      playlistContainer.appendChild(playlistItem);
-    });
-
-    toggleScrollButton();
-    console.log('🚀 Schrottkiste geladen!');
+    })();
   </script>
 </body>
 </html>
