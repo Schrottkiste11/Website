@@ -1,0 +1,1202 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlayLounge: Yatzy Deluxe</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 10px;
+            background: linear-gradient(to bottom, #1E3A8A, #4C1D95, #1E1B4B);
+            background-attachment: fixed;
+            color: white;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-sizing: border-box;
+            overflow-y: auto;
+            min-height: 100vh;
+        }
+        .yatzy-container {
+            background: #FFFFFF;
+            color: #0F172A;
+            border: 4px solid #312E81;
+            border-radius: 8px;
+            width: 100%;
+            max-width: 480px;
+            padding: 10px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.8);
+            box-sizing: border-box;
+            position: relative;
+            padding-bottom: 240px;
+        }
+        .yatzy-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid #312E81;
+            padding-bottom: 5px;
+            margin-bottom: 8px;
+        }
+        .yatzy-title {
+            font-size: 26px;
+            font-weight: bold;
+            color: #312E81;
+            letter-spacing: 2px;
+        }
+        
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .coin-display {
+            background: #F59E0B;
+            color: #0F172A;
+            padding: 4px 6px;
+            font-size: 11px;
+            font-weight: bold;
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .action-btn {
+            color: white;
+            padding: 5px 6px;
+            font-size: 11px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: transform 0.2s, background 0.2s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        .btn-music {
+            background: #EF4444; 
+            border: 2px solid #991B1B;
+            text-align: center;
+            min-width: 32px;
+        }
+        .btn-music:hover { transform: scale(1.05); }
+
+        .btn-rules {
+            background: #4C1D95; 
+            border: 2px solid #2E1065;
+        }
+        .btn-rules:hover { background: #3B0764; transform: scale(1.05); }
+        
+        .btn-abort {
+            background: #EF4444;
+            border: 2px solid #991B1B;
+        }
+        .btn-abort:hover { background: #DC2626; transform: scale(1.05); }
+
+        .bottom-cup-area {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 10;
+            width: 100%;
+        }
+
+        .dice-horizontal-row {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            gap: 6px;
+            margin-bottom: 8px;
+            perspective: 800px;
+            min-height: 42px;
+        }
+
+        .dice-cup {
+            width: 70px;
+            height: 85px;
+            background: radial-gradient(circle at 30% 30%, #4B5563, #1F2937 60%, #030712 100%);
+            border-bottom-left-radius: 35px;
+            border-bottom-right-radius: 35px;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+            border: 2px solid #374151;
+            box-shadow: inset -6px -6px 12px rgba(0,0,0,0.8), inset 4px 4px 8px rgba(255,255,255,0.1), 0 8px 16px rgba(0,0,0,0.7);
+            position: relative;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform-origin: bottom center;
+            transition: transform 0.2s;
+        }
+        
+        .dice-cup::before {
+            content: '';
+            position: absolute;
+            top: -4px;
+            left: 5px;
+            right: 5px;
+            height: 11px;
+            background: radial-gradient(ellipse at center, #111827, #000000);
+            border-radius: 50%;
+            border: 1px solid #374151;
+        }
+
+        .dice-cup:hover { transform: scale(1.04); }
+
+        .dice-cup.shaking {
+            animation: cupShake 0.6s ease-in-out;
+        }
+        @keyframes cupShake {
+            0% { transform: rotate(0deg) translateY(0); }
+            20% { transform: rotate(-12deg) translateY(4px); }
+            40% { transform: rotate(12deg) translateY(-4px); }
+            60% { transform: rotate(-12deg) translateY(4px); }
+            80% { transform: rotate(35deg) translateY(-10px) translateX(10px); }
+            100% { transform: rotate(0deg) translateY(0); }
+        }
+
+        .cup-label {
+            color: #E5E7EB;
+            font-size: 8.5px;
+            font-weight: bold;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.9);
+            pointer-events: none;
+            z-index: 2;
+            margin-top: 18px;
+        }
+
+        .dice-3d {
+            width: 40px;
+            height: 40px;
+            position: relative;
+            transform-style: preserve-3d;
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(70px) scale(0.1) rotateX(0deg) rotateY(0deg);
+            pointer-events: none;
+            transition: opacity 0.3s ease, transform 0.4s ease-out;
+        }
+        
+        .dice-3d.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .dice-3d.visible[data-val="1"] { transform: translateY(0) scale(1) rotateX(0deg) rotateY(0deg); }
+        .dice-3d.visible[data-val="2"] { transform: translateY(0) scale(1) rotateX(0deg) rotateY(-90deg); }
+        .dice-3d.visible[data-val="3"] { transform: translateY(0) scale(1) rotateX(-90deg) rotateY(0deg); }
+        .dice-3d.visible[data-val="4"] { transform: translateY(0) scale(1) rotateX(90deg) rotateY(0deg); }
+        .dice-3d.visible[data-val="5"] { transform: translateY(0) scale(1) rotateX(0deg) rotateY(90deg); }
+        .dice-3d.visible[data-val="6"] { transform: translateY(0) scale(1) rotateX(180deg) rotateY(0deg); }
+
+        .dice-3d.locked .cube-face {
+            border-color: #FCD34D;
+            background: linear-gradient(135deg, #F59E0B, #B45309);
+            box-shadow: inset 0 0 10px rgba(251, 191, 36, 0.8), 0 0 15px rgba(245, 158, 11, 0.9);
+        }
+        
+        .cube-face {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #D97706, #92400E);
+            border: 2px solid #78350F;
+            border-radius: 6px;
+            display: grid;
+            grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+            padding: 3px;
+            box-sizing: border-box;
+            box-shadow: inset 0 0 5px rgba(0,0,0,0.5);
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            transition: background 0.2s, border-color 0.2s;
+        }
+        .dot {
+            background: #FFFFFF;
+            border-radius: 50%;
+            width: 5.5px;
+            height: 5.5px;
+            align-self: center;
+            justify-self: center;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.6);
+        }
+
+        .face-1 { transform: rotateY(0deg) translateZ(20px); }
+        .face-2 { transform: rotateY(90deg) translateZ(20px); }
+        .face-3 { transform: rotateX(90deg) translateZ(20px); }
+        .face-4 { transform: rotateX(-90deg) translateZ(20px); }
+        .face-5 { transform: rotateY(-90deg) translateZ(20px); }
+        .face-6 { transform: rotateY(180deg) translateZ(20px); }
+
+        .roll-info-text {
+            font-size: 10px;
+            color: #475569;
+            text-align: center;
+            margin-bottom: 5px;
+            line-height: 1.4;
+        }
+        .active-player-name {
+            color: #D97706;
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 9px;
+            text-align: center;
+            margin-bottom: 5px;
+        }
+        th, td {
+            border: 1px solid #312E81;
+            padding: 3px 1px;
+        }
+        th {
+            background: #4C1D95;
+            color: white;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .section-header {
+            background: #A78BFA;
+            color: #1E1B4B;
+            font-weight: bold;
+            text-align: left;
+            padding-left: 5px;
+        }
+        .sub-header {
+            background: #DDD6FE;
+            font-weight: bold;
+            text-align: left;
+            padding-left: 5px;
+            color: #4C1D95;
+        }
+        .desc-cell {
+            text-align: left;
+            padding-left: 4px;
+            font-size: 8px;
+            color: #334155;
+            width: 95px;
+        }
+        
+        .score-input {
+            width: 100%;
+            border: none;
+            background: transparent;
+            text-align: center;
+            font-size: 10px;
+            font-weight: bold;
+            color: #312E81;
+            outline: none;
+            cursor: pointer;
+            padding: 2px 0;
+        }
+        .score-input:focus { background: #FEF3C7; }
+        .score-input::placeholder {
+            color: #8B5CF6;
+            font-weight: bold;
+            opacity: 0.7;
+        }
+
+        .total-row {
+            background: #C4B5FD;
+            font-weight: bold;
+            color: #1E1B4B;
+        }
+
+        .chat-box-container {
+            margin-top: 10px;
+            background: #111622;
+            border: 2px solid #312E81;
+            border-radius: 6px;
+            padding: 6px;
+            display: flex;
+            flex-direction: column;
+            height: 95px;
+            box-sizing: border-box;
+        }
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            font-size: 11px;
+            font-weight: bold;
+            color: #FF7700;
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+            padding-right: 4px;
+            margin-bottom: 5px;
+            text-shadow: 0 1px 1px rgba(0,0,0,0.5);
+        }
+        .chat-messages::-webkit-scrollbar { width: 4px; }
+        .chat-messages::-webkit-scrollbar-thumb { background: #312E81; border-radius: 2px; }
+        
+        .chat-input-row {
+            display: flex;
+            gap: 4px;
+        }
+        .chat-input {
+            flex: 1;
+            background: #1E293B;
+            border: 1px solid #312E81;
+            border-radius: 4px;
+            padding: 4px 6px;
+            font-size: 11px;
+            font-weight: bold;
+            color: #FF7700;
+            outline: none;
+        }
+        .chat-input::placeholder { color: #8A4100; font-weight: normal; }
+        .chat-send-btn {
+            background: #F59E0B;
+            color: #0F172A;
+            border: none;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 10px;
+            padding: 4px 8px;
+            cursor: pointer;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .modal-box {
+            background: linear-gradient(135deg, #312E81, #1E1B4B);
+            border: 4px solid #F59E0B;
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            color: #FEF3C7;
+            box-shadow: 0 0 30px rgba(245, 158, 11, 0.8);
+            width: 90%;
+            max-width: 350px;
+            animation: popIn 0.4s ease-out forwards;
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
+        }
+        @keyframes popIn {
+            0% { transform: scale(0.5); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .modal-box h1 {
+            margin: 0 0 15px 0;
+            color: #FCD34D;
+            font-size: 26px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+            flex-shrink: 0;
+        }
+        
+        .stats-box {
+            background: rgba(0,0,0,0.4);
+            border: 1px solid #8B5CF6; 
+            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 15px;
+            font-weight: bold;
+            color: #FCD34D;
+            flex-shrink: 0;
+            gap: 10px;
+        }
+        .stats-col {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            text-align: left;
+        }
+
+        .modal-btn {
+            background: #4C1D95; 
+            color: white;
+            border: 2px solid transparent;
+            padding: 10px 15px;
+            font-size: 14px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: transform 0.2s, background 0.2s;
+            margin: 5px;
+            width: calc(50% - 15px);
+        }
+        .modal-btn.active {
+            background: #FCD34D;
+            color: #0F172A;
+            border-color: #F59E0B;
+        }
+        .modal-btn:hover { transform: scale(1.05); }
+        .start-btn {
+            width: 100%;
+            padding: 15px;
+            font-size: 18px;
+            background: #F59E0B;
+            color: #0F172A;
+            margin-top: 15px;
+        }
+
+        .rules-content {
+            overflow-y: auto;
+            text-align: left;
+            font-size: 13px;
+            line-height: 1.5;
+            padding-right: 10px;
+            margin-bottom: 15px;
+            color: white;
+        }
+        .rules-content h3 {
+            color: #FCD34D;
+            margin-top: 15px;
+            margin-bottom: 5px;
+            border-bottom: 1px solid #8B5CF6;
+            padding-bottom: 2px;
+        }
+        .rules-content ul { padding-left: 20px; margin: 5px 0; }
+        .rules-content li { margin-bottom: 5px; }
+        
+        .rules-content::-webkit-scrollbar { width: 6px; }
+        .rules-content::-webkit-scrollbar-thumb { background: #F59E0B; border-radius: 4px; }
+        .volume-slider { width: 100%; margin: 15px 0; accent-color: #F59E0B; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+<audio id="bgMusic" loop>
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+</audio>
+<audio id="shakeSound" preload="auto" crossorigin="anonymous">
+    <source src="audio test/freesound_community-dice-6-shake-in-cup-closed-33702.wav" type="audio/wav">
+    <source src="https://cdn.freesound.org/previews/274/274180_4727038-lq.mp3" type="audio/mpeg">
+</audio>
+
+<!-- 🎵 MUSIK MODAL 🎵 -->
+<div class="modal-overlay" id="musicModal" style="display: none; z-index: 2000;">
+    <div class="modal-box" style="max-width: 300px;">
+        <h1>🎵 MUSIK</h1>
+        <p style="font-size: 14px; margin-bottom: 10px;">Lautstärke einstellen:</p>
+        <div style="font-size: 20px; font-weight: bold; color: #FCD34D; margin-bottom: 5px;" id="volumePercentText">20%</div>
+        <input type="range" min="0" max="100" value="20" class="volume-slider" id="volumeRange" oninput="changeVolume(this.value)">
+        <button class="modal-btn active" style="width: 100%; margin: 10px 0 0 0;" onclick="closeMusicModal()">Fertig 👍</button>
+    </div>
+</div>
+
+<!-- 🏆 HAUPTMENÜ 🏆 -->
+<div class="modal-overlay" id="mainMenu">
+    <div class="modal-box">
+        <h1>🎲 YATZY START</h1>
+        <div class="stats-box">
+            <div class="stats-col">
+                <span id="menuWinsDisplay">🏆 0 Siege</span>
+                <span id="menuCoinsDisplay">🪙 0</span>
+            </div>
+            <div class="stats-col">
+                <button class="action-btn" id="menuMusicBtn" style="background:#EF4444; font-size:11px; padding:6px; border:none; width: 110px;" onclick="event.stopPropagation(); openMusicModal()">🎵 Musik</button>
+                <button class="action-btn" id="menuSfxBtn" style="background:#059669; font-size:11px; padding:6px; border:none; width: 110px;" onclick="event.stopPropagation(); toggleSfx()">🎲 Sound: An</button>
+            </div>
+        </div>
+        <h3 style="font-size: 16px; margin-bottom: 10px;">Modus wählen:</h3>
+        <div style="display: flex; flex-wrap: wrap; justify-content: center; margin-bottom: 15px;">
+            <button id="btnModeBot" class="modal-btn active" onclick="selectMode('bot')" style="width: 100%;">🤖 Gegen Bots spielen</button>
+            <button id="btnModeLocal" class="modal-btn" onclick="selectMode('local')" style="width: 100%;">👥 Lokaler Multiplayer</button>
+        </div>
+        <h3 id="menuCountTitle" style="font-size: 16px; margin-bottom: 10px;">Wie viele Bots?</h3>
+        <div id="countOptions" style="display: flex; flex-wrap: wrap; justify-content: center; margin-bottom: 15px;"></div>
+        <button class="modal-btn active start-btn" onclick="startGame()">🚀 Spiel Starten</button>
+        <button class="modal-btn start-btn" style="background: #6D28D9; color: white; border: none; margin-top: 5px;" onclick="showRules()">📖 Spielregeln</button>
+    </div>
+</div>
+
+<!-- 📖 SPIELREGELN MODAL -->
+<div class="modal-overlay" id="rulesModal" style="display: none; z-index: 1001;">
+    <div class="modal-box">
+        <h1>📖 SPIELREGELN</h1>
+        <div class="rules-content">
+            <h3>Ziel des Spiels</h3>
+            <p>Sammle die meisten Punkte, indem du mit 5 Würfeln verschiedene Kombinationen wirfst.</p>
+        </div>
+        <button class="modal-btn active start-btn" onclick="hideRules()">Verstanden! 👍</button>
+    </div>
+</div>
+
+<!-- 🏆 SIEGEREHRUNG 🏆 -->
+<div class="modal-overlay" id="winnerModal" style="display: none;">
+    <div class="modal-box">
+        <h1>🏆 SPIELENDE 🏆</h1>
+        <p id="winnerText" style="font-size: 18px; font-weight: bold; margin-bottom: 25px;"></p>
+        <button class="modal-btn active start-btn" style="margin: 0; width: 100%;" onclick="resetGame()">🔄 Nochmal spielen</button>
+        <button class="modal-btn" style="margin: 0; width: 100%; margin-top: 10px;" onclick="returnToMenu()">🏠 Zum Hauptmenü</button>
+    </div>
+</div>
+
+<!-- 🚪 ABBRUCH MODAL -->
+<div class="modal-overlay" id="abortModal" style="display: none;">
+    <div class="modal-box">
+        <h1>🚪 ABBRUCH</h1>
+        <p id="abortText" style="font-size: 16px; font-weight: bold; margin-bottom: 25px;"></p>
+        <button class="modal-btn active start-btn" onclick="returnToMenu()">🏠 Zum Hauptmenü</button>
+    </div>
+</div>
+
+<div class="yatzy-container">
+    <div class="yatzy-header">
+        <div class="yatzy-title">YATZY</div>
+        <div class="header-actions">
+            <div class="coin-display" id="gameCoinDisplay">🪙 0</div>
+            <button class="action-btn btn-music" id="musicBtn" onclick="openMusicModal()" title="Musik Lautstärke">🎵</button>
+            <button class="action-btn btn-music" id="sfxBtn" onclick="toggleSfx()" title="Würfel Sound" style="background:#059669; border-color:#047857;">🎲 🔊</button>
+            <button class="action-btn btn-rules" onclick="showRules()">📖</button>
+            <button class="action-btn btn-abort" onclick="abortGame()">🏠</button>
+        </div>
+    </div>
+
+    <div class="roll-info-text">
+        <span class="active-player-name" id="currentPlayerDisplay">Spieler wird geladen...</span><br>
+        Übrig: <span id="rollsLeft">3</span> Würfe | Wähle deine Vorschau!
+    </div>
+
+    <table id="gameTable">
+        <tr>
+            <th style="width: 70px;">Teil 1</th>
+            <th style="width: 95px;"></th>
+            <th id="player-0">1</th><th id="player-1">2</th><th id="player-2">3</th><th id="player-3">4</th><th id="player-4">5</th><th id="player-5">6</th>
+        </tr>
+        <tr>
+            <td class="section-header" colspan="2">Teil 1</td>
+            <td><input class="score-input" readonly></td><td><input class="score-input" readonly></td><td><input class="score-input" readonly></td><td><input class="score-input" readonly></td><td><input class="score-input" readonly></td><td><input class="score-input" readonly></td>
+        </tr>
+        <tr><td>⚀ ⚀ ⚀</td><td class="desc-cell">nur Einsen zählen</td><td><input type="text" class="score-input s1"></td><td><input type="text" class="score-input s1"></td><td><input type="text" class="score-input s1"></td><td><input type="text" class="score-input s1"></td><td><input type="text" class="score-input s1"></td><td><input type="text" class="score-input s1"></td></tr>
+        <tr><td>⚁ ⚁ ⚁</td><td class="desc-cell">nur Zweien zählen</td><td><input type="text" class="score-input s1"></td><td><input type="text" class="score-input s1"></td><td><input type="text" class="score-input s1"></td><td><input type="text" class="score-input s1"></td><td><input type="text" class="score-input s1"></td><td><input type="text" class="score-input s1"></td></tr>
+        <tr><td>⚂ ⚂ ⚂</td><td class="desc-cell">nur Dreien zählen</td><td><input type="text" class="score-input s1"></td><td><input type="text" class="score-input s1"></td><td><input type="text" class="score-input s1"></td><td><input type="text" class="score-input s1"></td><td><input type="text" class="score-input s1"></td><td><input type="text" class="score-input s1"></td></tr>
+        <tr><td>⚃ ⚃ ⚃</td><td class="desc-cell">nur Vieren zählen</td><td><input type="text" class="score-input s1"></td><td><input type="text" class="score-input s1"></td><td><input type="text" class="score-input s1"></td><td><input type="text" class="score-input s1"></td><td><input type="text" class="score-input s1"></td><td><input type="text" class="score-input s1"></td></tr>
+        <tr><td>⚄ ⚄ ⚄</td><td class="desc-cell">nur Fünfen zählen</td><td><input type="text" class="score-input s1"></td><td><input type="text" class="score-input s1"></td><td><input type="text" class="score-input s1"></td><td><input type="text" class="score-input s1"></td><td><input type="text" class="score-input s1"></td><td><input type="text" class="score-input s1"></td></tr>
+        <tr><td>⚅ ⚅ ⚅</td><td class="desc-cell">nur Sechsen zählen</td><td><input type="text" class="score-input s1"></td><td><input type="text" class="score-input s1"></td><td><input type="text" class="score-input s1"></td><td><input type="text" class="score-input s1"></td><td><input type="text" class="score-input s1"></td><td><input type="text" class="score-input s1"></td></tr>
+
+        <tr>
+            <td class="sub-header" colspan="2">Punkte zählen ➔</td>
+            <td><input class="score-input sub1" readonly></td><td><input class="score-input sub1" readonly></td><td><input class="score-input sub1" readonly></td><td><input class="score-input sub1" readonly></td><td><input class="score-input sub1" readonly></td><td><input class="score-input sub1" readonly></td>
+        </tr>
+        <tr>
+            <td class="desc-cell" colspan="2">bei 63 oder mehr: <strong>+ 35 Sonderbonus</strong></td>
+            <td><input class="score-input bonus" readonly style="color:#059669;"></td><td><input class="score-input bonus" readonly style="color:#059669;"></td><td><input class="score-input bonus" readonly style="color:#059669;"></td><td><input class="score-input bonus" readonly style="color:#059669;"></td><td><input class="score-input bonus" readonly style="color:#059669;"></td><td><input class="score-input bonus" readonly style="color:#059669;"></td>
+        </tr>
+        <tr class="total-row">
+            <td colspan="2">Summe Teil 1 ➔</td>
+            <td><input class="score-input sum1" readonly></td><td><input class="score-input sum1" readonly></td><td><input class="score-input sum1" readonly></td><td><input class="score-input sum1" readonly></td><td><input class="score-input sum1" readonly></td><td><input class="score-input sum1" readonly></td>
+        </tr>
+
+        <tr>
+            <td class="section-header" colspan="2">Teil 2</td>
+            <td><input class="score-input" readonly></td><td><input class="score-input" readonly></td><td><input class="score-input" readonly></td><td><input class="score-input" readonly></td><td><input class="score-input" readonly></td><td><input class="score-input" readonly></td>
+        </tr>
+        <tr><td class="desc-cell" colspan="2"><strong>Zwei Paar</strong></td><td><input type="text" class="score-input s2"></td><td><input type="text" class="score-input s2"></td><td><input type="text" class="score-input s2"></td><td><input type="text" class="score-input s2"></td><td><input type="text" class="score-input s2"></td><td><input type="text" class="score-input s2"></td></tr>
+        <tr><td class="desc-cell" colspan="2"><strong>Dreierpasch</strong></td><td><input type="text" class="score-input s2"></td><td><input type="text" class="score-input s2"></td><td><input type="text" class="score-input s2"></td><td><input type="text" class="score-input s2"></td><td><input type="text" class="score-input s2"></td><td><input type="text" class="score-input s2"></td></tr>
+        <tr><td class="desc-cell" colspan="2"><strong>Viererpasch</strong></td><td><input type="text" class="score-input s2"></td><td><input type="text" class="score-input s2"></td><td><input type="text" class="score-input s2"></td><td><input type="text" class="score-input s2"></td><td><input type="text" class="score-input s2"></td><td><input type="text" class="score-input s2"></td></tr>
+        <tr><td class="desc-cell" colspan="2"><strong>Full-House</strong> (30 P.)</td><td><input type="text" class="score-input s2"></td><td><input type="text" class="score-input s2"></td><td><input type="text" class="score-input s2"></td><td><input type="text" class="score-input s2"></td><td><input type="text" class="score-input s2"></td><td><input type="text" class="score-input s2"></td></tr>
+        <tr><td class="desc-cell" colspan="2"><strong>Kleine Straße</strong> (35 P.)</td><td><input type="text" class="score-input s2"></td><td><input type="text" class="score-input s2"></td><td><input type="text" class="score-input s2"></td><td><input type="text" class="score-input s2"></td><td><input type="text" class="score-input s2"></td><td><input type="text" class="score-input s2"></td></tr>
+        <tr><td class="desc-cell" colspan="2"><strong>Große Straße</strong> (45 P.)</td><td><input type="text" class="score-input s2"></td><td><input type="text" class="score-input s2"></td><td><input type="text" class="score-input s2"></td><td><input type="text" class="score-input s2"></td><td><input type="text" class="score-input s2"></td><td><input type="text" class="score-input s2"></td></tr>
+        <tr><td class="desc-cell" colspan="2"><strong>Yatzy</strong> (75 P.)</td><td><input type="text" class="score-input s2"></td><td><input type="text" class="score-input s2"></td><td><input type="text" class="score-input s2"></td><td><input type="text" class="score-input s2"></td><td><input type="text" class="score-input s2"></td><td><input type="text" class="score-input s2"></td></tr>
+        <tr><td class="desc-cell" colspan="2"><strong>Chance</strong></td><td><input type="text" class="score-input s2"></td><td><input type="text" class="score-input s2"></td><td><input type="text" class="score-input s2"></td><td><input type="text" class="score-input s2"></td><td><input type="text" class="score-input s2"></td><td><input type="text" class="score-input s2"></td></tr>
+
+        <tr class="total-row">
+            <td colspan="2">Summe Teil 2 ➔</td>
+            <td><input class="score-input sum2" readonly></td><td><input class="score-input sum2" readonly></td><td><input class="score-input sum2" readonly></td><td><input class="score-input sum2" readonly></td><td><input class="score-input sum2" readonly></td><td><input class="score-input sum2" readonly></td>
+        </tr>
+        <tr class="total-row">
+            <td colspan="2">Summe Teil 1 ➔</td>
+            <td><input class="score-input sum1-copy" readonly></td><td><input class="score-input sum1-copy" readonly></td><td><input class="score-input sum1-copy" readonly></td><td><input class="score-input sum1-copy" readonly></td><td><input class="score-input sum1-copy" readonly></td><td><input class="score-input sum1-copy" readonly></td>
+        </tr>
+        <tr style="background: #4C1D95; color: white; font-weight: bold; font-size: 11px;">
+            <td colspan="2">SPIELERGEBNIS ➔</td>
+            <td><input class="score-input total" readonly style="color:white;"></td><td><input class="score-input total" readonly style="color:white;"></td><td><input class="score-input total" readonly style="color:white;"></td><td><input class="score-input total" readonly style="color:white;"></td><td><input class="score-input total" readonly style="color:white;"></td><td><input class="score-input total" readonly style="color:white;"></td>
+        </tr>
+    </table>
+
+    <div class="chat-box-container">
+        <div class="chat-messages" id="chatMessages">
+            <div>System: Willkommen im Chat! 🎲</div>
+        </div>
+        <div class="chat-input-row">
+            <input type="text" class="chat-input" id="chatInput" placeholder="Nachricht schreiben..." onkeydown="checkChatEnter(event)">
+            <button class="chat-send-btn" onclick="sendChatMessage()">Senden</button>
+        </div>
+    </div>
+
+    <div class="bottom-cup-area">
+        <div class="dice-horizontal-row" id="diceContainer"></div>
+        <div class="dice-cup" id="diceCup" onclick="humanRollDice()" title="Klicke zum Schütteln!">
+            <span class="cup-label">BECHER</span>
+        </div>
+    </div>
+</div>
+
+<script>
+    let dice = [1, 2, 3, 4, 5];
+    let locked = [false, false, false, false, false];
+    let rollsLeft = 3;
+    let isRolling = false;
+    let hasRolledOnce = false;
+    
+    let totalColsHTML = 6; 
+    let activeCols = 2; 
+    let currentPlayer = 0; 
+    let bots = []; 
+    let playerNames = [];
+    let gameAborted = false;
+
+    let bgMusic = document.getElementById('bgMusic');
+    let shakeSfx = document.getElementById('shakeSound');
+    let isSfxOn = true; 
+
+    if (bgMusic) bgMusic.volume = 0.2; 
+    if (shakeSfx) shakeSfx.volume = 1.0; 
+
+    function openMusicModal() { document.getElementById('musicModal').style.display = 'flex'; }
+    function closeMusicModal() { document.getElementById('musicModal').style.display = 'none'; }
+
+    function changeVolume(val) {
+        let volumeFloat = val / 100;
+        document.getElementById('volumePercentText').innerText = val + "%";
+        if (bgMusic) {
+            bgMusic.volume = volumeFloat;
+            if (volumeFloat > 0 && bgMusic.paused) {
+                bgMusic.play().catch(e => console.log(e));
+            } else if (volumeFloat === 0) {
+                bgMusic.pause();
+            }
+        }
+    }
+
+    function toggleSfx() {
+        isSfxOn = !isSfxOn;
+        let btn = document.getElementById('sfxBtn');
+        let menuBtn = document.getElementById('menuSfxBtn');
+
+        if (!isSfxOn) {
+            if(btn) { btn.innerText = "🎲 🔇"; btn.style.background = "#EF4444"; btn.style.borderColor = "#991B1B"; }
+            if(menuBtn) { menuBtn.innerText = "🎲 Sound: Aus"; menuBtn.style.background = "#EF4444"; }
+        } else {
+            if(shakeSfx) { shakeSfx.play().then(() => { shakeSfx.pause(); shakeSfx.currentTime = 0; }).catch(e=>{}); }
+            if(btn) { btn.innerText = "🎲 🔊"; btn.style.background = "#059669"; btn.style.borderColor = "#047857"; }
+            if(menuBtn) { menuBtn.innerText = "🎲 Sound: An"; menuBtn.style.background = "#059669"; }
+        }
+    }
+
+    function sendChatMessage() {
+        let input = document.getElementById('chatInput');
+        let text = input.value.trim();
+        if(text === "") return;
+
+        appendChatMsg("Du", text);
+        input.value = "";
+
+        if (selectedMode === 'bot' && Math.random() < 0.6) {
+            setTimeout(() => {
+                let botIndex = Math.floor(Math.random() * selectedCount) + 1;
+                let botName = "Bot " + botIndex;
+                let botReplies = [
+                    "Haha, starker Wurf! 😉",
+                    "Mal sehen, ob du das schaffst!",
+                    "Ich brauche dringend einen Yatzy...",
+                    "Viel Glück beim nächsten Mal!",
+                    "Nicht schlecht, aber ich hole auf!"
+                ];
+                let randomReply = botReplies[Math.floor(Math.random() * botReplies.length)];
+                appendChatMsg(botName, randomReply);
+            }, 1000);
+        }
+    }
+
+    function checkChatEnter(e) {
+        if(e.key === 'Enter') {
+            sendChatMessage();
+        }
+    }
+
+    function appendChatMsg(sender, text) {
+        let box = document.getElementById('chatMessages');
+        let div = document.createElement('div');
+        div.innerHTML = `<strong>${sender}:</strong> ${text}`;
+        box.appendChild(div);
+        box.scrollTop = box.scrollHeight;
+    }
+
+    function updateStatsUI() {
+        let coins = parseInt(localStorage.getItem('yatzyCoins')) || 0;
+        let wins = parseInt(localStorage.getItem('yatzyWins')) || 0;
+        document.getElementById('menuCoinsDisplay').innerText = `🪙 ${coins}`;
+        document.getElementById('menuWinsDisplay').innerText = `🏆 ${wins} Siege`;
+        document.getElementById('gameCoinDisplay').innerText = `🪙 ${coins}`;
+    }
+
+    let selectedMode = 'bot';
+    let selectedCount = 1;
+
+    function showRules() { document.getElementById('rulesModal').style.display = 'flex'; }
+    function hideRules() { document.getElementById('rulesModal').style.display = 'none'; }
+
+    function selectMode(mode) {
+        selectedMode = mode;
+        document.getElementById('btnModeBot').className = mode === 'bot' ? 'modal-btn active' : 'modal-btn';
+        document.getElementById('btnModeLocal').className = mode === 'local' ? 'modal-btn active' : 'modal-btn';
+
+        let title = document.getElementById('menuCountTitle');
+        let optionsDiv = document.getElementById('countOptions');
+        
+        if (mode === 'bot') {
+            title.innerText = "Wie viele Bots?";
+            selectedCount = 1;
+            optionsDiv.innerHTML = `
+                <button class="modal-btn active count-btn" onclick="selectCount(1, this)">1 Bot</button>
+                <button class="modal-btn count-btn" onclick="selectCount(2, this)">2 Bots</button>
+                <button class="modal-btn count-btn" onclick="selectCount(3, this)">3 Bots</button>
+                <button class="modal-btn count-btn" onclick="selectCount(4, this)">4 Bots</button>
+            `;
+        } else {
+            title.innerText = "Wie viele Spieler (Menschlich)?";
+            selectedCount = 2;
+            optionsDiv.innerHTML = `
+                <button class="modal-btn active count-btn" onclick="selectCount(2, this)">2 Spieler</button>
+                <button class="modal-btn count-btn" onclick="selectCount(3, this)">3 Spieler</button>
+                <button class="modal-btn count-btn" onclick="selectCount(4, this)">4 Spieler</button>
+                <button class="modal-btn count-btn" onclick="selectCount(5, this)">5 Spieler</button>
+                <button class="modal-btn count-btn" onclick="selectCount(6, this)">6 Spieler</button>
+            `;
+        }
+    }
+
+    function selectCount(count, btnElement) {
+        selectedCount = count;
+        let btns = document.querySelectorAll('.count-btn');
+        btns.forEach(b => b.className = 'modal-btn count-btn');
+        btnElement.className = 'modal-btn active count-btn';
+    }
+
+    function startGame() {
+        document.getElementById('mainMenu').style.display = 'none';
+        gameAborted = false;
+        bots = [];
+        playerNames = [];
+
+        document.querySelectorAll('.s1, .s2, .sub1, .bonus, .sum1, .sum1-copy, .sum2, .total').forEach(input => {
+            input.value = '';
+            input.placeholder = '';
+        });
+
+        if (selectedMode === 'bot') {
+            activeCols = selectedCount + 1;
+            bots.push(false); 
+            playerNames.push("Du");
+            for(let i = 1; i <= selectedCount; i++) {
+                bots.push(true);
+                playerNames.push("Bot " + i);
+            }
+        } else {
+            activeCols = selectedCount; 
+            for(let i = 1; i <= selectedCount; i++) {
+                bots.push(false);
+                playerNames.push("Sp. " + i);
+            }
+        }
+
+        while(bots.length < totalColsHTML) bots.push(false);
+        while(playerNames.length < totalColsHTML) playerNames.push("");
+
+        let table = document.getElementById('gameTable');
+        for (let row of table.rows) {
+            let startIndex = (row.cells[0] && row.cells[0].colSpan === 2) ? 1 : 2;
+            for (let i = 0; i < totalColsHTML; i++) {
+                let cell = row.cells[startIndex + i];
+                if (cell) cell.style.display = (i >= activeCols) ? 'none' : '';
+            }
+        }
+
+        for (let i = 0; i < totalColsHTML; i++) {
+            let th = document.getElementById('player-' + i);
+            if (th) th.innerText = playerNames[i];
+        }
+
+        buildDiceDOM();
+        setupGameFlow();
+        currentPlayer = 0; 
+        resetTurn();
+    }
+
+    function abortGame() {
+        gameAborted = true; 
+        let leaver = playerNames[currentPlayer] || "Ein Spieler";
+        document.getElementById('abortText').innerHTML = `<span style="color:#EF4444; font-size:22px;">${leaver}</span><br>hat das Spiel abgebrochen!`;
+        document.getElementById('abortModal').style.display = 'flex';
+    }
+
+    function returnToMenu() {
+        document.getElementById('abortModal').style.display = 'none';
+        document.getElementById('winnerModal').style.display = 'none';
+        document.getElementById('mainMenu').style.display = 'flex';
+        gameAborted = true; 
+        document.querySelectorAll('.s1, .s2, .sub1, .bonus, .sum1, .sum1-copy, .sum2, .total').forEach(input => {
+            input.value = '';
+            input.placeholder = '';
+        });
+        currentPlayer = 0;
+        rollsLeft = 3;
+        hasRolledOnce = false;
+        isRolling = false;
+        locked = [false, false, false, false, false];
+        document.getElementById('rollsLeft').innerText = rollsLeft;
+        updateDiceUI();
+    }
+
+    function createCubeFaces() {
+        let facesHTML = '';
+        facesHTML += '<div class="cube-face face-1"><div class="dot" style="grid-area: 2 / 2;"></div></div>';
+        facesHTML += '<div class="cube-face face-2"><div class="dot" style="grid-area: 1 / 3;"></div><div class="dot" style="grid-area: 3 / 1;"></div></div>';
+        facesHTML += '<div class="cube-face face-3"><div class="dot" style="grid-area: 1 / 3;"></div><div class="dot" style="grid-area: 2 / 2;"></div><div class="dot" style="grid-area: 3 / 1;"></div></div>';
+        facesHTML += '<div class="cube-face face-4"><div class="dot" style="grid-area: 1 / 1;"></div><div class="dot" style="grid-area: 1 / 3;"></div><div class="dot" style="grid-area: 3 / 1;"></div><div class="dot" style="grid-area: 3 / 3;"></div></div>';
+        facesHTML += '<div class="cube-face face-5"><div class="dot" style="grid-area: 1 / 1;"></div><div class="dot" style="grid-area: 1 / 3;"></div><div class="dot" style="grid-area: 2 / 2;"></div><div class="dot" style="grid-area: 3 / 1;"></div><div class="dot" style="grid-area: 3 / 3;"></div></div>';
+        facesHTML += '<div class="cube-face face-6"><div class="dot" style="grid-area: 1 / 1;"></div><div class="dot" style="grid-area: 1 / 3;"></div><div class="dot" style="grid-area: 2 / 1;"></div><div class="dot" style="grid-area: 2 / 3;"></div><div class="dot" style="grid-area: 3 / 1;"></div><div class="dot" style="grid-area: 3 / 3;"></div></div>';
+        return facesHTML;
+    }
+
+    function buildDiceDOM() {
+        let container = document.getElementById('diceContainer');
+        container.innerHTML = "";
+        for (let i = 0; i < 5; i++) {
+            let div = document.createElement('div');
+            div.className = 'dice-3d';
+            div.id = 'die-' + i;
+            div.setAttribute('data-val', dice[i]);
+            div.innerHTML = createCubeFaces();
+            div.onclick = (function(index) {
+                return function(e) {
+                    e.stopPropagation();
+                    if (gameAborted || bots[currentPlayer]) return; 
+                    toggleLock(index);
+                };
+            })(i);
+            container.appendChild(div);
+        }
+    }
+
+    function setupGameFlow() {
+        let rows1 = document.querySelectorAll('.s1');
+        let rows2 = document.querySelectorAll('.s2');
+        let allInputs = [...rows1, ...rows2];
+
+        allInputs.forEach(input => {
+            let new_input = input.cloneNode(true);
+            input.parentNode.replaceChild(new_input, input);
+            new_input.readOnly = true; 
+            new_input.addEventListener('click', function() {
+                if(gameAborted) return;
+                let allCurrentInputs = [...document.querySelectorAll('.s1'), ...document.querySelectorAll('.s2')];
+                let currentIndex = allCurrentInputs.indexOf(this);
+                let colIndex = currentIndex % totalColsHTML; 
+                if (bots[currentPlayer] || colIndex !== currentPlayer) return; 
+                if (!hasRolledOnce || this.value !== "") return;
+                this.value = this.placeholder || "0"; 
+                calcTotals();
+                nextPlayer();
+            });
+        });
+        updateHighlight();
+    }
+
+    function resetTurn() {
+        rollsLeft = 3;
+        hasRolledOnce = false;
+        isRolling = false;
+        locked = [false, false, false, false, false];
+        document.getElementById('rollsLeft').innerText = rollsLeft;
+        document.querySelectorAll('.s1, .s2').forEach(el => el.placeholder = "");
+        updateDiceUI(); 
+        updateHighlight(); 
+    }
+
+    function resetGame() {
+        document.getElementById('winnerModal').style.display = 'none';
+        gameAborted = false;
+        document.querySelectorAll('.s1, .s2, .sub1, .bonus, .sum1, .sum1-copy, .sum2, .total').forEach(input => {
+            input.value = '';
+            input.placeholder = '';
+        });
+        currentPlayer = 0;
+        resetTurn();
+    }
+
+    function updateHighlight() {
+        for (let i = 0; i < totalColsHTML; i++) {
+            let th = document.getElementById('player-' + i);
+            if(th) {
+                th.style.backgroundColor = (i === currentPlayer) ? '#F59E0B' : '#4C1D95';
+                th.style.color = (i === currentPlayer) ? '#0F172A' : 'white';
+            }
+        }
+        document.getElementById('currentPlayerDisplay').innerText = `${playerNames[currentPlayer]} ist dran!`;
+    }
+
+    function updateDiceUI() {
+        for (let i = 0; i < 5; i++) {
+            let el = document.getElementById('die-' + i);
+            if (el) {
+                el.setAttribute('data-val', dice[i]);
+                let isVisible = hasRolledOnce || locked[i];
+                el.classList.toggle('visible', isVisible);
+                el.classList.toggle('locked', locked[i]);
+            }
+        }
+    }
+
+    function humanRollDice() {
+        if (gameAborted || bots[currentPlayer] || rollsLeft <= 0 || isRolling) return;
+        simulateRoll();
+    }
+
+    function simulateRoll() {
+        return new Promise(resolve => {
+            isRolling = true;
+            let cup = document.getElementById('diceCup');
+            cup.classList.add('shaking');
+
+            if (isSfxOn && shakeSfx) {
+                shakeSfx.currentTime = 0;
+                shakeSfx.play().catch(e => console.log(e));
+            }
+
+            for (let i = 0; i < 5; i++) {
+                if (!locked[i]) {
+                    let el = document.getElementById('die-' + i);
+                    if (el) el.classList.remove('visible');
+                }
+            }
+
+            setTimeout(() => {
+                cup.classList.remove('shaking');
+                if (gameAborted) return resolve(); 
+                hasRolledOnce = true;
+                for (let i = 0; i < 5; i++) {
+                    if (!locked[i]) {
+                        dice[i] = Math.floor(Math.random() * 6) + 1;
+                    }
+                }
+                rollsLeft--;
+                document.getElementById('rollsLeft').innerText = rollsLeft;
+                isRolling = false;
+                updateDiceUI();
+                calculateAndShowPreviews(); 
+                resolve(); 
+            }, 600);
+        });
+    }
+
+    function toggleLock(index) {
+        if (rollsLeft === 3 || isRolling || !hasRolledOnce) return;
+        locked[index] = !locked[index];
+        updateDiceUI();
+    }
+
+    function calculateAndShowPreviews() {
+        let counts = [0, 0, 0, 0, 0, 0, 0];
+        let sum = 0;
+        dice.forEach(d => { counts[d]++; sum += d; });
+
+        let p_s1 = [];
+        for (let i = 1; i <= 6; i++) p_s1.push(counts[i] * i); 
+
+        let p_s2 = [];
+        let pairs = [];
+        for (let i = 6; i >= 1; i--) if (counts[i] >= 2) pairs.push(i);
+        p_s2.push(pairs.length >= 2 ? (pairs[0] * 2 + pairs[1] * 2) : 0); 
+        p_s2.push(counts.some(c => c >= 3) ? sum : 0); 
+        p_s2.push(counts.some(c => c >= 4) ? sum : 0); 
+
+        let has3 = counts.some(c => c === 3);
+        let has2 = counts.some(c => c === 2);
+        let has5 = counts.some(c => c === 5);
+        p_s2.push((has3 && has2) || has5 ? 30 : 0); 
+
+        let uniq = [...new Set(dice)].sort().join('');
+        p_s2.push((uniq.includes('1234') || uniq.includes('2345') || uniq.includes('3456')) ? 35 : 0); 
+        p_s2.push((uniq === '12345' || uniq === '23456') ? 45 : 0); 
+        p_s2.push(has5 ? 75 : 0); 
+        p_s2.push(sum); 
+
+        let rows1 = document.querySelectorAll('.s1');
+        let rows2 = document.querySelectorAll('.s2');
+
+        for (let c = 0; c < activeCols; c++) {
+            if (c !== currentPlayer) continue; 
+            for (let r = 0; r < 6; r++) {
+                let el = rows1[r * totalColsHTML + c];
+                if (el.value === "") el.placeholder = p_s1[r];
+            }
+            for (let r = 0; r < 8; r++) {
+                let el = rows2[r * totalColsHTML + c];
+                if (el.value === "") el.placeholder = p_s2[r];
+            }
+        }
+    }
+
+    function calcTotals() {
+        let rows1Elements = document.querySelectorAll('.s1');
+        let rows2Elements = document.querySelectorAll('.s2');
+        let sub1Elements = document.querySelectorAll('.sub1');
+        let bonusElements = document.querySelectorAll('.bonus');
+        let sum1Elements = document.querySelectorAll('.sum1');
+        let sum1CopyElements = document.querySelectorAll('.sum1-copy');
+        let sum2Elements = document.querySelectorAll('.sum2');
+        let totalElements = document.querySelectorAll('.total');
+
+        for (let c = 0; c < activeCols; c++) {
+            let sub1 = 0;
+            for (let r = 0; r < 6; r++) {
+                sub1 += parseInt(rows1Elements[r * totalColsHTML + c].value) || 0;
+            }
+            sub1Elements[c].value = sub1 > 0 ? sub1 : "";
+
+            let bonus = sub1 >= 63 ? 35 : 0;
+            bonusElements[c].value = bonus > 0 ? "+35" : "";
+
+            let total1 = sub1 + bonus;
+            sum1Elements[c].value = total1 > 0 ? total1 : "";
+            sum1CopyElements[c].value = total1 > 0 ? total1 : "";
+
+            let sub2 = 0;
+            for (let r = 0; r < 8; r++) {
+                sub2 += parseInt(rows2Elements[r * totalColsHTML + c].value) || 0;
+            }
+            sum2Elements[c].value = sub2 > 0 ? sub2 : "";
+
+            let finalSum = total1 + sub2;
+            totalElements[c].value = finalSum > 0 ? finalSum : "";
+        }
+    }
+
+    function checkGameEnd() {
+        let rows1 = document.querySelectorAll('.s1');
+        let rows2 = document.querySelectorAll('.s2');
+        for (let c = 0; c < activeCols; c++) {
+            for(let r=0; r<6; r++) if (rows1[r * totalColsHTML + c].value === "") return false;
+            for(let r=0; r<8; r++) if (rows2[r * totalColsHTML + c].value === "") return false;
+        }
+        return true;
+    }
+
+    function declareWinner() {
+        let allTotals = document.querySelectorAll('.total');
+        let totals = [];
+        for(let i = 0; i < activeCols; i++) totals.push(parseInt(allTotals[i].value) || 0);
+        let maxScore = Math.max(...totals);
+        let winners = [];
+        totals.forEach((score, index) => { if (score === maxScore) winners.push(playerNames[index]); });
+
+        let isHumanWinner = winners.includes("Du") || winners.includes("Sp. 1");
+        let rewardText = "";
+        if (isHumanWinner) {
+            let currentCoins = parseInt(localStorage.getItem('yatzyCoins')) || 0;
+            let currentWins = parseInt(localStorage.getItem('yatzyWins')) || 0;
+            localStorage.setItem('yatzyCoins', currentCoins + 5);
+            localStorage.setItem('yatzyWins', currentWins + 1);
+            rewardText = "<br><br><span style='color:#10B981; font-size: 18px;'>+5 🪙 Münzen erhalten!</span>";
+            updateStatsUI(); 
+        }
+
+        let winnerModal = document.getElementById('winnerModal');
+        let winnerText = document.getElementById('winnerText');
+        if (winners.length === 1) {
+            winnerText.innerHTML = `Herzlichen Glückwunsch!<br><br><span style="color:#FCD34D; font-size:28px;">${winners[0]}</span><br>gewinnt mit ${maxScore} Punkten!${rewardText}`;
+        } else {
+            winnerText.innerHTML = `Unentschieden!<br><br><span style="color:#FCD34D; font-size:24px;">${winners.join(" & ")}</span><br>teilen sich den Sieg mit ${maxScore} Punkten!${rewardText}`;
+        }
+        winnerModal.style.display = 'flex';
+    }
+
+    function nextPlayer() {
+        if(gameAborted) return;
+        if (checkGameEnd()) { declareWinner(); return; }
+        currentPlayer = (currentPlayer + 1) % activeCols;
+        resetTurn();
+        if (bots[currentPlayer]) playBotTurn();
+    }
+
+    async function playBotTurn() {
+        if(gameAborted) return;
+        await new Promise(r => setTimeout(r, 1200));
+        if(gameAborted) return;
+        await simulateRoll();
+        if(gameAborted) return;
+        await new Promise(r => setTimeout(r, 1200));
+        if(gameAborted) return;
+        lockBestBotDice();
+        if (rollsLeft > 0) await simulateRoll();
+        if(gameAborted) return;
+        await new Promise(r => setTimeout(r, 1200));
+        if(gameAborted) return;
+        lockBestBotDice();
+        if (rollsLeft > 0) await simulateRoll();
+        if(gameAborted) return;
+        await new Promise(r => setTimeout(r, 1500));
+        if(gameAborted) return;
+        botSelectBestScore();
+    }
+
+    function lockBestBotDice() {
+        let counts = {};
+        dice.forEach(v => counts[v] = (counts[v] || 0) + 1);
+        let bestVal = dice[0], maxCount = 0;
+        for(let v in counts) {
+            if(counts[v] > maxCount) { maxCount = counts[v]; bestVal = parseInt(v); }
+        }
+        if (maxCount >= 2) {
+            for (let i = 0; i < 5; i++) {
+                if (dice[i] === bestVal && !locked[i]) toggleLock(i);
+            }
+        }
+    }
+
+    function botSelectBestScore() {
+        let rows1 = document.querySelectorAll('.s1');
+        let rows2 = document.querySelectorAll('.s2');
+        let colInputs = [];
+        for (let r = 0; r < 6; r++) colInputs.push(rows1[r * totalColsHTML + currentPlayer]);
+        for (let r = 0; r < 8; r++) colInputs.push(rows2[r * totalColsHTML + currentPlayer]);
+        
+        let bestInput = null, bestScore = -1;
+        colInputs.forEach(input => {
+            if (input.value === "") {
+                let score = parseInt(input.placeholder) || 0;
+                if (score > bestScore) { bestScore = score; bestInput = input; }
+            }
+        });
+        if (bestInput) {
+            bestInput.value = bestInput.placeholder || "0";
+            calcTotals();
+        }
+        nextPlayer();
+    }
+
+    updateStatsUI(); 
+    selectMode('bot'); 
+</script>
+
+</body>
+</html>
