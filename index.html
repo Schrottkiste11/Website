@@ -54,10 +54,19 @@
             font-family: Poppins, sans-serif;
             line-height: 1.6;
             overflow-wrap: break-word;
+            top: 0 !important;
+        }
+
+        /* Ausblenden der Standard-Google-Übersetzungsleiste */
+        #google_translate_element,
+        .skiptranslate,
+        .goog-te-banner-frame {
+            display: none !important;
         }
 
         button,
-        a {
+        a,
+        select {
             font: inherit;
         }
 
@@ -167,6 +176,32 @@
         .nav-links a:hover::after,
         .nav-links a.active::after {
             transform: scaleX(1);
+        }
+
+        /* Styling für den Sprach-Button */
+        .language-select {
+            background: var(--bg);
+            color: var(--text);
+            border: 1px solid var(--line-color);
+            border-radius: 20px;
+            padding: 8px 16px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .language-select:hover,
+        .language-select:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 15px rgba(255, 0, 153, .4);
+            color: #fff;
+        }
+
+        .language-select option {
+            background: var(--card-bg);
+            color: var(--text);
         }
 
         .mini-player {
@@ -846,6 +881,27 @@
                 </ul>
             </nav>
 
+            <!-- Unsichtbares Element für das Google Translate Widget -->
+            <div id="google_translate_element"></div>
+
+            <!-- Sprachauswahl-Button im Header -->
+            <select class="language-select" id="language-selector" onchange="translatePage(this.value)" aria-label="Sprache wählen">
+                <option value="de" selected>Deutsch (de)</option>
+                <option value="pt">Portugiesisch (pt)</option>
+                <option value="tr">Türkisch (tr)</option>
+                <option value="es">Spanisch (es)</option>
+                <option value="it">Italienisch (it)</option>
+                <option value="el">Griechisch (el)</option>
+                <option value="sq">Albanisch (sq)</option>
+                <option value="ru">Russisch (ru)</option>
+                <option value="zh-CN">Chinesisch (zh-CN)</option>
+                <option value="en">Englisch (en)</option>
+                <option value="ja">Japanisch (ja)</option>
+                <option value="ko">Koreanisch (ko)</option>
+                <option value="uk">Ukrainisch (uk)</option>
+                <option value="fr">Französisch (fr)</option>
+            </select>
+
             <div class="mini-player" aria-label="Live-Radio-Player">
                 <span class="player-label">Live Radio</span>
                 <audio id="audio-player" preload="none" src="https://stream.laut.fm/treasure_radio"></audio>
@@ -1018,6 +1074,26 @@
         <svg class="icon" aria-hidden="true"><use href="#icon-arrow-up"></use></svg>
     </button>
     <div id="notification-region" aria-live="polite" aria-atomic="true"></div>
+
+    <!-- Skripte für Google Translate Logik -->
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'de',
+                autoDisplay: false
+            }, 'google_translate_element');
+        }
+
+        function translatePage(languageCode) {
+            if (!languageCode) return;
+            var selectField = document.querySelector(".goog-te-combo");
+            if (selectField) {
+                selectField.value = languageCode;
+                selectField.dispatchEvent(new Event('change'));
+            }
+        }
+    </script>
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
     <script>
         (() => {
