@@ -77,6 +77,78 @@
             vertical-align: -.15em;
         }
 
+        /* --- LANGUAGE SWITCHER --- */
+        .lang-switch {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 20000;
+            background: var(--card);
+            border: 2px solid var(--border-soft);
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            overflow: hidden;
+        }
+        .lang-switch-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            background: transparent;
+            border: none;
+            color: var(--muted);
+            font-family: VT323, monospace;
+            font-size: 1.2rem;
+            padding: 8px 14px;
+            cursor: pointer;
+            width: 100%;
+            text-align: left;
+            transition: all 0.2s ease;
+        }
+        .lang-switch-toggle:hover {
+            color: var(--text);
+            background: rgba(255, 255, 255, 0.05);
+        }
+        .lang-dropdown {
+            display: none;
+            flex-direction: column;
+            max-height: 250px;
+            overflow-y: auto;
+            border-top: 1px solid var(--border-soft);
+            background: rgba(0, 0, 0, 0.4);
+        }
+        .lang-switch.open .lang-dropdown {
+            display: flex;
+        }
+        .lang-switch.open .lang-arrow {
+            transform: rotate(180deg);
+        }
+        .lang-arrow {
+            transition: transform 0.3s ease;
+            font-size: 1rem;
+        }
+        .lang-btn {
+            background: transparent;
+            border: none;
+            color: var(--muted);
+            font-family: VT323, monospace;
+            font-size: 1.2rem;
+            padding: 8px 14px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: left;
+            width: 100%;
+        }
+        .lang-btn:hover {
+            color: var(--text);
+            background: rgba(255, 255, 255, 0.05);
+        }
+        .lang-btn.active {
+            background: var(--accent);
+            color: #fff;
+            font-weight: bold;
+        }
+
         /* --- SIDEBAR --- */
         #menuToggle {
             display: none;
@@ -642,6 +714,28 @@
         <symbol id="icon-arrow-right" viewBox="0 0 24 24"><path d="M12 4l-1.4 1.4L16.2 11H4v2h12.2l-5.6 5.6L12 20l8-8z"/></symbol>
     </svg>
 
+    <div class="lang-switch" id="langSwitch">
+        <button class="lang-switch-toggle" onclick="toggleLangDropdown()" aria-expanded="false" id="langToggleBtn">
+            <span id="currentLangLabel">DE</span>
+            <span class="lang-arrow">▼</span>
+        </button>
+        <div class="lang-dropdown">
+            <button class="lang-btn active" id="btnDE" onclick="setLanguage('de')">DE</button>
+            <button class="lang-btn" id="btnEN" onclick="setLanguage('en')">EN</button>
+            <button class="lang-btn" id="btnES" onclick="setLanguage('es')">ES</button>
+            <button class="lang-btn" id="btnPT" onclick="setLanguage('pt')">PT</button>
+            <button class="lang-btn" id="btnIT" onclick="setLanguage('it')">IT</button>
+            <button class="lang-btn" id="btnTR" onclick="setLanguage('tr')">TR</button>
+            <button class="lang-btn" id="btnZH" onclick="setLanguage('zh')">ZH</button>
+            <button class="lang-btn" id="btnUK" onclick="setLanguage('uk')">UK</button>
+            <button class="lang-btn" id="btnRU" onclick="setLanguage('ru')">RU</button>
+            <button class="lang-btn" id="btnJA" onclick="setLanguage('ja')">JA</button>
+            <button class="lang-btn" id="btnFR" onclick="setLanguage('fr')">FR</button>
+            <button class="lang-btn" id="btnKU" onclick="setLanguage('ku')">KU</button>
+            <button class="lang-btn" id="btnHI" onclick="setLanguage('hi')">HI</button>
+        </div>
+    </div>
+
     <input type="checkbox" id="menuToggle" hidden />
     <label for="menuToggle" class="hamburger-btn" aria-label="Menü öffnen"><svg class="icon" aria-hidden="true"><use href="#icon-bars"></use></svg></label>
     <label for="menuToggle" class="close-btn" aria-label="Menü schließen"><svg class="icon" aria-hidden="true"><use href="#icon-times"></use></svg></label>
@@ -650,8 +744,8 @@
     <aside class="custom-sidebar" aria-label="Hauptmenü">
         <div class="sidebar-brand">Schrottkiste</div>
         <nav>
-            <a href="index.html"><svg class="icon" aria-hidden="true"><use href="#icon-home"></use></svg> Startseite</a>
-            <a href="soundboard.html"><svg class="icon" aria-hidden="true"><use href="#icon-music"></use></svg> Soundboard</a>
+            <a href="index.html"><svg class="icon" aria-hidden="true"><use href="#icon-home"></use></svg> <span data-i18n="nav-home">Startseite</span></a>
+            <a href="soundboard.html"><svg class="icon" aria-hidden="true"><use href="#icon-music"></use></svg> <span data-i18n="nav-soundboard">Soundboard</span></a>
             <a href="https://www.youtube.com/@Schrottkiste" target="_blank" rel="noopener noreferrer"><svg class="icon" aria-hidden="true"><use href="#icon-youtube"></use></svg> YouTube</a>
             <a href="https://www.twitch.tv/schrottkiste_luka" target="_blank" rel="noopener noreferrer"><svg class="icon" aria-hidden="true"><use href="#icon-twitch"></use></svg> Twitch</a>
         </nav>
@@ -659,42 +753,42 @@
 
     <main>
         <div class="hero">
-            <h1 class="hero-title">Content-Plan 2026</h1>
-            <p class="hero-subtitle">Roadmap & Projekte</p>
+            <h1 class="hero-title" data-i18n="hero-title">Content-Plan 2026</h1>
+            <p class="hero-subtitle" data-i18n="hero-subtitle">Roadmap & Projekte</p>
         </div>
 
         <div class="stats-bar">
             <div class="stat-item">
                 <div class="stat-number" id="totalProjects">0</div>
-                <div class="stat-label">Projekte 2026</div>
+                <div class="stat-label" data-i18n="stat-projects">Projekte 2026</div>
             </div>
             <div class="stat-item">
                 <div class="stat-number" id="completedProjects">0</div>
-                <div class="stat-label">Erledigt</div>
+                <div class="stat-label" data-i18n="stat-done">Erledigt</div>
             </div>
             <div class="stat-item">
                 <div class="stat-number" id="progressPercent">0%</div>
-                <div class="stat-label">Fortschritt</div>
+                <div class="stat-label" data-i18n="stat-progress">Fortschritt</div>
             </div>
         </div>
 
         <!-- Solo Gaming -->
         <div class="content-box">
             <div class="box-trigger" role="button" aria-expanded="false" aria-controls="box-1">
-                <h3><span class="icon">🎮</span> Solo Gaming</h3>
+                <h3><span class="icon">🎮</span> <span data-i18n="box1-title">Solo Gaming</span></h3>
                 <span class="arrow">▼</span>
             </div>
             <div class="box-content" id="box-1">
                 <ul class="project-list">
                     <li>The Forest</li>
-                    <li>Pragmata im Oktober <span class="priority-badge priority-medium">Okt</span></li>
+                    <li><span data-i18n="p1-pragmata">Pragmata im Oktober</span> <span class="priority-badge priority-medium" data-i18n="badge-oct">Okt</span></li>
                     <li>Genshin Impact</li>
-                    <li>Life is Strange Marathon</li>
-                    <li>VR Gameplay <span class="priority-badge priority-winter">❄️ Winter</span></li>
-                    <li class="cancelled">ETS 2 NRW 1:1 Map <span class="priority-badge priority-winter" style="background:rgba(255,50,50,0.2); color:#ff6666; border-color:#ff4444;">❌ Rotz – Map kaputt</span></li>
+                    <li><span data-i18n="p1-lis">Life is Strange Marathon</span></li>
+                    <li><span data-i18n="p1-vr">VR Gameplay</span> <span class="priority-badge priority-winter" data-i18n="badge-winter">❄️ Winter</span></li>
+                    <li class="cancelled">ETS 2 NRW 1:1 Map <span class="priority-badge priority-winter" style="background:rgba(255,50,50,0.2); color:#ff6666; border-color:#ff4444;" data-i18n="badge-ets-fail">❌ Rotz – Map kaputt</span></li>
                 </ul>
                 <div class="progress-container">
-                    <div class="progress-label"><span>Fortschritt <span class="cancelled-info">✗ 1 ausgefallen</span></span><span>0/5 Projekte</span></div>
+                    <div class="progress-label"><span><span data-i18n="prog-text">Fortschritt</span> <span class="cancelled-info" data-i18n="prog-cancelled">✗ 1 ausgefallen</span></span><span>0/5 <span data-i18n="prog-projects">Projekte</span></span></div>
                     <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
                 </div>
             </div>
@@ -703,19 +797,19 @@
         <!-- Solo IRL -->
         <div class="content-box">
             <div class="box-trigger" role="button" aria-expanded="false" aria-controls="box-2">
-                <h3><span class="icon">👤</span> Solo IRL</h3>
+                <h3><span class="icon">👤</span> <span data-i18n="box2-title">Solo IRL</span></h3>
                 <span class="arrow">▼</span>
             </div>
             <div class="box-content" id="box-2">
                 <ul class="project-list">
                     <li>Nintendo Switch 2 unboxing <span class="priority-badge priority-high">HOT</span></li>
-                    <li class="done">Wincent Weiss Konzert 2025 Halle Westfalen (Bereits online! 🚀)</li>
-                    <li>Mein neues Leben im Job</li>
-                    <li>Reise nach Bremen</li>
-                    <li>Riesiger Lost Place in Paderborn</li>
+                    <li class="done"><span data-i18n="p2-wincent">Wincent Weiss Konzert 2025 Halle Westfalen (Bereits online! 🚀)</span></li>
+                    <li><span data-i18n="p2-job">Mein neues Leben im Job</span></li>
+                    <li><span data-i18n="p2-bremen">Reise nach Bremen</span></li>
+                    <li><span data-i18n="p2-paderborn">Riesiger Lost Place in Paderborn</span></li>
                 </ul>
                 <div class="progress-container">
-                    <div class="progress-label"><span>Fortschritt</span><span>1/5 Projekte</span></div>
+                    <div class="progress-label"><span data-i18n="prog-text">Fortschritt</span><span>1/5 <span data-i18n="prog-projects">Projekte</span></span></div>
                     <div class="progress-bar"><div class="progress-fill" style="width:20%"></div></div>
                 </div>
             </div>
@@ -724,16 +818,16 @@
         <!-- Große Live-Events -->
         <div class="content-box">
             <div class="box-trigger" role="button" aria-expanded="false" aria-controls="box-3">
-                <h3><span class="icon">🔥</span> Große Live-Events</h3>
+                <h3><span class="icon">🔥</span> <span data-i18n="box3-title">Große Live-Events</span></h3>
                 <span class="arrow">▼</span>
             </div>
             <div class="box-content" id="box-3">
                 <ul class="project-list">
-                    <li>Silvester Countdown 24h vorher <span class="priority-badge priority-high">HOT</span></li>
-                    <li>GTA 6 Release Gameplay <span class="priority-badge priority-high">HYPE</span></li>
+                    <li><span data-i18n="p3-silvester">Silvester Countdown 24h vorher</span> <span class="priority-badge priority-high">HOT</span></li>
+                    <li><span data-i18n="p3-gta">GTA 6 Release Gameplay</span> <span class="priority-badge priority-high">HYPE</span></li>
                 </ul>
                 <div class="progress-container">
-                    <div class="progress-label"><span>Fortschritt</span><span>0/2 Projekte</span></div>
+                    <div class="progress-label"><span data-i18n="prog-text">Fortschritt</span><span>0/2 <span data-i18n="prog-projects">Projekte</span></span></div>
                     <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
                 </div>
             </div>
@@ -742,7 +836,7 @@
         <!-- Mit Diana (2027) -->
         <div class="content-box">
             <div class="box-trigger" role="button" aria-expanded="false" aria-controls="box-4">
-                <h3><span class="icon">🤝</span> Mit Diana <span style="font-size:1.2rem; color:var(--muted); margin-left:10px;">[2027]</span></h3>
+                <h3><span class="icon">🤝</span> <span data-i18n="box4-title">Mit Diana</span> <span style="font-size:1.2rem; color:var(--muted); margin-left:10px;">[2027]</span></h3>
                 <span class="arrow">▼</span>
             </div>
             <div class="box-content" id="box-4">
@@ -755,11 +849,11 @@
                     <li>Animal Crossing Lets go to the City <span class="priority-badge priority-2027">2027</span></li>
                     <li>Animal Crossing New Horizons <span class="priority-badge priority-2027">2027</span></li>
                     <li>Enchanted Kingdom and the School Wizardy <span class="priority-badge priority-2027">2027</span></li>
-                    <li>HypeHype Spiel bauen <span class="priority-badge priority-2027">2027</span></li>
-                    <li>Eigene Website basteln <span class="priority-badge priority-2027">2027</span></li>
+                    <li><span data-i18n="p4-hype">HypeHype Spiel bauen</span> <span class="priority-badge priority-2027">2027</span></li>
+                    <li><span data-i18n="p4-web">Eigene Website basteln</span> <span class="priority-badge priority-2027">2027</span></li>
                 </ul>
                 <div class="progress-container">
-                    <div class="progress-label"><span>Geplant für 2027</span><span>0/10 Projekte</span></div>
+                    <div class="progress-label"><span data-i18n="prog-2027">Geplant für 2027</span><span>0/10 <span data-i18n="prog-projects">Projekte</span></span></div>
                     <div class="progress-bar"><div class="progress-fill" style="width:0%; background:linear-gradient(90deg,#666,#999);"></div></div>
                 </div>
             </div>
@@ -770,12 +864,459 @@
 
     <a class="swipe-hint" id="swipeHint" href="soundboard.html">
         <svg class="icon" aria-hidden="true"><use href="#icon-arrow-right"></use></svg>
-        <span>Soundboard</span>
+        <span data-i18n="nav-soundboard">Soundboard</span>
     </a>
 
     <script>
+        const translations = {
+            de: {
+                "nav-home": "Startseite",
+                "nav-soundboard": "Soundboard",
+                "hero-title": "Content-Plan 2026",
+                "hero-subtitle": "Roadmap & Projekte",
+                "stat-projects": "Projekte 2026",
+                "stat-done": "Erledigt",
+                "stat-progress": "Fortschritt",
+                "box1-title": "Solo Gaming",
+                "box2-title": "Solo IRL",
+                "box3-title": "Große Live-Events",
+                "box4-title": "Mit Diana",
+                "p1-pragmata": "Pragmata im Oktober",
+                "badge-oct": "Okt",
+                "p1-lis": "Life is Strange Marathon",
+                "p1-vr": "VR Gameplay",
+                "badge-winter": "❄️ Winter",
+                "badge-ets-fail": "❌ Rotz – Map kaputt",
+                "prog-text": "Fortschritt",
+                "prog-cancelled": "✗ 1 ausgefallen",
+                "prog-projects": "Projekte",
+                "p2-wincent": "Wincent Weiss Konzert 2025 Halle Westfalen (Bereits online! 🚀)",
+                "p2-job": "Mein neues Leben im Job",
+                "p2-bremen": "Reise nach Bremen",
+                "p2-paderborn": "Riesiger Lost Place in Paderborn",
+                "p3-silvester": "Silvester Countdown 24h vorher",
+                "p3-gta": "GTA 6 Release Gameplay",
+                "p4-hype": "HypeHype Spiel bauen",
+                "p4-web": "Eigene Website basteln",
+                "prog-2027": "Geplant für 2027"
+            },
+            en: {
+                "nav-home": "Home",
+                "nav-soundboard": "Soundboard",
+                "hero-title": "Content Plan 2026",
+                "hero-subtitle": "Roadmap & Projects",
+                "stat-projects": "Projects 2026",
+                "stat-done": "Completed",
+                "stat-progress": "Progress",
+                "box1-title": "Solo Gaming",
+                "box2-title": "Solo IRL",
+                "box3-title": "Major Live Events",
+                "box4-title": "With Diana",
+                "p1-pragmata": "Pragmata in October",
+                "badge-oct": "Oct",
+                "p1-lis": "Life is Strange Marathon",
+                "p1-vr": "VR Gameplay",
+                "badge-winter": "❄️ Winter",
+                "badge-ets-fail": "❌ Crap – Map broken",
+                "prog-text": "Progress",
+                "prog-cancelled": "✗ 1 cancelled",
+                "prog-projects": "Projects",
+                "p2-wincent": "Wincent Weiss Concert 2025 Halle Westfalen (Already online! 🚀)",
+                "p2-job": "My new life at work",
+                "p2-bremen": "Trip to Bremen",
+                "p2-paderborn": "Huge Lost Place in Paderborn",
+                "p3-silvester": "New Year's Eve Countdown 24h before",
+                "p3-gta": "GTA 6 Release Gameplay",
+                "p4-hype": "Build HypeHype game",
+                "p4-web": "Build custom website",
+                "prog-2027": "Planned for 2027"
+            },
+            es: {
+                "nav-home": "Inicio",
+                "nav-soundboard": "Panel de sonidos",
+                "hero-title": "Plan de Contenido 2026",
+                "hero-subtitle": "Hoja de ruta y proyectos",
+                "stat-projects": "Proyectos 2026",
+                "stat-done": "Completados",
+                "stat-progress": "Progreso",
+                "box1-title": "Solo Gaming",
+                "box2-title": "Solo IRL",
+                "box3-title": "Grandes Eventos en Vivo",
+                "box4-title": "Con Diana",
+                "p1-pragmata": "Pragmata en octubre",
+                "badge-oct": "Oct",
+                "p1-lis": "Maratón de Life is Strange",
+                "p1-vr": "Gameplay en RV",
+                "badge-winter": "❄️ Invierno",
+                "badge-ets-fail": "❌ Fallo – Mapa roto",
+                "prog-text": "Progreso",
+                "prog-cancelled": "✗ 1 cancelado",
+                "prog-projects": "proyectos",
+                "p2-wincent": "Concierto de Wincent Weiss 2025 Halle Westfalen (¡Ya online! 🚀)",
+                "p2-job": "Mi nueva vida en el trabajo",
+                "p2-bremen": "Viaje a Bremen",
+                "p2-paderborn": "Lugar abandonado gigante en Paderborn",
+                "p3-silvester": "Cuenta regresiva de Año Nuevo 24h antes",
+                "p3-gta": "Gameplay de lanzamiento de GTA 6",
+                "p4-hype": "Construir juego en HypeHype",
+                "p4-web": "Crear sitio web propio",
+                "prog-2027": "Planeado para 2027"
+            },
+            pt: {
+                "nav-home": "Início",
+                "nav-soundboard": "Mesa de Sons",
+                "hero-title": "Plano de Conteúdo 2026",
+                "hero-subtitle": "Roteiro & Projetos",
+                "stat-projects": "Projetos 2026",
+                "stat-done": "Concluídos",
+                "stat-progress": "Progresso",
+                "box1-title": "Solo Gaming",
+                "box2-title": "Solo IRL",
+                "box3-title": "Grandes Eventos ao Vivo",
+                "box4-title": "Com a Diana",
+                "p1-pragmata": "Pragmata em outubro",
+                "badge-oct": "Out",
+                "p1-lis": "Maratona Life is Strange",
+                "p1-vr": "Gameplay em VR",
+                "badge-winter": "❄️ Inverno",
+                "badge-ets-fail": "❌ Erro – Mapa quebrado",
+                "prog-text": "Progresso",
+                "prog-cancelled": "✗ 1 cancelado",
+                "prog-projects": "projetos",
+                "p2-wincent": "Concerto Wincent Weiss 2025 Halle Westfalen (Já online! 🚀)",
+                "p2-job": "Minha nova vida no trabalho",
+                "p2-bremen": "Viagem para Bremen",
+                "p2-paderborn": "Lugar abandonado gigante em Paderborn",
+                "p3-silvester": "Contagem regressiva de Ano Novo 24h antes",
+                "p3-gta": "Gameplay de lançamento de GTA 6",
+                "p4-hype": "Criar jogo no HypeHype",
+                "p4-web": "Criar site próprio",
+                "prog-2027": "Planejado para 2027"
+            },
+            it: {
+                "nav-home": "Home",
+                "nav-soundboard": "Soundboard",
+                "hero-title": "Piano Contenuti 2026",
+                "hero-subtitle": "Roadmap e Progetti",
+                "stat-projects": "Progetti 2026",
+                "stat-done": "Completati",
+                "stat-progress": "Avanzamento",
+                "box1-title": "Solo Gaming",
+                "box2-title": "Solo IRL",
+                "box3-title": "Grandi Eventi Live",
+                "box4-title": "Con Diana",
+                "p1-pragmata": "Pragmata in ottobre",
+                "badge-oct": "Ott",
+                "p1-lis": "Maratona Life is Strange",
+                "p1-vr": "Gameplay in VR",
+                "badge-winter": "❄️ Inverno",
+                "badge-ets-fail": "❌ Fallito – Mappa rotta",
+                "prog-text": "Avanzamento",
+                "prog-cancelled": "✗ 1 cancellato",
+                "prog-projects": "progetti",
+                "p2-wincent": "Concerto Wincent Weiss 2025 Halle Westfalen (Già online! 🚀)",
+                "p2-job": "La mia nuova vita lavorativa",
+                "p2-bremen": "Viaggio a Brema",
+                "p2-paderborn": "Enorme luogo abbandonato a Paderborn",
+                "p3-silvester": "Conto alla rovescia di Capodanno 24h prima",
+                "p3-gta": "Gameplay di lancio di GTA 6",
+                "p4-hype": "Creare un gioco su HypeHype",
+                "p4-web": "Creare il proprio sito web",
+                "prog-2027": "Pianificato per il 2027"
+            },
+            tr: {
+                "nav-home": "Ana Sayfa",
+                "nav-soundboard": "Ses Paneli",
+                "hero-title": "İçerik Planı 2026",
+                "hero-subtitle": "Yol Haritası & Projeler",
+                "stat-projects": "2026 Projeleri",
+                "stat-done": "Tamamlanan",
+                "stat-progress": "İlerleme",
+                "box1-title": "Solo Oyun",
+                "box2-title": "Solo IRL",
+                "box3-title": "Büyük Canlı Etkinlikler",
+                "box4-title": "Diana ile",
+                "p1-pragmata": "Ekim ayında Pragmata",
+                "badge-oct": "Eki",
+                "p1-lis": "Life is Strange Maratonu",
+                "p1-vr": "VR Oynanış",
+                "badge-winter": "❄️ Kış",
+                "badge-ets-fail": "❌ Hata – Harita bozuk",
+                "prog-text": "İlerleme",
+                "prog-cancelled": "✗ 1 iptal edildi",
+                "prog-projects": "proje",
+                "p2-wincent": "Wincent Weiss Konseri 2025 Halle Westfalen (Şimdiden yayında! 🚀)",
+                "p2-job": "İstihbattaki yeni hayatım",
+                "p2-bremen": "Bremen Seyahati",
+                "p2-paderborn": "Paderborn'da Dev Gizemli Yer",
+                "p3-silvester": "24 Saat Önce Yılbaşı Geri Sayımı",
+                "p3-gta": "GTA 6 Çıkış Oynanışı",
+                "p4-hype": "HypeHype Oyunu Yap",
+                "p4-web": "Kendi Web Siteni Tasarla",
+                "prog-2027": "2027 için Planlandı"
+            },
+            zh: {
+                "nav-home": "首页",
+                "nav-soundboard": "音效板",
+                "hero-title": "2026 内容计划",
+                "hero-subtitle": "路线图与项目",
+                "stat-projects": "2026 项目",
+                "stat-done": "已完成",
+                "stat-progress": "进度",
+                "box1-title": "单人游戏",
+                "box2-title": "单人现实生活 (IRL)",
+                "box3-title": "大型直播活动",
+                "box4-title": "与戴安娜 (Diana)",
+                "p1-pragmata": "10月发售 虚实万象 (Pragmata)",
+                "badge-oct": "十月",
+                "p1-lis": "奇异人生马拉松",
+                "p1-vr": "VR 游戏实况",
+                "badge-winter": "❄️ 冬季",
+                "badge-ets-fail": "❌ 失败 – 地图损坏",
+                "prog-text": "进度",
+                "prog-cancelled": "✗ 1个已取消",
+                "prog-projects": "个项目",
+                "p2-wincent": "2025哈alle威斯特法伦 溫岑·维斯(Wincent Weiss)演唱会（已上线！🚀）",
+                "p2-job": "我的职场新生活",
+                "p2-bremen": "不莱梅之旅",
+                "p2-paderborn": "帕德博恩巨型废弃地探秘",
+                "p3-silvester": "跨年夜前24小时倒计时",
+                "p3-gta": "GTA 6 首发实况",
+                "p4-hype": "制作 HypeHype 游戏",
+                "p4-web": "搭建专属网站",
+                "prog-2027": "2027年计划"
+            },
+            uk: {
+                "nav-home": "Головна",
+                "nav-soundboard": "Саундборд",
+                "hero-title": "Контент-план 2026",
+                "hero-subtitle": "Дорожня карта та проекти",
+                "stat-projects": "Проекти 2026",
+                "stat-done": "Виконано",
+                "stat-progress": "Прогрес",
+                "box1-title": "Соло Геймінґ",
+                "box2-title": "Соло IRL",
+                "box3-title": "Великі стріми наживо",
+                "box4-title": "З Діаною",
+                "p1-pragmata": "Pragmata у жовтні",
+                "badge-oct": "Жовт",
+                "p1-lis": "Марафон Life is Strange",
+                "p1-vr": "Геймплей у VR",
+                "badge-winter": "❄️ Зима",
+                "badge-ets-fail": "❌ Збій – Мапа зламана",
+                "prog-text": "Прогрес",
+                "prog-cancelled": "✗ 1 скасовано",
+                "prog-projects": "проектів",
+                "p2-wincent": "Концерт Wincent Weiss 2025 у Галле (Вже онлайн! 🚀)",
+                "p2-job": "Моє нове робоче життя",
+                "p2-bremen": "Поїздка до Бремена",
+                "p2-paderborn": "Величезне покинуте місце в Падерборні",
+                "p3-silvester": "Новорічний відлік за 24 години до",
+                "p3-gta": "Геймплей релізу GTA 6",
+                "p4-hype": "Створити гру у HypeHype",
+                "p4-web": "Зробити власний веб-сайт",
+                "prog-2027": "Заплановано на 2027 рік"
+            },
+            ru: {
+                "nav-home": "Главная",
+                "nav-soundboard": "Саундборд",
+                "hero-title": "Контент-план 2026",
+                "hero-subtitle": "План и проекты",
+                "stat-projects": "Проекты 2026",
+                "stat-done": "Выполнено",
+                "stat-progress": "Прогресс",
+                "box1-title": "Соло-гейминг",
+                "box2-title": "Соло IRL",
+                "box3-title": "Большие стримы",
+                "box4-title": "С Дианой",
+                "p1-pragmata": "Pragmata в октябре",
+                "badge-oct": "Окт",
+                "p1-lis": "Марафон Life is Strange",
+                "p1-vr": "Геймплей в VR",
+                "badge-winter": "❄️ Зима",
+                "badge-ets-fail": "❌ Ошибка – Карта сломана",
+                "prog-text": "Прогресс",
+                "prog-cancelled": "✗ 1 отменен",
+                "prog-projects": "проектов",
+                "p2-wincent": "Концерт Винсента Вайсса 2025 в Галле (Уже онлайн! 🚀)",
+                "p2-job": "Моя новая жизнь на работе",
+                "p2-bremen": "Поездка в Бремен",
+                "p2-paderborn": "Огромный заброшенный объект в Падерборне",
+                "p3-silvester": "Новогодний обратный отсчет за 24 часа",
+                "p3-gta": "Геймплей релиза GTA 6",
+                "p4-hype": "Создать игру в HypeHype",
+                "p4-web": "Создать собственный сайт",
+                "prog-2027": "Запланировано на 2027 год"
+            },
+            ja: {
+                "nav-home": "ホーム",
+                "nav-soundboard": "サウンドボード",
+                "hero-title": "コンテンツプラン 2026",
+                "hero-subtitle": "ロードマップ＆プロジェクト",
+                "stat-projects": "2026年プロジェクト",
+                "stat-done": "完了",
+                "stat-progress": "進捗",
+                "box1-title": "ソロゲーム",
+                "box2-title": "ソロ IRL",
+                "box3-title": "大規模ライブイベント",
+                "box4-title": "ダイアナと一緒に",
+                "p1-pragmata": "10月のPragmata",
+                "badge-oct": "10月",
+                "p1-lis": "Life is Strange マラソン",
+                "p1-vr": "VR ゲームプレイ",
+                "badge-winter": "❄️ 冬",
+                "badge-ets-fail": "❌ 失敗 – マップ破損",
+                "prog-text": "進捗",
+                "prog-cancelled": "✗ 1件中止",
+                "prog-projects": "プロジェクト",
+                "p2-wincent": "ウィンセント・ヴァイス 2025年ハーレ・ヴェストファーレン公演（公開中！🚀）",
+                "p2-job": "仕事での新しい生活",
+                "p2-bremen": "ブレーメン旅行",
+                "p2-paderborn": "パーダーボルンの巨大廃墟",
+                "p3-silvester": "大晦日 24時間前カウントダウン",
+                "p3-gta": "GTA 6 リリースゲームプレイ",
+                "p4-hype": "HypeHypeでゲームを作る",
+                "p4-web": "自作ウェブサイトを作る",
+                "prog-2027": "2027年予定"
+            },
+            fr: {
+                "nav-home": "Accueil",
+                "nav-soundboard": "Table de sons",
+                "hero-title": "Plan de Contenu 2026",
+                "hero-subtitle": "Feuille de route et projets",
+                "stat-projects": "Projets 2026",
+                "stat-done": "Terminés",
+                "stat-progress": "Progression",
+                "box1-title": "Solo Gaming",
+                "box2-title": "Solo IRL",
+                "box3-title": "Grands Événements en Direct",
+                "box4-title": "Avec Diana",
+                "p1-pragmata": "Pragmata en octobre",
+                "badge-oct": "Oct",
+                "p1-lis": "Marathon Life is Strange",
+                "p1-vr": "Gameplay VR",
+                "badge-winter": "❄️ Hiver",
+                "badge-ets-fail": "❌ Échec – Carte cassée",
+                "prog-text": "Progression",
+                "prog-cancelled": "✗ 1 annulé",
+                "prog-projects": "projets",
+                "p2-wincent": "Concert Wincent Weiss 2025 Halle Westfalen (Déjà en ligne ! 🚀)",
+                "p2-job": "Ma nouvelle vie professionnelle",
+                "p2-bremen": "Voyage à Brême",
+                "p2-paderborn": "Immense lieu abandonné à Paderborn",
+                "p3-silvester": "Compte à rebours du Nouvel An 24h avant",
+                "p3-gta": "Gameplay de sortie de GTA 6",
+                "p4-hype": "Créer un jeu HypeHype",
+                "p4-web": "Créer son propre site web",
+                "prog-2027": "Prévu pour 2027"
+            },
+            ku: {
+                "nav-home": "Destpêk",
+                "nav-soundboard": "Panelê Deng",
+                "hero-title": "Plana Naverokê 2026",
+                "hero-subtitle": "Nexşeya Rê & Proje",
+                "stat-projects": "Projeyên 2026",
+                "stat-done": "Qediya",
+                "stat-progress": "Pêşveçûn",
+                "box1-title": "Lîstika Solo",
+                "box2-title": "Solo IRL",
+                "box3-title": "Bûyerên Zindî yên Mezin",
+                "box4-title": "Bi Diana re",
+                "p1-pragmata": "Pragmata di Cotmehê de",
+                "badge-oct": "Cot",
+                "p1-lis": "Maratona Life is Strange",
+                "p1-vr": "Lîstika VR",
+                "badge-winter": "❄️ Zivistan",
+                "badge-ets-fail": "❌ Têkçû – Nexşe xera bû",
+                "prog-text": "Pêşveçûn",
+                "prog-cancelled": "✗ 1 betal bû",
+                "prog-projects": "proje",
+                "p2-wincent": "Konsera Wincent Weiss 2025 Halle Westfalen (Jixwe li serhêl e! 🚀)",
+                "p2-job": "Jiyana min a nû ya kar",
+                "p2-bremen": "Rêwîtiya Bremenê",
+                "p2-paderborn": "Cihê terkkirî yê mezin li Paderborn",
+                "p3-silvester": "Hejmartina Sersalê 24 demjimêran berê",
+                "p3-gta": "Lîstika Derketina GTA 6",
+                "p4-hype": "Lîstika HypeHype çêke",
+                "p4-web": "Malpera xwe çêke",
+                "prog-2027": "Ji bo 2027an hatiye plankirin"
+            },
+            hi: {
+                "nav-home": "होम",
+                "nav-soundboard": "साउंडबोर्ड",
+                "hero-title": "कंटेंट प्लान 2026",
+                "hero-subtitle": "रोडमैप और प्रोजेक्ट्स",
+                "stat-projects": "प्रोजेक्ट्स 2026",
+                "stat-done": "पूरा हुआ",
+                "stat-progress": "प्रगति",
+                "box1-title": "सोलो गेमिंग",
+                "box2-title": "सोलो IRL",
+                "box3-title": "बड़े लाइव इवेंट्स",
+                "box4-title": "डायना के साथ",
+                "p1-pragmata": "अक्टूबर में प्रैगमाटा (Pragmata)",
+                "badge-oct": "अक्टूबर",
+                "p1-lis": "लाइफ इज़ स्ट्रेंज मैराथन",
+                "p1-vr": "वीआर गेमप्ले",
+                "badge-winter": "❄️ सर्दी",
+                "badge-ets-fail": "❌ फेल – मैप खराब",
+                "prog-text": "प्रगति",
+                "prog-cancelled": "✗ 1 रद्द हुआ",
+                "prog-projects": "प्रोजेक्ट्स",
+                "p2-wincent": "विंसेंट वीस कॉन्सर्ट 2025 हाले वेस्टफालेन (पहले से ऑनलाइन! 🚀)",
+                "p2-job": "नौकरी में मेरा नया जीवन",
+                "p2-bremen": "ब्रेमेन की यात्रा",
+                "p2-paderborn": "पाडेरबॉर्न में विशाल सुनसान जगह",
+                "p3-silvester": "नए साल की उल्टी गिनती 24 घंटे पहले",
+                "p3-gta": "GTA 6 रिलीज़ गेमप्ले",
+                "p4-hype": "HypeHype गेम बनाएं",
+                "p4-web": "खुद की वेबसाइट बनाएं",
+                "prog-2027": "2027 के लिए नियोजित"
+            }
+        };
+
+        function toggleLangDropdown() {
+            const container = document.getElementById('langSwitch');
+            const toggleBtn = document.getElementById('langToggleBtn');
+            const isOpen = container.classList.contains('open');
+            container.classList.toggle('open', !isOpen);
+            toggleBtn.setAttribute('aria-expanded', !isOpen);
+        }
+
+        // Dropdown bei Klick außerhalb schließen
+        document.addEventListener('click', (e) => {
+            const container = document.getElementById('langSwitch');
+            if (!container.contains(e.target)) {
+                container.classList.remove('open');
+                document.getElementById('langToggleBtn').setAttribute('aria-expanded', 'false');
+            }
+        });
+
+        function setLanguage(lang) {
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    el.textContent = translations[lang][key];
+                }
+            });
+            ['de', 'en', 'es', 'pt', 'it', 'tr', 'zh', 'uk', 'ru', 'ja', 'fr', 'ku', 'hi'].forEach(l => {
+                const btn = document.getElementById('btn' + l.toUpperCase());
+                if (btn) btn.classList.toggle('active', lang === l);
+            });
+            document.getElementById('currentLangLabel').textContent = lang.toUpperCase();
+            document.getElementById('langSwitch').classList.remove('open');
+            document.getElementById('langToggleBtn').setAttribute('aria-expanded', 'false');
+            localStorage.setItem('schrottkiste_lang', lang);
+        }
+
         (() => {
             'use strict';
+
+            const savedLang = localStorage.getItem('schrottkiste_lang') || 'de';
+            if (translations[savedLang]) {
+                setLanguage(savedLang);
+            } else {
+                setLanguage('de');
+            }
 
             const menuToggle = document.getElementById('menuToggle');
 
@@ -821,8 +1362,6 @@
 
             // --- STATS ---
             function updateStats() {
-                // Geplante 2026-Projekte: ohne 2027-Bereich (inkl. Minecraft), ohne gestrichene,
-                // ohne bereits erledigte (Wincent 2025 ist online und zaehlt nicht mehr als geplant)
                 const allProjects = document.querySelectorAll('.project-list:not(.project-list-2027) > li:not(.cancelled):not(.done)');
                 const doneProjects = document.querySelectorAll('.project-list:not(.project-list-2027) > li.done');
                 const total = allProjects.length;
