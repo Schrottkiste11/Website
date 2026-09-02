@@ -881,10 +881,8 @@
                 </ul>
             </nav>
 
-            <!-- Unsichtbares Element für das Google Translate Widget -->
             <div id="google_translate_element"></div>
 
-            <!-- Sprachauswahl-Button im Header -->
             <select class="language-select" id="language-selector" onchange="translatePage(this.value)" aria-label="Sprache wählen">
                 <option value="de" selected>Deutsch (de)</option>
                 <option value="pt">Portugiesisch (pt)</option>
@@ -928,7 +926,7 @@
 
     <div class="container">
         <aside class="gif-container" aria-label="Interaktive Bilder">
-            <button class="gif-box is-playing" id="gif1" type="button" aria-pressed="true" aria-label="Deutschland-GIF anhalten">
+            <button class="gif-box is-playing" id="gif1" type="button" role="button" tabindex="0" aria-pressed="true" aria-label="Deutschland-GIF anhalten">
                 <img class="gif-image gif-image--animated" src="images/GermanyGerGIF.gif" alt="Deutschland-GIF" width="200" height="200" decoding="async">
                 <img class="gif-image gif-image--still" src="images/image.png" alt="Deutschland-Bild, statische Ansicht" width="200" height="200" decoding="async">
                 <span class="gif-status playing" id="status1" aria-hidden="true"></span>
@@ -1075,7 +1073,6 @@
     </button>
     <div id="notification-region" aria-live="polite" aria-atomic="true"></div>
 
-    <!-- Skripte für Google Translate Logik -->
     <script type="text/javascript">
         function googleTranslateElementInit() {
             new google.translate.TranslateElement({
@@ -1174,13 +1171,22 @@
 
             const gif1 = document.getElementById('gif1');
             const status1 = document.getElementById('status1');
-            gif1.addEventListener('click', () => {
+            
+            function toggleGif() {
                 const paused = gif1.classList.toggle('is-paused');
                 gif1.classList.toggle('is-playing', !paused);
                 gif1.setAttribute('aria-pressed', String(!paused));
                 gif1.setAttribute('aria-label', paused ? 'Deutschland-GIF abspielen' : 'Deutschland-GIF anhalten');
                 status1.classList.toggle('playing', !paused);
                 status1.classList.toggle('paused', paused);
+            }
+
+            gif1.addEventListener('click', toggleGif);
+            gif1.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    toggleGif();
+                }
             });
 
             if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) gif1.click();
