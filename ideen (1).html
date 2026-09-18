@@ -1,0 +1,1253 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Content-Plan 2026 – Schrottkiste</title>
+    <meta name="description" content="Schrottkiste Content-Plan 2026 – Alle Gaming-Projekte, IRL-Content und Kollaborationen auf einen Blick" />
+    <meta name="theme-color" content="#050415" />
+    <meta name="color-scheme" content="dark" />
+    <link rel="canonical" href="ideen.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="ideen.html" />
+    <meta property="og:title" content="Content-Plan 2026 – Schrottkiste" />
+    <meta property="og:description" content="Schrottkiste Content-Plan 2026 – Alle Gaming-Projekte, IRL-Content und Kollaborationen auf einen Blick" />
+    <meta property="og:image" content="channels4_profile Schrottkiste.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Content-Plan 2026 – Schrottkiste" />
+    <meta name="twitter:description" content="Schrottkiste Content-Plan 2026 – Alle Gaming-Projekte, IRL-Content und Kollaborationen auf einen Blick" />
+    <meta name="twitter:image" content="channels4_profile Schrottkiste.jpg" />
+    <link rel="icon" href="channels4_profile%20Schrottkiste.jpg" type="image/jpeg" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Chewy&family=Poppins:wght@400;600;700&family=VT323&display=swap" rel="stylesheet" />
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        :root {
+            --bg: #050415;
+            --card: rgba(18, 14, 40, 0.96);
+            --accent: #ff0099;
+            --accent-alt: #00ffff;
+            --text: #f3f1ff;
+            --muted: #c0c4e8;
+            --border-soft: rgba(255, 255, 255, 0.12);
+            --success: #00ff66;
+            --warning: #ffaa00;
+        }
+
+        body {
+            min-height: 100vh;
+            overflow-x: hidden;
+            touch-action: pan-y;
+            background: #050415;
+            background-image: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%),
+                radial-gradient(circle at top, #151435 0%, #050415 70%, #020109 100%);
+            background-size: 100% 4px, 100% 100%;
+            font-family: Poppins, sans-serif;
+            color: var(--text);
+        }
+
+        :focus-visible {
+            outline: 3px solid var(--accent-alt);
+            outline-offset: 3px;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent);
+            border-radius: 4px;
+        }
+
+        .icon {
+            width: 1.1em;
+            height: 1.1em;
+            fill: currentColor;
+            vertical-align: -.15em;
+        }
+
+        /* --- LANGUAGE SWITCHER --- */
+        .lang-switch {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 20000;
+            background: var(--card);
+            border: 2px solid var(--border-soft);
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            overflow: hidden;
+        }
+        .lang-switch-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            background: transparent;
+            border: none;
+            color: var(--muted);
+            font-family: VT323, monospace;
+            font-size: 1.2rem;
+            padding: 8px 14px;
+            cursor: pointer;
+            width: 100%;
+            text-align: left;
+            transition: all 0.2s ease;
+        }
+        .lang-switch-toggle:hover {
+            color: var(--text);
+            background: rgba(255, 255, 255, 0.05);
+        }
+        .lang-dropdown {
+            display: none;
+            flex-direction: column;
+            max-height: 250px;
+            overflow-y: auto;
+            border-top: 1px solid var(--border-soft);
+            background: rgba(0, 0, 0, 0.4);
+        }
+        .lang-switch.open .lang-dropdown {
+            display: flex;
+        }
+        .lang-switch.open .lang-arrow {
+            transform: rotate(180deg);
+        }
+        .lang-arrow {
+            transition: transform 0.3s ease;
+            font-size: 1rem;
+        }
+        .lang-btn {
+            background: transparent;
+            border: none;
+            color: var(--muted);
+            font-family: VT323, monospace;
+            font-size: 1.2rem;
+            padding: 8px 14px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: left;
+            width: 100%;
+        }
+        .lang-btn:hover {
+            color: var(--text);
+            background: rgba(255, 255, 255, 0.05);
+        }
+        .lang-btn.active {
+            background: var(--accent);
+            color: #fff;
+            font-weight: bold;
+        }
+
+        /* --- SIDEBAR --- */
+        #menuToggle {
+            display: none;
+        }
+        .hamburger-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 20000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 5px;
+            color: #fff;
+            background: none;
+            border: none;
+            font-size: 32px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        .hamburger-btn:hover {
+            color: var(--accent-alt);
+            transform: scale(1.1);
+        }
+        .hamburger-btn:active {
+            transform: scale(0.9);
+        }
+        #menuToggle:checked~.hamburger-btn {
+            transform: translateX(-80px) scale(0.3) rotate(-90deg);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .close-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 20001;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 5px;
+            color: #fff;
+            background: none;
+            border: none;
+            font-size: 36px;
+            cursor: pointer;
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            opacity: 0;
+            pointer-events: none;
+            transform: translateX(-60px) rotate(-180deg) scale(0.3);
+        }
+        .close-btn:hover {
+            color: var(--accent);
+            transform: rotate(90deg) scale(1.2);
+        }
+        .close-btn:active {
+            transform: rotate(90deg) scale(0.8);
+        }
+        #menuToggle:checked~.close-btn {
+            opacity: 1;
+            pointer-events: all;
+            transform: translateX(0) rotate(0deg) scale(1);
+        }
+
+        .custom-sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 300px;
+            height: 100vh;
+            padding-top: 120px;
+            background: linear-gradient(135deg, #0a0a1a 0%, #111133 100%);
+            border-right: 4px solid var(--accent);
+            box-shadow: 5px 0 30px rgba(0, 0, 0, 0.5);
+            transform: translateX(-100%);
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 10000;
+            pointer-events: none;
+        }
+        #menuToggle:checked~.custom-sidebar {
+            transform: translateX(0);
+            pointer-events: all;
+        }
+
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 9999;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+        #menuToggle:checked~.sidebar-overlay {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .custom-sidebar nav {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            padding: 0 25px;
+        }
+        .custom-sidebar nav a {
+            position: relative;
+            z-index: 10001;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 20px;
+            color: #fff;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid #333;
+            border-radius: 8px;
+            font-family: VT323, monospace;
+            font-size: 1.8rem;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            pointer-events: auto;
+        }
+        .custom-sidebar nav a:hover {
+            background: var(--accent-alt);
+            color: #000;
+            border-color: var(--accent-alt);
+            box-shadow: 5px 5px 0px var(--accent);
+            transform: translateX(10px);
+        }
+        .custom-sidebar nav a .icon {
+            width: 1.5rem;
+            height: 1.5rem;
+        }
+
+        .sidebar-brand {
+            position: absolute;
+            top: 30px;
+            left: 50%;
+            width: 100%;
+            z-index: 10001;
+            color: var(--accent);
+            font-family: Chewy, cursive;
+            font-size: 2rem;
+            text-align: center;
+            text-shadow: 2px 2px 0px var(--accent-alt);
+            pointer-events: none;
+            transform: translateX(-50%);
+        }
+
+        /* --- MAIN CONTENT --- */
+        main {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 100px 20px 80px;
+            transition: transform 0.2s ease;
+        }
+
+        .swipe-hint {
+            position: fixed;
+            right: 30px;
+            bottom: 30px;
+            z-index: 5000;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 12px 24px 12px 20px;
+            color: #fff;
+            background: rgba(0, 0, 0, 0.6);
+            border: 2px solid var(--accent-alt);
+            border-radius: 60px;
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.2);
+            font-family: VT323, monospace;
+            font-size: 1.2rem;
+            letter-spacing: 0.04em;
+            text-decoration: none;
+            cursor: pointer;
+            user-select: none;
+            animation: pulseGlow 2.4s ease-in-out infinite;
+            transition: all 0.3s ease;
+        }
+        .swipe-hint .icon {
+            width: 1.8rem;
+            height: 1.8rem;
+            color: var(--accent-alt);
+            animation: slideArrow 1.2s ease-in-out infinite;
+        }
+        .swipe-hint:hover {
+            border-color: var(--accent);
+            box-shadow: 0 0 50px rgba(255, 0, 153, 0.3);
+            transform: scale(1.05);
+        }
+        .swipe-hint:active {
+            transform: scale(0.92);
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% {
+                box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
+            }
+            50% {
+                box-shadow: 0 0 40px rgba(0, 255, 255, 0.3), 0 0 80px rgba(255, 0, 153, 0.15);
+            }
+        }
+        @keyframes slideArrow {
+            0%, 100% {
+                transform: translateX(0);
+            }
+            50% {
+                transform: translateX(8px);
+            }
+        }
+
+        .hero {
+            position: relative;
+            margin-bottom: 60px;
+            text-align: center;
+        }
+        .hero-title {
+            margin-bottom: 15px;
+            color: #fff;
+            font-family: Chewy, cursive;
+            font-size: clamp(3rem, 8vw, 5rem);
+            text-shadow: 6px 6px 0px var(--accent);
+            animation: titleGlow 2s ease-in-out infinite alternate;
+        }
+        @keyframes titleGlow {
+            from {
+                text-shadow: 6px 6px 0px var(--accent);
+            }
+            to {
+                text-shadow: 6px 6px 20px var(--accent), 0 0 40px var(--accent-alt);
+            }
+        }
+        .hero-subtitle {
+            color: var(--accent-alt);
+            font-family: VT323, monospace;
+            font-size: 1.8rem;
+            opacity: 0.9;
+        }
+
+        .stats-bar {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+        }
+        .stat-item {
+            padding: 20px 30px;
+            background: var(--card);
+            border: 2px solid var(--border-soft);
+            border-radius: 12px;
+            text-align: center;
+            font-family: VT323, monospace;
+            transition: all 0.3s ease;
+        }
+        .stat-item:hover {
+            border-color: var(--accent);
+            box-shadow: 0 10px 30px rgba(255, 0, 153, 0.2);
+            transform: translateY(-5px);
+        }
+        .stat-number {
+            color: var(--accent-alt);
+            font-size: 3rem;
+            font-weight: bold;
+        }
+        .stat-label {
+            color: var(--muted);
+            font-size: 1.2rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        /* Accordion */
+        .content-box {
+            position: relative;
+            margin-bottom: 20px;
+            overflow: hidden;
+            background: var(--card);
+            border: 2px solid var(--border-soft);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .content-box::before {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--accent);
+            content: '';
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .content-box:hover {
+            border-color: var(--accent-alt);
+            box-shadow: 0 5px 30px rgba(0, 255, 255, 0.1);
+            transform: translateX(5px);
+        }
+        .content-box:hover::before {
+            opacity: 1;
+        }
+        .content-box.active {
+            border-color: var(--accent);
+            box-shadow: 0 5px 30px rgba(255, 0, 153, 0.15);
+        }
+        .content-box.active::before {
+            opacity: 1;
+        }
+
+        .box-trigger {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 25px 30px;
+            user-select: none;
+        }
+        .box-trigger h3 {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: var(--accent-alt);
+            font-family: VT323, monospace;
+            font-size: 2.2rem;
+        }
+        .box-trigger .icon {
+            width: 40px;
+            font-size: 2rem;
+            text-align: center;
+        }
+        .arrow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            color: var(--accent);
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+        .box-content {
+            max-height: 0;
+            overflow: hidden;
+            background: rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            transition: max-height 0.6s ease, opacity 0.4s ease, padding 0.4s ease;
+        }
+        .content-box.active .box-content {
+            opacity: 1;
+            padding: 0 30px 40px;
+        }
+        .content-box.active .arrow {
+            background: var(--accent);
+            color: white;
+            transform: rotate(180deg);
+        }
+
+        .project-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 12px;
+            list-style: none;
+        }
+        .project-list li {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 15px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid transparent;
+            border-radius: 8px;
+            color: var(--muted);
+            font-family: VT323, monospace;
+            font-size: 1.4rem;
+            flex-wrap: wrap;
+            transition: all 0.2s ease;
+        }
+        .project-list li:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--accent);
+            transform: translateX(5px);
+        }
+        .project-list li::before {
+            flex-shrink: 0;
+            margin-right: 15px;
+            color: var(--accent);
+            font-size: 1.2rem;
+            content: "▸";
+        }
+        .project-list li.done {
+            color: #666;
+            text-decoration: line-through;
+            opacity: 0.7;
+        }
+        .project-list li.done::before {
+            color: var(--success);
+            font-weight: bold;
+            content: "✓";
+        }
+        .project-list li.cancelled {
+            color: #ff4444;
+            opacity: 0.6;
+        }
+        .project-list li.cancelled::before {
+            color: #ff4444;
+            font-weight: bold;
+            content: "✗";
+        }
+
+        .priority-badge {
+            flex-shrink: 0;
+            margin-left: auto;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-family: Poppins, sans-serif;
+            font-size: 0.9rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+        .priority-high {
+            background: rgba(255, 0, 153, 0.2);
+            color: var(--accent);
+            border: 1px solid var(--accent);
+        }
+        .priority-medium {
+            background: rgba(255, 170, 0, 0.2);
+            color: var(--warning);
+            border: 1px solid var(--warning);
+        }
+        .priority-winter {
+            background: rgba(0, 255, 255, 0.2);
+            color: var(--accent-alt);
+            border: 1px solid var(--accent-alt);
+        }
+        .priority-2027 {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .priority-minecraft {
+            background: rgba(0, 200, 80, 0.25);
+            color: #5f9;
+            border: 1px solid #5f9;
+            box-shadow: 0 0 12px rgba(0, 255, 150, 0.15);
+        }
+
+        .progress-container {
+            margin-top: 20px;
+            padding: 15px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+        }
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            color: var(--muted);
+            font-family: VT323, monospace;
+            font-size: 1.2rem;
+        }
+        .progress-label .cancelled-info {
+            margin-left: 8px;
+            color: #ff4444;
+            font-size: 0.9rem;
+        }
+        .progress-bar {
+            height: 8px;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+        .progress-fill {
+            position: relative;
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent), var(--accent-alt));
+            border-radius: 4px;
+            transition: width 1s ease;
+        }
+        .progress-fill::after {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            content: '';
+            animation: shimmer 2s infinite;
+        }
+        @keyframes shimmer {
+            0% {
+                transform: translateX(-100%);
+            }
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        .footer-tag {
+            margin-bottom: 40px;
+            color: #444;
+            font-family: VT323, monospace;
+            font-size: 1.2rem;
+            text-align: center;
+            transition: color 0.3s ease;
+        }
+        .footer-tag:hover {
+            color: var(--accent);
+        }
+
+        @media (max-width: 768px) {
+            .stats-bar {
+                gap: 15px;
+            }
+            .stat-item {
+                padding: 15px 20px;
+            }
+            .stat-number {
+                font-size: 2.5rem;
+            }
+            .box-trigger h3 {
+                font-size: 1.8rem;
+            }
+            .project-list {
+                grid-template-columns: 1fr;
+            }
+            .swipe-hint {
+                right: 20px;
+                bottom: 20px;
+                padding: 10px 18px 10px 14px;
+                font-size: 1rem;
+                gap: 10px;
+            }
+            .swipe-hint .icon {
+                width: 1.4rem;
+                height: 1.4rem;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <svg aria-hidden="true" width="0" height="0" style="position:absolute">
+        <symbol id="icon-bars" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></symbol>
+        <symbol id="icon-times" viewBox="0 0 24 24"><path d="M6.4 5 12 10.6 17.6 5 19 6.4 13.4 12 19 17.6 17.6 19 12 13.4 6.4 19 5 17.6 10.6 12 5 6.4z"/></symbol>
+        <symbol id="icon-home" viewBox="0 0 24 24"><path d="M12 3 2 12h3v9h6v-6h2v6h6v-9h3z"/></symbol>
+        <symbol id="icon-music" viewBox="0 0 24 24"><path d="M9 3v10.55A4 4 0 1 0 11 17V7h6V3z"/></symbol>
+        <symbol id="icon-youtube" viewBox="0 0 24 24"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8M9.6 15.5v-7l6.2 3.5z"/></symbol>
+        <symbol id="icon-twitch" viewBox="0 0 24 24"><path d="M4 2h18v13l-5 5h-4l-3 3v-3H4zm2 2v12h5v2.2l2.2-2.2H16l4-4V4zm3 3h2v5H9zm5 0h2v5h-2z"/></symbol>
+        <symbol id="icon-arrow-right" viewBox="0 0 24 24"><path d="M12 4l-1.4 1.4L16.2 11H4v2h12.2l-5.6 5.6L12 20l8-8z"/></symbol>
+    </svg>
+
+    <div class="lang-switch" id="langSwitch">
+        <button class="lang-switch-toggle" onclick="toggleLangDropdown()" aria-expanded="false" id="langToggleBtn">
+            <span id="currentLangLabel">DE</span>
+            <span class="lang-arrow">▼</span>
+        </button>
+        <div class="lang-dropdown">
+            <button class="lang-btn active" id="btnDE" onclick="setLanguage('de')">DE</button>
+            <button class="lang-btn" id="btnEN" onclick="setLanguage('en')">EN</button>
+            <button class="lang-btn" id="btnES" onclick="setLanguage('es')">ES</button>
+            <button class="lang-btn" id="btnPT" onclick="setLanguage('pt')">PT</button>
+            <button class="lang-btn" id="btnIT" onclick="setLanguage('it')">IT</button>
+            <button class="lang-btn" id="btnTR" onclick="setLanguage('tr')">TR</button>
+            <button class="lang-btn" id="btnZH" onclick="setLanguage('zh')">ZH</button>
+            <button class="lang-btn" id="btnUK" onclick="setLanguage('uk')">UK</button>
+            <button class="lang-btn" id="btnRU" onclick="setLanguage('ru')">RU</button>
+            <button class="lang-btn" id="btnJA" onclick="setLanguage('ja')">JA</button>
+            <button class="lang-btn" id="btnFR" onclick="setLanguage('fr')">FR</button>
+            <button class="lang-btn" id="btnKU" onclick="setLanguage('ku')">KU</button>
+            <button class="lang-btn" id="btnHI" onclick="setLanguage('hi')">HI</button>
+        </div>
+    </div>
+
+    <input type="checkbox" id="menuToggle" hidden />
+    <label for="menuToggle" class="hamburger-btn" aria-label="Menü öffnen"><svg class="icon" aria-hidden="true"><use href="#icon-bars"></use></svg></label>
+    <label for="menuToggle" class="close-btn" aria-label="Menü schließen"><svg class="icon" aria-hidden="true"><use href="#icon-times"></use></svg></label>
+    <label for="menuToggle" class="sidebar-overlay" aria-hidden="true"></label>
+
+    <aside class="custom-sidebar" aria-label="Hauptmenü">
+        <div class="sidebar-brand">Schrottkiste</div>
+        <nav>
+            <a href="index.html"><svg class="icon" aria-hidden="true"><use href="#icon-home"></use></svg> <span data-i18n="nav-home">Startseite</span></a>
+            <a href="soundboard.html"><svg class="icon" aria-hidden="true"><use href="#icon-music"></use></svg> <span data-i18n="nav-soundboard">Soundboard</span></a>
+            <a href="https://www.youtube.com/@Schrottkiste" target="_blank" rel="noopener noreferrer"><svg class="icon" aria-hidden="true"><use href="#icon-youtube"></use></svg> YouTube</a>
+            <a href="https://www.twitch.tv/schrottkiste_luka" target="_blank" rel="noopener noreferrer"><svg class="icon" aria-hidden="true"><use href="#icon-twitch"></use></svg> Twitch</a>
+        </nav>
+    </aside>
+
+    <main>
+        <div class="hero">
+            <h1 class="hero-title" data-i18n="hero-title">Content-Plan 2026</h1>
+            <p class="hero-subtitle" data-i18n="hero-subtitle">Roadmap & Projekte</p>
+        </div>
+
+        <div class="stats-bar">
+            <div class="stat-item">
+                <div class="stat-number" id="totalProjects">0</div>
+                <div class="stat-label" data-i18n="stat-projects">Projekte 2026</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="completedProjects">0</div>
+                <div class="stat-label" data-i18n="stat-done">Erledigt</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="progressPercent">0%</div>
+                <div class="stat-label" data-i18n="stat-progress">Fortschritt</div>
+            </div>
+        </div>
+
+        <!-- Große Live-Events -->
+        <div class="content-box">
+            <div class="box-trigger" role="button" aria-expanded="false" aria-controls="box-3">
+                <h3><span class="icon">🔥</span> <span data-i18n="box3-title">Große Live-Events</span></h3>
+                <span class="arrow">▼</span>
+            </div>
+            <div class="box-content" id="box-3">
+                <ul class="project-list">
+                    <li><span data-i18n="p3-silvester">Silvester Countdown 24h vorher</span> <span class="priority-badge priority-high">HOT</span></li>
+                    <li><span data-i18n="p3-gta">GTA 6 Release Gameplay</span> <span class="priority-badge priority-high">HYPE</span></li>
+                </ul>
+                <div class="progress-container">
+                    <div class="progress-label"><span data-i18n="prog-text">Fortschritt</span><span>0/2 <span data-i18n="prog-projects">Projekte</span></span></div>
+                    <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mit Diana (2027) -->
+        <div class="content-box">
+            <div class="box-trigger" role="button" aria-expanded="false" aria-controls="box-4">
+                <h3><span class="icon">🤝</span> <span data-i18n="box4-title">Mit Diana</span> <span style="font-size:1.2rem; color:var(--muted); margin-left:10px;">[2027]</span></h3>
+                <span class="arrow">▼</span>
+            </div>
+            <div class="box-content" id="box-4">
+                <ul class="project-list project-list-2027">
+                    <li>Minecraft Alaskan Wilderness Mod pack <span class="priority-badge priority-minecraft">⛏️ 2027</span></li>
+                    <li>Tower of Fantasy <span class="priority-badge priority-2027">2027</span></li>
+                    <li>Escape the Backrooms <span class="priority-badge priority-2027">2027</span></li>
+                    <li>Animal Crossing Wild World <span class="priority-badge priority-2027">2027</span></li>
+                    <li>Animal Crossing New Leaf <span class="priority-badge priority-2027">2027</span></li>
+                    <li>Animal Crossing Lets go to the City <span class="priority-badge priority-2027">2027</span></li>
+                    <li>Animal Crossing New Horizons <span class="priority-badge priority-2027">2027</span></li>
+                    <li>Enchanted Kingdom and the School Wizardy <span class="priority-badge priority-2027">2027</span></li>
+                    <li><span data-i18n="p4-hype">HypeHype Spiel bauen</span> <span class="priority-badge priority-2027">2027</span></li>
+                    <li><span data-i18n="p4-web">Eigene Website basteln</span> <span class="priority-badge priority-2027">2027</span></li>
+                </ul>
+                <div class="progress-container">
+                    <div class="progress-label"><span data-i18n="prog-2027">Geplant für 2027</span><span>0/10 <span data-i18n="prog-projects">Projekte</span></span></div>
+                    <div class="progress-bar"><div class="progress-fill" style="width:0%; background:linear-gradient(90deg,#666,#999);"></div></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cold Season 2026 -->
+        <div class="content-box">
+            <div class="box-trigger" role="button" aria-expanded="false" aria-controls="box-5">
+                <h3><span class="icon">🍪</span> <span>Cold Season 2026 🍪🎄</span></h3>
+                <span class="arrow">▼</span>
+            </div>
+            <div class="box-content" id="box-5">
+                <ul class="project-list">
+                    <li>Euro Truck Simulator 2 (ETS 2) <span class="priority-badge priority-winter">TRUCK</span></li>
+                    <li>GTA 6 <span class="priority-badge priority-high">HYPE</span></li>
+                    <li>Levelhead 🤖</li>
+                    <li>Aniimo 🐻‍❄️</li>
+                    <li>Goat Simulator 🐐</li>
+                </ul>
+                <p style="font-family: VT323, monospace; font-size: 1.6rem; color: var(--muted); text-align: center; padding: 20px 0 10px;" data-i18n="more-coming">more Content Coming Soon...</p>
+                <div class="progress-container">
+                    <div class="progress-label"><span data-i18n="prog-text">Fortschritt</span><span>0/2 <span data-i18n="prog-projects">Projekte</span></span></div>
+                    <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div class="footer-tag">#SCHROTTKISTE2026 🤘</div>
+
+    <a class="swipe-hint" id="swipeHint" href="soundboard.html">
+        <svg class="icon" aria-hidden="true"><use href="#icon-arrow-right"></use></svg>
+        <span data-i18n="nav-soundboard">Soundboard</span>
+    </a>
+
+    <script>
+        const translations = {
+            de: {
+                "nav-home": "Startseite",
+                "nav-soundboard": "Soundboard",
+                "hero-title": "Content-Plan 2026",
+                "hero-subtitle": "Roadmap & Projekte",
+                "stat-projects": "Projekte 2026",
+                "stat-done": "Erledigt",
+                "stat-progress": "Fortschritt",
+                "box3-title": "Große Live-Events",
+                "box4-title": "Mit Diana",
+                "prog-text": "Fortschritt",
+                "prog-projects": "Projekte",
+                "p3-silvester": "Silvester Countdown 24h vorher",
+                "p3-gta": "GTA 6 Release Gameplay",
+                "p4-hype": "HypeHype Spiel bauen",
+                "p4-web": "Eigene Website basteln",
+                "prog-2027": "Geplant für 2027",
+                "more-coming": "more Content Coming Soon..."
+            },
+            en: {
+                "nav-home": "Home",
+                "nav-soundboard": "Soundboard",
+                "hero-title": "Content Plan 2026",
+                "hero-subtitle": "Roadmap & Projects",
+                "stat-projects": "Projects 2026",
+                "stat-done": "Completed",
+                "stat-progress": "Progress",
+                "box3-title": "Major Live Events",
+                "box4-title": "With Diana",
+                "prog-text": "Progress",
+                "prog-projects": "Projects",
+                "p3-silvester": "New Year's Eve Countdown 24h before",
+                "p3-gta": "GTA 6 Release Gameplay",
+                "p4-hype": "Build HypeHype game",
+                "p4-web": "Build custom website",
+                "prog-2027": "Planned for 2027",
+                "more-coming": "more Content Coming Soon..."
+            },
+            es: {
+                "nav-home": "Inicio",
+                "nav-soundboard": "Panel de sonidos",
+                "hero-title": "Plan de Contenido 2026",
+                "hero-subtitle": "Hoja de ruta y proyectos",
+                "stat-projects": "Proyectos 2026",
+                "stat-done": "Completados",
+                "stat-progress": "Progreso",
+                "box3-title": "Grandes Eventos en Vivo",
+                "box4-title": "Con Diana",
+                "prog-text": "Progreso",
+                "prog-projects": "proyectos",
+                "p3-silvester": "Cuenta regresiva de Año Nuevo 24h antes",
+                "p3-gta": "Gameplay de lanzamiento de GTA 6",
+                "p4-hype": "Construir juego en HypeHype",
+                "p4-web": "Crear sitio web propio",
+                "prog-2027": "Planeado para 2027",
+                "more-coming": "more Content Coming Soon..."
+            },
+            pt: {
+                "nav-home": "Início",
+                "nav-soundboard": "Mesa de Sons",
+                "hero-title": "Plano de Conteúdo 2026",
+                "hero-subtitle": "Roteiro & Projetos",
+                "stat-projects": "Projetos 2026",
+                "stat-done": "Concluídos",
+                "stat-progress": "Progresso",
+                "box3-title": "Grandes Eventos ao Vivo",
+                "box4-title": "Com a Diana",
+                "prog-text": "Progresso",
+                "prog-projects": "projetos",
+                "p3-silvester": "Contagem regressiva de Ano Novo 24h antes",
+                "p3-gta": "Gameplay de lançamento de GTA 6",
+                "p4-hype": "Criar jogo no HypeHype",
+                "p4-web": "Criar site próprio",
+                "prog-2027": "Planejado para 2027",
+                "more-coming": "more Content Coming Soon..."
+            },
+            it: {
+                "nav-home": "Home",
+                "nav-soundboard": "Soundboard",
+                "hero-title": "Piano Contenuti 2026",
+                "hero-subtitle": "Roadmap e Progetti",
+                "stat-projects": "Progetti 2026",
+                "stat-done": "Completati",
+                "stat-progress": "Avanzamento",
+                "box3-title": "Grandi Eventi Live",
+                "box4-title": "Con Diana",
+                "prog-text": "Avanzamento",
+                "prog-projects": "progetti",
+                "p3-silvester": "Conto alla rovescia di Capodanno 24h prima",
+                "p3-gta": "Gameplay di lancio di GTA 6",
+                "p4-hype": "Creare un gioco su HypeHype",
+                "p4-web": "Creare il proprio sito web",
+                "prog-2027": "Pianificato per il 2027",
+                "more-coming": "more Content Coming Soon..."
+            },
+            tr: {
+                "nav-home": "Ana Sayfa",
+                "nav-soundboard": "Ses Paneli",
+                "hero-title": "İçerik Planı 2026",
+                "hero-subtitle": "Yol Haritası & Projeler",
+                "stat-projects": "2026 Projeleri",
+                "stat-done": "Tamamlanan",
+                "stat-progress": "İlerleme",
+                "box3-title": "Büyük Canlı Etkinlikler",
+                "box4-title": "Diana ile",
+                "prog-text": "İlerleme",
+                "prog-projects": "proje",
+                "p3-silvester": "24 Saat Önce Yılbaşı Geri Sayımı",
+                "p3-gta": "GTA 6 Çıkış Oynanışı",
+                "p4-hype": "HypeHype Oyunu Yap",
+                "p4-web": "Kendi Web Siteni Tasarla",
+                "prog-2027": "2027 için Planlandı",
+                "more-coming": "more Content Coming Soon..."
+            },
+            zh: {
+                "nav-home": "首页",
+                "nav-soundboard": "音效板",
+                "hero-title": "2026 内容计划",
+                "hero-subtitle": "路线图与项目",
+                "stat-projects": "2026 项目",
+                "stat-done": "已完成",
+                "stat-progress": "进度",
+                "box3-title": "大型直播活动",
+                "box4-title": "与戴安娜 (Diana)",
+                "prog-text": "进度",
+                "prog-projects": "个项目",
+                "p3-silvester": "跨年夜前24小时倒计时",
+                "p3-gta": "GTA 6 首发实况",
+                "p4-hype": "制作 HypeHype 游戏",
+                "p4-web": "搭建专属网站",
+                "prog-2027": "2027年计划",
+                "more-coming": "more Content Coming Soon..."
+            },
+            uk: {
+                "nav-home": "Головна",
+                "nav-soundboard": "Саундборд",
+                "hero-title": "Контент-план 2026",
+                "hero-subtitle": "Дорожня карта та проекти",
+                "stat-projects": "Проекти 2026",
+                "stat-done": "Виконано",
+                "stat-progress": "Прогрес",
+                "box3-title": "Великі стріми наживо",
+                "box4-title": "З Діаною",
+                "prog-text": "Прогрес",
+                "prog-projects": "проектів",
+                "p3-silvester": "Новорічний відлік за 24 години до",
+                "p3-gta": "Геймплей релізу GTA 6",
+                "p4-hype": "Створити гру у HypeHype",
+                "p4-web": "Зробити власний веб-сайт",
+                "prog-2027": "Заплановано на 2027 рік",
+                "more-coming": "more Content Coming Soon..."
+            },
+            ru: {
+                "nav-home": "Главная",
+                "nav-soundboard": "Саундборд",
+                "hero-title": "Контент-план 2026",
+                "hero-subtitle": "План и проекты",
+                "stat-projects": "Проекты 2026",
+                "stat-done": "Выполнено",
+                "stat-progress": "Прогресс",
+                "box3-title": "Большие стримы",
+                "box4-title": "С Дианой",
+                "prog-text": "Прогресс",
+                "prog-projects": "проектов",
+                "p3-silvester": "Новогодний обратный отсчет за 24 часа",
+                "p3-gta": "Геймплей релиза GTA 6",
+                "p4-hype": "Создать игру в HypeHype",
+                "p4-web": "Создать собственный сайт",
+                "prog-2027": "Запланировано на 2027 год",
+                "more-coming": "more Content Coming Soon..."
+            },
+            ja: {
+                "nav-home": "ホーム",
+                "nav-soundboard": "サウンドボード",
+                "hero-title": "コンテンツプラン 2026",
+                "hero-subtitle": "ロードマップ＆プロジェクト",
+                "stat-projects": "2026年プロジェクト",
+                "stat-done": "完了",
+                "stat-progress": "進捗",
+                "box3-title": "大規模ライブイベント",
+                "box4-title": "ダイアナと一緒に",
+                "prog-text": "進捗",
+                "prog-projects": "プロジェクト",
+                "p3-silvester": "大晦日 24時間前カウントダウン",
+                "p3-gta": "GTA 6 リリースゲームプレイ",
+                "p4-hype": "HypeHypeでゲームを作る",
+                "p4-web": "自作ウェブサイトを作る",
+                "prog-2027": "2027年予定",
+                "more-coming": "more Content Coming Soon..."
+            },
+            fr: {
+                "nav-home": "Accueil",
+                "nav-soundboard": "Table de sons",
+                "hero-title": "Plan de Contenu 2026",
+                "hero-subtitle": "Feuille de route et projets",
+                "stat-projects": "Projets 2026",
+                "stat-done": "Terminés",
+                "stat-progress": "Progression",
+                "box3-title": "Grands Événements en Direct",
+                "box4-title": "Avec Diana",
+                "prog-text": "Progression",
+                "prog-projects": "projets",
+                "p3-silvester": "Compte à rebours du Nouvel An 24h avant",
+                "p3-gta": "Gameplay de sortie de GTA 6",
+                "p4-hype": "Créer un jeu HypeHype",
+                "p4-web": "Créer son propre site web",
+                "prog-2027": "Prévu pour 2027",
+                "more-coming": "more Content Coming Soon..."
+            },
+            ku: {
+                "nav-home": "Destpêk",
+                "nav-soundboard": "Panelê Deng",
+                "hero-title": "Plana Naverokê 2026",
+                "hero-subtitle": "Nexşeya Rê & Proje",
+                "stat-projects": "Projeyên 2026",
+                "stat-done": "Qediya",
+                "stat-progress": "Pêşveçûn",
+                "box3-title": "Bûyerên Zindî yên Mezin",
+                "box4-title": "Bi Diana re",
+                "prog-text": "Pêşveçûn",
+                "prog-projects": "proje",
+                "p3-silvester": "Hejmartina Sersalê 24 demjimêran berê",
+                "p3-gta": "Lîstika Derketina GTA 6",
+                "p4-hype": "Lîstika HypeHype çêke",
+                "p4-web": "Malpera xwe çêke",
+                "prog-2027": "Ji bo 2027an hatiye plankirin",
+                "more-coming": "more Content Coming Soon..."
+            },
+            hi: {
+                "nav-home": "होम",
+                "nav-soundboard": "साउंडबोर्ड",
+                "hero-title": "कंटेंट प्लान 2026",
+                "hero-subtitle": "रोडमैप और प्रोजेक्ट्स",
+                "stat-projects": "प्रोजेक्ट्स 2026",
+                "stat-done": "पूरा हुआ",
+                "stat-progress": "प्रगति",
+                "box3-title": "बड़े लाइव इवेंट्स",
+                "box4-title": "डायना के साथ",
+                "prog-text": "प्रगति",
+                "prog-projects": "प्रोजेक्ट्स",
+                "p3-silvester": "नए साल की उल्टी गिनती 24 घंटे पहले",
+                "p3-gta": "GTA 6 रिलीज़ गेमप्ले",
+                "p4-hype": "HypeHype गेम बनाएं",
+                "p4-web": "खुद की वेबसाइट बनाएं",
+                "prog-2027": "2027 के लिए नियोजित",
+                "more-coming": "more Content Coming Soon..."
+            }
+        };
+
+        function toggleLangDropdown() {
+            const container = document.getElementById('langSwitch');
+            const toggleBtn = document.getElementById('langToggleBtn');
+            const isOpen = container.classList.contains('open');
+            container.classList.toggle('open', !isOpen);
+            toggleBtn.setAttribute('aria-expanded', !isOpen);
+        }
+
+        document.addEventListener('click', (e) => {
+            const container = document.getElementById('langSwitch');
+            if (!container.contains(e.target)) {
+                container.classList.remove('open');
+                document.getElementById('langToggleBtn').setAttribute('aria-expanded', 'false');
+            }
+        });
+
+        function setLanguage(lang) {
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    el.textContent = translations[lang][key];
+                }
+            });
+            ['de', 'en', 'es', 'pt', 'it', 'tr', 'zh', 'uk', 'ru', 'ja', 'fr', 'ku', 'hi'].forEach(l => {
+                const btn = document.getElementById('btn' + l.toUpperCase());
+                if (btn) btn.classList.toggle('active', lang === l);
+            });
+            document.getElementById('currentLangLabel').textContent = lang.toUpperCase();
+            document.getElementById('langSwitch').classList.remove('open');
+            document.getElementById('langToggleBtn').setAttribute('aria-expanded', 'false');
+            localStorage.setItem('schrottkiste_lang', lang);
+        }
+
+        (() => {
+            'use strict';
+
+            const savedLang = localStorage.getItem('schrottkiste_lang') || 'de';
+            if (translations[savedLang]) {
+                setLanguage(savedLang);
+            } else {
+                setLanguage('de');
+            }
+
+            const menuToggle = document.getElementById('menuToggle');
+
+            function toggleAccordion(box) {
+                const content = box.querySelector('.box-content');
+                const trigger = box.querySelector('.box-trigger');
+                const isActive = box.classList.contains('active');
+
+                if (isActive) {
+                    content.style.maxHeight = content.scrollHeight + 'px';
+                    requestAnimationFrame(() => {
+                        box.classList.remove('active');
+                        content.style.maxHeight = '0px';
+                        trigger.setAttribute('aria-expanded', 'false');
+                    });
+                } else {
+                    box.classList.add('active');
+                    content.offsetHeight;
+                    content.style.maxHeight = content.scrollHeight + 'px';
+                    trigger.setAttribute('aria-expanded', 'true');
+                    window.setTimeout(() => { content.style.maxHeight = 'none'; }, 650);
+                    window.setTimeout(() => {
+                        box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    }, 100);
+                }
+            }
+
+            document.querySelectorAll('.content-box').forEach((box) => {
+                const trigger = box.querySelector('.box-trigger');
+                const content = box.querySelector('.box-content');
+                trigger.setAttribute('role', 'button');
+                trigger.setAttribute('aria-expanded', 'false');
+                trigger.setAttribute('aria-controls', content.id);
+                trigger.addEventListener('click', () => toggleAccordion(box));
+                trigger.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        toggleAccordion(box);
+                    }
+                });
+            });
+
+            function updateStats() {
+                const allProjects = document.querySelectorAll('.project-list:not(.project-list-2027) > li:not(.cancelled):not(.done)');
+                const doneProjects = document.querySelectorAll('.project-list:not(.project-list-2027) > li.done');
+                const total = allProjects.length;
+                const completed = doneProjects.length;
+                const progress = total > 0 ? Math.round((completed / total) * 100) : 0;
+
+                animateValue('totalProjects', 0, total, 1000);
+                animateValue('completedProjects', 0, completed, 1000);
+                document.getElementById('progressPercent').textContent = progress + '%';
+            }
+
+            function animateValue(id, start, end, duration) {
+                const obj = document.getElementById(id);
+                const range = end - start;
+                const startTime = new Date().getTime();
+                const endTime = startTime + duration;
+
+                function run() {
+                    const now = new Date().getTime();
+                    const remaining = Math.max((endTime - now) / duration, 0);
+                    const value = Math.round(end - (remaining * range));
+                    obj.textContent = value;
+                    if (value < end) requestAnimationFrame(run);
+                }
+                requestAnimationFrame(run);
+            }
+            updateStats();
+
+            document.querySelectorAll('.custom-sidebar nav a').forEach((link) => {
+                link.addEventListener('click', () => {
+                    menuToggle.checked = false;
+                });
+            });
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && menuToggle.checked) {
+                    menuToggle.checked = false;
+                }
+            });
+
+            let touchStartX = 0;
+            let touchStartY = 0;
+            let isSwiping = false;
+            const swipeThreshold = 70;
+
+            document.addEventListener('touchstart', (e) => {
+                if (menuToggle.checked) return;
+                if (e.target.closest('.swipe-hint')) return;
+                touchStartX = e.changedTouches[0].screenX;
+                touchStartY = e.changedTouches[0].screenY;
+                isSwiping = true;
+            }, { passive: true });
+
+            document.addEventListener('touchmove', (e) => {
+                if (!isSwiping) return;
+                const deltaX = e.changedTouches[0].screenX - touchStartX;
+                const deltaY = e.changedTouches[0].screenY - touchStartY;
+                if (Math.abs(deltaY) > 60) {
+                    isSwiping = false;
+                    return;
+                }
+                if (deltaX > swipeThreshold) {
+                    isSwiping = false;
+                    window.location.href = 'soundboard.html';
+                }
+            }, { passive: true });
+        })();
+    </script>
+</body>
+</html>
