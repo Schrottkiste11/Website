@@ -705,6 +705,19 @@
             font-family: Chewy, cursive;
             font-size: 1.5rem;
         }
+        .footer-links {
+            display: flex;
+            gap: 15px;
+        }
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: .85rem;
+            transition: var(--transition);
+        }
+        .footer-links a:hover {
+            color: var(--accent-alt);
+        }
         .footer-copy {
             color: var(--text-secondary);
             font-size: .85rem;
@@ -1085,6 +1098,9 @@
     <footer class="site-footer">
         <div class="footer-inner">
             <span class="footer-brand">Schrottkiste</span>
+            <div class="footer-links">
+                <a href="Datenschutz.html">Datenschutz</a>
+            </div>
             <div class="footer-social" aria-label="Social Media">
                 <a class="social-btn twitch" href="https://www.twitch.tv/schrottkiste_luka" target="_blank" rel="noopener noreferrer" aria-label="Twitch öffnen"><svg class="icon" aria-hidden="true"><use href="#icon-twitch"></use></svg></a>
                 <a class="social-btn youtube" href="https://www.youtube.com/@schrottkiste" target="_blank" rel="noopener noreferrer" aria-label="YouTube öffnen"><svg class="icon" aria-hidden="true"><use href="#icon-youtube"></use></svg></a>
