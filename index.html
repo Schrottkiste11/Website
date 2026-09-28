@@ -57,7 +57,6 @@
             top: 0 !important;
         }
 
-        /* Ausblenden der Standard-Google-Übersetzungsleiste */
         #google_translate_element,
         .skiptranslate,
         .goog-te-banner-frame {
@@ -293,27 +292,14 @@
         .visualizer.is-playing .visualizer-bar {
             animation-play-state: running;
         }
-        .visualizer-bar:nth-child(2) {
-            animation-delay: .1s;
-        }
-        .visualizer-bar:nth-child(3) {
-            animation-delay: .2s;
-        }
-        .visualizer-bar:nth-child(4) {
-            animation-delay: .3s;
-        }
-        .visualizer-bar:nth-child(5) {
-            animation-delay: .4s;
-        }
+        .visualizer-bar:nth-child(2) { animation-delay: .1s; }
+        .visualizer-bar:nth-child(3) { animation-delay: .2s; }
+        .visualizer-bar:nth-child(4) { animation-delay: .3s; }
+        .visualizer-bar:nth-child(5) { animation-delay: .4s; }
 
         @keyframes visualize {
-            0%,
-            100% {
-                height: 8px;
-            }
-            50% {
-                height: 20px;
-            }
+            0%, 100% { height: 8px; }
+            50% { height: 20px; }
         }
 
         .social-btns,
@@ -594,6 +580,26 @@
             transform: translateY(-3px);
         }
 
+        /* Lade-Indikator & Sentinel für Lazy Loading */
+        .sentinel {
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        .loading-spinner {
+            width: 24px;
+            height: 24px;
+            border: 3px solid var(--line-color);
+            border-top-color: var(--accent);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
         .sidebar {
             display: flex;
             flex: 0 0 300px;
@@ -770,24 +776,12 @@
         }
 
         @keyframes slideIn {
-            from {
-                transform: translateX(100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
         }
         @keyframes slideOut {
-            from {
-                transform: translateX(0);
-                opacity: 1;
-            }
-            to {
-                transform: translateX(100%);
-                opacity: 0;
-            }
+            from { transform: translateX(0); opacity: 1; }
+            to { transform: translateX(100%); opacity: 0; }
         }
 
         @media (max-width: 1024px) {
@@ -831,22 +825,11 @@
         }
 
         @media (max-width: 640px) {
-            .nav-brand {
-                font-size: 2.5rem;
-            }
-            .post-title {
-                font-size: 1.8rem;
-            }
-            .blog-post {
-                padding: 25px;
-            }
-            .mini-player {
-                width: 100%;
-            }
-            .footer-inner {
-                flex-direction: column;
-                text-align: center;
-            }
+            .nav-brand { font-size: 2.5rem; }
+            .post-title { font-size: 1.8rem; }
+            .blog-post { padding: 25px; }
+            .mini-player { width: 100%; }
+            .footer-inner { flex-direction: column; text-align: center; }
             .scroll-to-top {
                 right: 20px;
                 bottom: 20px;
@@ -856,9 +839,7 @@
         }
 
         @media (prefers-reduced-motion: reduce) {
-            *,
-            *::before,
-            *::after {
+            *, *::before, *::after {
                 scroll-behavior: auto !important;
                 animation-duration: .01ms !important;
                 animation-iteration-count: 1 !important;
@@ -949,8 +930,11 @@
             </a>
         </aside>
 
-        <main class="blog-section" id="blog-section">
-            <!-- Beiträge werden dynamisch via posts.json geladen -->
+        <main class="blog-section">
+            <div id="blog-posts-container"></div>
+            <div id="sentinel" class="sentinel">
+                <div id="loading-spinner" class="loading-spinner" style="display: none;"></div>
+            </div>
         </main>
 
         <aside class="sidebar" aria-labelledby="playlist-heading">
@@ -1008,7 +992,10 @@
             const artistNameEl = document.getElementById('artist-name');
             const scrollToTopBtn = document.getElementById('scrollToTop');
             const notificationRegion = document.getElementById('notification-region');
-            const blogSection = document.getElementById('blog-section');
+            const blogPostsContainer = document.getElementById('blog-posts-container');
+            const sentinel = document.getElementById('sentinel');
+            const loadingSpinner = document.getElementById('loading-spinner');
+            
             const playIcon = '<svg class="icon" aria-hidden="true"><use href="#icon-play"></use></svg>';
             const pauseIcon = '<svg class="icon" aria-hidden="true"><use href="#icon-pause"></use></svg>';
 
@@ -1172,72 +1159,111 @@
                 }
             }
 
-            async function loadPosts() {
+            // High-Performance Lazy-Rendering Logik
+            let allPosts = [];
+            let renderedCount = 0;
+            const BATCH_SIZE = 3; // Rendert jeweils 3 Posts schrittweise
+
+            function renderNextBatch() {
+                if (renderedCount >= allPosts.length) return;
+
+                loadingSpinner.style.display = 'block';
+
+                const nextPosts = allPosts.slice(renderedCount, renderedCount + BATCH_SIZE);
+
+                nextPosts.forEach((post, index) => {
+                    const globalIndex = renderedCount + index;
+                    const article = document.createElement('article');
+                    article.className = 'blog-post';
+                    article.setAttribute('itemscope', '');
+                    article.setAttribute('itemtype', 'https://schema.org/BlogPosting');
+
+                    let contentHtml = '';
+                    if (post.paragraphs) {
+                        contentHtml = post.paragraphs.map(p => `<p>${p}</p>`).join('');
+                    } else if (post.listItems) {
+                        contentHtml = `<ul>${post.listItems.map(item => `<li>${item}</li>`).join('')}</ul>`;
+                    }
+
+                    const headingTag = globalIndex === 0 ? 'h1' : 'h2';
+
+                    article.innerHTML = `
+                        <div class="post-meta">
+                            <time class="post-time" datetime="${post.datetime}" itemprop="datePublished">${post.dateFormatted}</time>
+                            <span class="reading-time">${post.readingTime}</span>
+                        </div>
+                        <${headingTag} class="post-title" itemprop="headline">${post.title}</${headingTag}>
+                        <div class="post-text collapsed" id="${post.id}" itemprop="articleBody">
+                            ${contentHtml}
+                        </div>
+                        <button class="read-more" type="button" data-toggle-text="${post.id}" aria-expanded="false">
+                            <span>Weiterlesen</span>
+                            <svg class="icon" aria-hidden="true"><use href="#icon-chevron"></use></svg>
+                        </button>
+                        <div class="interactive-area">
+                            <span class="likebtn-wrapper" data-theme="heart" data-identifier="${post.likeId}" data-counter_count="true"></span>
+                            <div class="share-buttons">
+                                <button class="share-btn" type="button" data-share-title="${post.title}" aria-label="Beitrag teilen">
+                                    <svg class="icon" aria-hidden="true"><use href="#icon-share"></use></svg>
+                                </button>
+                                <button class="share-btn" type="button" data-copy-link aria-label="Link kopieren">
+                                    <svg class="icon" aria-hidden="true"><use href="#icon-link"></use></svg>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+
+                    blogPostsContainer.appendChild(article);
+                    bindBlogEvents(article);
+                });
+
+                renderedCount += nextPosts.length;
+                loadingSpinner.style.display = 'none';
+
+                initLikeBtnObserver();
+                if (window.LikeBtn) window.LikeBtn.init();
+
+                if (renderedCount >= allPosts.length && scrollObserver) {
+                    scrollObserver.unobserve(sentinel);
+                }
+            }
+
+            let scrollObserver = null;
+
+            function initInfiniteScroll() {
+                if ('IntersectionObserver' in window) {
+                    scrollObserver = new IntersectionObserver((entries) => {
+                        if (entries[0].isIntersecting) {
+                            renderNextBatch();
+                        }
+                    }, { rootMargin: '200px' });
+                    scrollObserver.observe(sentinel);
+                } else {
+                    renderNextBatch();
+                }
+            }
+
+            async function initBlog() {
                 try {
                     const response = await fetch('posts.json');
                     if (!response.ok) throw new Error('Fehler beim Laden der Beiträge.');
-                    const posts = await response.json();
+                    allPosts = await response.json();
 
-                    blogSection.innerHTML = '';
-
-                    posts.forEach((post, index) => {
-                        const article = document.createElement('article');
-                        article.className = 'blog-post';
-                        article.setAttribute('itemscope', '');
-                        article.setAttribute('itemtype', 'https://schema.org/BlogPosting');
-
-                        let contentHtml = '';
-                        if (post.paragraphs) {
-                            contentHtml = post.paragraphs.map(p => `<p>${p}</p>`).join('');
-                        } else if (post.listItems) {
-                            contentHtml = `<ul>${post.listItems.map(item => `<li>${item}</li>`).join('')}</ul>`;
-                        }
-
-                        const headingTag = index === 0 ? 'h1' : 'h2';
-
-                        article.innerHTML = `
-                            <div class="post-meta">
-                                <time class="post-time" datetime="${post.datetime}" itemprop="datePublished">${post.dateFormatted}</time>
-                                <span class="reading-time">${post.readingTime}</span>
-                            </div>
-                            <${headingTag} class="post-title" itemprop="headline">${post.title}</${headingTag}>
-                            <div class="post-text collapsed" id="${post.id}" itemprop="articleBody">
-                                ${contentHtml}
-                            </div>
-                            <button class="read-more" type="button" data-toggle-text="${post.id}" aria-expanded="false">
-                                <span>Weiterlesen</span>
-                                <svg class="icon" aria-hidden="true"><use href="#icon-chevron"></use></svg>
-                            </button>
-                            <div class="interactive-area">
-                                <span class="likebtn-wrapper" data-theme="heart" data-identifier="${post.likeId}" data-counter_count="true"></span>
-                                <div class="share-buttons">
-                                    <button class="share-btn" type="button" data-share-title="${post.title}" aria-label="Beitrag teilen">
-                                        <svg class="icon" aria-hidden="true"><use href="#icon-share"></use></svg>
-                                    </button>
-                                    <button class="share-btn" type="button" data-copy-link aria-label="Link kopieren">
-                                        <svg class="icon" aria-hidden="true"><use href="#icon-link"></use></svg>
-                                    </button>
-                                </div>
-                            </div>
-                        `;
-
-                        blogSection.appendChild(article);
-                        bindBlogEvents(article);
-                    });
-
-                    initLikeBtnObserver();
-
-                    if (window.LikeBtn) {
-                        window.LikeBtn.init();
+                    if (allPosts.length === 0) {
+                        blogPostsContainer.innerHTML = '<p>Keine Beiträge vorhanden.</p>';
+                        return;
                     }
 
+                    renderNextBatch();
+                    initInfiniteScroll();
+
                 } catch (error) {
-                    blogSection.innerHTML = '<p style="color: var(--accent); font-weight: 600;">Beiträge konnten derzeit nicht geladen werden.</p>';
+                    blogPostsContainer.innerHTML = '<p style="color: var(--accent); font-weight: 600;">Beiträge konnten derzeit nicht geladen werden.</p>';
                     showNotification('Beiträge konnten nicht geladen werden.', 'error');
                 }
             }
 
-            loadPosts();
+            initBlog();
 
             async function copyLink() {
                 const url = window.location.href;
@@ -1280,8 +1306,10 @@
             window.addEventListener('scroll', () => {
                 if (scrollTicking) return;
                 scrollTicking = true;
-                requestAnimationFrame(() => { updateScrollButton();
-                    scrollTicking = false; });
+                requestAnimationFrame(() => {
+                    updateScrollButton();
+                    scrollTicking = false;
+                });
             }, { passive: true });
             scrollToTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
             updateScrollButton();
