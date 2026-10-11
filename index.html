@@ -563,7 +563,7 @@
         .interactive-area {
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            justify-content: flex-end;
             flex-wrap: wrap;
             gap: 15px;
             margin-top: 25px;
@@ -1100,33 +1100,6 @@
 
             if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) gif1.click();
 
-            let likebtnLoaded = false;
-
-            function loadLikebtn() {
-                if (likebtnLoaded || document.getElementById('likebtn_wjs')) return;
-                likebtnLoaded = true;
-                const script = document.createElement('script');
-                script.id = 'likebtn_wjs';
-                script.src = 'https://w.likebtn.com/js/w/widget.js';
-                script.async = true;
-                document.head.appendChild(script);
-            }
-
-            function initLikeBtnObserver() {
-                const likeTargets = document.querySelectorAll('.likebtn-wrapper');
-                if ('IntersectionObserver' in window) {
-                    const likeObserver = new IntersectionObserver((entries, observer) => {
-                        if (entries.some((entry) => entry.isIntersecting)) {
-                            loadLikebtn();
-                            observer.disconnect();
-                        }
-                    }, { rootMargin: '300px' });
-                    likeTargets.forEach((target) => likeObserver.observe(target));
-                } else {
-                    loadLikebtn();
-                }
-            }
-
             function bindBlogEvents(article) {
                 const button = article.querySelector('[data-toggle-text]');
                 if (button) {
@@ -1217,7 +1190,6 @@
                             <svg class="icon" aria-hidden="true"><use href="#icon-chevron"></use></svg>
                         </button>
                         <div class="interactive-area">
-                            <span class="likebtn-wrapper" data-theme="heart" data-identifier="${post.likeId}" data-counter_count="true"></span>
                             <div class="share-buttons">
                                 <button class="share-btn" type="button" data-share-title="${post.title}" aria-label="Beitrag teilen">
                                     <svg class="icon" aria-hidden="true"><use href="#icon-share"></use></svg>
@@ -1235,9 +1207,6 @@
 
                 renderedCount += nextPosts.length;
                 loadingSpinner.style.display = 'none';
-
-                initLikeBtnObserver();
-                if (window.LikeBtn) window.LikeBtn.init();
 
                 if (renderedCount >= allPosts.length && scrollObserver) {
                     scrollObserver.unobserve(sentinel);
