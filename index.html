@@ -104,19 +104,6 @@
             backdrop-filter: blur(10px);
         }
 
-        .maintenance-notice {
-            background: linear-gradient(135deg, rgba(255, 0, 153, 0.2), rgba(0, 255, 255, 0.2));
-            border: 1px solid var(--accent);
-            color: var(--text);
-            text-align: center;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            margin-bottom: 15px;
-            box-shadow: 0 0 15px rgba(255, 0, 153, 0.2);
-        }
-
         .brand-row {
             display: flex;
             justify-content: center;
@@ -593,7 +580,6 @@
             transform: translateY(-3px);
         }
 
-        /* Lade-Indikator & Sentinel für Lazy Loading */
         .sentinel {
             height: 40px;
             display: flex;
@@ -877,9 +863,6 @@
     </svg>
 
     <header class="nav-header">
-        <div class="maintenance-notice" role="status">
-            ⚠️ <strong>Hinweis:</strong> Am 15.10. wechsle ich den Website-Hosting-Anbieter. Die Website kann an diesem Tag für einige Stunden offline sein. 🚀
-        </div>
         <div class="brand-row"><a class="nav-brand" href="index.html">Schrottkiste</a></div>
         <div class="menu-row">
             <nav aria-label="Hauptnavigation">
@@ -1148,10 +1131,9 @@
                 }
             }
 
-            // High-Performance Lazy-Rendering Logik
             let allPosts = [];
             let renderedCount = 0;
-            const BATCH_SIZE = 3; // Rendert jeweils 3 Posts schrittweise
+            const BATCH_SIZE = 3;
 
             function renderNextBatch() {
                 if (renderedCount >= allPosts.length) return;
