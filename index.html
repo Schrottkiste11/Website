@@ -1131,6 +1131,23 @@
                 }
             }
 
+            const newPost = {
+                id: "post-stressigste-woche",
+                datetime: "2026-10-16",
+                dateFormatted: "16.10.2026",
+                readingTime: "2 Min.",
+                title: "Die Stressigste Woche",
+                paragraphs: [
+                    "Manchmal reicht ein einziger Anruf, um das komplette Leben von einer Sekunde auf die andere aus den Angeln zu heben. Genau so begann diese Woche – eine Woche, die sich rückblickend wie der pure Ausnahmezustand anfühlt und mir mental sowie körperlich alles abverlangt hat.",
+                    "Alles fing damit an, dass meine Mutter wegen eines schweren Asthmaanfalls, begleitet von einer massiven Panikattacke, ins Krankenhaus eingeliefert werden musste. In solchen Momenten zählt eigentlich nur eines: Sorge um einen geliebten Menschen, Hoffnung auf Besserung und das Bedürfnis, erst einmal durchzuatmen. Doch genau dafür war absolut kein Raum. 🚑",
+                    "Stattdessen fand ich mich in einem Umfeld wieder, das die Situation nur noch schlimmer machte. Bis Donnerstag war ich einer Familienatmosphäre ausgesetzt, die schlichtweg toxisch ist: Hier wird der Wert eines Menschen einzig und allein an seiner messbaren Leistung festgemacht. Wer nicht pausenlos funktioniert, leistet in ihren Augen nichts. Was nicht schwarz auf weiß belegt oder direkt sichtbar abgearbeitet werden kann, existiert nicht oder wird schlichtweg ignoriert.",
+                    "Das bedeutete für mich: Dauerfeuer. Ich wurde pausenlos dazu gedrängt, irgendwo mitzuhelfen, Aufgaben zu übernehmen und Handlanger für alles Mögliche zu spielen. Das Schlimmste daran war die Erwartungshaltung – alles musste sofort passieren. Keine Sekunde Verzögerung, kein Raum für Fehler, keine Empathie für den emotionalen Ballast, den ich durch den Krankenhausaufenthalt meiner Mutter ohnehin schon mit mir herumschleppte.",
+                    "Sobald irgendetwas nicht haargenau in das starre Weltbild dieser Menschen passte oder nicht nach ihrem Zeitplan lief, wurde genörgelt, gemeckert und Druck aufgebaut. Eine ständige Welle aus Nörgelei und unberechtigten Vorwürfen. 🤯",
+                    "Ich kam in diesen Tagen gefühlt kein einziges Mal zur Ruhe. Mein Nervensystem war im Daueralarmzustand – es war ohne Übertreibung der Stress meines Lebens. Es ging nicht darum, als Familie zusammenzustehen und sich gegenseitig zu stützen, sondern darum, ein unbarmherziges Funktionieren einzufordern.",
+                    "Erst seit Donnerstag, als ich diesem Umfeld endlich entkommen konnte, merke ich überhaupt, wie sehr mich diese Tage ausgelaugt haben. Diese Woche hat mir einmal mehr schmerzhaft gezeigt, wie tief der Graben zwischen echtem Mitgefühl und kalter Leistungsorientierung sein kann – und wie wichtig es ist, sich abzugrenzen, wenn das eigene Wohlbefinden auf der Strecke bleibt."
+                ]
+            };
+
             let allPosts = [];
             let renderedCount = 0;
             const BATCH_SIZE = 3;
@@ -1213,8 +1230,12 @@
             async function initBlog() {
                 try {
                     const response = await fetch('posts.json');
-                    if (!response.ok) throw new Error('Fehler beim Laden der Beiträge.');
-                    allPosts = await response.json();
+                    if (response.ok) {
+                        const jsonPosts = await response.json();
+                        allPosts = [newPost, ...jsonPosts];
+                    } else {
+                        allPosts = [newPost];
+                    }
 
                     if (allPosts.length === 0) {
                         blogPostsContainer.innerHTML = '<p>Keine Beiträge vorhanden.</p>';
@@ -1225,8 +1246,9 @@
                     initInfiniteScroll();
 
                 } catch (error) {
-                    blogPostsContainer.innerHTML = '<p style="color: var(--accent); font-weight: 600;">Beiträge konnten derzeit nicht geladen werden.</p>';
-                    showNotification('Beiträge konnten nicht geladen werden.', 'error');
+                    allPosts = [newPost];
+                    renderNextBatch();
+                    initInfiniteScroll();
                 }
             }
 
