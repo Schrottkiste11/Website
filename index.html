@@ -1381,6 +1381,15 @@
                 }
             }
 
+            async function copyLink() {
+                try {
+                    await navigator.clipboard.writeText(window.location.href);
+                    showNotification('Link kopiert! 📋');
+                } catch (err) {
+                    showNotification('Fehler beim Kopieren.', 'error');
+                }
+            }
+
             const newPost = {
                 id: "post-stressigste-woche",
                 datetime: "2026-10-16T15:07:00",
@@ -1482,24 +1491,23 @@
                     const response = await fetch('posts.json');
                     if (response.ok) {
                         const jsonPosts = await response.json();
-                        allPosts = [newPost, ...jsonPosts];
+                        // Prüfen ob newPost schon in der JSON enthalten ist (verhindert Dopplung)
+                        const hasNewPost = jsonPosts.some(p => p.id === newPost.id);
+                        allPosts = hasNewPost ? jsonPosts : [newPost, ...jsonPosts];
                     } else {
                         allPosts = [newPost];
                     }
-
-                    if (allPosts.length === 0) {
-                        blogPostsContainer.innerHTML = '<p>Keine Beiträge vorhanden.</p>';
-                        return;
-                    }
-
-                    renderNextBatch();
-                    initInfiniteScroll();
-
                 } catch (error) {
                     allPosts = [newPost];
-                    renderNextBatch();
-                    initInfiniteScroll();
                 }
+
+                if (allPosts.length === 0) {
+                    blogPostsContainer.innerHTML = '<p>Keine Beiträge vorhanden.</p>';
+                    return;
+                }
+
+                renderNextBatch();
+                initInfiniteScroll();
             }
 
             initBlog();
