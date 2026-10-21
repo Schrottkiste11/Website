@@ -23,6 +23,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Chewy&family=Poppins:wght@400;600;700&family=VT323&display=swap" rel="stylesheet">
 
+    <!-- Canvas Confetti Library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
     <style>
         :root {
             --accent: #ff0099;
@@ -326,6 +329,134 @@
         .social-btn .icon {
             width: 1.8rem;
             height: 1.8rem;
+        }
+
+        /* Countdown Widget Styles */
+        .countdown-widget {
+            background: linear-gradient(135deg, rgba(36, 36, 48, 0.9), rgba(26, 26, 36, 0.95));
+            border: 1px solid var(--line-color);
+            border-radius: var(--radius);
+            padding: 25px 20px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .birthday-badge {
+            display: inline-block;
+            background: rgba(255, 0, 153, 0.2);
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.8rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .countdown-title {
+            font-family: 'Chewy', cursive;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            margin: 0 0 20px;
+            background: linear-gradient(135deg, #fff 30%, var(--accent-alt));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.1;
+        }
+
+        .countdown-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .timer-card {
+            background: var(--card-bg);
+            border: 1px solid var(--line-color);
+            border-bottom: 3px solid var(--accent);
+            border-radius: var(--radius);
+            padding: 15px 10px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .timer-card:nth-child(even) {
+            border-bottom-color: var(--accent-alt);
+        }
+
+        .timer-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 0, 153, 0.2);
+            border-color: rgba(255, 0, 153, 0.5);
+        }
+
+        .timer-val {
+            font-family: 'VT323', monospace;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            line-height: 1;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 0 0 12px rgba(255, 0, 153, 0.4);
+            margin-bottom: 4px;
+        }
+
+        .timer-label {
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 600;
+        }
+
+        .countdown-actions {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .btn-countdown {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 22px;
+            border-radius: 25px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            border: none;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .btn-countdown-primary {
+            background: linear-gradient(135deg, var(--accent), #cc0077);
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(255, 0, 153, 0.4);
+        }
+
+        .btn-countdown-primary:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 6px 20px rgba(255, 0, 153, 0.6);
+        }
+
+        .btn-countdown-secondary {
+            background: var(--card-bg);
+            color: var(--text);
+            border: 1px solid var(--line-color);
+        }
+
+        .btn-countdown-secondary:hover {
+            border-color: var(--accent-alt);
+            color: var(--accent-alt);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.25);
+            transform: translateY(-2px);
         }
 
         .container {
@@ -860,6 +991,7 @@
         <symbol id="icon-arrow-up" viewBox="0 0 24 24"><path d="m12 5-7 7 1.4 1.4L11 8.8V20h2V8.8l4.6 4.6L19 12z"/></symbol>
         <symbol id="icon-twitch" viewBox="0 0 24 24"><path d="M4 2h18v13l-5 5h-4l-3 3v-3H4zm2 2v12h5v2.2l2.2-2.2H16l4-4V4zm3 3h2v5H9zm5 0h2v5h-2z"/></symbol>
         <symbol id="icon-youtube" viewBox="0 0 24 24"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8M9.6 15.5v-7l6.2 3.5z"/></symbol>
+        <symbol id="icon-party" viewBox="0 0 24 24"><path d="M2 22l14-5-9-9-5 14zm12.5-12.5l2-2 3 3-2 2-3-3zm3.5-5.5l2-2 1.5 1.5-2 2-1.5-1.5zM7 2l2 2-2 2-2-2 2-2zm12 11l2 2-2 2-2-2 2-2z"/></symbol>
     </svg>
 
     <header class="nav-header">
@@ -930,6 +1062,42 @@
         </aside>
 
         <main class="blog-section">
+            <!-- Eingebauter Countdown-Widget (nur der Timer + Aktionen) -->
+            <section class="countdown-widget">
+                <span class="birthday-badge">Level 21 Unlock</span>
+                <h2 class="countdown-title">Luka wird 21! 🎉</h2>
+
+                <div class="countdown-grid">
+                    <div class="timer-card">
+                        <div class="timer-val" id="days">21</div>
+                        <div class="timer-label">Tage</div>
+                    </div>
+                    <div class="timer-card">
+                        <div class="timer-val" id="hours">00</div>
+                        <div class="timer-label">Stunden</div>
+                    </div>
+                    <div class="timer-card">
+                        <div class="timer-val" id="minutes">00</div>
+                        <div class="timer-label">Minuten</div>
+                    </div>
+                    <div class="timer-card">
+                        <div class="timer-val" id="seconds">00</div>
+                        <div class="timer-label">Sekunden</div>
+                    </div>
+                </div>
+
+                <div class="countdown-actions">
+                    <button class="btn-countdown btn-countdown-primary" id="confetti-btn" type="button">
+                        <svg class="icon"><use href="#icon-party"></use></svg>
+                        Konfetti Zünden!
+                    </button>
+                    <button class="btn-countdown btn-countdown-secondary" id="share-btn" type="button">
+                        <svg class="icon"><use href="#icon-share"></use></svg>
+                        Countdown Teilen
+                    </button>
+                </div>
+            </section>
+
             <div id="blog-posts-container"></div>
             <div id="sentinel" class="sentinel">
                 <div id="loading-spinner" class="loading-spinner" style="display: none;"></div>
@@ -983,6 +1151,88 @@
     <script>
         (() => {
             'use strict';
+
+            // 1. COUNTDOWN LOGIK
+            const targetDate = new Date();
+            targetDate.setDate(targetDate.getDate() + 21);
+            targetDate.setHours(0, 0, 0, 0);
+
+            const daysEl = document.getElementById('days');
+            const hoursEl = document.getElementById('hours');
+            const minutesEl = document.getElementById('minutes');
+            const secondsEl = document.getElementById('seconds');
+
+            function updateCountdown() {
+                const now = new Date().getTime();
+                const distance = targetDate.getTime() - now;
+
+                if (distance < 0) {
+                    daysEl.textContent = '00';
+                    hoursEl.textContent = '00';
+                    minutesEl.textContent = '00';
+                    secondsEl.textContent = '00';
+                    document.querySelector('.countdown-title').textContent = "🎉 Alles Gute zum 21. Geburtstag, Luka! 🎉";
+                    return;
+                }
+
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                daysEl.textContent = String(days).padStart(2, '0');
+                hoursEl.textContent = String(hours).padStart(2, '0');
+                minutesEl.textContent = String(minutes).padStart(2, '0');
+                secondsEl.textContent = String(seconds).padStart(2, '0');
+            }
+
+            setInterval(updateCountdown, 1000);
+            updateCountdown();
+
+            // 2. KONFETTI-KANONE
+            const confettiBtn = document.getElementById('confetti-btn');
+            confettiBtn.addEventListener('click', () => {
+                if (typeof confetti === 'function') {
+                    confetti({
+                        particleCount: 120,
+                        spread: 80,
+                        origin: { y: 0.6 },
+                        colors: ['#ff0099', '#00ffff', '#ffffff', '#242430']
+                    });
+                } else {
+                    showNotification('Konfetti konnte nicht geladen werden!', 'error');
+                }
+            });
+
+            // 3. TEILEN-BUTTON
+            const shareBtn = document.getElementById('share-btn');
+            shareBtn.addEventListener('click', async () => {
+                const shareData = {
+                    title: 'Luka wird 21! - Schrottkiste Countdown',
+                    text: 'Feier mit uns den 21. Geburtstag von Luka (Schrottkiste)! Check den Countdown ab:',
+                    url: window.location.href
+                };
+
+                if (navigator.share) {
+                    try {
+                        await navigator.share(shareData);
+                    } catch (err) {
+                        if (err.name !== 'AbortError') copyToClipboard();
+                    }
+                } else {
+                    copyToClipboard();
+                }
+            });
+
+            function copyToClipboard() {
+                const dummy = document.createElement('input');
+                document.body.appendChild(dummy);
+                dummy.value = window.location.href;
+                dummy.select();
+                document.execCommand('copy');
+                document.body.removeChild(dummy);
+                showNotification('Link in die Zwischenablage kopiert! 📋');
+            }
 
             const audio = document.getElementById('audio-player');
             const playPauseBtn = document.getElementById('play-pause-btn');
@@ -1173,7 +1423,7 @@
                         contentHtml = `<ul>${post.listItems.map(item => `<li>${item}</li>`).join('')}</ul>`;
                     }
 
-                    const headingTag = globalIndex === 0 ? 'h1' : 'h2';
+                    const headingTag = globalIndex === 0 ? 'h2' : 'h2';
 
                     article.innerHTML = `
                         <div class="post-meta">
@@ -1253,29 +1503,6 @@
             }
 
             initBlog();
-
-            async function copyLink() {
-                const url = window.location.href;
-                try {
-                    if (navigator.clipboard && window.isSecureContext) {
-                        await navigator.clipboard.writeText(url);
-                    } else {
-                        const textArea = document.createElement('textarea');
-                        textArea.value = url;
-                        textArea.setAttribute('readonly', '');
-                        textArea.style.position = 'fixed';
-                        textArea.style.opacity = '0';
-                        document.body.appendChild(textArea);
-                        textArea.select();
-                        const copied = document.execCommand('copy');
-                        textArea.remove();
-                        if (!copied) throw new Error('Kopieren nicht möglich.');
-                    }
-                    showNotification('Link kopiert.');
-                } catch (error) {
-                    showNotification('Der Link konnte nicht kopiert werden.', 'error');
-                }
-            }
 
             function showNotification(message, type) {
                 notificationRegion.replaceChildren();
