@@ -673,60 +673,6 @@
             transform: rotate(180deg);
         }
 
-        /* Beiträge als Kartenraster (wie auf der Vereinsseite) */
-        #blog-posts-container {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 20px;
-            align-items: stretch;
-        }
-        #blog-posts-container .blog-post {
-            display: flex;
-            flex-direction: column;
-            padding: 22px;
-        }
-        #blog-posts-container .blog-post.is-open {
-            grid-column: 1 / -1;
-        }
-        #blog-posts-container .blog-post:hover {
-            transform: translateY(-4px);
-        }
-        .post-thumb {
-            display: block;
-            width: calc(100% + 44px);
-            max-width: none;
-            margin: -22px -22px 16px;
-            aspect-ratio: 16 / 9;
-            object-fit: cover;
-        }
-        #blog-posts-container .post-meta {
-            gap: 8px;
-            margin-bottom: 10px;
-        }
-        #blog-posts-container .post-time,
-        #blog-posts-container .reading-time {
-            padding: 3px 12px;
-            font-size: 1.05rem;
-        }
-        #blog-posts-container .post-title {
-            margin-bottom: 12px;
-            font-size: 1.35rem;
-        }
-        #blog-posts-container .post-text {
-            flex: 1;
-            max-width: none;
-            font-size: .95rem;
-            line-height: 1.7;
-        }
-        #blog-posts-container .read-more {
-            align-self: flex-start;
-            padding: 9px 22px;
-            font-size: .9rem;
-        }
-        #blog-posts-container .interactive-area {
-            margin-top: 18px;
-        }
-
         .interactive-area {
             display: flex;
             align-items: center;
@@ -989,12 +935,9 @@
         }
 
         @media (max-width: 640px) {
-            #blog-posts-container { grid-template-columns: minmax(0, 1fr); }
             .nav-brand { font-size: 2.5rem; }
             .post-title { font-size: 1.8rem; }
             .blog-post { padding: 25px; }
-            #blog-posts-container .blog-post { padding: 22px; }
-            #blog-posts-container .post-title { font-size: 1.35rem; }
             .mini-player { width: 100%; }
             .footer-inner { flex-direction: column; text-align: center; }
             .scroll-to-top {
@@ -1485,7 +1428,6 @@
                         const isCollapsed = text.classList.contains('collapsed');
                         if (isCollapsed) {
                             text.classList.remove('collapsed');
-                            article.classList.add('is-open');
                             text.style.maxHeight = text.scrollHeight + 'px';
                             button.querySelector('span').textContent = 'Einklappen';
                             button.classList.add('expanded');
@@ -1497,7 +1439,6 @@
                                 text.classList.add('collapsed');
                                 text.style.maxHeight = '8.5em';
                             });
-                            article.classList.remove('is-open');
                             button.querySelector('span').textContent = 'Weiterlesen';
                             button.classList.remove('expanded');
                             button.setAttribute('aria-expanded', 'false');
@@ -1574,12 +1515,7 @@
                         contentHtml = `<ul>${post.listItems.map(item => `<li>${item}</li>`).join('')}</ul>`;
                     }
 
-                    const thumbHtml = post.image
-                        ? `<img class="post-thumb" src="${post.image}" alt="" loading="lazy" decoding="async">`
-                        : '';
-
                     article.innerHTML = `
-                        ${thumbHtml}
                         <div class="post-meta">
                             <time class="post-time" datetime="${post.datetime}" itemprop="datePublished">${post.dateFormatted}</time>
                             <span class="reading-time">${post.readingTime}</span>
