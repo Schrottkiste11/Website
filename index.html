@@ -8,9 +8,7 @@
     <meta name="theme-color" content="#1a1a24">
     <meta name="color-scheme" content="dark">
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%231a1a24'/%3E%3Ctext x='50' y='70' font-family='Arial,sans-serif' font-weight='900' font-size='58' fill='%23ff0099' text-anchor='middle'%3ES%3C/text%3E%3C/svg%3E">
-    <link rel="canonical" href="./">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="./">
     <meta property="og:title" content="Schrottkiste">
     <meta property="og:description" content="Twitch- und YouTube-Content von Luka, Streams, Blog-Updates und Playlists.">
     <meta property="og:image" content="images/image.png">
@@ -22,9 +20,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Chewy&family=Poppins:wght@400;600;700&family=VT323&display=swap" rel="stylesheet">
-
-    <!-- Canvas Confetti Library -->
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
     <style>
         :root {
@@ -712,22 +707,7 @@
         }
 
         .sentinel {
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 20px 0;
-        }
-        .loading-spinner {
-            width: 24px;
-            height: 24px;
-            border: 3px solid var(--line-color);
-            border-top-color: var(--accent);
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-        }
-        @keyframes spin {
-            to { transform: rotate(360deg); }
+            height: 1px;
         }
 
         .sidebar {
@@ -1007,7 +987,7 @@
 
             <div id="google_translate_element"></div>
 
-            <select class="language-select" id="language-selector" onchange="translatePage(this.value)" aria-label="Sprache wählen">
+            <select class="language-select" id="language-selector" aria-label="Sprache wählen">
                 <option value="de" selected>Deutsch (de)</option>
                 <option value="pt">Portugiesisch (pt)</option>
                 <option value="tr">Türkisch (tr)</option>
@@ -1024,7 +1004,7 @@
                 <option value="fr">Französisch (fr)</option>
             </select>
 
-            <div class="mini-player" aria-label="Live-Radio-Player">
+            <div class="mini-player" role="group" aria-label="Live-Radio-Player">
                 <span class="player-label">Live Radio</span>
                 <audio id="audio-player" preload="none" src="https://stream.laut.fm/treasure_radio"></audio>
                 <div class="player-controls">
@@ -1041,7 +1021,7 @@
                 </div>
             </div>
 
-            <div class="social-btns" aria-label="Social Media">
+            <div class="social-btns" role="group" aria-label="Social Media">
                 <a class="social-btn twitch" href="https://www.twitch.tv/schrottkiste_luka" target="_blank" rel="noopener noreferrer" aria-label="Twitch öffnen"><svg class="icon" aria-hidden="true"><use href="#icon-twitch"></use></svg></a>
                 <a class="social-btn youtube" href="https://www.youtube.com/@schrottkiste" target="_blank" rel="noopener noreferrer" aria-label="YouTube öffnen"><svg class="icon" aria-hidden="true"><use href="#icon-youtube"></use></svg></a>
             </div>
@@ -1050,7 +1030,7 @@
 
     <div class="container">
         <aside class="gif-container" aria-label="Interaktive Bilder">
-            <button class="gif-box is-playing" id="gif1" type="button" role="button" tabindex="0" aria-pressed="true" aria-label="Deutschland-GIF anhalten">
+            <button class="gif-box is-playing" id="gif1" type="button" aria-pressed="true" aria-label="Deutschland-GIF anhalten">
                 <img class="gif-image gif-image--animated" src="images/GermanyGerGIF.gif" alt="Deutschland-GIF" width="200" height="200" decoding="async">
                 <img class="gif-image gif-image--still" src="images/image.png" alt="Deutschland-Bild, statische Ansicht" width="200" height="200" decoding="async">
                 <span class="gif-status playing" id="status1" aria-hidden="true"></span>
@@ -1069,7 +1049,7 @@
 
                 <div class="countdown-grid">
                     <div class="timer-card">
-                        <div class="timer-val" id="days">21</div>
+                        <div class="timer-val" id="days">--</div>
                         <div class="timer-label">Tage</div>
                     </div>
                     <div class="timer-card">
@@ -1099,9 +1079,7 @@
             </section>
 
             <div id="blog-posts-container"></div>
-            <div id="sentinel" class="sentinel">
-                <div id="loading-spinner" class="loading-spinner" style="display: none;"></div>
-            </div>
+            <div id="sentinel" class="sentinel" aria-hidden="true"></div>
         </main>
 
         <aside class="sidebar" aria-labelledby="playlist-heading">
@@ -1116,7 +1094,7 @@
             <div class="footer-links">
                 <a href="Datenschutz.html">Datenschutz</a>
             </div>
-            <div class="footer-social" aria-label="Social Media">
+            <div class="footer-social" role="group" aria-label="Social Media">
                 <a class="social-btn twitch" href="https://www.twitch.tv/schrottkiste_luka" target="_blank" rel="noopener noreferrer" aria-label="Twitch öffnen"><svg class="icon" aria-hidden="true"><use href="#icon-twitch"></use></svg></a>
                 <a class="social-btn youtube" href="https://www.youtube.com/@schrottkiste" target="_blank" rel="noopener noreferrer" aria-label="YouTube öffnen"><svg class="icon" aria-hidden="true"><use href="#icon-youtube"></use></svg></a>
             </div>
@@ -1129,33 +1107,58 @@
     </button>
     <div id="notification-region" aria-live="polite" aria-atomic="true"></div>
 
-    <script type="text/javascript">
-        function googleTranslateElementInit() {
-            new google.translate.TranslateElement({
-                pageLanguage: 'de',
-                autoDisplay: false
-            }, 'google_translate_element');
-        }
-
-        function translatePage(languageCode) {
-            if (!languageCode) return;
-            var selectField = document.querySelector(".goog-te-combo");
-            if (selectField) {
-                selectField.value = languageCode;
-                selectField.dispatchEvent(new Event('change'));
-            }
-        }
-    </script>
-    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-
     <script>
         (() => {
             'use strict';
 
+            // 0. ÜBERSETZUNG: Google Translate wird erst geladen, wenn eine Sprache gewählt wird
+            let translateLoader = null;
+
+            function loadTranslate() {
+                if (translateLoader) return translateLoader;
+                translateLoader = new Promise((resolve, reject) => {
+                    window.googleTranslateElementInit = () => {
+                        new google.translate.TranslateElement({ pageLanguage: 'de', autoDisplay: false }, 'google_translate_element');
+                        resolve();
+                    };
+                    const script = document.createElement('script');
+                    script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+                    script.async = true;
+                    script.onerror = () => { translateLoader = null; reject(new Error('Translate nicht ladbar')); };
+                    document.head.appendChild(script);
+                });
+                return translateLoader;
+            }
+
+            function waitForTranslateCombo(tries = 50) {
+                return new Promise((resolve, reject) => {
+                    const check = () => {
+                        const combo = document.querySelector('.goog-te-combo');
+                        if (combo) return resolve(combo);
+                        if (--tries <= 0) return reject(new Error('Sprachauswahl nicht gefunden'));
+                        setTimeout(check, 100);
+                    };
+                    check();
+                });
+            }
+
+            async function translatePage(languageCode) {
+                if (!languageCode || (languageCode === 'de' && !translateLoader)) return;
+                try {
+                    await loadTranslate();
+                    const combo = await waitForTranslateCombo();
+                    combo.value = languageCode;
+                    combo.dispatchEvent(new Event('change'));
+                } catch (error) {
+                    showNotification('Übersetzung nicht verfügbar.', 'error');
+                }
+            }
+
+            document.getElementById('language-selector').addEventListener('change', (e) => translatePage(e.target.value));
+
             // 1. COUNTDOWN LOGIK
-            const targetDate = new Date();
-            targetDate.setDate(targetDate.getDate() + 21);
-            targetDate.setHours(0, 0, 0, 0);
+            // Festes Ziel: 11.11.2026, 00:00 Uhr deutsche Zeit (MEZ, +01:00)
+            const targetDate = new Date('2026-11-11T00:00:00+01:00');
 
             const daysEl = document.getElementById('days');
             const hoursEl = document.getElementById('hours');
@@ -1172,6 +1175,7 @@
                     minutesEl.textContent = '00';
                     secondsEl.textContent = '00';
                     document.querySelector('.countdown-title').textContent = "🎉 Alles Gute zum 21. Geburtstag, Luka! 🎉";
+                    clearInterval(countdownTimer);
                     return;
                 }
 
@@ -1186,27 +1190,42 @@
                 secondsEl.textContent = String(seconds).padStart(2, '0');
             }
 
-            setInterval(updateCountdown, 1000);
+            const countdownTimer = setInterval(updateCountdown, 1000);
             updateCountdown();
 
-            // 2. KONFETTI-KANONE
-            const confettiBtn = document.getElementById('confetti-btn');
-            confettiBtn.addEventListener('click', () => {
-                if (typeof confetti === 'function') {
+            // 2. KONFETTI-KANONE (Bibliothek wird erst beim ersten Klick geladen)
+            let confettiLoader = null;
+
+            function loadConfetti() {
+                if (typeof confetti === 'function') return Promise.resolve();
+                if (!confettiLoader) {
+                    confettiLoader = new Promise((resolve, reject) => {
+                        const script = document.createElement('script');
+                        script.src = 'https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js';
+                        script.onload = resolve;
+                        script.onerror = () => { confettiLoader = null; reject(new Error('Konfetti nicht ladbar')); };
+                        document.head.appendChild(script);
+                    });
+                }
+                return confettiLoader;
+            }
+
+            document.getElementById('confetti-btn').addEventListener('click', async () => {
+                try {
+                    await loadConfetti();
                     confetti({
                         particleCount: 120,
                         spread: 80,
                         origin: { y: 0.6 },
                         colors: ['#ff0099', '#00ffff', '#ffffff', '#242430']
                     });
-                } else {
+                } catch (error) {
                     showNotification('Konfetti konnte nicht geladen werden!', 'error');
                 }
             });
 
             // 3. TEILEN-BUTTON
-            const shareBtn = document.getElementById('share-btn');
-            shareBtn.addEventListener('click', async () => {
+            document.getElementById('share-btn').addEventListener('click', async () => {
                 const shareData = {
                     title: 'Luka wird 21! - Schrottkiste Countdown',
                     text: 'Feier mit uns den 21. Geburtstag von Luka (Schrottkiste)! Check den Countdown ab:',
@@ -1217,22 +1236,12 @@
                     try {
                         await navigator.share(shareData);
                     } catch (err) {
-                        if (err.name !== 'AbortError') copyToClipboard();
+                        if (err.name !== 'AbortError') copyLink();
                     }
                 } else {
-                    copyToClipboard();
+                    copyLink();
                 }
             });
-
-            function copyToClipboard() {
-                const dummy = document.createElement('input');
-                document.body.appendChild(dummy);
-                dummy.value = window.location.href;
-                dummy.select();
-                document.execCommand('copy');
-                document.body.removeChild(dummy);
-                showNotification('Link in die Zwischenablage kopiert! 📋');
-            }
 
             const audio = document.getElementById('audio-player');
             const playPauseBtn = document.getElementById('play-pause-btn');
@@ -1243,8 +1252,7 @@
             const notificationRegion = document.getElementById('notification-region');
             const blogPostsContainer = document.getElementById('blog-posts-container');
             const sentinel = document.getElementById('sentinel');
-            const loadingSpinner = document.getElementById('loading-spinner');
-            
+
             const playIcon = '<svg class="icon" aria-hidden="true"><use href="#icon-play"></use></svg>';
             const pauseIcon = '<svg class="icon" aria-hidden="true"><use href="#icon-pause"></use></svg>';
 
@@ -1280,8 +1288,10 @@
                 showNotification('Radio-Stream nicht verfügbar.', 'error');
             });
 
+            // Track-Info: einmal beim Laden, danach nur alle 15 s, solange das Radio läuft und der Tab sichtbar ist
             let trackInfoTimer = null;
             let trackInfoRequestActive = false;
+            let trackInfoLoaded = false;
             const trackInfoInterval = 15000;
 
             async function fetchTrackInfo() {
@@ -1293,6 +1303,7 @@
                     const data = await response.json();
                     songTitleEl.textContent = data.title || 'Treasure Radio';
                     artistNameEl.textContent = data.artist && data.artist.name ? data.artist.name : 'Live Stream';
+                    trackInfoLoaded = true;
                 } catch (error) {
                     songTitleEl.textContent = 'Nicht verfügbar';
                     artistNameEl.textContent = 'Verbindungsfehler';
@@ -1303,17 +1314,24 @@
 
             function scheduleTrackInfo() {
                 clearTimeout(trackInfoTimer);
-                if (document.hidden) return;
-                fetchTrackInfo();
-                trackInfoTimer = window.setTimeout(scheduleTrackInfo, trackInfoInterval);
+                if (document.hidden || audio.paused) return;
+                trackInfoTimer = window.setTimeout(async () => {
+                    await fetchTrackInfo();
+                    scheduleTrackInfo();
+                }, trackInfoInterval);
             }
 
-            document.addEventListener('visibilitychange', scheduleTrackInfo);
-            scheduleTrackInfo();
+            audio.addEventListener('play', () => { fetchTrackInfo(); scheduleTrackInfo(); });
+            audio.addEventListener('pause', () => clearTimeout(trackInfoTimer));
+            document.addEventListener('visibilitychange', () => {
+                if (!document.hidden && (!trackInfoLoaded || !audio.paused)) fetchTrackInfo();
+                scheduleTrackInfo();
+            });
+            fetchTrackInfo();
 
             const gif1 = document.getElementById('gif1');
             const status1 = document.getElementById('status1');
-            
+
             function toggleGif() {
                 const paused = gif1.classList.toggle('is-paused');
                 gif1.classList.toggle('is-playing', !paused);
@@ -1324,16 +1342,10 @@
             }
 
             gif1.addEventListener('click', toggleGif);
-            gif1.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    toggleGif();
-                }
-            });
 
-            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) gif1.click();
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) toggleGif();
 
-            function bindBlogEvents(article) {
+            function bindBlogEvents(article, post) {
                 const button = article.querySelector('[data-toggle-text]');
                 if (button) {
                     button.addEventListener('click', () => {
@@ -1359,13 +1371,12 @@
                     });
                 }
 
-                const shareBtn = article.querySelector('[data-share-title]');
-                if (shareBtn) {
-                    shareBtn.addEventListener('click', async () => {
-                        const title = shareBtn.dataset.shareTitle;
+                const postShareBtn = article.querySelector('[data-share]');
+                if (postShareBtn) {
+                    postShareBtn.addEventListener('click', async () => {
                         if (navigator.share) {
                             try {
-                                await navigator.share({ title, url: window.location.href });
+                                await navigator.share({ title: post.title, url: window.location.href });
                                 return;
                             } catch (error) {
                                 if (error.name === 'AbortError') return;
@@ -1414,12 +1425,9 @@
             function renderNextBatch() {
                 if (renderedCount >= allPosts.length) return;
 
-                loadingSpinner.style.display = 'block';
-
                 const nextPosts = allPosts.slice(renderedCount, renderedCount + BATCH_SIZE);
 
-                nextPosts.forEach((post, index) => {
-                    const globalIndex = renderedCount + index;
+                nextPosts.forEach((post) => {
                     const article = document.createElement('article');
                     article.className = 'blog-post';
                     article.setAttribute('itemscope', '');
@@ -1432,14 +1440,12 @@
                         contentHtml = `<ul>${post.listItems.map(item => `<li>${item}</li>`).join('')}</ul>`;
                     }
 
-                    const headingTag = globalIndex === 0 ? 'h2' : 'h2';
-
                     article.innerHTML = `
                         <div class="post-meta">
                             <time class="post-time" datetime="${post.datetime}" itemprop="datePublished">${post.dateFormatted}</time>
                             <span class="reading-time">${post.readingTime}</span>
                         </div>
-                        <${headingTag} class="post-title" itemprop="headline">${post.title}</${headingTag}>
+                        <h2 class="post-title" itemprop="headline">${post.title}</h2>
                         <div class="post-text collapsed" id="${post.id}" itemprop="articleBody">
                             ${contentHtml}
                         </div>
@@ -1449,7 +1455,7 @@
                         </button>
                         <div class="interactive-area">
                             <div class="share-buttons">
-                                <button class="share-btn" type="button" data-share-title="${post.title}" aria-label="Beitrag teilen">
+                                <button class="share-btn" type="button" data-share aria-label="Beitrag teilen">
                                     <svg class="icon" aria-hidden="true"><use href="#icon-share"></use></svg>
                                 </button>
                                 <button class="share-btn" type="button" data-copy-link aria-label="Link kopieren">
@@ -1460,15 +1466,15 @@
                     `;
 
                     blogPostsContainer.appendChild(article);
-                    bindBlogEvents(article);
+                    bindBlogEvents(article, post);
                 });
 
                 renderedCount += nextPosts.length;
-                loadingSpinner.style.display = 'none';
 
-                if (renderedCount >= allPosts.length && scrollObserver) {
-                    scrollObserver.unobserve(sentinel);
-                }
+                if (!scrollObserver) return;
+                // Neu beobachten, damit weitergeladen wird, falls der Sentinel noch im Sichtbereich liegt
+                scrollObserver.unobserve(sentinel);
+                if (renderedCount < allPosts.length) scrollObserver.observe(sentinel);
             }
 
             let scrollObserver = null;
@@ -1482,7 +1488,7 @@
                     }, { rootMargin: '200px' });
                     scrollObserver.observe(sentinel);
                 } else {
-                    renderNextBatch();
+                    while (renderedCount < allPosts.length) renderNextBatch();
                 }
             }
 
