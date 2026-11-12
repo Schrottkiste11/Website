@@ -1349,15 +1349,16 @@
 
         // ===== Einstellungen =====
         const LEAF_COUNT = 16;      // gleichzeitig fallende Blätter
-        const MAX_LANDED = 220;     // so viele Blätter braucht der Haufen, bis er fertig ist (danach wächst er nicht mehr)
+        const HEAP_LINE = 130;      // unsichtbare Linie über dem Footer (px): wo der Haufen sie erreicht, verschwinden neue Blätter sofort
+        const MAX_LANDED = 700;     // reine Sicherheitsgrenze für die Leistung
         const HEAP_POS = 0.5;       // Lage des Haufens auf dem Footer: 0 = links, 0.5 = Mitte, 1 = rechts
-        const HEAP_MAX_H = 130;     // maximale Höhe des fertigen Haufens (px)
-        const HEAP_HALF_W = 380;    // halbe Breite des Haufens (px)
-        const REST_S = 0.8;         // Blätter neben dem Haufen (oder bei vollem Haufen) bleiben so lange liegen
+        const HEAP_SPREAD = 240;    // so weit vom Haufen-Mittelpunkt landen die Blätter höchstens (px)
+        const REPOSE = 0.55;        // Schüttwinkel: steiler als das, rutscht ein Blatt ab (0.55 ≈ 29°)
         const HAND_RADIUS = 55;     // Reichweite der "Hand" (Maus) beim Aufwirbeln (px)
         const HAND_MIN_SPEED = 120; // so schnell muss die Maus sein, damit sie wirbelt (px/s)
         const GRAVITY = 420;        // Schwerkraft für aufgewirbelte Blätter (px/s²)
-        const MAX_GROUND = 35;      // so viele Blätter dürfen verstreut neben dem Haufen liegen (älteste verblassen)
+        const PILE_H = 280;         // Höhe der Zeichenfläche für den Haufen (px)
+        const COL = 2;              // Auflösung des Höhenprofils (px)
 
         const colors = ['#d6601a', '#c0392b', '#e0a526', '#8b5a2b', '#e8731a', '#a8431c', '#d9a441', '#b5651d'];
         const sizes = [30, 36, 42, 48];
@@ -1373,26 +1374,53 @@
         ];
 
         let W = 0, H = 0, dpr = 1, last = 0;
-        let cx = 0, halfW = 0, maxH = 0, pileH = 0;
+        let cx = 0, spread = 0;
         let ground = 0;             // Oberkante des Footers (px vom oberen Fensterrand)
-        let fill = 0;               // 0 = kein Haufen, 1 = fertiger Haufen
+        let hmap = new Float32Array(0);   // Höhenprofil des Haufens über dem Footer (px)
         let landed = [], fallers = [];
 
-        // Maus ("Hand")
         const hand = { x: 0, y: 0, vx: 0, vy: 0, t: 0, active: false };
 
-        // Form des Haufens: läuft nach oben spitz zu, bleibt oben aber rund (u von -1 bis 1)
-        function profile(u) {
-            if (u <= -1 || u >= 1) return 0;
-            const bell = Math.pow((1 + Math.cos(Math.PI * u)) / 2, 1.35);
-            return bell * (1 + 0.05 * Math.sin(u * 6 + 0.8));
+        // ===== Höhenprofil =====
+        function hAt(x) {
+            const c = Math.floor(x / COL);
+            return c >= 0 && c < hmap.length ? hmap[c] : 0;
         }
-        function surfaceAt(x) {
-            return fill * maxH * profile((x - cx) / halfW);
+        function maxH(x0, x1) {
+            let m = 0;
+            const c0 = Math.max(0, Math.floor(x0 / COL)), c1 = Math.min(hmap.length - 1, Math.floor(x1 / COL));
+            for (let c = c0; c <= c1; c++) if (hmap[c] > m) m = hmap[c];
+            return m;
         }
-        // Lage eines gelandeten Blatts (relativ zur Unterkante des Haufens)
-        function heapLeafHeight(l) {
-            return Math.min(l.f, fill) * maxH * profile(l.u) - l.size * 0.12;
+        function avgH(x0, x1) {
+            let sum = 0, n = 0;
+            const c0 = Math.max(0, Math.floor(x0 / COL)), c1 = Math.min(hmap.length - 1, Math.floor(x1 / COL));
+            for (let c = c0; c <= c1; c++) { sum += hmap[c]; n++; }
+            return n ? sum / n : 0;
+        }
+        // Worauf ein Blatt der Breite w an Position x aufliegt und wie schräg es dort liegt.
+        // Gemessen wird an beiden Blatträndern: ragt ein Blatt über eine Kante, kippt es ab und rutscht.
+        function support(x, w) {
+            const h = w / 2;
+            const left = avgH(x - h, x - h * 0.6);
+            const right = avgH(x + h * 0.6, x + h);
+            const mid = maxH(x - h / 3, x + h / 3);
+            return { base: mid, slope: (right - left) / (w * 0.8), top: maxH(x - h * 0.6, x + h * 0.6) };
+        }
+        // Ein liegendes Blatt erhöht das Profil entlang seiner Lage (in der Mitte dicker als am Rand)
+        function stamp(l) {
+            const x = cx + l.dx, h = l.w / 2;
+            const c0 = Math.max(0, Math.floor((x - h) / COL)), c1 = Math.min(hmap.length - 1, Math.floor((x + h) / COL));
+            for (let c = c0; c <= c1; c++) {
+                const px = c * COL + COL / 2;
+                const rel = (px - x) / h;
+                const v = l.base + l.slope * (px - x) + l.t * (0.35 + 0.65 * Math.cos(rel * Math.PI / 2));
+                if (v > hmap[c]) hmap[c] = v;
+            }
+        }
+        function rebuildHeights() {
+            hmap = new Float32Array(Math.ceil(W / COL) + 1);
+            for (let i = 0; i < landed.length; i++) stamp(landed[i]);
         }
 
         function drawLeaf(c, x, y, size, rotDeg, color, shape, alpha) {
@@ -1411,66 +1439,75 @@
             c.restore();
         }
 
-        // Zeichnet den kompletten Haufen neu: Schatten, Körper, dann alle gelandeten Blätter
+        function leafY(l) {         // Mittelpunkt eines liegenden Blatts, gemessen über dem Footer
+            return l.base + l.t * 0.55;
+        }
+        function lieRot(slope, flip, wobble) {   // Drehung eines Blatts, das auf einem Hang liegt
+            return (flip ? 90 : -90) - Math.atan(slope) * 180 / Math.PI + wobble;
+        }
+
         function redrawPile() {
-            pctx.clearRect(0, 0, W, pileH);
-            if (fill <= 0) return;
-            const top = pileH - fill * maxH;
-
-            // weicher Schatten auf dem Footer
-            pctx.save();
-            pctx.fillStyle = 'rgba(0,0,0,.35)';
-            pctx.filter = 'blur(6px)';
-            pctx.beginPath();
-            pctx.ellipse(cx, pileH - 2, halfW * 0.95, 8 + fill * 6, 0, 0, Math.PI * 2);
-            pctx.fill();
-            pctx.restore();
-
-            // Körper des Haufens (dunkles Laub im Inneren)
-            const grad = pctx.createLinearGradient(0, top, 0, pileH);
-            grad.addColorStop(0, '#9a4a1c');
-            grad.addColorStop(0.5, '#7a3b17');
-            grad.addColorStop(1, '#4a2410');
-            pctx.fillStyle = grad;
-            pctx.beginPath();
-            pctx.moveTo(cx - halfW, pileH);
-            for (let i = 0; i <= 80; i++) {
-                const u = -1 + (2 * i) / 80;
-                pctx.lineTo(cx + u * halfW, pileH - Math.max(0, fill * maxH * profile(u) - 6));
-            }
-            pctx.lineTo(cx + halfW, pileH);
-            pctx.closePath();
-            pctx.fill();
-
-            // gelandete Blätter: ältere liegen tiefer im Haufen und sind dunkler, neue obenauf
+            pctx.clearRect(0, 0, W, PILE_H);
             for (let i = 0; i < landed.length; i++) {
                 const l = landed[i];
-                const x = cx + l.u * halfW;
-                const y = pileH - heapLeafHeight(l);
-                drawLeaf(pctx, x, y, l.size, l.rot, l.color, l.shape, 1);
-                const shade = 0.55 + 0.45 * (Math.min(l.f, fill) / fill);
-                if (shade < 1) {
-                    pctx.save();
-                    pctx.globalAlpha = 1 - shade;
-                    pctx.globalCompositeOperation = 'source-atop';
-                    pctx.fillStyle = '#2a1408';
-                    pctx.fillRect(x - l.size, y - l.size, l.size * 2, l.size * 2);
-                    pctx.restore();
-                }
+                drawLeaf(pctx, cx + l.dx, PILE_H - leafY(l), l.size, l.rot, l.color, l.shape, 1);
             }
+        }
+
+        // Hat der Haufen an dieser Stelle die unsichtbare Linie schon erreicht?
+        function reachesLine(sup, size) {
+            return landed.length >= MAX_LANDED || sup.base + size * 0.24 > HEAP_LINE;
+        }
+
+        // Blatt verschwindet sofort wieder
+        function vanish(f) {
+            f.mode = 'fade';
+            f.restOff = f.y - ground;
+            f.restT = 0;
+        }
+
+        // Blatt bleibt liegen: wird Teil des Haufens
+        function settle(f, sup) {
+            const l = {
+                dx: f.x - cx,
+                w: f.size * 0.85,
+                t: f.size * 0.24,
+                base: sup.base,
+                slope: Math.max(-REPOSE, Math.min(REPOSE, sup.slope)),
+                size: f.size,
+                color: f.color,
+                shape: f.shape,
+                rot: 0
+            };
+            l.rot = lieRot(l.slope, f.flip, f.wobble);
+            landed.push(l);
+            stamp(l);
+            redrawPile();
+        }
+
+        // Für Blätter, die landen, während der Footer nicht zu sehen ist: Rutschen sofort ausrechnen
+        function settleInstant(f) {
+            const w = f.size * 0.85;
+            let sup = support(f.x, w);
+            for (let i = 0; i < 400 && Math.abs(sup.slope) > REPOSE; i++) {
+                f.x -= Math.sign(sup.slope) * COL;
+                sup = support(f.x, w);
+            }
+            if (!reachesLine(sup, f.size)) settle(f, sup);
         }
 
         function makeFaller(initial) {
             const size = sizes[Math.floor(Math.random() * sizes.length)];
             const baseX = (0.03 + Math.random() * 0.94) * W;
-            // Blätter in der Nähe des Haufens treiben langsam zu ihm hin (wie vom Wind zusammengeweht)
-            // Jedes Blatt wird vom Wind auf den Haufen getrieben, damit keins verloren geht
-            const spread = (halfW * 0.92) / Math.max(cx, W - cx, 1);
-            const targetX = cx + (baseX - cx) * spread;
+            // Wind treibt die Blätter zum Haufen, mittig stärker gebündelt, damit er nach oben zuläuft
+            const d = (baseX - cx) / Math.max(cx, W - cx, 1);
+            const targetX = cx + Math.sign(d) * Math.pow(Math.abs(d), 2.2) * spread + (Math.random() - 0.5) * 40;
             return {
                 size: size,
                 color: colors[Math.floor(Math.random() * colors.length)],
                 shape: Math.random() < 0.5 ? 0 : 1,
+                flip: Math.random() < 0.5,
+                wobble: (Math.random() - 0.5) * 40,
                 baseX: baseX,
                 targetX: targetX,
                 amp: Math.min(W * 0.03, 40) * (0.6 + Math.random() * 0.5),
@@ -1482,10 +1519,10 @@
                 rot: 0,
                 t: 0,
                 alpha: 1,
-                mode: 'fall',      // fall = normal fallen, free = aufgewirbelt, rest = liegt kurz
+                mode: 'fall',      // fall = fällt, free = aufgewirbelt, slide = rutscht am Haufen, fade = verschwindet
                 vx: 0, vy: 0, spin: 0,
-                restOff: 0, restT: 0,
-                extra: false,      // aufgewirbelte Haufen-Blätter verschwinden nach der Landung wieder aus der Liste
+                slideV: 0, slideT: 0, restOff: 0, restT: 0,
+                extra: false,
                 dead: false
             };
         }
@@ -1495,124 +1532,70 @@
             else Object.assign(f, makeFaller(false));
         }
 
-        function landHeap(f) {
-            if (landed.length >= MAX_LANDED) return false;
-            fill = Math.min(1, fill + 1 / MAX_LANDED);
-            landed.push({
-                u: (f.x - cx) / halfW,
-                f: fill,
-                size: f.size,
-                rot: f.rot + (Math.random() * 60 - 30),
-                color: f.color,
-                shape: f.shape
-            });
-            redrawPile();
-            return true;
-        }
-
-        // Wirbelt ein Blatt auf (fallend oder am Boden liegend)
-        function kick(f, strength) {
-            if (f.mode !== 'free') {
-                f.vx = 0;
-                f.vy = f.mode === 'fall' ? f.speed : 0;
-                f.spin = 0;
-                f.mode = 'free';
-                f.alpha = 1;
-            }
-            f.vx += hand.vx * 0.55 * strength + (Math.random() - 0.5) * 80;
-            f.vy += hand.vy * 0.45 * strength - (120 + Math.random() * 160) * strength;
-            f.spin += (Math.random() - 0.5) * 900;
-        }
-
-        // Prüft, ob die Hand gerade Blätter auf dem Haufen erwischt, und wirbelt die obersten auf
-        function stirHeap() {
-            if (!landed.length || ground - pileH > H) return;
-            let kicked = 0;
-            for (let i = landed.length - 1; i >= 0 && kicked < 4; i--) {
-                const l = landed[i];
-                if (Math.min(l.f, fill) < fill - 0.18) continue;   // tief vergrabene Blätter bleiben liegen
-                const x = cx + l.u * halfW;
-                const y = ground - heapLeafHeight(l);
-                const dx = x - hand.x, dy = y - hand.y;
-                if (dx * dx + dy * dy > Math.pow(HAND_RADIUS + l.size * 0.3, 2)) continue;
-
-                landed.splice(i, 1);
-                fill = Math.max(0, fill - 1 / MAX_LANDED);
-                const f = makeFaller(false);
-                Object.assign(f, {
-                    size: l.size, color: l.color, shape: l.shape, rot: l.rot,
-                    x: x, y: y, extra: true, mode: 'free',
-                    vx: 0, vy: 0, spin: 0
-                });
-                kick(f, 1.2);
-                fallers.push(f);
-                kicked++;
-            }
-            if (kicked) redrawPile();
-        }
-
-        // Blatt bleibt verstreut auf dem Footer liegen
-        function placeOnGround(f) {
-            const g = makeFaller(false);
-            Object.assign(g, {
-                size: f.size, color: f.color, shape: f.shape,
-                x: f.x, extra: true, mode: 'ground',
-                rot: (Math.random() < 0.5 ? 90 : -90) + (Math.random() - 0.5) * 50,  // liegt flach
-                restOff: -f.size * 0.12
-            });
-            g.y = ground + g.restOff;
-            fallers.push(g);
-            const lying = fallers.filter((x) => x.mode === 'ground');
-            if (lying.length > MAX_GROUND) {
-                lying[0].mode = 'rest';         // ältestes Blatt verblasst
-                lying[0].restT = REST_S;
-            }
-        }
-
-        function hitGround(f) {
-            const onHeap = Math.abs(f.x - cx) < halfW;
-            const landY = ground - surfaceAt(f.x) - f.size * 0.1;
-            if (ground < H + f.size && f.y >= landY) {
-                if (onHeap && landHeap(f)) {
-                    recycle(f);
-                } else if (!onHeap) {
-                    placeOnGround(f);           // neben dem Haufen: bleibt auf dem Boden liegen
-                    recycle(f);
+        // Prüft, ob ein Blatt den Footer bzw. den Haufen berührt
+        function checkContact(f) {
+            const w = f.size * 0.85;
+            const sup = support(f.x, w);
+            const contactY = ground - sup.top - f.size * 0.2;
+            if (ground < H + f.size && f.y >= contactY) {
+                // Haufen ist hier schon an der Linie und das Blatt kann nirgends hinrutschen: verschwindet sofort.
+                // Kann es noch abrutschen, rutscht es runter und vergrößert den Haufen an der Seite.
+                if (reachesLine(sup, f.size) && Math.abs(sup.slope) <= REPOSE) {
+                    f.y = contactY;
+                    vanish(f);
                 } else {
-                    f.mode = 'rest';            // Haufen voll: kurz liegen, dann weg
-                    f.restOff = landY - ground;
-                    f.restT = 0;
+                    f.mode = 'slide';                  // ab jetzt übernimmt die Rutsch-Physik
+                    f.slideV = 0;
+                    f.slideT = 0;
                 }
-                return true;
+                return;
             }
             if (f.y > H + f.size) {
-                // Footer liegt weiter unten auf der Seite: das Blatt fällt dort hin und landet trotzdem
-                if (onHeap) landHeap(f);
-                else if (f.extra) placeOnGround(f);
+                // Footer liegt weiter unten auf der Seite: das Blatt fällt dorthin und landet trotzdem
+                settleInstant(f);
                 recycle(f);
-                return true;
             }
-            return false;
         }
 
         function updateFaller(f, dt) {
-            if (f.mode === 'ground') {
-                f.y = ground + f.restOff;     // liegt auf dem Footer und scrollt mit
+            if (f.mode === 'fade') {
+                f.y = ground + f.restOff;
+                f.restT += dt;
+                f.alpha -= dt / 0.2;              // verschwindet sofort (kurzes Ausblenden statt hartem Wegploppen)
+                if (f.alpha <= 0) recycle(f);
                 return;
             }
-            if (f.mode === 'rest') {
-                f.y = ground + f.restOff;     // bewegt sich beim Scrollen mit dem Footer mit
-                f.restT += dt;
-                if (f.restT > REST_S) f.alpha -= dt / 0.5;
-                if (f.alpha <= 0) recycle(f);
+
+            if (f.mode === 'slide') {
+                // Rutsch-Physik: zu steil -> Blatt gleitet hangabwärts, bis es Halt findet
+                const w = f.size * 0.85;
+                const sup = support(f.x, w);
+                f.slideT += dt;
+                const steep = Math.abs(sup.slope) - REPOSE;
+                if (steep > 0 && f.slideT < 3) {
+                    f.slideV = Math.min(160, f.slideV + (300 * steep + 60) * dt);
+                    f.x -= Math.sign(sup.slope) * f.slideV * dt;
+                } else {
+                    f.slideV *= Math.exp(-12 * dt);    // Reibung bremst
+                    if (f.slideV < 4 || f.slideT >= 3) {
+                        const end = support(f.x, w);
+                        if (reachesLine(end, f.size)) { vanish(f); return; }
+                        settle(f, end);
+                        recycle(f);
+                        return;
+                    }
+                    f.x -= Math.sign(sup.slope || 1) * f.slideV * dt;
+                }
+                const target = lieRot(Math.max(-REPOSE, Math.min(REPOSE, sup.slope)), f.flip, f.wobble);
+                f.rot += (target - f.rot) * Math.min(1, dt * 10);
+                f.y = ground - (sup.base + f.size * 0.24 * 0.55);
                 return;
             }
 
             if (f.mode === 'free') {
                 // aufgewirbelt: Schwung, Luftwiderstand, Schwerkraft, langsames Herabschaukeln
                 f.t += dt;
-                const drag = Math.exp(-1.8 * dt);
-                f.vx *= drag;
+                f.vx *= Math.exp(-1.8 * dt);
                 f.vy += GRAVITY * dt;
                 if (f.vy > f.speed) f.vy = f.speed + (f.vy - f.speed) * Math.exp(-4 * dt);
                 f.spin *= Math.exp(-1.5 * dt);
@@ -1621,7 +1604,7 @@
                 f.rot += f.spin * dt;
                 if (f.x < -f.size) f.x = W + f.size;
                 if (f.x > W + f.size) f.x = -f.size;
-                if (f.vy > 0) hitGround(f);
+                if (f.vy > 0) checkContact(f);
                 return;
             }
 
@@ -1630,26 +1613,54 @@
             f.y += f.speed * dt;
             const a = (f.t / f.period) * Math.PI * 2 + f.phase;
             const p = Math.min(1, Math.max(0, f.y / Math.min(H, ground)));
-            const drift = p;                     // gleichmäßig schräges Hintreiben zum Haufen (wie bei Wind)
-            f.x = f.baseX + (f.targetX - f.baseX) * drift + f.amp * Math.sin(a) * (1 - 0.6 * drift);
+            f.x = f.baseX + (f.targetX - f.baseX) * p + f.amp * Math.sin(a) * (1 - 0.6 * p);
             f.rot = 2.5 + 37.5 * Math.sin(a);
-            hitGround(f);
+            checkContact(f);
+        }
+
+        // Hand wirbelt oben liegende Blätter des Haufens auf (Blätter im Flug sind unantastbar)
+        function stirHeap() {
+            if (!landed.length || ground - PILE_H > H) return;
+            let kicked = 0;
+            for (let i = landed.length - 1; i >= 0 && kicked < 4; i--) {
+                const l = landed[i];
+                const x = cx + l.dx;
+                if (hAt(x) - (l.base + l.t) > 3) continue;     // liegt unter anderen Blättern begraben
+                const y = ground - leafY(l);
+                const dx = x - hand.x, dy = y - hand.y;
+                if (dx * dx + dy * dy > Math.pow(HAND_RADIUS + l.size * 0.3, 2)) continue;
+
+                landed.splice(i, 1);
+                const f = makeFaller(false);
+                Object.assign(f, {
+                    size: l.size, color: l.color, shape: l.shape, rot: l.rot,
+                    x: x, y: y, extra: true, mode: 'free',
+                    vx: hand.vx * 0.65 + (Math.random() - 0.5) * 80,
+                    vy: hand.vy * 0.5 - (150 + Math.random() * 200),
+                    spin: (Math.random() - 0.5) * 900
+                });
+                fallers.push(f);
+                kicked++;
+            }
+            if (kicked) {
+                rebuildHeights();
+                redrawPile();
+            }
         }
 
         function resize() {
             dpr = window.devicePixelRatio || 1;
             W = window.innerWidth;
             H = window.innerHeight;
-            halfW = Math.min(HEAP_HALF_W, W * 0.32);
-            maxH = HEAP_MAX_H * Math.min(1, (halfW / HEAP_HALF_W) * 1.6);
-            cx = halfW + HEAP_POS * (W - 2 * halfW);
-            pileH = Math.ceil(maxH + 40);
+            spread = Math.min(HEAP_SPREAD, W * 0.35);
+            cx = Math.max(spread, Math.min(W - spread, HEAP_POS * W));
             canvas.width = Math.round(W * dpr);
             canvas.height = Math.round(H * dpr);
             ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
             pileCanvas.width = Math.round(W * dpr);
-            pileCanvas.height = Math.round(pileH * dpr);
+            pileCanvas.height = Math.round(PILE_H * dpr);
             pctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+            rebuildHeights();
             redrawPile();
         }
 
@@ -1658,17 +1669,13 @@
             last = now;
             ground = footer ? footer.getBoundingClientRect().top : H;
 
-            // Hand: Schwung klingt ab, wenn die Maus stillsteht
-            const handSpeed = Math.hypot(hand.vx, hand.vy);
-            const stirring = hand.active && handSpeed > HAND_MIN_SPEED;
+            const stirring = hand.active && Math.hypot(hand.vx, hand.vy) > HAND_MIN_SPEED;
             hand.vx *= Math.exp(-8 * dt);
             hand.vy *= Math.exp(-8 * dt);
-
-            // Nur der Haufen lässt sich aufwirbeln, Blätter im Flug sind unantastbar
             if (stirring) stirHeap();
 
             ctx.clearRect(0, 0, W, H);
-            if (ground - pileH < H) ctx.drawImage(pileCanvas, 0, ground - pileH, W, pileH);
+            if (ground - PILE_H < H) ctx.drawImage(pileCanvas, 0, ground - PILE_H, W, PILE_H);
             for (let i = 0; i < fallers.length; i++) {
                 const f = fallers[i];
                 updateFaller(f, dt);
