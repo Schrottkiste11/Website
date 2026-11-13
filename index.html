@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Schrottkiste Start</title>
     <meta name="description" content="Schrottkiste, Twitch- und YouTube-Content von Luka, Streams, Blog-Updates und Playlists.">
-    <meta name="theme-color" content="#1a1a24">
+    <meta name="theme-color" content="#14161a">
     <meta name="color-scheme" content="dark">
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%231a1a24'/%3E%3Ctext x='50' y='70' font-family='Arial,sans-serif' font-weight='900' font-size='58' fill='%23ff0099' text-anchor='middle'%3ES%3C/text%3E%3C/svg%3E">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%2314161a'/%3E%3Ctext x='50' y='70' font-family='Arial,sans-serif' font-weight='900' font-size='58' fill='%23ffb545' text-anchor='middle'%3ES%3C/text%3E%3C/svg%3E">
     <meta property="og:type" content="website">
     <meta property="og:title" content="Schrottkiste">
     <meta property="og:description" content="Twitch- und YouTube-Content von Luka, Streams, Blog-Updates und Playlists.">
@@ -23,13 +23,13 @@
 
     <style>
         :root {
-            --accent: #ff0099;
-            --accent-alt: #00ffff;
-            --bg: #1a1a24;
-            --card-bg: #242430;
-            --text: #f3f1ff;
-            --text-secondary: #b0b0c0;
-            --line-color: #3a3a4a;
+            --accent: #ffb545;
+            --accent-alt: #ffd27a;
+            --bg: #14161a;
+            --card-bg: #1d2026;
+            --text: #e8e8ea;
+            --text-secondary: #9aa0aa;
+            --line-color: #2c3038;
             --shadow: 0 4px 20px rgba(0, 0, 0, .3);
             --radius: 12px;
             --transition: .3s cubic-bezier(.4, 0, .2, 1);
@@ -114,13 +114,13 @@
             font-size: 3.5rem;
             line-height: 1;
             text-decoration: none;
-            text-shadow: 0 0 20px rgba(255, 0, 153, .3);
+            text-shadow: 0 0 20px rgba(255, 181, 69, .3);
             transition: var(--transition);
         }
 
         .nav-brand:hover {
             transform: scale(1.05);
-            text-shadow: 0 0 30px rgba(255, 0, 153, .5);
+            text-shadow: 0 0 30px rgba(255, 181, 69, .5);
         }
 
         .menu-row {
@@ -191,7 +191,7 @@
         .language-select:hover,
         .language-select:focus {
             border-color: var(--accent);
-            box-shadow: 0 0 15px rgba(255, 0, 153, .4);
+            box-shadow: 0 0 15px rgba(255, 181, 69, .4);
             color: #fff;
         }
 
@@ -206,7 +206,7 @@
             gap: 12px;
             min-width: 0;
             padding: 12px 20px;
-            background: linear-gradient(135deg, #1a1a24, #242430);
+            background: linear-gradient(135deg, #14161a, #1d2026);
             border: 1px solid var(--line-color);
             border-radius: 30px;
             box-shadow: var(--shadow);
@@ -215,7 +215,7 @@
 
         .mini-player:hover {
             border-color: var(--accent);
-            box-shadow: 0 6px 25px rgba(255, 0, 153, .2);
+            box-shadow: 0 6px 25px rgba(255, 181, 69, .2);
         }
         .player-label {
             color: var(--accent);
@@ -236,7 +236,7 @@
             height: 36px;
             padding: 0;
             place-items: center;
-            color: #fff;
+            color: #14161a;
             background: var(--accent);
             border: 0;
             border-radius: 50%;
@@ -246,7 +246,7 @@
 
         .player-controls button:hover {
             transform: scale(1.1);
-            box-shadow: 0 0 20px rgba(255, 0, 153, .5);
+            box-shadow: 0 0 20px rgba(255, 181, 69, .5);
         }
         .track-info-mini {
             min-width: 120px;
@@ -363,11 +363,11 @@
         .gif-box:hover {
             transform: translateY(-5px);
             border-color: var(--accent);
-            box-shadow: 0 8px 30px rgba(255, 0, 153, .3);
+            box-shadow: 0 8px 30px rgba(255, 181, 69, .3);
         }
         .gif-box.static-link:hover {
             border-color: var(--accent-alt);
-            box-shadow: 0 8px 30px rgba(0, 255, 255, .3);
+            box-shadow: 0 8px 30px rgba(255, 210, 122, .3);
         }
         .gif-box:active {
             transform: scale(.98);
@@ -394,7 +394,7 @@
             position: absolute;
             inset: 0;
             z-index: 1;
-            background: linear-gradient(135deg, rgba(255, 0, 153, .2), transparent);
+            background: linear-gradient(135deg, rgba(255, 181, 69, .2), transparent);
             content: "";
             opacity: 0;
             transition: opacity var(--transition);
@@ -520,11 +520,11 @@
             align-items: center;
             gap: 8px;
             padding: 12px 30px;
-            color: #fff;
-            background: linear-gradient(135deg, var(--accent), #cc0077);
+            color: #14161a;
+            background: linear-gradient(135deg, var(--accent), #e69a1f);
             border: 0;
             border-radius: 25px;
-            box-shadow: 0 4px 15px rgba(255, 0, 153, .3);
+            box-shadow: 0 4px 15px rgba(255, 181, 69, .3);
             cursor: pointer;
             font-size: .95rem;
             font-weight: 600;
@@ -533,7 +533,7 @@
 
         .read-more:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255, 0, 153, .5);
+            box-shadow: 0 6px 20px rgba(255, 181, 69, .5);
         }
         .read-more:active {
             transform: translateY(0);
@@ -576,7 +576,7 @@
             transition: var(--transition);
         }
         .share-btn:hover {
-            color: #fff;
+            color: #14161a;
             background: var(--accent);
             transform: translateY(-3px);
         }
@@ -718,7 +718,7 @@
         }
         .playlist-item:hover .cover-img {
             transform: scale(1.05);
-            box-shadow: 0 10px 30px rgba(0, 255, 255, .3);
+            box-shadow: 0 10px 30px rgba(255, 210, 122, .3);
         }
 
         .site-footer {
@@ -770,11 +770,11 @@
             height: 50px;
             padding: 0;
             place-items: center;
-            color: #fff;
+            color: #14161a;
             background: var(--accent);
             border: 0;
             border-radius: 50%;
-            box-shadow: 0 4px 15px rgba(255, 0, 153, .3);
+            box-shadow: 0 4px 15px rgba(255, 181, 69, .3);
             cursor: pointer;
             transition: var(--transition);
         }
@@ -783,7 +783,7 @@
         }
         .scroll-to-top:hover {
             transform: translateY(-5px);
-            box-shadow: 0 6px 20px rgba(255, 0, 153, .5);
+            box-shadow: 0 6px 20px rgba(255, 181, 69, .5);
         }
 
         .notification {
@@ -793,7 +793,7 @@
             z-index: 10000;
             max-width: min(90vw, 360px);
             padding: 15px 25px;
-            color: #fff;
+            color: #14161a;
             background: var(--accent);
             border-radius: 25px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, .3);
@@ -802,6 +802,7 @@
         }
         .notification.error {
             background: #d33;
+            color: #fff;
         }
         .notification.is-leaving {
             animation: slideOut .3s ease forwards;
@@ -1537,7 +1538,7 @@
 
             const playlistContainer = document.getElementById('playlist-container');
             const fallbackImage = (title) => 'data:image/svg+xml,' + encodeURIComponent(
-                '<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200"><rect width="200" height="200" fill="#242430"/><text x="100" y="110" fill="#ff0099" text-anchor="middle" font-size="16">' +
+                '<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200"><rect width="200" height="200" fill="#1d2026"/><text x="100" y="110" fill="#ffb545" text-anchor="middle" font-size="16">' +
                 title + '</text></svg>');
             playlists.forEach((playlist) => {
                 const item = document.createElement('div');
