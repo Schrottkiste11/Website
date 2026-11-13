@@ -1,4 +1,4 @@
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="de">
 <head>
 <meta charset="UTF-8" />
@@ -13,18 +13,18 @@
 
 <style>
   :root {
-    --bg-app: #0f0f13;
-    --bg-sidebar: #09090c;
-    --bg-card: #181820;
-    --bg-card-hover: #22222f;
-    --text-main: #f3f1ff;
-    --text-muted: #a0a0b0;
-    --accent: #ff0099;
-    --accent-alt: #00ffff;
+    --bg-app: #14161a;
+    --bg-sidebar: #101216;
+    --bg-card: #1d2026;
+    --bg-card-hover: #262a32;
+    --text-main: #e8e8ea;
+    --text-muted: #9aa0aa;
+    --accent: #ffb545;
+    --accent-alt: #ffd27a;
     --accent-green: #00ff66;
-    --accent-yellow: #ffcc00;
+    --accent-yellow: #ffb545;
     --accent-red: #ff0033;
-    --border-color: #2a2a38;
+    --border-color: #2c3038;
     --shadow: 0 4px 15px rgba(0,0,0,0.3);
     --radius: 10px;
     --transition: 0.2s ease;
@@ -76,7 +76,7 @@
     font-family: 'VT323', monospace;
     font-size: 2.2rem;
     color: var(--accent);
-    text-shadow: 2px 2px 0px var(--accent-alt);
+    text-shadow: 2px 2px 0px #8a5a10;
     margin-bottom: 25px;
     padding-left: 5px;
     display: flex;
@@ -166,7 +166,7 @@
   }
   
   .sidebar-playlist-item.active-pl {
-    background: rgba(255, 0, 153, 0.12);
+    background: rgba(255, 181, 69, 0.12);
     color: var(--accent);
     border-color: var(--accent);
     font-weight: 600;
@@ -201,9 +201,9 @@
   }
   .new-playlist-sidebar-btn:hover { 
     background: var(--accent); 
-    color: #fff;
+    color: #14161a;
     border-style: solid;
-    box-shadow: 0 4px 15px rgba(255,0,153,0.3);
+    box-shadow: 0 4px 15px rgba(255, 181, 69,0.3);
   }
 
   /* --- MAIN CONTENT --- */
@@ -223,7 +223,7 @@
     gap: 20px;
     justify-content: space-between;
     align-items: center;
-    background: rgba(15, 15, 19, 0.95);
+    background: rgba(20, 22, 26, 0.95);
     backdrop-filter: blur(10px);
     position: sticky;
     top: 0;
@@ -262,7 +262,7 @@
   }
   #searchBox:focus { 
     border-color: var(--accent-alt); 
-    box-shadow: 0 0 15px rgba(0,255,255,0.15);
+    box-shadow: 0 0 15px rgba(255, 210, 122,0.15);
   }
   #searchBox::placeholder { color: var(--text-muted); }
 
@@ -272,7 +272,7 @@
     padding: 15px 30px;
     overflow-x: auto;
     flex-shrink: 0;
-    background: rgba(15, 15, 19, 0.95);
+    background: rgba(20, 22, 26, 0.95);
     backdrop-filter: blur(10px);
     position: sticky;
     top: 81px; 
@@ -300,10 +300,10 @@
     border-color: var(--accent-alt);
   }
   .nav-item.active {
-    color: #fff;
+    color: #14161a;
     background: var(--accent);
     border-color: var(--accent);
-    box-shadow: 0 2px 10px rgba(255,0,153,0.3);
+    box-shadow: 0 2px 10px rgba(255, 181, 69,0.3);
   }
 
   /* --- SONG LISTE --- */
@@ -331,9 +331,9 @@
   }
 
   .sound-item.playing-row {
-    background: rgba(255, 0, 153, 0.08);
-    border-color: rgba(255, 0, 153, 0.4);
-    box-shadow: 0 0 15px rgba(255, 0, 153, 0.15);
+    background: rgba(255, 181, 69, 0.08);
+    border-color: rgba(255, 181, 69, 0.4);
+    box-shadow: 0 0 15px rgba(255, 181, 69, 0.15);
   }
 
   .play-btn {
@@ -359,8 +359,8 @@
   .play-btn.playing { 
     background: var(--accent); 
     border-color: var(--accent); 
-    color: #fff;
-    box-shadow: 0 0 15px rgba(255,0,153,0.4);
+    color: #14161a;
+    box-shadow: 0 0 15px rgba(255, 181, 69,0.4);
   }
 
   .sound-details { 
@@ -591,9 +591,9 @@
     width: 12px;
     height: 12px;
     border-radius: 50%;
-    background: var(--accent-red);
+    background: var(--accent);
     cursor: pointer;
-    box-shadow: 0 0 8px rgba(255,0,51,0.6);
+    box-shadow: 0 0 8px rgba(255, 181, 69, 0.6);
     transition: transform 0.2s;
   }
   .seek-slider::-webkit-slider-thumb:hover {
@@ -645,7 +645,7 @@
     border-radius: 50%;
     background: var(--accent-alt);
     cursor: pointer;
-    box-shadow: 0 0 6px rgba(0,255,255,0.5);
+    box-shadow: 0 0 6px rgba(255, 210, 122,0.5);
   }
 
   /* --- MODAL --- */
@@ -701,7 +701,7 @@
   
   .modal-btn { 
     background: var(--accent); 
-    color: #fff; 
+    color: #14161a; 
     border: none; 
     padding: 12px 24px; 
     border-radius: 25px; 
@@ -711,8 +711,8 @@
     font-family: 'Poppins', sans-serif;
   }
   .modal-btn:hover { 
-    background: #ff1a9e; 
-    box-shadow: 0 4px 15px rgba(255,0,153,0.3);
+    background: #ffc15e; 
+    box-shadow: 0 4px 15px rgba(255, 181, 69,0.3);
   }
   
   .modal-btn-cancel { 
@@ -980,7 +980,7 @@ function showToast(message) {
 function updateSeekBackground(slider) {
   const value = slider.value;
   const percentage = (value / 100) * 100;
-  slider.style.background = `linear-gradient(to right, var(--accent-red) ${percentage}%, var(--border-color) ${percentage}%)`;
+  slider.style.background = `linear-gradient(to right, var(--accent) ${percentage}%, var(--border-color) ${percentage}%)`;
 }
 
 function savePlaylists() {
