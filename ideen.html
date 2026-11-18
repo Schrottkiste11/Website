@@ -646,6 +646,11 @@
             border: 1px solid #5f9;
             box-shadow: 0 0 12px rgba(0, 255, 150, 0.15);
         }
+        .priority-cancelled {
+            background: rgba(255, 68, 68, 0.2);
+            color: #ff4444;
+            border: 1px solid #ff4444;
+        }
 
         .progress-container {
             margin-top: 20px;
@@ -830,7 +835,7 @@
                         <div class="box-inner">
                             <ul class="project-list">
                                 <li><span data-i18n="p3-silvester">Silvester Countdown 24h vorher</span> <span class="priority-badge priority-high">HOT</span></li>
-                                <li><span data-i18n="p3-gta">GTA 6 Release Gameplay</span> <span class="priority-badge priority-high">HYPE</span></li>
+                                <li class="cancelled"><span data-i18n="p3-gta">GTA 6 Release Gameplay</span> <span class="priority-badge priority-cancelled">Kein Stream – Alle zocken es schon vorher</span></li>
                             </ul>
                             <div class="progress-container">
                                 <div class="progress-label"><span data-i18n="prog-text">Fortschritt</span><span><span class="progress-count">0/2</span> <span data-i18n="prog-projects">Projekte</span></span></div>
@@ -878,7 +883,7 @@
                         <div class="box-inner">
                             <ul class="project-list">
                                 <li>Euro Truck Simulator 2 (ETS 2) <span class="priority-badge priority-winter">TRUCK</span></li>
-                                <li>GTA 6 <span class="priority-badge priority-high">HYPE</span></li>
+                                <li class="cancelled">GTA 6 <span class="priority-badge priority-cancelled">Privat (YouTube lohnt sich nicht mehr)</span></li>
                                 <li>Levelhead 🤖</li>
                                 <li>Aniimo 🐻‍❄️</li>
                                 <li>Goat Simulator 🐐</li>
@@ -920,7 +925,6 @@
         (() => {
             'use strict';
 
-            // Nicht übersetzte Schlüssel fallen automatisch auf Englisch, dann Deutsch zurück.
             const translations = {
                 de: {
                     "nav-home": "Startseite",
@@ -1169,7 +1173,6 @@
             const currentLangLabel = document.getElementById('currentLangLabel');
             const langButtons = document.querySelectorAll('.lang-btn');
 
-            // 1. SPRACHE
             function translate(lang, key) {
                 return (translations[lang] && translations[lang][key]) || translations.en[key] || translations.de[key];
             }
@@ -1189,7 +1192,7 @@
                 langButtons.forEach((btn) => btn.classList.toggle('active', btn.dataset.lang === lang));
                 currentLangLabel.textContent = lang.toUpperCase();
                 setLangDropdown(false);
-                try { localStorage.setItem(LANG_KEY, lang); } catch (error) { /* Speicher blockiert */ }
+                try { localStorage.setItem(LANG_KEY, lang); } catch (error) {}
             }
 
             langToggleBtn.addEventListener('click', () => setLangDropdown(!langSwitch.classList.contains('open')));
@@ -1199,10 +1202,9 @@
             });
 
             let savedLang = 'de';
-            try { savedLang = localStorage.getItem(LANG_KEY) || 'de'; } catch (error) { /* Speicher blockiert */ }
+            try { savedLang = localStorage.getItem(LANG_KEY) || 'de'; } catch (error) {}
             if (savedLang !== 'de' && translations[savedLang]) setLanguage(savedLang);
 
-            // 2. AKKORDEON (Höhenanimation läuft über CSS)
             document.querySelectorAll('.content-box').forEach((box) => {
                 const trigger = box.querySelector('.box-trigger');
 
@@ -1224,7 +1226,6 @@
                 });
             });
 
-            // 3. FORTSCHRITT UND STATISTIK werden aus den Listen berechnet
             function countList(list) {
                 const items = list.querySelectorAll(':scope > li:not(.cancelled)');
                 const done = list.querySelectorAll(':scope > li.done');
@@ -1271,7 +1272,6 @@
             }
             updateStats();
 
-            // 4. MENÜ
             document.querySelectorAll('.hamburger-btn, .close-btn').forEach((label) => {
                 label.addEventListener('keydown', (e) => {
                     if (e.key === 'Enter' || e.key === ' ') {
@@ -1289,7 +1289,6 @@
                 setLangDropdown(false);
             });
 
-            // 5. WISCHGESTE nach rechts öffnet das Soundboard
             let touchStartX = 0;
             let touchStartY = 0;
             let isSwiping = false;
