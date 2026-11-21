@@ -970,6 +970,43 @@
         .content-box--future .arrow { color: #b9a4ff; }
         .content-box--future.active .arrow { background: #b9a4ff; color: #14161a; }
         .plan-note { margin-top: 28px; }
+
+        /* ===== Lade-Platzhalter wie bei YouTube ===== */
+        .skeleton {
+            position: relative;
+            display: block;
+            overflow: hidden;
+            background: #272a31;
+            border-radius: 8px;
+        }
+        .skeleton::after {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .07), transparent);
+            content: "";
+            transform: translateX(-100%);
+            animation: skeletonShimmer 1.4s ease-in-out infinite;
+        }
+        .skeleton-line { height: 14px; margin-top: 8px; }
+        .skeleton-line.short { width: 60%; }
+        @keyframes skeletonShimmer {
+            to { transform: translateX(100%); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .skeleton::after { animation: none; }
+        }
+
+        .video-embed-container.is-loading { background: #272a31; border-color: transparent; }
+        .video-embed-container.is-loading::after {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .07), transparent);
+            content: "";
+            transform: translateX(-100%);
+            animation: skeletonShimmer 1.4s ease-in-out infinite;
+        }
+        .video-embed-container.is-loading iframe { visibility: hidden; }
+        .video-card-title.is-loading { display: block; pointer-events: none; }
     </style>
 </head>
 <body>
@@ -1129,17 +1166,17 @@
             <aside class="video-sidebar" aria-label="Videos">
                 <div class="video-card">
                 <span class="video-card-label">Neuestes Video</span>
-                <div class="video-embed-container">
-                    <iframe id="yt-frame-1" src="https://www.youtube-nocookie.com/embed/S5Z_YzMsnms" title="YouTube-Video 1" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                <div class="video-embed-container is-loading">
+                    <iframe id="yt-frame-1" data-fallback="S5Z_YzMsnms" title="YouTube-Video 1" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                 </div>
-                <a class="video-card-title" id="yt-title-1" href="https://www.youtube.com/@schrottkiste" target="_blank" rel="noopener noreferrer" hidden></a>
+                <a class="video-card-title is-loading" id="yt-title-1" href="https://www.youtube.com/@schrottkiste" target="_blank" rel="noopener noreferrer"><span class="skeleton skeleton-line"></span><span class="skeleton skeleton-line short"></span></a>
                 </div>
                 <div class="video-card">
                 <span class="video-card-label">Davor erschienen</span>
-                <div class="video-embed-container">
-                    <iframe id="yt-frame-2" src="https://www.youtube-nocookie.com/embed/8mAaOsKrmX8" title="YouTube-Video 2" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                <div class="video-embed-container is-loading">
+                    <iframe id="yt-frame-2" data-fallback="8mAaOsKrmX8" title="YouTube-Video 2" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                 </div>
-                <a class="video-card-title" id="yt-title-2" href="https://www.youtube.com/@schrottkiste" target="_blank" rel="noopener noreferrer" hidden></a>
+                <a class="video-card-title is-loading" id="yt-title-2" href="https://www.youtube.com/@schrottkiste" target="_blank" rel="noopener noreferrer"><span class="skeleton skeleton-line"></span><span class="skeleton skeleton-line short"></span></a>
                 </div>
             </aside>
         </div>
@@ -1278,13 +1315,43 @@
     (() => {
         'use strict';
         const HANDLE = '@schrottkiste';
-        const slots = [
-            { skip: 0, frame: document.getElementById('yt-frame-1'), title: document.getElementById('yt-title-1') },
-            { skip: 1, frame: document.getElementById('yt-frame-2'), title: document.getElementById('yt-title-2') }
-        ];
+        const CACHE_KEY = 'schrottkiste_latest_videos';
+        const slots = [1, 2].map((n, i) => ({
+            skip: i,
+            frame: document.getElementById('yt-frame-' + n),
+            title: document.getElementById('yt-title-' + n),
+            shownId: null
+        })).filter((slot) => slot.frame);
 
+        function show(slot, video) {
+            const box = slot.frame.closest('.video-embed-container');
+            if (video.id !== slot.shownId) {
+                slot.shownId = video.id;
+                // Platzhalter erst ausblenden, wenn der YouTube-Player wirklich geladen ist
+                const done = () => box.classList.remove('is-loading');
+                slot.frame.addEventListener('load', done, { once: true });
+                setTimeout(done, 8000);
+                slot.frame.src = 'https://www.youtube-nocookie.com/embed/' + video.id;
+            }
+            slot.frame.title = video.title || 'YouTube-Video';
+            if (slot.title) {
+                if (video.title) {
+                    slot.title.textContent = video.title;
+                    slot.title.href = 'https://www.youtube.com/watch?v=' + video.id;
+                    slot.title.classList.remove('is-loading');
+                } else {
+                    slot.title.hidden = true;
+                }
+            }
+        }
+
+        // 1) Sofort anzeigen, was beim letzten Besuch geladen wurde
+        let cached = [];
+        try { cached = JSON.parse(localStorage.getItem(CACHE_KEY) || '[]') || []; } catch (e) { cached = []; }
+        slots.forEach((slot, i) => { if (cached[i] && cached[i].id) show(slot, cached[i]); });
+
+        // 2) Im Hintergrund nach dem aktuellen Stand fragen (Antwort: "VIDEO_ID Videotitel")
         async function fetchVideo(skip) {
-            // Antwort im Format "VIDEO_ID Videotitel" (die ID ist immer 11 Zeichen lang)
             const url = 'https://decapi.me/youtube/latest_video?handle=' + encodeURIComponent(HANDLE) +
                 '&skip=' + skip + '&format=' + encodeURIComponent('{id} {title}');
             const res = await fetch(url);
@@ -1293,20 +1360,20 @@
             return match ? { id: match[1], title: match[2].trim() } : null;
         }
 
-        slots.forEach(async (slot) => {
-            if (!slot.frame) return;
-            try {
-                const video = await fetchVideo(slot.skip);
-                if (!video) return;    // Fehler: das fest eingetragene Video bleibt einfach stehen
-                slot.frame.src = 'https://www.youtube-nocookie.com/embed/' + video.id;
-                slot.frame.title = video.title;
-                if (slot.title) {
-                    slot.title.textContent = video.title;
-                    slot.title.href = 'https://www.youtube.com/watch?v=' + video.id;
-                    slot.title.hidden = false;
+        Promise.all(slots.map((slot) => fetchVideo(slot.skip).catch(() => null))).then((videos) => {
+            const fresh = [];
+            slots.forEach((slot, i) => {
+                const video = videos[i];
+                if (video) {
+                    show(slot, video);
+                    fresh[i] = video;
+                } else if (!slot.shownId) {
+                    // Dienst nicht erreichbar und nichts gespeichert: fest eingetragenes Video zeigen
+                    show(slot, { id: slot.frame.dataset.fallback, title: '' });
                 }
-            } catch (e) {
-                /* Dienst nicht erreichbar: fest eingetragene Videos bleiben */
+            });
+            if (fresh.length) {
+                try { localStorage.setItem(CACHE_KEY, JSON.stringify(fresh)); } catch (e) {}
             }
         });
     })();
