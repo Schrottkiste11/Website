@@ -752,6 +752,224 @@
                 transition-duration: 0.01ms !important;
             }
         }
+
+        /* ===== MODERN-UPGRADE (gleicher Look wie die Startseite) ===== */
+        :root {
+            --card: #1d2026;
+            --glass: linear-gradient(180deg, rgba(255, 255, 255, .05), rgba(255, 255, 255, .015));
+            --hairline: rgba(255, 255, 255, .07);
+            --radius: 20px;
+        }
+        ::selection { background: var(--accent); color: #14161a; }
+
+        body {
+            background:
+                radial-gradient(60rem 40rem at 8% -10%, rgba(255, 181, 69, .12), transparent 60%),
+                radial-gradient(50rem 35rem at 100% 15%, rgba(145, 70, 255, .08), transparent 60%),
+                #14161a;
+            background-attachment: fixed;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Menü-Knopf und Sprachwahl als Glas-Pillen */
+        .hamburger-btn, .close-btn {
+            width: 52px;
+            height: 52px;
+            font-size: 24px;
+            background: rgba(29, 32, 38, .7);
+            border: 1px solid var(--hairline);
+            border-radius: 16px;
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+        }
+        .hamburger-btn:hover { border-color: rgba(255, 181, 69, .45); }
+        .lang-switch {
+            background: rgba(29, 32, 38, .7);
+            border: 1px solid var(--hairline);
+            border-radius: 16px;
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+        }
+        .lang-switch-toggle, .lang-btn {
+            font-family: Poppins, sans-serif;
+            font-size: .85rem;
+            font-weight: 600;
+            letter-spacing: .08em;
+            padding: 12px 16px;
+        }
+        .lang-btn.active { font-weight: 700; }
+
+        /* Seitenmenü */
+        .custom-sidebar {
+            background: rgba(16, 18, 22, .88);
+            border-right: 1px solid var(--hairline);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .sidebar-brand {
+            background: linear-gradient(135deg, #fff 30%, var(--accent-alt));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: none;
+        }
+        .custom-sidebar nav a {
+            font-family: Poppins, sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            background: rgba(255, 255, 255, .04);
+            border: 1px solid var(--hairline);
+            border-radius: 14px;
+        }
+        .custom-sidebar nav a:hover {
+            color: #14161a;
+            background: var(--accent);
+            border-color: var(--accent);
+            box-shadow: 0 8px 25px rgba(255, 181, 69, .3);
+            transform: translateX(6px);
+        }
+        .custom-sidebar nav a .icon { width: 1.2rem; height: 1.2rem; }
+
+        /* Kopfbereich */
+        .hero {
+            padding: clamp(32px, 6vw, 64px) 24px;
+            background:
+                radial-gradient(40rem 20rem at 50% 0%, rgba(255, 181, 69, .16), transparent 65%),
+                var(--glass), var(--card);
+            border: 1px solid var(--hairline);
+            border-radius: 28px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, .35);
+            animation: fadeUp .7s cubic-bezier(.2, .7, .2, 1) backwards;
+        }
+        .hero-title {
+            font-family: Poppins, sans-serif;
+            font-weight: 700;
+            letter-spacing: -.04em;
+            line-height: 1.05;
+            background: linear-gradient(135deg, #fff 40%, var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: none;
+            animation: none;
+        }
+        .hero-subtitle {
+            color: var(--muted);
+            font-family: Poppins, sans-serif;
+            font-size: clamp(.95rem, 1.6vw, 1.15rem);
+            font-weight: 600;
+            letter-spacing: .2em;
+            text-transform: uppercase;
+        }
+
+        /* Zahlen-Kacheln */
+        .stat-item {
+            min-width: 180px;
+            padding: 22px 30px;
+            background: var(--glass), var(--card);
+            border: 1px solid var(--hairline);
+            border-radius: var(--radius);
+            font-family: Poppins, sans-serif;
+        }
+        .stat-item:hover { border-color: rgba(255, 181, 69, .4); }
+        .stat-number {
+            font-size: 2.6rem;
+            font-weight: 700;
+            letter-spacing: -.03em;
+            background: linear-gradient(135deg, #fff, var(--accent-alt));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .stat-label { font-size: .75rem; font-weight: 600; letter-spacing: .16em; }
+
+        /* Aufklapp-Karten */
+        .content-box {
+            background: var(--glass), var(--card);
+            border: 1px solid var(--hairline);
+            border-radius: var(--radius);
+            animation: fadeUp .7s cubic-bezier(.2, .7, .2, 1) backwards;
+        }
+        .content-box::before {
+            inset: 0 0 auto 0;
+            width: auto;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+        }
+        .content-box:hover {
+            transform: translateY(-3px);
+            border-color: rgba(255, 181, 69, .3);
+            box-shadow: 0 18px 50px rgba(0, 0, 0, .45);
+        }
+        .content-box.active { border-color: rgba(255, 181, 69, .45); }
+        .box-trigger h2 {
+            color: #fff;
+            font-family: Poppins, sans-serif;
+            font-size: clamp(1.15rem, 2vw, 1.4rem);
+            font-weight: 700;
+            letter-spacing: -.01em;
+        }
+        .box-trigger h2 .icon { font-size: 1.5rem; }
+        .arrow { font-size: .9rem; background: rgba(255, 255, 255, .06); border: 1px solid var(--hairline); }
+        .box-content { background: transparent; }
+
+        /* Projektlisten */
+        .project-list li {
+            font-family: Poppins, sans-serif;
+            font-size: .95rem;
+            color: var(--text);
+            background: rgba(255, 255, 255, .035);
+            border: 1px solid var(--hairline);
+            border-radius: 12px;
+        }
+        .project-list li:hover {
+            background: rgba(255, 255, 255, .06);
+            border-color: rgba(255, 181, 69, .45);
+            transform: translateY(-2px);
+        }
+        .project-list li.done { color: #7a7f88; }
+        .project-list li.cancelled { color: #ff7a7a; }
+        .priority-badge { font-size: .7rem; font-weight: 700; padding: 4px 10px; border-radius: 999px; }
+
+        .progress-container {
+            background: rgba(255, 255, 255, .035);
+            border: 1px solid var(--hairline);
+            border-radius: 16px;
+        }
+        .progress-label { font-family: Poppins, sans-serif; font-size: .8rem; font-weight: 600; letter-spacing: .06em; }
+        .box-inner p[data-i18n="more-coming"] { font-family: Poppins, sans-serif !important; font-size: 1rem !important; }
+
+        /* Videos rechts */
+        .video-embed-container {
+            border: 1px solid var(--hairline);
+            border-radius: var(--radius);
+            box-shadow: 0 18px 50px rgba(0, 0, 0, .45);
+        }
+        .video-embed-container:hover { border-color: rgba(255, 181, 69, .45); }
+
+        /* Weiter-zum-Soundboard-Knopf */
+        .swipe-hint {
+            font-family: Poppins, sans-serif;
+            font-size: .9rem;
+            font-weight: 600;
+            background: rgba(29, 32, 38, .75);
+            border: 1px solid rgba(255, 210, 122, .45);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+        }
+        .footer-tag { color: var(--muted); font-family: Poppins, sans-serif; font-size: .8rem; font-weight: 600; letter-spacing: .2em; }
+
+        @media (max-width: 768px) {
+            .stats-bar { flex-wrap: nowrap; gap: 10px; }
+            .stat-item { flex: 1; min-width: 0; padding: 16px 8px; }
+            .stat-number { font-size: 1.9rem; }
+            .stat-label { font-size: .6rem; letter-spacing: .1em; }
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(18px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
 <body>
