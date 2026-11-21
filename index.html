@@ -1862,6 +1862,29 @@
             const fallbackImage = (title) => 'data:image/svg+xml,' + encodeURIComponent(
                 '<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200"><rect width="200" height="200" fill="#1d2026"/><text x="100" y="110" fill="#ffb545" text-anchor="middle" font-size="16">' +
                 title + '</text></svg>');
+            // Fehlt das Cover-Bild, wird das Vorschaubild des ersten Videos der Playlist genommen (über decapi.me).
+            // Klappt auch das nicht, erscheint ein Platzhalter mit dem Playlist-Namen.
+            async function useFirstVideoAsCover(image, playlist) {
+                const cacheKey = 'schrottkiste_cover_' + playlist.id;
+                const showFallback = () => { image.onerror = null; image.src = fallbackImage(playlist.title); };
+                try {
+                    let videoId = null;
+                    try { videoId = localStorage.getItem(cacheKey); } catch (e) {}
+                    if (!videoId) {
+                        const res = await fetch('https://decapi.me/youtube/latest_pl_video?id=' +
+                            encodeURIComponent(playlist.id) + '&format=' + encodeURIComponent('{id}'));
+                        const answer = res.ok ? (await res.text()).trim() : '';
+                        if (!/^[\w-]{11}$/.test(answer)) return showFallback();
+                        videoId = answer;
+                        try { localStorage.setItem(cacheKey, videoId); } catch (e) {}
+                    }
+                    image.onerror = showFallback;
+                    image.src = 'https://i.ytimg.com/vi/' + videoId + '/mqdefault.jpg';
+                } catch (error) {
+                    showFallback();
+                }
+            }
+
             playlists.forEach((playlist) => {
                 const item = document.createElement('div');
                 item.className = 'playlist-item';
@@ -1878,7 +1901,7 @@
                 image.height = 200;
                 image.loading = 'lazy';
                 image.decoding = 'async';
-                image.addEventListener('error', () => { image.src = fallbackImage(playlist.title); }, { once: true });
+                image.addEventListener('error', () => useFirstVideoAsCover(image, playlist), { once: true });
                 const title = document.createElement('span');
                 title.className = 'playlist-title';
                 title.textContent = playlist.title;
@@ -2359,30 +2382,4 @@
         }
 
         function giveUp() {
-            if (shownId) return;               // Video aus dem Zwischenspeicher bleibt einfach stehen
-            box.hidden = true;
-            hero.classList.remove('has-video');
-        }
-
-        // 1) Sofort anzeigen, was beim letzten Besuch geladen wurde
-        try {
-            const cached = JSON.parse(localStorage.getItem(CACHE_KEY) || 'null');
-            if (cached && cached.id && cached.title) render(cached);
-        } catch (e) { /* kein Zwischenspeicher verfügbar */ }
-
-        // 2) Im Hintergrund nach dem aktuellen Stand fragen (Antwort: "VIDEO_ID Videotitel")
-        fetch('https://decapi.me/youtube/latest_video?handle=' + encodeURIComponent(HANDLE) +
-            '&format=' + encodeURIComponent('{id} {title}'))
-            .then((res) => (res.ok ? res.text() : ''))
-            .then((answer) => {
-                const match = answer.trim().match(/^([\w-]{11}) (.*)$/s);
-                if (!match) return giveUp();
-                const video = { id: match[1], title: match[2].trim() || 'Zum neuesten Video' };
-                render(video);
-                try { localStorage.setItem(CACHE_KEY, JSON.stringify(video)); } catch (e) {}
-            })
-            .catch(giveUp);
-    })();
-    </script>
-</body>
-</html>
+            if (shownId) return; 
