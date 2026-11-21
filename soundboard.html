@@ -804,6 +804,144 @@
       bottom: 95px;
     }
   }
+
+  /* ===== MODERN-UPGRADE (gleicher Look wie die Startseite) ===== */
+  :root {
+    --radius: 14px;
+    --hairline: rgba(255, 255, 255, .07);
+    --glass: linear-gradient(180deg, rgba(255, 255, 255, .05), rgba(255, 255, 255, .015));
+  }
+  ::selection { background: var(--accent); color: #14161a; }
+
+  body {
+    background:
+      radial-gradient(60rem 40rem at 30% -10%, rgba(255, 181, 69, .10), transparent 60%),
+      radial-gradient(50rem 35rem at 100% 10%, rgba(145, 70, 255, .07), transparent 60%),
+      var(--bg-app);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Seitenleiste */
+  .app-sidebar {
+    background: rgba(16, 18, 22, .82);
+    border-right: 1px solid var(--hairline);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+  }
+  .sidebar-logo {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: -.02em;
+    background: linear-gradient(135deg, #fff 30%, var(--accent));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: none;
+  }
+  .sidebar-link { font-size: .95rem; border: 1px solid transparent; }
+  .sidebar-link:hover { background: rgba(255, 255, 255, .05); border-color: var(--hairline); }
+  .sidebar-divider { background: var(--hairline); }
+  .sidebar-playlists-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: .75rem;
+    font-weight: 700;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .sidebar-playlist-item { border-radius: 12px; }
+  .sidebar-playlist-item:hover { background: rgba(255, 255, 255, .05); border-color: var(--hairline); }
+  .new-playlist-sidebar-btn {
+    font-family: 'Poppins', sans-serif;
+    font-size: .95rem;
+    font-weight: 600;
+    letter-spacing: 0;
+    border: 1px dashed rgba(255, 181, 69, .6);
+    border-radius: 999px;
+  }
+
+  /* Suche & Filter */
+  .app-topbar, .filter-bar {
+    background: rgba(20, 22, 26, .75);
+    border-bottom-color: var(--hairline);
+  }
+  #searchBox {
+    background: rgba(255, 255, 255, .05);
+    border-color: var(--hairline);
+    border-radius: 999px;
+  }
+  .nav-item {
+    font-family: 'Poppins', sans-serif;
+    font-size: .85rem;
+    font-weight: 600;
+    background: rgba(255, 255, 255, .04);
+    border-color: var(--hairline);
+    border-radius: 999px;
+  }
+  .mobile-menu-btn { background: rgba(255, 255, 255, .05); border-color: var(--hairline); border-radius: 12px; }
+
+  /* Sound-Liste als Karten */
+  #soundContainer { gap: 8px; }
+  .sound-item {
+    background: var(--glass), rgba(29, 32, 38, .6);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius);
+  }
+  .sound-item:hover {
+    background: var(--glass), var(--bg-card);
+    border-color: rgba(255, 181, 69, .3);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, .4);
+  }
+  .sound-item.playing-row {
+    background: linear-gradient(90deg, rgba(255, 181, 69, .14), rgba(255, 181, 69, .03));
+    border-color: rgba(255, 181, 69, .5);
+  }
+  .play-btn { background: rgba(255, 255, 255, .06); border-color: var(--hairline); }
+  .playlist-menu-btn { border-color: var(--hairline); }
+  .playlist-dropdown {
+    background: rgba(29, 32, 38, .95);
+    border-color: var(--hairline);
+    border-radius: 16px;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+
+  /* Player unten */
+  .app-bottom-bar {
+    background: rgba(16, 18, 22, .8);
+    border-top: 1px solid var(--hairline);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+  }
+  .footer-thumb {
+    background: linear-gradient(135deg, var(--accent), #e69a1f);
+    border: 0;
+    border-radius: 12px;
+  }
+  .footer-play-btn { background: var(--accent); color: #14161a; box-shadow: 0 4px 18px rgba(255, 181, 69, .35); }
+  .footer-play-btn:hover { background: var(--accent-alt); }
+  .time-info { font-family: 'Poppins', sans-serif; font-size: .75rem; font-variant-numeric: tabular-nums; }
+  #volumeControl { background: rgba(255, 255, 255, .05); border-color: var(--hairline); border-radius: 999px; }
+
+  /* Dialog & Hinweise */
+  .modal-content {
+    background: var(--glass), var(--bg-card);
+    border: 1px solid var(--hairline);
+    border-radius: 24px;
+  }
+  .modal-content h3 { font-family: 'Poppins', sans-serif; font-size: 1.3rem; font-weight: 700; color: #fff; }
+  #newPlaylistInput { border-radius: 12px; border-color: var(--hairline); }
+  #toastNotification { background: rgba(29, 32, 38, .92); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .sound-item { animation: none; }
+  }
 </style>
 </head>
 
