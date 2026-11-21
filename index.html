@@ -1195,6 +1195,46 @@
         @media (max-width: 640px) {
             .menu-row > .mini-player { justify-self: stretch; }
         }
+
+        /* ===== Lade-Platzhalter wie bei YouTube ===== */
+        .skeleton {
+            position: relative;
+            display: block;
+            overflow: hidden;
+            background: #272a31;
+            border-radius: 8px;
+        }
+        .skeleton::after {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .07), transparent);
+            content: "";
+            transform: translateX(-100%);
+            animation: skeletonShimmer 1.4s ease-in-out infinite;
+        }
+        .skeleton-line { height: 14px; margin-top: 8px; }
+        .skeleton-line.short { width: 60%; }
+        @keyframes skeletonShimmer {
+            to { transform: translateX(100%); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .skeleton::after { animation: none; }
+        }
+
+        .latest-video-wrap.is-loading .latest-video { pointer-events: none; }
+        .latest-video-wrap.is-loading .latest-video-thumb { background: #272a31; }
+        .latest-video-wrap.is-loading .latest-video-thumb::after {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .07), transparent);
+            content: "";
+            transform: translateX(-100%);
+            animation: skeletonShimmer 1.4s ease-in-out infinite;
+        }
+        .latest-video-wrap.is-loading .latest-video-thumb img,
+        .latest-video-wrap.is-loading .latest-video-play { opacity: 0; }
+        .latest-video-wrap.is-loading .latest-video-title { display: block; }
+        .latest-video-thumb img, .latest-video-play { transition: opacity .3s ease; }
     </style>
 </head>
 <body>
@@ -1251,7 +1291,7 @@
     </header>
 
     <div class="container" id="start-view">
-        <section class="hero" aria-labelledby="hero-title">
+        <section class="hero has-video" aria-labelledby="hero-title">
             <div class="hero-copy">
             <a class="live-badge" id="live-badge" href="https://www.twitch.tv/schrottkiste_luka" target="_blank" rel="noopener noreferrer" hidden>
                 <span class="live-dot" aria-hidden="true"></span><span id="live-text">Status wird geprüft …</span>
@@ -1264,14 +1304,14 @@
                 <a class="hero-btn youtube" href="https://www.youtube.com/@schrottkiste" target="_blank" rel="noopener noreferrer"><svg class="icon" aria-hidden="true"><use href="#icon-youtube"></use></svg>YouTube-Kanal</a>
             </div>
             </div>
-            <div class="latest-video-wrap" id="latest-video" hidden>
+            <div class="latest-video-wrap is-loading" id="latest-video" aria-busy="true">
                 <a class="latest-video" href="https://www.youtube.com/@schrottkiste" target="_blank" rel="noopener noreferrer">
                     <span class="latest-video-label">Neuestes Video</span>
                     <span class="latest-video-thumb">
                         <img src="data:image/gif;base64,R0lGODlhAQABAAAAACw=" alt="" width="1280" height="720" decoding="async">
                         <span class="latest-video-play" aria-hidden="true"><span><svg class="icon"><use href="#icon-play"></use></svg></span></span>
                     </span>
-                    <span class="latest-video-title"></span>
+                    <span class="latest-video-title"><span class="skeleton skeleton-line"></span><span class="skeleton skeleton-line short"></span></span>
                 </a>
             </div>
         </section>
@@ -2291,45 +2331,57 @@
     (() => {
         'use strict';
         const HANDLE = '@schrottkiste';
+        const CACHE_KEY = 'schrottkiste_latest_video';
         const hero = document.querySelector('.hero');
         const box = document.getElementById('latest-video');
         if (!hero || !box) return;
+        const link = box.querySelector('a');
+        const img = box.querySelector('img');
+        const titleEl = box.querySelector('.latest-video-title');
+        let shownId = null;
 
-        // Antwort sieht aus wie "Videotitel - https://youtu.be/VIDEO_ID"
-        function parse(answer) {
-            const idMatch = answer.match(/(?:youtu\.be\/|youtube\.com\/(?:shorts\/|watch\?v=))([\w-]{11})/);
-            if (!idMatch) return null;
-            const urlStart = answer.search(/https?:\/\//);
-            let title = urlStart > 0 ? answer.slice(0, urlStart).replace(/\s*-\s*$/, '').trim() : '';
-            return { id: idMatch[1], title: title || 'Zum neuesten Video' };
-        }
-
-        async function load() {
-            try {
-                const res = await fetch('https://decapi.me/youtube/latest_video?handle=' + encodeURIComponent(HANDLE));
-                if (!res.ok) return;
-                const video = parse((await res.text()).trim());
-                if (!video) return;
-
-                const link = box.querySelector('a');
-                const img = box.querySelector('img');
-                link.href = 'https://www.youtube.com/watch?v=' + video.id;
-                link.setAttribute('aria-label', 'Neuestes Video ansehen: ' + video.title);
-                box.querySelector('.latest-video-title').textContent = video.title;
-                img.alt = video.title;
-                img.addEventListener('error', () => {
+        function render(video) {
+            if (video.id !== shownId) {
+                shownId = video.id;
+                img.onerror = () => {
                     // nicht jedes Video hat ein maxres-Vorschaubild
-                    if (!img.src.includes('hqdefault')) img.src = 'https://i.ytimg.com/vi/' + video.id + '/hqdefault.jpg';
-                }, { once: true });
+                    img.onerror = null;
+                    img.src = 'https://i.ytimg.com/vi/' + video.id + '/hqdefault.jpg';
+                };
                 img.src = 'https://i.ytimg.com/vi/' + video.id + '/maxresdefault.jpg';
-
-                box.hidden = false;
-                hero.classList.add('has-video');
-            } catch (e) {
-                /* Dienst nicht erreichbar: Hero bleibt einfach ohne Video */
+                link.href = 'https://www.youtube.com/watch?v=' + video.id;
             }
+            titleEl.textContent = video.title;
+            img.alt = video.title;
+            link.setAttribute('aria-label', 'Neuestes Video ansehen: ' + video.title);
+            box.classList.remove('is-loading');
+            box.removeAttribute('aria-busy');
         }
-        load();
+
+        function giveUp() {
+            if (shownId) return;               // Video aus dem Zwischenspeicher bleibt einfach stehen
+            box.hidden = true;
+            hero.classList.remove('has-video');
+        }
+
+        // 1) Sofort anzeigen, was beim letzten Besuch geladen wurde
+        try {
+            const cached = JSON.parse(localStorage.getItem(CACHE_KEY) || 'null');
+            if (cached && cached.id && cached.title) render(cached);
+        } catch (e) { /* kein Zwischenspeicher verfügbar */ }
+
+        // 2) Im Hintergrund nach dem aktuellen Stand fragen (Antwort: "VIDEO_ID Videotitel")
+        fetch('https://decapi.me/youtube/latest_video?handle=' + encodeURIComponent(HANDLE) +
+            '&format=' + encodeURIComponent('{id} {title}'))
+            .then((res) => (res.ok ? res.text() : ''))
+            .then((answer) => {
+                const match = answer.trim().match(/^([\w-]{11}) (.*)$/s);
+                if (!match) return giveUp();
+                const video = { id: match[1], title: match[2].trim() || 'Zum neuesten Video' };
+                render(video);
+                try { localStorage.setItem(CACHE_KEY, JSON.stringify(video)); } catch (e) {}
+            })
+            .catch(giveUp);
     })();
     </script>
 </body>
