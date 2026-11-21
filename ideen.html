@@ -970,6 +970,29 @@
             from { opacity: 0; transform: translateY(18px); }
             to   { opacity: 1; transform: translateY(0); }
         }
+
+        /* ===== NEUESTE VIDEOS (automatisch) ===== */
+        .video-card { display: flex; flex-direction: column; gap: 10px; }
+        .video-card-label {
+            color: var(--accent);
+            font-size: .72rem;
+            font-weight: 700;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+        }
+        .video-card-title {
+            display: -webkit-box;
+            overflow: hidden;
+            color: var(--text);
+            font-size: .95rem;
+            font-weight: 600;
+            line-height: 1.4;
+            text-decoration: none;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            transition: color .2s ease;
+        }
+        .video-card-title:hover { color: var(--accent); }
     </style>
 </head>
 <body>
@@ -1053,7 +1076,7 @@
                         <div class="box-inner">
                             <ul class="project-list">
                                 <li><span data-i18n="p3-silvester">Silvester Countdown 24h vorher</span> <span class="priority-badge priority-high">HOT</span></li>
-                                <li class="cancelled"><span data-i18n="p3-gta">GTA 6 Release Gameplay</span> <span class="priority-badge priority-cancelled">Kein Stream – Alle zocken es schon vorher</span></li>
+                                <li class="done"><span data-i18n="p3-gta">GTA 6 Release Gameplay</span></li>
                             </ul>
                             <div class="progress-container">
                                 <div class="progress-label"><span data-i18n="prog-text">Fortschritt</span><span><span class="progress-count">0/2</span> <span data-i18n="prog-projects">Projekte</span></span></div>
@@ -1122,11 +1145,19 @@
 
             <!-- YouTube Video Side Panel -->
             <aside class="video-sidebar" aria-label="Videos">
+                <div class="video-card">
+                <span class="video-card-label">Neuestes Video</span>
                 <div class="video-embed-container">
-                    <iframe src="https://www.youtube-nocookie.com/embed/S5Z_YzMsnms" title="YouTube-Video 1" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    <iframe id="yt-frame-1" src="https://www.youtube-nocookie.com/embed/S5Z_YzMsnms" title="YouTube-Video 1" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                 </div>
+                <a class="video-card-title" id="yt-title-1" href="https://www.youtube.com/@schrottkiste" target="_blank" rel="noopener noreferrer" hidden></a>
+                </div>
+                <div class="video-card">
+                <span class="video-card-label">Davor erschienen</span>
                 <div class="video-embed-container">
-                    <iframe src="https://www.youtube-nocookie.com/embed/8mAaOsKrmX8" title="YouTube-Video 2" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    <iframe id="yt-frame-2" src="https://www.youtube-nocookie.com/embed/8mAaOsKrmX8" title="YouTube-Video 2" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                </div>
+                <a class="video-card-title" id="yt-title-2" href="https://www.youtube.com/@schrottkiste" target="_blank" rel="noopener noreferrer" hidden></a>
                 </div>
             </aside>
         </div>
@@ -1534,6 +1565,45 @@
                 }
             }, { passive: true });
         })();
+    </script>
+
+    <!-- Die zwei neuesten YouTube-Videos (über decapi.me, kein eigener API-Schlüssel nötig) -->
+    <script>
+    (() => {
+        'use strict';
+        const HANDLE = '@schrottkiste';
+        const slots = [
+            { skip: 0, frame: document.getElementById('yt-frame-1'), title: document.getElementById('yt-title-1') },
+            { skip: 1, frame: document.getElementById('yt-frame-2'), title: document.getElementById('yt-title-2') }
+        ];
+
+        async function fetchVideo(skip) {
+            // Antwort im Format "VIDEO_ID Videotitel" (die ID ist immer 11 Zeichen lang)
+            const url = 'https://decapi.me/youtube/latest_video?handle=' + encodeURIComponent(HANDLE) +
+                '&skip=' + skip + '&format=' + encodeURIComponent('{id} {title}');
+            const res = await fetch(url);
+            if (!res.ok) return null;
+            const match = (await res.text()).trim().match(/^([\w-]{11}) (.*)$/s);
+            return match ? { id: match[1], title: match[2].trim() } : null;
+        }
+
+        slots.forEach(async (slot) => {
+            if (!slot.frame) return;
+            try {
+                const video = await fetchVideo(slot.skip);
+                if (!video) return;    // Fehler: das fest eingetragene Video bleibt einfach stehen
+                slot.frame.src = 'https://www.youtube-nocookie.com/embed/' + video.id;
+                slot.frame.title = video.title;
+                if (slot.title) {
+                    slot.title.textContent = video.title;
+                    slot.title.href = 'https://www.youtube.com/watch?v=' + video.id;
+                    slot.title.hidden = false;
+                }
+            } catch (e) {
+                /* Dienst nicht erreichbar: fest eingetragene Videos bleiben */
+            }
+        });
+    })();
     </script>
 </body>
 </html>
