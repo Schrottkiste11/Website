@@ -936,6 +936,40 @@
             transition: color .2s ease;
         }
         .video-card-title:hover { color: var(--accent); }
+
+        /* ===== Trennung 2026 / 2027 ===== */
+        .year-divider {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin: 0 0 18px;
+            color: var(--accent);
+            font-size: .8rem;
+            font-weight: 700;
+            letter-spacing: .22em;
+            text-transform: uppercase;
+        }
+        .year-divider::after {
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, rgba(255, 181, 69, .5), transparent);
+            content: "";
+        }
+        .year-divider--future {
+            margin-top: 44px;
+            color: #b9a4ff;
+        }
+        .year-divider--future::after {
+            background: linear-gradient(90deg, rgba(185, 164, 255, .5), transparent);
+        }
+        .content-box--future::before {
+            background: linear-gradient(90deg, transparent, #b9a4ff, transparent);
+        }
+        .content-box--future:hover,
+        .content-box--future.active { border-color: rgba(185, 164, 255, .4); }
+        .content-box--future .arrow { color: #b9a4ff; }
+        .content-box--future.active .arrow { background: #b9a4ff; color: #14161a; }
+        .plan-note { margin-top: 28px; }
     </style>
 </head>
 <body>
@@ -987,6 +1021,8 @@
 
         <div class="main-layout">
             <div class="plan-content">
+                <div class="year-divider"><span>2026</span></div>
+
                 <!-- Große Live-Events -->
                 <div class="content-box">
                     <div class="box-trigger" role="button" tabindex="0" aria-expanded="false" aria-controls="box-3">
@@ -1028,8 +1064,10 @@
                         </div>
                     </div>
                 </div>
+                <div class="year-divider year-divider--future"><span>Ausblick 2027</span></div>
+
                 <!-- Pläne 2027 -->
-                <div class="content-box">
+                <div class="content-box content-box--future">
                     <div class="box-trigger" role="button" tabindex="0" aria-expanded="false" aria-controls="box-6">
                         <h2><span class="icon" aria-hidden="true">🚀</span> <span data-i18n="box6-title">Pläne 2027</span></h2>
                         <span class="arrow" aria-hidden="true">▼</span>
@@ -1054,7 +1092,7 @@
                 </div>
 
                 <!-- Mit Diana (2027) -->
-                <div class="content-box">
+                <div class="content-box content-box--future">
                     <div class="box-trigger" role="button" tabindex="0" aria-expanded="false" aria-controls="box-4">
                         <h2><span class="icon" aria-hidden="true">🤝</span> <span data-i18n="box4-title">Mit Diana</span> <span style="font-size:1.2rem; color:var(--muted); margin-left:10px;">[2027]</span></h2>
                         <span class="arrow" aria-hidden="true">▼</span>
