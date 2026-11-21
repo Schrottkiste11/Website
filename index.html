@@ -55,13 +55,6 @@
             font-family: Poppins, sans-serif;
             line-height: 1.6;
             overflow-wrap: break-word;
-            top: 0 !important;
-        }
-
-        #google_translate_element,
-        .skiptranslate,
-        .goog-te-banner-frame {
-            display: none !important;
         }
 
         button,
@@ -176,31 +169,6 @@
         .nav-links a:hover::after,
         .nav-links a.active::after {
             transform: scaleX(1);
-        }
-
-        .language-select {
-            background: var(--bg);
-            color: var(--text);
-            border: 1px solid var(--line-color);
-            border-radius: 20px;
-            padding: 8px 16px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            cursor: pointer;
-            outline: none;
-            transition: var(--transition);
-        }
-
-        .language-select:hover,
-        .language-select:focus {
-            border-color: var(--accent);
-            box-shadow: 0 0 15px rgba(255, 181, 69, .4);
-            color: #fff;
-        }
-
-        .language-select option {
-            background: var(--card-bg);
-            color: var(--text);
         }
 
         .mini-player {
@@ -935,7 +903,7 @@
             border: 1px solid var(--hairline);
             border-left: 1px solid var(--hairline);
             border-radius: var(--radius);
-            animation: fadeUp .7s cubic-bezier(.2, .7, .2, 1) both;
+            animation: fadeUp .7s cubic-bezier(.2, .7, .2, 1) backwards;
         }
         .blog-post::before {
             inset: 0 0 auto 0;
@@ -977,7 +945,7 @@
         .share-btn { background: rgba(255, 255, 255, .05); border: 1px solid var(--hairline); }
 
         /* 6) Mini-Player und Sprachwahl im gleichen Glas-Stil */
-        .mini-player, .language-select {
+        .mini-player {
             background: rgba(255, 255, 255, .04);
             border-color: var(--hairline);
         }
@@ -1018,7 +986,7 @@
             border: 1px solid var(--hairline);
             border-radius: 28px;
             box-shadow: var(--shadow);
-            animation: fadeUp .7s cubic-bezier(.2, .7, .2, 1) both;
+            animation: fadeUp .7s cubic-bezier(.2, .7, .2, 1) backwards;
         }
         .hero-kicker {
             margin: 0 0 12px;
@@ -1209,6 +1177,24 @@
         @media (max-width: 900px) {
             .hero.has-video { grid-template-columns: 1fr; }
         }
+
+        /* ===== Radio-Player exakt mittig ===== */
+        .menu-row {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+        }
+        .menu-row > nav { justify-self: start; }
+        .menu-row > .mini-player { justify-self: center; }
+        .menu-row > .social-btns { justify-self: end; }
+
+        @media (max-width: 1024px) {
+            .menu-row { grid-template-columns: 1fr; justify-items: center; }
+            .menu-row > nav, .menu-row > .mini-player, .menu-row > .social-btns { justify-self: center; }
+        }
+        @media (max-width: 640px) {
+            .menu-row > .mini-player { justify-self: stretch; }
+        }
     </style>
 </head>
 <body>
@@ -1239,25 +1225,6 @@
                     <li><a href="soundboard.html">SOUNDBOARD</a></li>
                 </ul>
             </nav>
-
-            <div id="google_translate_element"></div>
-
-            <select class="language-select" id="language-selector" aria-label="Sprache wählen">
-                <option value="de" selected>Deutsch (de)</option>
-                <option value="pt">Portugiesisch (pt)</option>
-                <option value="tr">Türkisch (tr)</option>
-                <option value="es">Spanisch (es)</option>
-                <option value="it">Italienisch (it)</option>
-                <option value="el">Griechisch (el)</option>
-                <option value="sq">Albanisch (sq)</option>
-                <option value="ru">Russisch (ru)</option>
-                <option value="zh-CN">Chinesisch (zh-CN)</option>
-                <option value="en">Englisch (en)</option>
-                <option value="ja">Japanisch (ja)</option>
-                <option value="ko">Koreanisch (ko)</option>
-                <option value="uk">Ukrainisch (uk)</option>
-                <option value="fr">Französisch (fr)</option>
-            </select>
 
             <div class="mini-player" role="group" aria-label="Live-Radio-Player">
                 <span class="player-label">Live Radio</span>
@@ -1309,8 +1276,11 @@
             </div>
         </section>
         <aside class="gif-container" aria-label="Interaktive Bilder">
-            <button class="gif-box is-playing" id="gif1" type="button" aria-pressed="true" aria-label="Deutschland-GIF anhalten">
-                <img class="gif-image gif-image--animated" src="images/GermanyGerGIF.gif" alt="Deutschland-GIF" width="200" height="200" decoding="async">
+            <button class="gif-box is-playing" id="gif1" type="button" aria-pressed="true" aria-label="Deutschland-Animation anhalten">
+                <video class="gif-image gif-image--animated" id="gif1-video" autoplay muted loop playsinline preload="auto" poster="images/GermanyGer-poster.jpg" width="200" height="200" aria-hidden="true">
+                    <source src="images/GermanyGer.webm" type="video/webm">
+                    <source src="images/GermanyGer.mp4" type="video/mp4">
+                </video>
                 <img class="gif-image gif-image--still" src="images/image.png" alt="Deutschland-Bild, statische Ansicht" width="200" height="200" decoding="async">
                 <span class="gif-status playing" id="status1" aria-hidden="true"></span>
             </button>
@@ -1381,51 +1351,6 @@
     <script>
         (() => {
             'use strict';
-
-            // 0. ÜBERSETZUNG: Google Translate wird erst geladen, wenn eine Sprache gewählt wird
-            let translateLoader = null;
-
-            function loadTranslate() {
-                if (translateLoader) return translateLoader;
-                translateLoader = new Promise((resolve, reject) => {
-                    window.googleTranslateElementInit = () => {
-                        new google.translate.TranslateElement({ pageLanguage: 'de', autoDisplay: false }, 'google_translate_element');
-                        resolve();
-                    };
-                    const script = document.createElement('script');
-                    script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
-                    script.async = true;
-                    script.onerror = () => { translateLoader = null; reject(new Error('Translate nicht ladbar')); };
-                    document.head.appendChild(script);
-                });
-                return translateLoader;
-            }
-
-            function waitForTranslateCombo(tries = 50) {
-                return new Promise((resolve, reject) => {
-                    const check = () => {
-                        const combo = document.querySelector('.goog-te-combo');
-                        if (combo) return resolve(combo);
-                        if (--tries <= 0) return reject(new Error('Sprachauswahl nicht gefunden'));
-                        setTimeout(check, 100);
-                    };
-                    check();
-                });
-            }
-
-            async function translatePage(languageCode) {
-                if (!languageCode || (languageCode === 'de' && !translateLoader)) return;
-                try {
-                    await loadTranslate();
-                    const combo = await waitForTranslateCombo();
-                    combo.value = languageCode;
-                    combo.dispatchEvent(new Event('change'));
-                } catch (error) {
-                    showNotification('Übersetzung nicht verfügbar.', 'error');
-                }
-            }
-
-            document.getElementById('language-selector').addEventListener('change', (e) => translatePage(e.target.value));
 
             const audio = document.getElementById('audio-player');
             const playPauseBtn = document.getElementById('play-pause-btn');
@@ -1516,11 +1441,17 @@
             const gif1 = document.getElementById('gif1');
             const status1 = document.getElementById('status1');
             
+            const gif1Video = document.getElementById('gif1-video');
+
             function toggleGif() {
                 const paused = gif1.classList.toggle('is-paused');
+                if (gif1Video) {
+                    if (paused) gif1Video.pause();
+                    else gif1Video.play().catch(() => {});
+                }
                 gif1.classList.toggle('is-playing', !paused);
                 gif1.setAttribute('aria-pressed', String(!paused));
-                gif1.setAttribute('aria-label', paused ? 'Deutschland-GIF abspielen' : 'Deutschland-GIF anhalten');
+                gif1.setAttribute('aria-label', paused ? 'Deutschland-Animation abspielen' : 'Deutschland-Animation anhalten');
                 status1.classList.toggle('playing', !paused);
                 status1.classList.toggle('paused', paused);
             }
