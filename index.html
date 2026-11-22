@@ -1480,7 +1480,6 @@
 
             const gif1 = document.getElementById('gif1');
             const status1 = document.getElementById('status1');
-            
             const gif1Video = document.getElementById('gif1-video');
 
             function toggleGif() {
@@ -1564,8 +1563,6 @@
                 }
             }
 
-            
-
             let allPosts = [];
             let renderedCount = 0;
             const BATCH_SIZE = 3;
@@ -1620,7 +1617,6 @@
                 renderedCount += nextPosts.length;
 
                 if (!scrollObserver) return;
-                // Neu beobachten, damit weitergeladen wird, falls der Sentinel noch im Sichtbereich liegt
                 scrollObserver.unobserve(sentinel);
                 if (renderedCount < allPosts.length) scrollObserver.observe(sentinel);
             }
@@ -1643,33 +1639,33 @@
             // Eigene Beiträge stehen direkt hier im Code. posts.json dient als Archiv; doppelte IDs werden übersprungen.
             const localPosts = [
                 {
-                                "id": "post-allein-aber-nicht-einsam",
-                                "datetime": "2026-11-13T23:00:00",
-                                "dateFormatted": "13.11.2026 - 23:00 Uhr",
-                                "readingTime": "1 Min.",
-                                "title": "Allein, aber nicht einsam",
-                                "paragraphs": [
-                                                "Oft fragen mich Leute: „Luka, wie bist du als Single so glücklich?“ Die Antwort: Ich will gerade keine Freundin, weil ich aktuell mehr Nachteile als Vorteile darin sehe. Und ich habe keine Angst vorm Alleinsein, ich kann mich gut selbst beschäftigen: YouTube-Videos drehen, Beats bauen, Serien gucken, an Projekten arbeiten, meine Zukunft aufbauen.",
-                                                "Vieles mache ich allein, weil ich sonst davon abhängig wäre, dass andere zufällig Zeit haben, wenn ich etwas plane. Das hat mich zu oft enttäuscht.",
-                                                "Manchmal fühle ich mich trotzdem einsam. Das liegt aber nicht am Singlesein, sondern daran, dass ich im echten Leben nur wenige Leute habe. Mit dem Erwachsenwerden haben sich einige Freundschaften auseinandergelebt.",
-                                                "Ich vermisse keine Beziehung, aber ich wünsche mir mehr echte Kontakte im Alltag. Bis sich Leute finden, die zu mir passen, bin ich gern allein unterwegs, und danach bin ich offen dafür."
-                                ]
+                    "id": "post-allein-aber-nicht-einsam",
+                    "datetime": "2026-11-13T23:00:00",
+                    "dateFormatted": "13.11.2026 - 23:00 Uhr",
+                    "readingTime": "1 Min.",
+                    "title": "Allein, aber nicht einsam",
+                    "paragraphs": [
+                        "Oft fragen mich Leute: „Luka, wie bist du als Single so glücklich?“ Die Antwort: Ich will gerade keine Freundin, weil ich aktuell mehr Nachteile als Vorteile darin sehe. Und ich habe keine Angst vorm Alleinsein, ich kann mich gut selbst beschäftigen: YouTube-Videos drehen, Beats bauen, Serien gucken, an Projekten arbeiten, meine Zukunft aufbauen.",
+                        "Vieles mache ich allein, weil ich sonst davon abhängig wäre, dass andere zufällig Zeit haben, wenn ich etwas plane. Das hat mich zu oft enttäuscht.",
+                        "Manchmal fühle ich mich trotzdem einsam. Das liegt aber nicht am Singlesein, sondern daran, dass ich im echten Leben nur wenige Leute habe. Mit dem Erwachsenwerden haben sich einige Freundschaften auseinandergelebt.",
+                        "Ich vermisse keine Beziehung, aber ich wünsche mir mehr echte Kontakte im Alltag. Bis sich Leute finden, die zu mir passen, bin ich gern allein unterwegs, und danach bin ich offen dafür."
+                    ]
                 },
                 {
-                                "id": "post-stressigste-woche",
-                                "datetime": "2026-10-16T15:07:00",
-                                "dateFormatted": "16.10.2026 - 15:07 Uhr",
-                                "readingTime": "2 Min.",
-                                "title": "Die Stressigste Woche",
-                                "paragraphs": [
-                                                "Manchmal reicht ein einziger Anruf, um das komplette Leben von einer Sekunde auf die andere aus den Angeln zu heben. Genau so begann diese Woche – eine Woche, die sich rückblickend wie der pure Ausnahmezustand anfühlt und mir mental sowie körperlich alles abverlangt hat.",
-                                                "Alles fing damit an, dass meine Mutter wegen eines schweren Asthmaanfalls, begleitet von einer massiven Panikattacke, ins Krankenhaus eingeliefert werden musste. In solchen Momenten zählt eigentlich nur eines: Sorge um einen geliebten Menschen, Hoffnung auf Besserung und das Bedürfnis, erst einmal durchzuatmen. Doch genau dafür war absolut kein Raum. 🚑",
-                                                "Stattdessen fand ich mich in einem Umfeld wieder, das die Situation nur noch schlimmer machte. Bis Donnerstag war ich einer Familienatmosphäre ausgesetzt, die schlichtweg toxisch ist: Hier wird der Wert eines Menschen einzig und allein an seiner messbaren Leistung festgemacht. Wer nicht pausenlos funktioniert, leistet in ihren Augen nichts. Was nicht schwarz auf weiß belegt oder direkt sichtbar abgearbeitet werden kann, existiert nicht oder wird schlichtweg ignoriert.",
-                                                "Das bedeutete für mich: Dauerfeuer. Ich wurde pausenlos dazu gedrängt, irgendwo mitzuhelfen, Aufgaben zu übernehmen und Handlanger für alles Mögliche zu spielen. Das Schlimmste daran war die Erwartungshaltung – alles musste sofort passieren. Keine Sekunde Verzögerung, kein Raum für Fehler, keine Empathie für den emotionalen Ballast, den ich durch den Krankenhausaufenthalt meiner Mutter ohnehin schon mit mir herumschleppte.",
-                                                "Sobald irgendetwas nicht haargenau in das starre Weltbild dieser Menschen passte oder nicht nach ihrem Zeitplan lief, wurde genörgelt, gemeckert und Druck aufgebaut. Eine ständige Welle aus Nörgelei und unberechtigten Vorwürfen. 🤯",
-                                                "Ich kam in diesen Tagen gefühlt kein einziges Mal zur Ruhe. Mein Nervensystem war im Daueralarmzustand – es war ohne Übertreibung der Stress meines Lebens. Es ging nicht darum, als Familie zusammenzustehen und sich gegenseitig zu stützen, sondern darum, ein unbarmherziges Funktionieren einzufordern.",
-                                                "Erst seit Donnerstag, als ich diesem Umfeld endlich entkommen konnte, merke ich überhaupt, wie sehr mich diese Tage ausgelaugt haben. Diese Woche hat mir einmal mehr schmerzhaft gezeigt, wie tief der Graben zwischen echtem Mitgefühl und kalter Leistungsorientierung sein kann – und wie wichtig es ist, sich abzugrenzen, wenn das eigene Wohlbefinden auf der Strecke bleibt."
-                                ]
+                    "id": "post-stressigste-woche",
+                    "datetime": "2026-10-16T15:07:00",
+                    "dateFormatted": "16.10.2026 - 15:07 Uhr",
+                    "readingTime": "2 Min.",
+                    "title": "Die Stressigste Woche",
+                    "paragraphs": [
+                        "Manchmal reicht ein einziger Anruf, um das komplette Leben von einer Sekunde auf die andere aus den Angeln zu heben. Genau so begann diese Woche – eine Woche, die sich rückblickend wie der pure Ausnahmezustand anfühlt und mir mental sowie körperlich alles abverlangt hat.",
+                        "Alles fing damit an, dass meine Mutter wegen eines schweren Asthmaanfalls, begleitet von einer massiven Panikattacke, ins Krankenhaus eingeliefert werden musste. In solchen Momenten zählt eigentlich nur eines: Sorge um einen geliebten Menschen, Hoffnung auf Besserung und das Bedürfnis, erst einmal durchzuatmen. Doch genau dafür war absolut kein Raum. 🚑",
+                        "Stattdessen fand ich mich in einem Umfeld wieder, das die Situation nur noch schlimmer machte. Bis Donnerstag war ich einer Familienatmosphäre ausgesetzt, die schlichtweg toxisch ist: Hier wird der Wert eines Menschen einzig und allein an seiner messbaren Leistung festgemacht. Wer nicht pausenlos funktioniert, leistet in ihren Augen nichts. Was nicht schwarz auf weiß belegt oder direkt sichtbar abgearbeitet werden kann, existiert nicht oder wird schlichtweg ignoriert.",
+                        "Das bedeutete für mich: Dauerfeuer. Ich wurde pausenlos dazu gedrängt, irgendwo mitzuhelfen, Aufgaben zu übernehmen und Handlanger für alles Mögliche zu spielen. Das Schlimmste daran war die Erwartungshaltung – alles musste sofort passieren. Keine Sekunde Verzögerung, kein Raum für Fehler, keine Empathie für den emotionalen Ballast, den ich durch den Krankenhausaufenthalt meiner Mutter ohnehin schon mit mir herumschleppte.",
+                        "Sobald irgendetwas nicht haargenau in das starre Weltbild dieser Menschen passte oder nicht nach ihrem Zeitplan lief, wurde genörgelt, gemeckert und Druck aufgebaut. Eine ständige Welle aus Nörgelei und unberechtigten Vorwürfen. 🤯",
+                        "Ich kam in diesen Tagen gefühlt kein einziges Mal zur Ruhe. Mein Nervensystem war im Daueralarmzustand – es war ohne Übertreibung der Stress meines Lebens. Es ging nicht darum, als Familie zusammenzustehen und sich gegenseitig zu stützen, sondern darum, ein unbarmherziges Funktionieren einzufordern.",
+                        "Erst seit Donnerstag, als ich diesem Umfeld endlich entkommen konnte, merke ich überhaupt, wie sehr mich diese Tage ausgelaugt haben. Diese Woche hat mir einmal mehr schmerzhaft gezeigt, wie tief der Graben zwischen echtem Mitgefühl und kalter Leistungsorientierung sein kann – und wie wichtig es ist, sich abzugrenzen, wenn das eigene Wohlbefinden auf der Strecke bleibt."
+                    ]
                 }
             ];
 
@@ -1710,7 +1706,6 @@
                 readerStatus.hidden = true;
             }
 
-            // Startseite oder Leseansicht, je nach Adresse (…#beitrag=ID)
             let routeId = null;
 
             function readHash() {
@@ -1723,8 +1718,6 @@
                 showRoute();
             }
 
-            // Wechselt zwischen Startseite und Leseansicht. Die Adresse wird mitgeführt,
-            // die Anzeige funktioniert aber auch dann, wenn sich die Adresse nicht ändern lässt (z. B. in einer Vorschau).
             function navigate(id) {
                 routeId = id;
                 try {
@@ -1862,8 +1855,7 @@
             const fallbackImage = (title) => 'data:image/svg+xml,' + encodeURIComponent(
                 '<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200"><rect width="200" height="200" fill="#1d2026"/><text x="100" y="110" fill="#ffb545" text-anchor="middle" font-size="16">' +
                 title + '</text></svg>');
-            // Fehlt das Cover-Bild, wird das Vorschaubild des ersten Videos der Playlist genommen (über decapi.me).
-            // Klappt auch das nicht, erscheint ein Platzhalter mit dem Playlist-Namen.
+
             async function useFirstVideoAsCover(image, playlist) {
                 const cacheKey = 'schrottkiste_cover_' + playlist.id;
                 const showFallback = () => { image.onerror = null; image.src = fallbackImage(playlist.title); };
@@ -1918,24 +1910,23 @@
         'use strict';
 
         const canvas = document.getElementById('leaf-canvas');
-        const footer = document.querySelector('.site-footer');   // Landefläche für die Blätter
+        const footer = document.querySelector('.site-footer');
         if (!canvas) return;
         const ctx = canvas.getContext('2d');
         const pileCanvas = document.createElement('canvas');
         const pctx = pileCanvas.getContext('2d');
 
-        // ===== Einstellungen =====
-        const LEAF_COUNT = 16;      // gleichzeitig fallende Blätter
-        const HEAP_LINE = 130;      // unsichtbare Linie über dem Footer (px): wo der Haufen sie erreicht, verschwinden neue Blätter sofort
-        const MAX_LANDED = 700;     // reine Sicherheitsgrenze für die Leistung
-        const HEAP_POS = 0.5;       // Lage des Haufens auf dem Footer: 0 = links, 0.5 = Mitte, 1 = rechts
-        const HEAP_SPREAD = 240;    // so weit vom Haufen-Mittelpunkt landen the Blätter höchstens (px)
-        const REPOSE = 0.55;        // Schüttwinkel: steiler als das, rutscht ein Blatt ab (0.55 ≈ 29°)
-        const HAND_RADIUS = 55;     // Reichweite der "Hand" (Maus) beim Aufwirbeln (px)
-        const HAND_MIN_SPEED = 120; // so schnell muss die Maus sein, damit sie wirbelt (px/s)
-        const GRAVITY = 420;        // Schwerkraft für aufgewirbelte Blätter (px/s²)
-        const PILE_H = 280;         // Höhe der Zeichenfläche für den Haufen (px)
-        const COL = 2;              // Auflösung des Höhenprofils (px)
+        const LEAF_COUNT = 16;
+        const HEAP_LINE = 130;
+        const MAX_LANDED = 700;
+        const HEAP_POS = 0.5;
+        const HEAP_SPREAD = 240;
+        const REPOSE = 0.55;
+        const HAND_RADIUS = 55;
+        const HAND_MIN_SPEED = 120;
+        const GRAVITY = 420;
+        const PILE_H = 280;
+        const COL = 2;
 
         const colors = ['#d6601a', '#c0392b', '#e0a526', '#8b5a2b', '#e8731a', '#a8431c', '#d9a441', '#b5651d'];
         const sizes = [30, 36, 42, 48];
@@ -1952,13 +1943,12 @@
 
         let W = 0, H = 0, dpr = 1, last = 0;
         let cx = 0, spread = 0;
-        let ground = 0;             // Oberkante des Footers (px vom oberen Fensterrand)
-        let hmap = new Float32Array(0);   // Höhenprofil des Haufens über dem Footer (px)
+        let ground = 0;
+        let hmap = new Float32Array(0);
         let landed = [], fallers = [];
 
         const hand = { x: 0, y: 0, vx: 0, vy: 0, t: 0, active: false };
 
-        // ===== Höhenprofil =====
         function hAt(x) {
             const c = Math.floor(x / COL);
             return c >= 0 && c < hmap.length ? hmap[c] : 0;
@@ -1975,8 +1965,6 @@
             for (let c = c0; c <= c1; c++) { sum += hmap[c]; n++; }
             return n ? sum / n : 0;
         }
-        // Worauf ein Blatt der Breite w an Position x aufliegt und wie schräg es dort liegt.
-        // Gemessen wird an beiden Blatträndern: ragt ein Blatt über eine Kante, kippt es ab und rutscht.
         function support(x, w) {
             const h = w / 2;
             const left = avgH(x - h, x - h * 0.6);
@@ -1984,7 +1972,6 @@
             const mid = maxH(x - h / 3, x + h / 3);
             return { base: mid, slope: (right - left) / (w * 0.8), top: maxH(x - h * 0.6, x + h * 0.6) };
         }
-        // Ein liegendes Blatt erhöht das Profil entlang seiner Lage (in der Mitte dicker als am Rand)
         function stamp(l) {
             const x = cx + l.dx, h = l.w / 2;
             const c0 = Math.max(0, Math.floor((x - h) / COL)), c1 = Math.min(hmap.length - 1, Math.floor((x + h) / COL));
@@ -2016,10 +2003,10 @@
             c.restore();
         }
 
-        function leafY(l) {         // Mittelpunkt eines liegenden Blatts, gemessen über dem Footer
+        function leafY(l) {
             return l.base + l.t * 0.55;
         }
-        function lieRot(slope, flip, wobble) {   // Drehung eines Blatts, das auf einem Hang liegt
+        function lieRot(slope, flip, wobble) {
             return (flip ? 90 : -90) - Math.atan(slope) * 180 / Math.PI + wobble;
         }
 
@@ -2031,19 +2018,16 @@
             }
         }
 
-        // Hat der Haufen an dieser Stelle die unsichtbare Linie schon erreicht?
         function reachesLine(sup, size) {
             return landed.length >= MAX_LANDED || sup.base + size * 0.24 > HEAP_LINE;
         }
 
-        // Blatt verschwindet sofort wieder
         function vanish(f) {
             f.mode = 'fade';
             f.restOff = f.y - ground;
             f.restT = 0;
         }
 
-        // Blatt bleibt liegen: wird Teil des Haufens
         function settle(f, sup) {
             const l = {
                 dx: f.x - cx,
@@ -2062,7 +2046,6 @@
             redrawPile();
         }
 
-        // Für Blätter, die landen, während der Footer nicht zu sehen ist: Rutschen sofort ausrechnen
         function settleInstant(f) {
             const w = f.size * 0.85;
             let sup = support(f.x, w);
@@ -2076,7 +2059,6 @@
         function makeFaller(initial) {
             const size = sizes[Math.floor(Math.random() * sizes.length)];
             const baseX = (0.03 + Math.random() * 0.94) * W;
-            // Wind treibt die Blätter zum Haufen, mittig stärker gebündelt, damit er nach oben zuläuft
             const d = (baseX - cx) / Math.max(cx, W - cx, 1);
             const targetX = cx + Math.sign(d) * Math.pow(Math.abs(d), 2.2) * spread + (Math.random() - 0.5) * 40;
             return {
@@ -2096,7 +2078,7 @@
                 rot: 0,
                 t: 0,
                 alpha: 1,
-                mode: 'fall',      // fall = fällt, free = aufgewirbelt, slide = rutscht am Haufen, fade = verschwindet
+                mode: 'fall',
                 vx: 0, vy: 0, spin: 0,
                 slideV: 0, slideT: 0, restOff: 0, restT: 0,
                 extra: false,
@@ -2109,26 +2091,22 @@
             else Object.assign(f, makeFaller(false));
         }
 
-        // Prüft, ob ein Blatt den Footer bzw. den Haufen berührt
         function checkContact(f) {
             const w = f.size * 0.85;
             const sup = support(f.x, w);
             const contactY = ground - sup.top - f.size * 0.2;
             if (ground < H + f.size && f.y >= contactY) {
-                // Haufen ist hier schon an der Linie und das Blatt kann nirgends hinrutschen: verschwindet sofort.
-                // Kann es noch abrutschen, rutscht es runter und vergrößert den Haufen an der Seite.
                 if (reachesLine(sup, f.size) && Math.abs(sup.slope) <= REPOSE) {
                     f.y = contactY;
                     vanish(f);
                 } else {
-                    f.mode = 'slide';                  // ab jetzt übernimmt die Rutsch-Physik
+                    f.mode = 'slide';
                     f.slideV = 0;
                     f.slideT = 0;
                 }
                 return;
             }
             if (f.y > H + f.size) {
-                // Footer liegt weiter unten auf der Seite: das Blatt fällt dorthin und landet trotzdem
                 settleInstant(f);
                 recycle(f);
             }
@@ -2138,13 +2116,12 @@
             if (f.mode === 'fade') {
                 f.y = ground + f.restOff;
                 f.restT += dt;
-                f.alpha -= dt / 0.2;              // verschwindet sofort (kurzes Ausblenden statt hartem Wegploppen)
+                f.alpha -= dt / 0.2;
                 if (f.alpha <= 0) recycle(f);
                 return;
             }
 
             if (f.mode === 'slide') {
-                // Rutsch-Physik: zu steil -> Blatt gleitet hangabwärts, bis es Halt findet
                 const w = f.size * 0.85;
                 const sup = support(f.x, w);
                 f.slideT += dt;
@@ -2153,7 +2130,7 @@
                     f.slideV = Math.min(160, f.slideV + (300 * steep + 60) * dt);
                     f.x -= Math.sign(sup.slope) * f.slideV * dt;
                 } else {
-                    f.slideV *= Math.exp(-12 * dt);    // Reibung bremst
+                    f.slideV *= Math.exp(-12 * dt);
                     if (f.slideV < 4 || f.slideT >= 3) {
                         const end = support(f.x, w);
                         if (reachesLine(end, f.size)) { vanish(f); return; }
@@ -2170,7 +2147,6 @@
             }
 
             if (f.mode === 'free') {
-                // aufgewirbelt: Schwung, Luftwiderstand, Schwerkraft, langsames Herabschaukeln
                 f.t += dt;
                 f.vx *= Math.exp(-1.8 * dt);
                 f.vy += GRAVITY * dt;
@@ -2185,7 +2161,6 @@
                 return;
             }
 
-            // normal fallen
             f.t += dt;
             f.y += f.speed * dt;
             const a = (f.t / f.period) * Math.PI * 2 + f.phase;
@@ -2195,14 +2170,13 @@
             checkContact(f);
         }
 
-        // Hand wirbelt oben liegende Blätter des Haufens auf (Blätter im Flug sind unantastbar)
         function stirHeap() {
             if (!landed.length || ground - PILE_H > H) return;
             let kicked = 0;
             for (let i = landed.length - 1; i >= 0 && kicked < 4; i--) {
                 const l = landed[i];
                 const x = cx + l.dx;
-                if (hAt(x) - (l.base + l.t) > 3) continue;     // liegt unter anderen Blättern begraben
+                if (hAt(x) - (l.base + l.t) > 3) continue;
                 const y = ground - leafY(l);
                 const dx = x - hand.x, dy = y - hand.y;
                 if (dx * dx + dy * dy > Math.pow(HAND_RADIUS + l.size * 0.3, 2)) continue;
@@ -2262,7 +2236,6 @@
             requestAnimationFrame(frame);
         }
 
-        // Mausbewegung verfolgen (die Leinwand selbst lässt alle Klicks durch)
         window.addEventListener('pointermove', (e) => {
             const now = performance.now();
             const dtm = Math.max(0.008, (now - hand.t) / 1000);
@@ -2294,7 +2267,7 @@
     (() => {
         'use strict';
         const CHANNEL = 'schrottkiste_luka';
-        const CHECK_EVERY = 2 * 60 * 1000;   // alle 2 Minuten, nur wenn der Tab sichtbar ist
+        const CHECK_EVERY = 2 * 60 * 1000;
         const badge = document.getElementById('live-badge');
         const text = document.getElementById('live-text');
         const twitchBtnText = document.getElementById('hero-twitch-text');
@@ -2329,12 +2302,11 @@
                 const res = await fetch('https://decapi.me/twitch/uptime/' + CHANNEL, { cache: 'no-store' });
                 if (!res.ok) throw new Error('HTTP ' + res.status);
                 const answer = (await res.text()).trim();
-                // Live-Antwort sieht aus wie "1 hour, 3 minutes"; alles andere (offline, Fehler) gilt als offline
                 if (/^\d+\s*(hour|minute|second)/i.test(answer)) setLive(answer);
                 else setOffline();
                 badge.hidden = false;
             } catch (e) {
-                badge.hidden = true;          // Dienst nicht erreichbar: Badge einfach ausblenden
+                badge.hidden = true;
             }
         }
 
@@ -2349,37 +2321,105 @@
     })();
     </script>
 
-    <!-- Neuestes YouTube-Video im Hero (über decapi.me, kein eigener API-Schlüssel nötig) -->
+    <!-- Neuestes YouTube-Video im Hero (über decapi.me mit Cache & Timeout) -->
     <script>
     (() => {
         'use strict';
         const HANDLE = '@schrottkiste';
         const CACHE_KEY = 'schrottkiste_latest_video';
+        const TIMEOUT_MS = 2500;
         const hero = document.querySelector('.hero');
         const box = document.getElementById('latest-video');
         if (!hero || !box) return;
+
         const link = box.querySelector('a');
         const img = box.querySelector('img');
         const titleEl = box.querySelector('.latest-video-title');
         let shownId = null;
 
         function render(video) {
+            if (!video || !video.id) return;
             if (video.id !== shownId) {
                 shownId = video.id;
                 img.onerror = () => {
-                    // nicht jedes Video hat ein maxres-Vorschaubild
                     img.onerror = null;
-                    img.src = 'https://i.ytimg.com/vi/' + video.id + '/hqdefault.jpg';
+                    img.src = 'https://i.ytimg.com/vi/' + encodeURIComponent(video.id) + '/hqdefault.jpg';
                 };
-                img.src = 'https://i.ytimg.com/vi/' + video.id + '/maxresdefault.jpg';
-                link.href = 'https://www.youtube.com/watch?v=' + video.id;
+                img.src = 'https://i.ytimg.com/vi/' + encodeURIComponent(video.id) + '/maxresdefault.jpg';
+                link.href = 'https://www.youtube.com/watch?v=' + encodeURIComponent(video.id);
             }
-            titleEl.textContent = video.title;
-            img.alt = video.title;
-            link.setAttribute('aria-label', 'Neuestes Video ansehen: ' + video.title);
+            const cleanTitle = (video.title || 'Neuestes Video').trim();
+            titleEl.textContent = cleanTitle;
+            img.alt = cleanTitle;
+            link.setAttribute('aria-label', 'Neuestes Video ansehen: ' + cleanTitle);
             box.classList.remove('is-loading');
             box.removeAttribute('aria-busy');
         }
 
+        function readCache() {
+            try {
+                const raw = localStorage.getItem(CACHE_KEY);
+                if (!raw) return null;
+                const parsed = JSON.parse(raw);
+                return parsed && /^[\w-]{11}$/.test(parsed.id) ? parsed : null;
+            } catch (e) {
+                return null;
+            }
+        }
+
+        function writeCache(video) {
+            try {
+                localStorage.setItem(CACHE_KEY, JSON.stringify(video));
+            } catch (e) {}
+        }
+
         function giveUp() {
-            if (shownId) return; 
+            if (shownId) return;
+            box.classList.remove('is-loading');
+            box.removeAttribute('aria-busy');
+            titleEl.textContent = 'Auf YouTube ansehen';
+            link.href = 'https://www.youtube.com/' + HANDLE;
+        }
+
+        async function loadLatestVideo() {
+            const cached = readCache();
+            if (cached) {
+                render(cached);
+            }
+
+            const controller = new AbortController();
+            const timeoutId = window.setTimeout(() => controller.abort(), TIMEOUT_MS);
+
+            try {
+                const url = 'https://decapi.me/youtube/latest_video?id=' +
+                    encodeURIComponent(HANDLE) +
+                    '&format=' +
+                    encodeURIComponent('{id}||{title}');
+                const res = await fetch(url, {
+                    signal: controller.signal,
+                    cache: 'no-store'
+                });
+                if (!res.ok) throw new Error('HTTP ' + res.status);
+                const text = (await res.text()).trim();
+                const sepIndex = text.indexOf('||');
+                if (sepIndex === -1) throw new Error('Ungültiges Format');
+
+                const id = text.slice(0, sepIndex).trim();
+                const title = text.slice(sepIndex + 2).trim();
+                if (!/^[\w-]{11}$/.test(id)) throw new Error('Ungültige Video-ID');
+
+                const video = { id, title: title || 'Neuestes Video' };
+                writeCache(video);
+                render(video);
+            } catch (err) {
+                if (!shownId) giveUp();
+            } finally {
+                window.clearTimeout(timeoutId);
+            }
+        }
+
+        loadLatestVideo();
+    })();
+    </script>
+</body>
+</html>
